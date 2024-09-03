@@ -1,0 +1,34 @@
+name: Novo requisito
+title: RF<numero> - <breve descrição do requisito>
+description: "Requisito a ser implementado (Feature, História de usuário)"
+labels: ["feature"]
+body:
+  - type: markdown
+    attributes:
+      value: "## Os requisitos são as atividades semanais de cada integrante da equipe"
+  - type: input
+    attributes:
+      label: Sendo
+      description: Quem se beneficia do requisito
+      placeholder: um cliente, um funcionário, etc...
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Quero
+      description: Objetivo do requisito
+      placeholder: acessar meu perfil, visualizar um serviço, etc...
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Para
+      description: Resultado do requisito
+      placeholder: organizar minhas informações, gerenciar o andamento, etc...
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "Lista de critérios de aceitação (use o formato de lista do markdown iniciando cada linha com -)"
+    validations:
+      required: true

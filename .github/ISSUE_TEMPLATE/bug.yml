@@ -1,0 +1,44 @@
+name: Reportar bug
+title: BUG - <descrição do bug>
+description: "Report of question content (invalid, incorrect, etc.)"
+labels: ["bug"]
+body:
+  - type: input
+    attributes:
+      label: Qual é o bug?
+      description: Descreva brevemente o problema. 
+      placeholder: Erro ao adicionar item ao carrinho
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Resultado esperado?
+      description: Descreva o que você esperava que acontecesse. 
+      placeholder: O item deve ser adicionado ao carrinho sem erros.
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: "Qual a gravidade do bug?"
+      options:
+        - Crítico
+        - Alto
+        - Médio
+        - Baixo
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "Descreva os passos para reproduzir (use o formato markdown de lista iniciando cada linha com -)"
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: "Qual dispositivo você está usando?"
+      description: "Modelo, sistema operacional, navegador"
+      placeholder: Windows 10, Chrome 89, etc.
+  - type: textarea
+    attributes:
+      label: "Screenshots (se necessário)"
+    
+    
