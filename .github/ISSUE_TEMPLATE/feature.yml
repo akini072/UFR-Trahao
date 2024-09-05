@@ -2,7 +2,7 @@ name: Novo requisito
 title: RF<numero> - <breve descrição do requisito>
 description: "Requisito a ser implementado (Feature, História de usuário)"
 labels: ["feature"]
-projects: ["Salgado2004/ProjetoFinal_WEB2"]
+projects: ["Salgado2004/FED-WEB2-UFPR-Trabalho-Final"]
 body:
   - type: markdown
     attributes:

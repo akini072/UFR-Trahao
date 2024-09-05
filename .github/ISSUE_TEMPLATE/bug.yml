@@ -2,7 +2,7 @@ name: Reportar bug
 title: BUG - <descrição do bug>
 description: "Report of question content (invalid, incorrect, etc.)"
 labels: ["bug"]
-projects: ["Salgado2004/ProjetoFinal_WEB2"]
+projects: ["Salgado2004/FED-WEB2-UFPR-Trabalho-Final"]
 body:
   - type: input
     attributes:
