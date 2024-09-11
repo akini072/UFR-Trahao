@@ -1,5 +1,19 @@
-<nav class="bg-success">
-    <div class="{{navContainer}}">
-        <p>teste</p>
-    </div>
+<nav class="{{navContainer}}">
+    <div class="flex flex-1 items-center px-6 h-full justify-between">
+        <div class="flex gap-4 align-middle justify-center items-center">
+            <p class="px-4 text-3xl font-serif text-secondary-8">MANUTADS</p>
+            <p class="text-secondary-0 ">Bem vindo: User</p>
+        </div>
+        <ul class="{{navList}}">
+            <li class="{{navItem}}">
+                <a routerLink="/home" class="text-white">Home</a>
+            </li>
+            <li class="{{navItem}}">
+                <a routerLink="/about" class="text-white">Serviços</a>
+            </li>
+            <li class="{{navItem}}">
+                <a routerLink="/about" class="text-white">Solicitações</a>
+            </li>
+        </ul>
+    </div>  
 </nav>
