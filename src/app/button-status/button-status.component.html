@@ -1,6 +1,6 @@
 <div>
-  <button type="button" class="{{buttonVisualize}}" routerlink="/servico">Visualizar Serviço</button>
-  <button type="button" class="{{buttonOrcada}}" routerlink="/orcamento">Aprovar/Rejeitar</button>
+  <button *ngIf="showVisu" type="button" class="{{buttonVisualize}}" routerlink="/servico">Visualizar Serviço</button>
+  <button *ngIf="showOrca" type="button" class="{{buttonOrcada}}" routerlink="/orcamento">Aprovar/Rejeitar</button>
   <button type="button" class="{{buttonRejeitada}}" routerlink="/resgatar">Resgatar Serviço</button>
   <button type="button" class="{{buttonPagar}}" routerlink="/pagamento">Pagar serviço</button>
 </div>
