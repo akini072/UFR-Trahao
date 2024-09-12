@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
-
 interface RequestData {
   id: number;
   equipamento: string;
@@ -19,7 +18,7 @@ interface RequestData {
   styleUrl: './service-request-table.component.css'
 })
 export class ServiceRequestTableComponent {
-  columns = ['ID', 'Equipamento', 'Desc. Solicitação', 'Data Solicitação', 'Defeito' , 'Status', 'Ações'];
+  columns = [/* 'ID', */ 'Equipamento', 'Desc. Solicitação', 'Data Solicitação', 'Defeito' , 'Status', 'Ações'];
   data:RequestData[] = [
     { id: 1, equipamento: 'Notebook', descSolicitacao: 'Troca de HD', dataSolicitacao: '01/01/2021', defeito: 'HD com defeito', status: 'Em andamento' },
     { id: 1, equipamento: 'Impressora', descSolicitacao: 'Troca de toner', dataSolicitacao: '2023-01-01', defeito: 'Toner vazio', status: 'Pendente' },

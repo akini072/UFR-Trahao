@@ -2,10 +2,14 @@
     <div class="{{navDiv}}">
         <div class="{{navData}}">
             <p class="{{navLogo}}">MANUTADS</p>
-            <p class="{{navUserText}}">Bem vindo: User</p>
+            <p class="{{navUserText}}">Bem vindo, User!</p>
         </div>
         <ul class="{{navList}}">
-            <li class="{{navItem}}">
+            <li *ngFor="let item of navItems" class="{{navItem}}">
+                <a [routerLink]="item.route" class="text-white">{{item.name}}</a>
+            </li>
+                
+          <!--   <li class="{{navItem}}">
                 <a routerLink="/home" class="text-white">Home</a>
             </li>
             <li class="{{navItem}}">
@@ -13,7 +17,7 @@
             </li>
             <li class="{{navItem}}">
                 <a routerLink="/about" class="text-white">Solicitações</a>
-            </li>
+            </li> -->
         </ul>
     </div>  
 </nav>

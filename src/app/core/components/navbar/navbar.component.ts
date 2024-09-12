@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Import CommonModule
+import { RouterModule } from '@angular/router';
 
 interface NavItem {
   name: string;
@@ -9,9 +10,9 @@ interface NavItem {
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule], // Add CommonModule to imports array
+  imports: [CommonModule, RouterModule], 
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'] // Corrected to styleUrls
+  styleUrls: ['./navbar.component.css'] 
 })
 export class NavbarComponent {
   navContainer = "flex flex-1 bg-primary-3 h-16 justify-between shadow-md";
@@ -31,8 +32,7 @@ export class NavbarComponent {
   ];
 
   shouldDisplay(item: NavItem): boolean {
-    // Add your conditional logic here
-    // For example, only display items with the route '/index' or '/login'
+
     return item.route === '/index' || item.route === '/login';
   }
 }
