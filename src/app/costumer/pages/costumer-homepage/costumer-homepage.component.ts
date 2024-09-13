@@ -3,13 +3,13 @@ import { NavbarComponent } from "../../../core/components/navbar/navbar.componen
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ServiceRequestTableComponent } from '../../components/service-request-table/service-request-table.component';
-import { ButtonStatusComponent } from '../../../core/components/button-status/button-status.component';
+import { RequestTableComponent } from '../../../request-table/request-table.component';
 import { RequestCardComponent } from "../../components/request-card/request-card.component";
 import { Request } from '../../../core/types/request';
 @Component({
   selector: 'app-costumer-homepage',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, ServiceRequestTableComponent, RouterModule, ButtonStatusComponent, RequestCardComponent],
+  imports: [CommonModule, NavbarComponent, ServiceRequestTableComponent, RouterModule, RequestTableComponent, RequestCardComponent],
   templateUrl: './costumer-homepage.component.html',
   styleUrl: './costumer-homepage.component.css'
 })
