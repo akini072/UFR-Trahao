@@ -1,5 +1,8 @@
 
 <app-navbar></app-navbar>
-<app-button-status></app-button-status>
-<p class="px-4 text-2xl font-bold text-primary-8 mt-4">Solicitações de Serviço</p>
-<app-service-request-table></app-service-request-table>
+<app-button-status [status]="'paid'"></app-button-status>
+<p class="px-4 text-2xl font-bold text-primary-8 my-8">Solicitações de Serviço</p>
+
+<div class="grid grid-cols-1 w-10/12 m-auto justify-items-center md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+    <app-request-card *ngFor="let request of requestList" [request]="request"></app-request-card>
+</div>
