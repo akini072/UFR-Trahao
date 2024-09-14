@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { RequestCardComponent } from "../../components/request-card/request-card.component";
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [RequestCardComponent],
+  imports: [],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
 })
