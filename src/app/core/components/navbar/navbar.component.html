@@ -1,19 +1,16 @@
-<nav class="{{navContainer}}">
-    <div class="{{navDiv}}">
-        <div class="{{navData}}">
-            <p class="{{navLogo}}">MANUTADS</p>
-            <p class="{{navUserText}}">Bem vindo: User</p>
+<nav [ngClass]="navContainer">
+    <div [ngClass]="navDiv">
+        <div [ngClass]="navData">
+            <img src="assets/images/logo.svg" class="h-14">
+            <p [ngClass]="navLogo">MANUTADS</p>
+            <p *ngIf="isLogged" [ngClass]="navUserText">Bem vindo: User</p>
         </div>
         <ul class="{{navList}}">
-            <li class="{{navItem}}">
-                <a routerLink="/home" class="text-white">Home</a>
+            @for (item of navItems; track item) {
+            <li *ngIf="isLogged ? item.login : !item.login" [ngClass]="navItem">
+                <a [routerLink]="item.route" class="text-white">{{item.name}}</a>
             </li>
-            <li class="{{navItem}}">
-                <a routerLink="/about" class="text-white">Serviços</a>
-            </li>
-            <li class="{{navItem}}">
-                <a routerLink="/about" class="text-white">Solicitações</a>
-            </li>
+            }
         </ul>
-    </div>  
+    </div>
 </nav>
