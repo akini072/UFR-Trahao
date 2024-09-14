@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<app-navbar [isLogged]="false"></app-navbar>
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
   <div class="bg-white p-8 rounded shadow-md w-full max-w-sm">
     <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
@@ -24,7 +24,7 @@
 
       <div class="flex items-center justify-between">
         <button
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          class="bg-secondary-4 hover:bg-secondary-6 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button">
           Entrar
         </button>
