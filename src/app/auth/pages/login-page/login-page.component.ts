@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { RequestCardComponent } from "../../components/request-card/request-card.component";
+import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [RequestCardComponent],
+  imports: [CommonModule, NavbarComponent],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
 })
