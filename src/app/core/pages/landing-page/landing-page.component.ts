@@ -4,11 +4,13 @@ import { Autoplay } from 'swiper/modules';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from "../../components/navbar/navbar.component";
+import { TestimonyCardComponent } from "../../components/testimony-card/testimony-card.component";
+import { FooterComponent } from "../../components/footer/footer.component";
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [RouterModule, NavbarComponent],
+  imports: [RouterModule, NavbarComponent, TestimonyCardComponent, FooterComponent],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
 })
