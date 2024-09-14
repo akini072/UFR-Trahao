@@ -1,14 +1,20 @@
-<h1>Você está no index do Projeto, vivaaa</h1>
-
-<a routerLink="/login" id="login">Login</a>
-<br>
-<a routerLink="/cadastro" id="cadastro">Cadastro</a>
-<div class="swiper mySwiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="assets/images/slider/Slide_1.png"></div>
-      <div class="swiper-slide"><img src="assets/images/slider/Slide_2.png"></div>
-      <div class="swiper-slide"><img src="assets/images/slider/Slide_3.png"></div>
-      <div class="swiper-slide"><img src="assets/images/slider/Slide_4.png"></div>
-      <div class="swiper-slide"><img src="assets/images/slider/Slide_5.png"></div>
+<section class="bg-gradient-to-b from-primary-8 from-30% to-primary-5">
+  <app-navbar [isLogged]="false"></app-navbar>
+  <div class="flex p-6 px-16 justify-around items-center w-full relative">
+    <h1 id="title" class="text-6xl font-extrabold text-secondary-8 text-balance">
+      Sua manutenção sem tensão
+    </h1>
+    <button class="px-12 py-2 font-semibold bg-secondary-3 text-white flex-none rounded-lg hover:bg-secondary-4">
+      Consulte nossos serviços
+    </button>
+    <div class="swiper mySwiper flex-none">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="assets/images/slider/Slide_1.png"></div>
+        <div class="swiper-slide"><img src="assets/images/slider/Slide_2.png"></div>
+        <div class="swiper-slide"><img src="assets/images/slider/Slide_3.png"></div>
+        <div class="swiper-slide"><img src="assets/images/slider/Slide_4.png"></div>
+        <div class="swiper-slide"><img src="assets/images/slider/Slide_5.png"></div>
+      </div>
     </div>
   </div>
+</section>
