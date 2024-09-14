@@ -1,0 +1,59 @@
+<section class="bg-gradient-to-b from-primary-8 from-30% to-primary-4">
+  <app-navbar [isLogged]="false"></app-navbar>
+  <div class="flex p-6 px-16 justify-around items-center w-full relative">
+    <h1 id="title" class="text-6xl font-extrabold text-secondary-8 text-balance">
+      Sua manutenção sem tensão
+    </h1>
+    <button class="px-12 py-2 font-semibold bg-secondary-3 text-white flex-none rounded-lg hover:bg-secondary-4">
+      Consulte nossos serviços
+    </button>
+    <div class="swiper mySwiper flex-none">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="assets/images/slider/Slide_1.png"></div>
+        <div class="swiper-slide"><img src="assets/images/slider/Slide_2.png"></div>
+        <div class="swiper-slide"><img src="assets/images/slider/Slide_3.png"></div>
+        <div class="swiper-slide"><img src="assets/images/slider/Slide_4.png"></div>
+        <div class="swiper-slide"><img src="assets/images/slider/Slide_5.png"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="px-16 p-12 bg-gray-100">
+  <div class="w-2/3 px-16">
+    <h1 class="text-5xl font-extrabold text-primary-7 text-balance">
+      O melhor que seu equipamento pode ter
+    </h1>
+    <p class="text-lg text-gray-700 text-balance mt-4">
+      Confie em nós para manter seus equipamentos em perfeito estado, para que
+      você possa se concentrar no que realmente importa: fazer o seu trabalho
+      com tranquilidade e eficiência.
+    </p>
+  </div>
+  <div id="testimonies" class="flex justify-center flex-wrap gap-4 mt-8">
+      <app-testimony-card class=" flex-none w-1/4"
+      testimony="A Manutads é a melhor empresa de manutenção que já contratei. Eles são rápidos, eficientes e muito profissionais. Recomendo a todos!"
+      author="Ricardo Silva"
+      ></app-testimony-card>
+      <app-testimony-card class=" flex-none w-1/4"
+      testimony="O som do meu notebook parou de funcionar do nada. Levei para a manutenção e em poucas horas já estava tudo resolvido. Atendimento rápido e de qualidade!"
+      author="João Pereira"
+      ></app-testimony-card>
+      <app-testimony-card class=" flex-none w-1/4"
+      testimony="Meu celular estava com a tela trincada e a bateria não durava nada. Levei para a manutenção e em menos de um dia estava como novo! Super recomendo o serviço."
+      author="Ana Souza"
+      ></app-testimony-card>
+      <app-testimony-card class=" flex-none w-1/4"
+      testimony="Meu tablet estava muito lento e travando o tempo todo. Depois da manutenção, ele voltou a funcionar perfeitamente. Estou muito satisfeita com o serviço prestado, muito obrigada ManuTADS."
+      author="Mariana Oliveira"
+      ></app-testimony-card>
+      <app-testimony-card class=" flex-none w-1/4"
+      testimony="Precisei do meu computador para uma apresentação importante e ele simplesmente não ligava. A equipe de manutenção foi rápida e eficiente, salvando meu dia. Excelente atendimento!"
+      author="Carlos Mendes"
+      ></app-testimony-card>
+      <app-testimony-card class=" flex-none w-1/4"
+      testimony="Minha TV estava com a imagem distorcida e eu já estava pensando em comprar uma nova. Decidi tentar a manutenção e foi a melhor escolha! A TV voltou a funcionar perfeitamente e economizei bastante."
+      author="Fernanda Lima"
+      ></app-testimony-card>
+  </div>
+</section>
+<app-footer></app-footer>
