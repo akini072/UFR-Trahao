@@ -6,9 +6,12 @@
             <p *ngIf="isLogged" [ngClass]="navUserText">Bem vindo: User</p>
         </div>
         <ul class="{{navList}}">
-            @for (item of navItems; track item) {
-            <li *ngIf="isLogged ? item.login : !item.login" [ngClass]="navItem">
+            <li *ngFor="let item of navItems" class="{{navItem}}">
                 <a [routerLink]="item.route" class="text-white">{{item.name}}</a>
+            </li>
+                
+          <!--   <li class="{{navItem}}">
+                <a routerLink="/home" class="text-white">Home</a>
             </li>
             }
         </ul>
