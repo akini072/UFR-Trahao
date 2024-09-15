@@ -21,18 +21,18 @@
     </select>
 </div>
 
-<div class="descricaoEquipamento max-w-4xl mx-auto p-6">
+<div class="descricao-equipamento max-w-4xl mx-auto p-6">
     <div class="form grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-20 max-w-4xl mx-auto">
-        <label for="descricaoEquipamento" class="md:text-right">Descrição do equipamento:</label>
-        <input type="text" name="descricaoEquipamento" id="descricaoEquipamento" (input)="getRemainingCharacters(30, 'descricaoEquipamento')" maxlength="30" placeholder="Descreva o equipamento..." class="border-2 border-black rounded p-2 col-span-2">
+        <label for="descricao-equipamento" class="md:text-right">Descrição do equipamento:</label>
+        <input type="text" name="descricao-equipamento" id="descricao-equipamento" (input)="getRemainingCharacters(30, 'descricao-equipamento')" maxlength="30" placeholder="Descreva o equipamento..." class="border-2 border-black rounded p-2 col-span-2">
     </div>
     <p class="col-span-3 text-right mt-2" [ngClass]="{'text-red-600': remainingCharactersEquipamento <= 5}">{{ remainingCharactersEquipamento }} caracteres restantes</p>
 </div>
 
-<div class="descricaoDefeito max-w-4xl mx-auto p-6">
+<div class="descricao-defeito max-w-4xl mx-auto p-6">
     <div class="form grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-20 max-w-4xl mx-auto">
-        <label for="descricaoDefeito" class="md:text-right">Descrição do defeito:</label>
-        <textarea name="descricaoDefeito" id="descricaoDefeito" (input)="getRemainingCharacters(200, 'descricaoDefeito')" maxlength="200" placeholder="Insira os detalhes do problema..." class="border-2 border-black rounded p-2 col-span-2 h-40 resize-none"></textarea>
+        <label for="descricao-defeito" class="md:text-right">Descrição do defeito:</label>
+        <textarea name="descricao-defeito" id="descricao-defeito" (input)="getRemainingCharacters(255, 'descricao-defeito')" maxlength="255" placeholder="Insira os detalhes do problema..." class="border-2 border-black rounded p-2 col-span-2 h-40 resize-none"></textarea>
     </div>
     <p class="col-span-3 text-right mt-2" [ngClass]="{'text-red-600': remainingCharactersDefeito <= 5}">{{ remainingCharactersDefeito }} caracteres restantes</p>
 </div>
