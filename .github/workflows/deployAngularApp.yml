@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: angular-build
-          path: ./dist/FED-WEB2-UFPR-Trabalho-Final
+          path: ./dist/FED-WEB2-UFPR-Trabalho-Final/browser
 
   deploy:
     needs: build # Garante que o deploy só aconteça após o build ser bem-sucedido
@@ -62,7 +62,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist/browser'
+          path: './dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
