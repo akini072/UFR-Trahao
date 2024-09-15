@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from "../../../core/components/navbar/navbar.component";
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ServiceRequestTableComponent } from '../../components/service-request-table/service-request-table.component';
 import { RequestTableComponent } from '../../../request-table/request-table.component';
 import { RequestCardComponent } from "../../components/request-card/request-card.component";
@@ -87,11 +87,15 @@ export class CustomerHomepageComponent {
     style = {
       navbar: '',
       title: 'px-4 text-2xl font-bold text-primary-8 my-8',
-      container: 'flex w-10/12 my-8 mx-auto justify-between px-16',
-      innerContainer: 'flex justify-between w-full gap-4',
+      container: 'flex w-full px-4 my-8 mx-auto',
+      innerContainer: 'flex justify-end w-full gap-4',
       searchContainer: 'flex gap-2',
       requestGrid: 'grid grid-cols-1 w-10/12 m-auto justify-items-center md:grid-cols-2 lg:grid-cols-3 gap-4 p-4'
     };
 
-    navigateToNewRequest = () => {};
+    constructor(private router: Router) {}
+    
+    navigateToNewRequest = () => {
+      this.router.navigate(['nova-solicitacao']);
+    };
 }
