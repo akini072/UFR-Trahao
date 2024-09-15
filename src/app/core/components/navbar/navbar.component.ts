@@ -11,8 +11,9 @@ interface NavItem {
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './navbar.component.html'
+  imports: [CommonModule, RouterModule], 
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css'] 
 })
 export class NavbarComponent {
   @Input() isLogged: boolean = true;
