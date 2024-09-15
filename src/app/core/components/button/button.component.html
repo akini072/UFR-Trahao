@@ -1,0 +1,10 @@
+
+  <button type="button" [ngClass]="getClasses()" (click)="props.onClick()">
+    <ng-container *ngIf="props.icon && props.iconPosition === 'left'">
+      <span class="material-icons" [innerHTML]="props.icon"></span>
+    </ng-container>
+    {{props.text}}
+    <ng-container *ngIf="props.icon && props.iconPosition === 'right'">
+      <span class="material-icons" [innerHTML]="props.icon"></span>
+    </ng-container>
+  </button>

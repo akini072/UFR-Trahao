@@ -6,4 +6,5 @@ export interface Request {
     description: string;
     status: RequestStatus;
     created_at: string;
+    image: string;
 }
