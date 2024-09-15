@@ -12,6 +12,7 @@ interface ButtonProps {
   hoverColor?: string;
   icon?: string;
   iconPosition?: 'left' | 'right';
+  extraClasses?: string;
 }
 
 @Component({
@@ -28,13 +29,13 @@ export class ButtonComponent {
   getSize(): string {
     switch (this.props.size) {
       case 'small':
-        return 'py-1 px-2 text-sm';
+        return 'py-1 px-2 text-center items-center text-sm';
       case 'medium':
-        return 'py-2 px-4 text-base';
+        return 'py-2 px-4 text-center items-center text-base';
       case 'large':
-        return 'py-3 px-6 text-lg';
+        return 'py-3 px-6 text-center items-center text-lg';
       default:
-        return 'py-2 px-4 text-base';
+        return 'py-2 px-4 text-center items-center text-base';
     }
   }
 
@@ -45,6 +46,7 @@ export class ButtonComponent {
       `hover:bg-${this.props.hoverColor}`,
       'rounded',
       `${this.getSize()}`,
+      `${this.props.extraClasses}`,
     ].join(' ');
   }
 }

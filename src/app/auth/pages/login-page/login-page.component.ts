@@ -3,14 +3,21 @@ import { NavbarComponent } from '../../../core/components/navbar/navbar.componen
 import { FormTextInputComponent } from '../../../core/components/form-text-input/form-text-input.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from "../../../core/components/footer/footer.component";
+import { ButtonComponent } from "../../../core/components/button/button.component";
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, FormTextInputComponent, FooterComponent],
+  imports: [CommonModule, NavbarComponent, FormTextInputComponent, FooterComponent, ButtonComponent, RouterModule],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
 })
-export class LoginPageComponent {
 
+export class LoginPageComponent {
+  constructor(private router: Router) {}
+  
+  onLogin() {
+    //TODO: this.router.navigate(['/customer']);
+  }
 }
