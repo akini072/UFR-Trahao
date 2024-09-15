@@ -59,6 +59,9 @@ module.exports = {
       spacing: {
         100: "30rem",
       },
+      padding: {
+        '1px': "1px",
+      },
     },
   },
   plugins: [],
