@@ -8,7 +8,7 @@
         <ul class="{{navList}}">
             @for (item of navItems; track item) {
             <li *ngIf="isLogged ? item.login : !item.login" [ngClass]="navItem">
-                <a [routerLink]="item.route" class="text-white">{{item.name}}</a>
+                <a [routerLink]="item.route" [ngClass]="navAnchor">{{item.name}}</a>
             </li>
             }
         </ul>
