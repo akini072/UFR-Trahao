@@ -38,7 +38,7 @@ jobs:
       - name: Build the Angular app
         run: ng build --configuration=production --base-href "/"
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: angular-build
           path: ./dist/FED-WEB2-UFPR-Trabalho-Final
@@ -55,7 +55,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Download build artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: angular-build
           path: ./dist
