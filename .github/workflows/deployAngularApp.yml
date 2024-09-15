@@ -36,7 +36,7 @@ jobs:
       - name: Install Angular CLI
         run: npm install -g @angular/cli
       - name: Build the Angular app
-        run: ng build --configuration=production --base-href "/"
+        run: ng build --configuration=production --base-href "/FED-WEB2-UFPR-Trabalho-Final/"
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
