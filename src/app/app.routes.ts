@@ -6,7 +6,7 @@ import { CustomerHomepageComponent } from './costumer/pages/costumer-homepage/co
 import { NewRequestPageComponent } from './costumer/pages/new-request-page/new-request-page.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/customer', pathMatch: 'full' },
+    { path: '', redirectTo: '/index', pathMatch: 'full' },
     { path: 'index', component: LandingPageComponent },
     { path: 'login', component: LoginPageComponent },
     { path: 'cadastro', component: SignInPageComponent },
