@@ -1,19 +1,13 @@
-<nav [ngClass]="navContainer">
-    <div [ngClass]="navDiv">
-        <div [ngClass]="navData">
-            <img src="assets/images/logo.svg" class="h-14">
-            <p [ngClass]="navLogo">MANUTADS</p>
-            <p *ngIf="isLogged" [ngClass]="navUserText">Bem vindo: User</p>
+<nav class="{{navContainer}}">
+    <div class="{{navDiv}}">
+        <div class="{{navData}}">
+            <p class="{{navLogo}}">MANUTADS</p>
+            <p class="{{navUserText}}">Bem vindo: User</p>
         </div>
         <ul class="{{navList}}">
             <li *ngFor="let item of navItems" class="{{navItem}}">
                 <a [routerLink]="item.route" class="text-white">{{item.name}}</a>
             </li>
-                
-          <!--   <li class="{{navItem}}">
-                <a routerLink="/home" class="text-white">Home</a>
-            </li>
-            }
         </ul>
     </div>
 </nav>
