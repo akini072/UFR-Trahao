@@ -83,8 +83,15 @@ export class CustomerHomepageComponent {
         image: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg=='
       }
     ];
-    searchIcon: string = '<span class="material-icons">search</span>';
 
+    style = {
+      navbar: '',
+      title: 'px-4 text-2xl font-bold text-primary-8 my-8',
+      container: 'flex w-10/12 my-8 mx-auto justify-between px-16',
+      innerContainer: 'flex justify-between w-full gap-4',
+      searchContainer: 'flex gap-2',
+      requestGrid: 'grid grid-cols-1 w-10/12 m-auto justify-items-center md:grid-cols-2 lg:grid-cols-3 gap-4 p-4'
+    };
 
     navigateToNewRequest = () => {};
 }
