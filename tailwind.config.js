@@ -1,15 +1,13 @@
 /** @type {import('tailwindcss').Config} */
-const colors = require('tailwindcss/colors');
+const colors = require("tailwindcss/colors");
 
 module.exports = {
-  content: [
-    "./src/**/*.{html,ts}",
-  ],
+  content: ["./src/**/*.{html,ts}"],
   theme: {
     extend: {
       colors: {
-        transparent: 'transparent',
-        current: 'currentColor',
+        transparent: "transparent",
+        current: "currentColor",
         black: colors.black,
         white: colors.white,
         gray: colors.gray,
@@ -53,8 +51,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['Montserrat', 'sans-serif'],
-        serif: ['Roboto', 'serif'],
+        sans: ["Montserrat", "sans-serif"],
+        serif: ["Roboto", "serif"],
       },
       spacing: {
         100: "30rem",
@@ -62,4 +60,4 @@ module.exports = {
     },
   },
   plugins: [],
-}
+};
