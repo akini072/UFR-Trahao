@@ -6,13 +6,13 @@ import { NavbarComponent } from "../../../core/components/navbar/navbar.componen
 import { FooterComponent } from "../../../core/components/footer/footer.component";
 
 @Component({
-  selector: 'app-signin-page',
+  selector: 'app-signup-page',
   standalone: true,
   imports: [HttpClientModule, NavbarComponent, FooterComponent],
-  templateUrl: './signin-page.component.html',
-  styleUrls: ['./signin-page.component.css'],
+  templateUrl: './signup-page.component.html',
+  styleUrls: ['./signup-page.component.css'],
 })
-export class SignInPageComponent {
+export class SignupPageComponent {
   screen =
     'flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4 md:px-8 lg:px-16';
   signInBox =
