@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IndexComponent } from './index.component';
+import { ButtonStatusComponent } from './button-status.component';
 
-describe('IndexComponent', () => {
-  let component: IndexComponent;
-  let fixture: ComponentFixture<IndexComponent>;
+describe('ButtonStatusComponent', () => {
+  let component: ButtonStatusComponent;
+  let fixture: ComponentFixture<ButtonStatusComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IndexComponent]
+      imports: [ButtonStatusComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(IndexComponent);
+    fixture = TestBed.createComponent(ButtonStatusComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,12 +1,14 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { debounceTime, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { NavbarComponent } from "../../../core/components/navbar/navbar.component";
+import { FooterComponent } from "../../../core/components/footer/footer.component";
 
 @Component({
   selector: 'app-signin-page',
   standalone: true,
-  imports: [],
+  imports: [HttpClientModule, NavbarComponent, FooterComponent],
   templateUrl: './signin-page.component.html',
   styleUrls: ['./signin-page.component.css'],
 })
