@@ -27,7 +27,7 @@
     <hr class="mb-4">
 
     <span [ngClass]="signUpSpan">Não possui conta?
-      <span (click)="navigateToSignUp()" [ngClass]="signUpRouterLink"> Cadastre-se </span>
+      <a [routerLink]="signUpRouterLink" [ngClass]="signUpRouter"> Cadastre-se </a>
     </span>
 
 
