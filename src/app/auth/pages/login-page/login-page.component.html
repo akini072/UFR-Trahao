@@ -18,10 +18,18 @@
         <app-form-text-input type="password" status="" placeholder="****"></app-form-text-input>
       </div>
 
-      <div class="flex items-center justify-between">
-        <app-button [props]="{text: 'Entrar', color: 'secondary-4', size: 'medium', textColor: 'white', hoverColor: 'secondary-6' , onClick: onLogin, extraClasses:'font-bold focus:outline-none focus:shadow-outline'}"></app-button>
+      <div class="flex items-center justify-between mb-4 ">
+        <app-button
+          [props]="{text: 'Entrar', color: 'secondary-4', size: 'medium', textColor: 'white', hoverColor: 'secondary-6' , onClick: onLogin, extraClasses:'font-bold focus:outline-none focus:shadow-outline'}"></app-button>
       </div>
     </form>
+
+    <hr class="mb-2">
+
+    <span [ngClass]="signUpSpan">Não possui conta?
+      <a (click)="navigateToSignUp()" class="text-blue-500"> Cadastre-se </a>
+    </span>
+
   </div>
 </div>
 <app-footer></app-footer>
