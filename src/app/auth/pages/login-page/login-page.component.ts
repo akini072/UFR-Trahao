@@ -15,9 +15,16 @@ import { Router, RouterModule } from '@angular/router';
 })
 
 export class LoginPageComponent {
-  constructor(private router: Router) {}
-  
+  constructor(private router: Router) { }
+
+  navigateToSignUp = () => {
+    this.router.navigate(['/cadastro']);
+  };
+
   onLogin() {
     //TODO: this.router.navigate(['/customer']);
   }
+
+  signUpSpan = "block text-sm text-gray-500 dark:text-neutral-400 text-center";
+
 }
