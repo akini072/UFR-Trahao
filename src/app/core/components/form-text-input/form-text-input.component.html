@@ -1,1 +1,3 @@
-<input type="{{type}}" class="{{getInputTextClass(status)}}" placeholder="{{placeholder}}">
+<input *ngIf="type !== 'date'" [type]="type" [class]="getInputTextClass(type)" [placeholder]="placeholder">
+
+<input *ngIf="type === 'date'" type="date" [class]="getInputTextClass(type)" [placeholder]="placeholder" [value]="formattedDate">
