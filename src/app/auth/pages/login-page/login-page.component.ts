@@ -25,6 +25,11 @@ export class LoginPageComponent {
     //TODO: this.router.navigate(['/customer']);
   }
 
-  signUpSpan = "block text-sm text-gray-500 dark:text-neutral-400 text-center";
-
+  main: string = "flex items-center justify-center min-h-screen bg-gray-100"
+  form: string = "bg-white p-8 rounded shadow-md w-full max-w-sm";
+  label: string = "block text-gray-700 text-sm font-bold mb-2";
+  button: string = "flex items-center justify-between mb-4 flex md:justify-center";
+  signUpSpan: string = "block text-sm text-gray-500 dark:text-neutral-400 text-center cursor-default";
+  signUpRouterLink: string = "text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 cursor-pointer";
+  title: string = "text-2xl font-bold mb-6 text-center";
 }
