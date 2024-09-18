@@ -1,3 +1,14 @@
-<input *ngIf="type !== 'date'" [type]="type" [class]="getInputTextClass(type)" [placeholder]="placeholder">
+<input *ngIf="type === 'date'" [type]="type" [ngClass]="input" [placeholder]="placeholder"
+  [value]="formattedDate">
 
-<input *ngIf="type === 'date'" type="date" [class]="getInputTextClass(type)" [placeholder]="placeholder" [value]="formattedDate">
+<div *ngIf="type === 'password' || visibility==true" class="relative">
+  <input [type]="type" [ngClass]="input" [placeholder]="placeholder">
+
+  <button type="button" [ngClass]="eye" (click)="toggleVisibility()">
+    <span class="material-icons">{{icon}}</span>
+  </button>
+
+</div>
+
+<input *ngIf="type !== 'date' && type !== 'password' && visibility===false" [type]="type"
+[ngClass]="input" [placeholder]="placeholder">
