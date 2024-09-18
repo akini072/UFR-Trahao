@@ -14,14 +14,14 @@ type FormTextInputType = 'text' | 'password' | 'email' | 'number' | 'date';
 })
 
 export class FormTextInputComponent {
-  @Input() type: FormTextInputType = "text";
+  @Input() type: FormTextInputType = 'text';
   @Input() placeholder: string | undefined;
   @Input() value: string | undefined;
   formattedDate: string | undefined;
-
   input = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
-  inputPassword = `${this.input} `;
-  inputDate = `${this.input} `;
+  eye: string = "absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus:text-blue-600 dark:text-neutral-600 dark:focus:text-blue-500";
+  icon: string = 'visibility_off';
+  visibility: boolean = false;
 
   constructor(private datePipe: DatePipe) { }
 
@@ -31,26 +31,9 @@ export class FormTextInputComponent {
     }
   }
 
-  getInputTextClass(type: FormTextInputType | undefined): string {
-    let inputTextClass: string;
-    switch (type) {
-      case 'text':
-        inputTextClass = this.inputPassword;
-        break;
-      case 'password':
-        inputTextClass = this.inputPassword;
-        break;
-      case 'email':
-        inputTextClass = this.input;
-        break;
-      case 'number':
-        inputTextClass = this.input;
-        break;
-      default:
-        inputTextClass = this.input;
-        break;
-    }
-    return inputTextClass;
+  toggleVisibility(): void {
+    this.visibility = !this.visibility;
+    this.icon = this.visibility ? `visibility_off` : `visibility`;
+    this.type = this.visibility ? 'text' : 'password';
   }
-
 }
