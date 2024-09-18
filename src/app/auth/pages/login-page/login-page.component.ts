@@ -16,10 +16,7 @@ import { Router, RouterModule } from '@angular/router';
 
 export class LoginPageComponent {
   constructor(private router: Router) { }
-
-  navigateToSignUp = () => {
-    this.router.navigate(['/cadastro']);
-  };
+  signUpRouterLink: string = "/cadastro"
 
   onLogin() {
     //TODO: this.router.navigate(['/customer']);
@@ -30,6 +27,6 @@ export class LoginPageComponent {
   label: string = "block text-gray-700 text-sm font-bold mb-2";
   button: string = "flex items-center justify-between mb-4 flex md:justify-center";
   signUpSpan: string = "block text-sm text-gray-500 dark:text-neutral-400 text-center cursor-default";
-  signUpRouterLink: string = "text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 cursor-pointer";
+  signUpRouter: string = "text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 cursor-pointer";
   title: string = "text-2xl font-bold mb-6 text-center";
 }
