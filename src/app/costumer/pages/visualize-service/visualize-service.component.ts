@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
 import { ButtonComponent } from '../../../core/components/button/button.component';
+import { StatusStepperComponent } from '../../components/status-stepper/status-stepper.component';
 
 @Component({
   selector: 'app-visualize-service',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, ButtonComponent, CommonModule],
+  imports: [NavbarComponent, FooterComponent, ButtonComponent, CommonModule, StatusStepperComponent],
   templateUrl: './visualize-service.component.html',
   styleUrl: './visualize-service.component.css'
 })
