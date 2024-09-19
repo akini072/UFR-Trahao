@@ -12,11 +12,15 @@ import { ButtonComponent } from '../core/components/button/button.component';
   styleUrl: './visualize-service.component.css'
 })
 export class VisualizeServiceComponent {
-
-  onLogin(){
-    //TODO:
-
+  onReject(){
+    //Rota para o approval;
   }
+  onApprove(){
+    //Rota para a reject;
+  }
+
+  budgeted: true;
+  finalized: false;
 
   button: string = "flex items-center justify-between mb-4 flex md:justify-center";
 }

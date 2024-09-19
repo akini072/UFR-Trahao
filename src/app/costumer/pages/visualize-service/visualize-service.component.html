@@ -3,7 +3,9 @@
 <div>
   <h1 class="text-2xl font-bold mb-6 text-center">Informações do Serviço</h1>
   <div class="align-middle">
-    <p>CLiente: </p>
+    <div>
+      <p>Cliente: </p>
+    </div>
 
     <div class="flex justify-center">
       <label>Categoria do equipamento: </label>
@@ -25,16 +27,24 @@
     </ul>
   </div>
 
-
-  <label >$$$$$$$$$$</label>
+<div *ngIf="budgeted")>
+  <label class="font-bold size-8 text-8xl">$$$$$$$$$$</label>
+</div>
 
   <div class="justify-evenly">
-    <button ngIf="orcada" class="bg-primary-5 border-black 3px">Aprovar Serviço</button>
-    <button ngIf="orcada">Rejeitar Serviço</button>
+    <div [ngClass]="button">
+      <app-button
+        [props]="{text: 'Aprovar Serviço', color: 'primary-5', size: 'large', textColor: 'white', hoverColor: 'primary-7' , onClick: onApprove}"></app-button>
+    </div>
+    <div [ngClass]="button">
+      <app-button
+        [props]="{text: 'Rejeitar Serviço', color: 'secondary-4', size: 'large', textColor: 'white', hoverColor: 'secondary-6' , onClick: onReject}"></app-button>
+    </div>
   </div>
-  <div>
-    <button ngIf="finalizada">Pagar</button>
-  </div>
+ <div [ngClass]="button">
+      <app-button
+        [props]="{text: 'Pagar', color: 'primary-5', size: 'large', textColor: 'white', hoverColor: 'primary-7' , onClick: onReject}"></app-button>
+    </div>
   </div>
   </div>
 </div>
