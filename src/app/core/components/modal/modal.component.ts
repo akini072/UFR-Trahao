@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, Subscriber } from 'rxjs';
 import { ModalType } from '../../types/modal-type';
 import { FormTextInputComponent } from '../form-text-input/form-text-input.component';
 
@@ -16,11 +16,11 @@ export class ModalComponent implements OnInit {
   title!: string;
   message!: string;
   button!: string;
-  lifeCycle!: Observable<string>;
+  lifeCycle!: Subscriber<string>;
   showInput: boolean = false;
 
   screen = 'flex items-center justify-center bg-gray-700/40 z-10 absolute top-0 left-0 w-full h-full';
-  modal = 'flex flex-col items-start justify-center gap-2 bg-gray-100 p-6 md:p-8 lg:p-8 xl:p-8 border-2 rounded-lg shadow-md w-full max-w-sm md:max-w-lg lg:max-w-2xl xl:max-w-3xl relative';
+  modal = 'flex flex-col items-start justify-center gap-2 bg-gray-100 p-6 md:p-8 lg:p-8 xl:p-8 border-2 rounded-lg shadow-md w-full max-w-sm md:max-w-lg lg:max-w-2xl xl:max-w-2xl relative';
   btnConfirm = 'bg-secondary-4 hover:bg-secondary-6 text-white font-bold mt-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline';
   input = 'w-5/6'
   titleStyle = 'text-lg font-bold';
@@ -48,12 +48,15 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  open(): Observable<String> {
-    const meuObservable: Observable<String> = new Observable((observer) => {
-      alert('Modal aberto');
-      observer.next('Modal fechado');
-      observer.complete();
+  open(): Observable<string> {
+    const meuObservable: Observable<string> = new Observable((observer) => {
+      this.lifeCycle = observer;
     });
     return meuObservable;
+  }
+
+  close(){
+    document.body.style.overflow = 'auto';
+    this.lifeCycle.complete();
   }
 }
