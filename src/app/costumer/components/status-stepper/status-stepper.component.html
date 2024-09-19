@@ -1,0 +1,38 @@
+<ol [ngClass]='ol'>
+
+  <li [ngClass]="liStart">
+    <div [ngClass]="item">
+      <span
+        class="w-6 h-6 bg-indigo-600 border-2 border-transparent rounded-full flex justify-center items-center mx-auto mb-3 text-sm text-white lg:w-10 lg:h-10">1</span>
+      Step 1
+    </div>
+  </li>
+  <li [ngClass]="liMiddle">
+    <div [ngClass]="item">
+      <span
+        [ngClass]="wip">2</span>
+      Step 2
+    </div>
+  </li>
+  <li [ngClass]="liMiddle">
+    <div [ngClass]="item">
+      <span
+        [ngClass]="incomplete">3</span>
+      Step 3
+    </div>
+  </li>
+  <li [ngClass]="liMiddle">
+    <div [ngClass]="item">
+      <span
+        [ngClass]="incomplete">4</span>
+      Step 4
+    </div>
+  </li>
+  <li class="flex relative text-gray-900">
+    <div [ngClass]="item">
+      <span
+        [ngClass]="incomplete">5</span>
+      Step 5
+    </div>
+  </li>
+</ol>
