@@ -1,11 +1,10 @@
-<div class="{{ screen }}">
-  <div id="modal">
-    <div>{{ message }}</div>
-    <textarea
-      id="justificationText"
-      class="{{ textArea }}"
-      placeholder="informe aqui o motivo"
-    ></textarea>
-    <button type="button" class="{{ btnConfirm }}">Confirmar</button>
+<div [ngClass]="screen">
+  <div id="modal" [ngClass]="checkModal()">
+    <h1 [ngClass]="titleStyle">{{ title }}</h1>
+    <p>{{ message }}</p>
+    @if(showInput) {
+    <app-form-text-input placeholder="Informe o motivo" [ngClass]="input"></app-form-text-input>
+    }
+    <button type="button" [ngClass]="btnConfirm">Confirmar</button>
   </div>
 </div>

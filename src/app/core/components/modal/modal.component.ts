@@ -1,100 +1,50 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
+import { ModalType } from '../../types/modal-type';
+import { FormTextInputComponent } from '../form-text-input/form-text-input.component';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
+  imports: [CommonModule, FormTextInputComponent],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css'],
 })
 export class ModalComponent implements OnInit {
-  // Adiciona OnInit à lista de interfaces implementadas
-  type!: string;
+  type!: ModalType;
   title!: string;
   message!: string;
   button!: string;
+  lifeCycle!: Observable<string>;
+  showInput: boolean = false;
 
-  screen = 'flex items-center justify-center min-h-screen bg-gray-500/20';
-  aproveModal =
-    'flex flex-col items-center justify-center bg-white p-6 md:p-8 lg:p-10 xl:p-12 border-2 border-green-300 rounded shadow-md w-full max-w-sm md:max-w-lg lg:max-w-2xl xl:max-w-3xl relative';
-  rejectModal =
-    'flex flex-col items-center justify-center bg-white p-6 md:p-8 lg:p-10 xl:p-12 border-2 border-red-300 rounded shadow-md w-full max-w-sm md:max-w-lg lg:max-w-2xl xl:max-w-3xl relative';
-  rescueModal =
-    'flex flex-col items-center justify-center bg-white p-6 md:p-8 lg:p-10 xl:p-12 border-2 border-blue-400 rounded shadow-md w-full max-w-sm md:max-w-lg lg:max-w-2xl xl:max-w-3xl relative';
-  justificationDefault = 'hidden items-center justify-center';
-  justificationReject = 'items-center justify-center';
-  btnConfirm =
-    'm-1 bg-secondary-4 hover:bg-secondary-6 text-white font-bold mt-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline';
-  textArea =
-    'w-1/2 h-3/4 border border-gray-500 shadow-md resize-none p-2 box-border';
+  screen = 'flex items-center justify-center bg-gray-700/40 z-10 absolute top-0 left-0 w-full h-full';
+  modal = 'flex flex-col items-start justify-center gap-2 bg-gray-100 p-6 md:p-8 lg:p-8 xl:p-8 border-2 rounded-lg shadow-md w-full max-w-sm md:max-w-lg lg:max-w-2xl xl:max-w-3xl relative';
+  btnConfirm = 'bg-secondary-4 hover:bg-secondary-6 text-white font-bold mt-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline';
+  input = 'w-5/6'
+  titleStyle = 'text-lg font-bold';
 
   constructor() {
-    // O construtor é usado para injeção de dependências, não para inicialização de dados
+    this.title = 'Título padrão';
+    this.message = 'Mensagem padrão';
+    this.type = ModalType.CONFIRM;
   }
 
   ngOnInit() {
-    // Código de inicialização que deve ser executado uma vez após a criação do componente
-    this.checkModal(); // Chama checkModal quando o componente é inicializado
+    this.showInput = this.type === ModalType.INPUT;
+    document.body.style.overflow = 'hidden';
   }
 
-  checkModal() {
-    let ModalType = 'accept'; //usado apenas para teste para visualizar o modal. Alterar depois
-
-    //modal de aceitar
-    if (ModalType === 'accept') {
-      const modal = document.getElementById('modal');
-      const justification = document.getElementById('justificationText');
-
-      if (modal) {
-        modal.setAttribute('class', this.aproveModal);
-        this.message = 'Serviço aprovado no valor de R$ xxxx';
-      } else {
-        console.error('Elemento modal não encontrado!');
-      }
-
-      if (justification) {
-        justification.setAttribute('class', this.justificationDefault);
-      } else {
-        console.error('Justification não encontrado!');
-      }
-    }
-
-    //modal de rejeitar
-    if (ModalType === 'reject') {
-      const modal = document.getElementById('modal');
-      const justification = document.getElementById('justificationText');
-
-      if (modal) {
-        modal.setAttribute('class', this.rejectModal);
-        this.message = 'Motivo da Rejeição:';
-      } else {
-        console.error('Elemento modal não encontrado!');
-      }
-
-      if (justification) {
-        justification.setAttribute('class', this.justificationReject);
-      } else {
-        console.error('Justification não encontrado!');
-      }
-    }
-
-    //modal de resgatar
-    if (ModalType === 'rescue') {
-      const modal = document.getElementById('modal');
-      const justification = document.getElementById('justificationText');
-
-      if (modal) {
-        modal.setAttribute('class', this.rescueModal);
-        this.message = 'Resgate de serviço no valor de R$ xxxx';
-      } else {
-        console.error('Elemento modal não encontrado!');
-      }
-
-      if (justification) {
-        justification.setAttribute('class', this.justificationDefault);
-      } else {
-        console.error('Justification não encontrado!');
-      }
+  checkModal(): { [key: string]: boolean } {
+        switch (this.type) {
+      case ModalType.INPUT:
+        return { [this.modal]: true, 'border-red-300': true };
+      case ModalType.CONFIRM:
+        return { [this.modal]: true, 'border-yellow-400': true };
+      case ModalType.MESSAGE:
+      default:
+        return { [this.modal]: true, 'border-green-300': true };
     }
   }
 
