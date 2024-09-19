@@ -1,14 +1,22 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { debounceTime, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { NavbarComponent } from "../../../core/components/navbar/navbar.component";
-import { FooterComponent } from "../../../core/components/footer/footer.component";
+import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
+import { FooterComponent } from '../../../core/components/footer/footer.component';
+import { ButtonComponent } from '../../../core/components/button/button.component';
+import { ViaCepApiService } from '../../utils/via-cep-api.service';
 
 @Component({
   selector: 'app-signup-page',
   standalone: true,
-  imports: [HttpClientModule, NavbarComponent, FooterComponent],
+  imports: [
+    NavbarComponent,
+    FooterComponent,
+    ButtonComponent,
+    HttpClientModule,
+  ],
+  providers: [ViaCepApiService],
   templateUrl: './signup-page.component.html',
   styleUrls: ['./signup-page.component.css'],
 })
@@ -37,12 +45,12 @@ export class SignupPageComponent {
 
   private cepSubject = new Subject<string>();
 
-  constructor(private http: HttpClient) {
+  constructor(private serviceAPI: ViaCepApiService) {
     // Configura o pipeline para buscar o endereço usando o CEP
     this.cepSubject
       .pipe(
         debounceTime(300), // Aguarda 300ms após o último evento antes de realizar a requisição
-        switchMap((cep) => this.getAddress(cep)) // Faz a requisição para obter o endereço
+        switchMap((cep) => serviceAPI.getAddress(cep)) // Faz a requisição para obter o endereço
       )
       .subscribe(
         (address) => {
@@ -196,10 +204,5 @@ export class SignupPageComponent {
     const cepInputElement = this.cepInput.nativeElement as HTMLInputElement;
     cepInputElement.style.borderColor = '';
     this.cepErrorMessage.nativeElement.style.display = 'none';
-  }
-
-  // Função para fazer a requisição HTTP e obter o endereço pelo CEP
-  private getAddress(cep: string) {
-    return this.http.get<any>(`https://viacep.com.br/ws/${cep}/json/`);
   }
 }
