@@ -1,51 +1,64 @@
 <app-navbar [isLogged]="true"></app-navbar>
 <div class="bg-gray-100 text-center align-middle">
-<div>
-  <h1 class="text-2xl font-bold mb-6 text-center">Informações do Serviço</h1>
-  <div class="align-middle">
-    <div>
-      <p>Cliente: </p>
+  <div>
+    <h1 class="text-2xl font-bold mb-6 text-center">Informações do Serviço</h1>
+    <div class="align-middle">
+      <div>
+        <p>Cliente: </p>
+      </div>
+
+      <div class="flex justify-center space-x-10">
+        <label>Categoria do equipamento: </label>
+        <p>Dado do Jason</p>
+      </div>
+          <div class="flex justify-center space-x-10">
+        <label>Descrição do equipamento: </label>
+        <p>Dado do JSON</p>
+      </div>
+      <div class="flex justify-center space-x-10">
+        <label>Descrição do defeito: </label>
+        <p>Dado do JSON</p>
+      </div>
+
+    <div class="relative overflow-x-auto flex justify-center items-center">
+      <table class="w-2/3 text-sm text-left rtl:text-right text-white">
+        <thead class="text-xs text-primary-6 bg-gray-900 uppercase dark:text-primary-4">
+          <tr>
+            <th scope="col" class="px-6 py-3">Nome do Funcionario</th>
+            <th scope="col" class="px-6 py-3">Descrição do que foi feito</th>
+            <th scope="col" class="px-6 py-3">Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-white dark:bg-gray-800">
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Alisson</th>
+            <td class="px-6 py-4">Trocou a placa mãe</td>
+            <td class="px-6 py-4">22/01/2024</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="finalized || budgeted">
+      <label class="font-bold size-8 text-8xl">$$$$$$$$$$</label>
     </div>
 
-    <div class="flex justify-center">
-      <label>Categoria do equipamento: </label>
-      <p>Dado do Jason</p>
+    <div class="justify-evenly" *ngIf="budgeted">
+      <div [ngClass]="button">
+        <app-button
+          [props]="{text: 'Aprovar Serviço', color: 'primary-4', size: 'large', textColor: 'white', hoverColor: 'primary-7' , onClick: onApprove}"></app-button>
+      </div>
+      <div [ngClass]="button">
+        <app-button
+          [props]="{text: 'Rejeitar Serviço', color: 'secondary-4', size: 'large', textColor: 'white', hoverColor: 'secondary-6' , onClick: onReject}"></app-button>
+      </div>
     </div>
-        <div class="flex justify-center">
-      <label>Descrição do equipamento: </label>
-      <p>Dado do JSON</p>
-    </div>
-    <div class="flex justify-center">
-      <label>Descrição do defeito: </label>
-      <p>Dado do JSON</p>
-    </div>
-
-  <div class="flex justify-center">
-    <p>Desc Equip | Categoria | Descrição do Defeito | Estado</p>
-    <ul>
-      <tr><td>Nome do Funcionario</td><td>Descrição do que foi feito</td><td>Data</td></tr>
-    </ul>
-  </div>
-
-<div>
-  <label class="font-bold size-8 text-8xl">$$$$$$$$$$</label>
-</div>
-
-  <div class="justify-evenly">
-    <div [ngClass]="button">
+    <div *ngIf="finalized">
+     <div [ngClass]="button">
       <app-button
-        [props]="{text: 'Aprovar Serviço', color: 'primary-5', size: 'large', textColor: 'white', hoverColor: 'primary-7' , onClick: onApprove}"></app-button>
+        [props]="{text: 'Pagar', color: 'primary-4', size: 'large', textColor: 'white', hoverColor: 'primary-7' , onClick: onPay}"></app-button>
     </div>
-    <div [ngClass]="button">
-      <app-button
-        [props]="{text: 'Rejeitar Serviço', color: 'secondary-4', size: 'large', textColor: 'white', hoverColor: 'secondary-6' , onClick: onReject}"></app-button>
     </div>
-  </div>
- <div [ngClass]="button">
-      <app-button
-        [props]="{text: 'Pagar', color: 'primary-5', size: 'large', textColor: 'white', hoverColor: 'primary-7' , onClick: onReject}"></app-button>
     </div>
-  </div>
   </div>
 </div>
 <app-footer></app-footer>
