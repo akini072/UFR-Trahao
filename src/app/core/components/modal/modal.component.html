@@ -5,6 +5,6 @@
     @if(showInput) {
     <app-form-text-input placeholder="Informe o motivo" [ngClass]="input"></app-form-text-input>
     }
-    <button type="button" [ngClass]="btnConfirm">Confirmar</button>
+    <button type="button" [ngClass]="btnConfirm" (click)="close()">Confirmar</button>
   </div>
 </div>
