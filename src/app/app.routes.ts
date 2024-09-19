@@ -7,11 +7,14 @@ import { NewRequestPageComponent } from './costumer/pages/new-request-page/new-r
 import { ModalComponent } from './core/components/modal/modal.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/index', pathMatch: 'full' },
-    { path: 'index', component: LandingPageComponent },
-    { path: 'login', component: LoginPageComponent },
-    { path: 'cadastro', component: SignupPageComponent },
-    { path: 'customer', component: CustomerHomepageComponent },
-    { path: 'nova-solicitacao', component: NewRequestPageComponent },
-    { path: 'modal', component: ModalComponent } /* Apenas para testes APAGAR DEPOIS */
+  { path: '', redirectTo: '/index', pathMatch: 'full' },
+  { path: 'index', component: LandingPageComponent },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'cadastro', component: SignupPageComponent },
+  { path: 'customer', component: CustomerHomepageComponent },
+  { path: 'nova-solicitacao', component: NewRequestPageComponent },
+  {
+    path: 'modal',
+    component: ModalComponent,
+  } /* Apenas para testes APAGAR DEPOIS */,
 ];
