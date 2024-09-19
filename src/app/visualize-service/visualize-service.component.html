@@ -1,1 +1,41 @@
-<p>visualize-service works!</p>
+<app-navbar [isLogged]="true"></app-navbar>
+<div class="bg-gray-100 text-center align-middle">
+<div>
+  <h1 class="text-2xl font-bold mb-6 text-center">Informações do Serviço</h1>
+  <div class="align-middle">
+    <p>CLiente: </p>
+
+    <div class="flex justify-center">
+      <label>Categoria do equipamento: </label>
+      <p>Dado do Jason</p>
+    </div>
+        <div class="flex justify-center">
+      <label>Descrição do equipamento: </label>
+      <p>Dado do JSON</p>
+    </div>
+    <div class="flex justify-center">
+      <label>Descrição do defeito: </label>
+      <p>Dado do JSON</p>
+    </div>
+
+  <div class="flex justify-center">
+    <p>Desc Equip | Categoria | Descrição do Defeito | Estado</p>
+    <ul>
+      <tr><td>Nome do Funcionario</td><td>Descrição do que foi feito</td><td>Data</td></tr>
+    </ul>
+  </div>
+
+
+  <label >$$$$$$$$$$</label>
+
+  <div class="justify-evenly">
+    <button ngIf="orcada" class="bg-primary-5 border-black 3px">Aprovar Serviço</button>
+    <button ngIf="orcada">Rejeitar Serviço</button>
+  </div>
+  <div>
+    <button ngIf="finalizada">Pagar</button>
+  </div>
+  </div>
+  </div>
+</div>
+<app-footer></app-footer>
