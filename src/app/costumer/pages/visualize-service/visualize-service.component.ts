@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from '../core/components/navbar/navbar.component';
-import { FooterComponent } from '../core/components/footer/footer.component';
-import { ButtonComponent } from '../core/components/button/button.component';
+import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
+import { FooterComponent } from '../../../core/components/footer/footer.component';
+import { ButtonComponent } from '../../../core/components/button/button.component';
 
 @Component({
   selector: 'app-visualize-service',
@@ -19,8 +19,8 @@ export class VisualizeServiceComponent {
     //Rota para a reject;
   }
 
-  budgeted: true;
-  finalized: false;
+  budgeted = true;
+  finalized = false;
 
   button: string = "flex items-center justify-between mb-4 flex md:justify-center";
 }

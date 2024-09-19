@@ -4,7 +4,7 @@ import { LoginPageComponent } from './auth/pages/login-page/login-page.component
 import { SignupPageComponent } from './auth/pages/signup-page/signup-page.component';
 import { CustomerHomepageComponent } from './costumer/pages/costumer-homepage/costumer-homepage.component';
 import { NewRequestPageComponent } from './costumer/pages/new-request-page/new-request-page.component';
-import { VisualizeServiceComponent } from './visualize-service/visualize-service.component';
+import { VisualizeServiceComponent } from './costumer/pages/visualize-service/visualize-service.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/index', pathMatch: 'full' },
