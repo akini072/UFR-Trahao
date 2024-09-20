@@ -1,16 +1,16 @@
 <app-navbar [isLogged]="true"></app-navbar>
 <div class="bg-gray-100 text-center align-middle">
   <div>
-    <h1 class="text-2xl font-bold mb-6 text-center">Informações do Serviço</h1>
+    <h1 class="text-2xl font-bold mb-6 text-center">{{ pageTitle }}</h1>
     <div class="align-middle">
       <div class="flex justify-center space-x-10">
         <p>Cliente: </p>
-        <p>Nome do cliente</p>
+        <p>{{ requestList[0].title}}</p>
       </div>
 
       <div class="flex justify-center space-x-10">
         <label>Categoria do equipamento: </label>
-        <p>Dado do Jason</p>
+        <p>{{ requestList[0].description }}</p>
       </div>
           <div class="flex justify-center space-x-10">
         <label>Descrição do equipamento: </label>
