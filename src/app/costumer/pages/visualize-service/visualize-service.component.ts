@@ -21,6 +21,7 @@ export class VisualizeServiceComponent implements OnChanges, OnInit {
 
   budgeted: boolean = false;
   finalized: boolean = false;
+  pageTitle: string = '';
 
   ngOnInit(): void {
       this.checkStatus();
@@ -56,14 +57,17 @@ export class VisualizeServiceComponent implements OnChanges, OnInit {
       case 'approved':
         this.budgeted = false;
         this.finalized = true;
+        this.pageTitle = 'Pague já!';
         break;
       case 'pending':
         this.budgeted = true;
         this.finalized = false;
+        this.pageTitle = 'Aprove ou reprove o Orçamento!';
         break;
       default:
         this.budgeted = false;
         this.finalized = false;
+        this.pageTitle = 'Visualizar Serviço';
         break;
     }
   }
