@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 export class StatusStepperComponent {
 
 
-  ol : string = "flex items-center w-2/3 justify-center text-xs text-gray-900 font-medium sm:text-base";
+  ol : string = "flex items-center justify-center text-xs text-gray-900 font-medium sm:text-base";
   liStart : string = "flex w-full relative text-indigo-600  after:content-['']  after:w-full after:h-0.5  after:bg-indigo-600 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-4";
   liMiddle : string = "flex w-full relative text-gray-900  after:content-['']  after:w-full after:h-0.5  after:bg-gray-200 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-4";
   item : string = "block whitespace-nowrap z-10";
