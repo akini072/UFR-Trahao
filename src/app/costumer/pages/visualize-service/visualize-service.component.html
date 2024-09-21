@@ -1,50 +1,63 @@
 <app-navbar [isLogged]="true"></app-navbar>
-<div class="bg-gray-100 text-center align-middle">
-  <div>
-    <h1 class="text-2xl font-bold mb-6 text-center">{{ pageTitle }}</h1>
-    <div class="align-middle">
-      <div class="flex justify-center space-x-10">
-        <p>Cliente: </p>
-        <p>{{ requestList[0].title}}</p>
+<div class="bg-gray-100 text-center py-10">
+  <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8">
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">{{ pageTitle }}</h1>
+    <div class="space-y-6">
+
+      <div class="flex justify-between items-center">
+        <p class="font-semibold text-gray-700">Cliente:</p>
+        <p class="text-gray-600 text-right">{{ requestList[0].title }}</p>
       </div>
 
-      <div class="flex justify-center space-x-10">
-        <label>Categoria do equipamento: </label>
-        <p>{{ requestList[0].description }}</p>
+      <div class="flex justify-between items-center">
+        <label class="font-semibold text-gray-700 text-left">Categoria do equipamento:</label>
+        <p class="text-gray-600 text-right">{{ requestList[0].description }}</p>
       </div>
-          <div class="flex justify-center space-x-10">
-        <label>Descrição do equipamento: </label>
-        <p>Dado do JSON</p>
+
+
+      <div class="grid grid-cols-1 gap-4">
+        <div class="flex justify-between items-start">
+          <label class="font-semibold text-gray-700 text-left">Descrição do equipamento:</label>
+          <p class="text-gray-600 text-right break-words max-w-md">Notebook Lenovo velho</p>
+        </div>
+
+        <div class="flex flex-col items-start">
+          <label class="font-semibold text-gray-700 pb-3">Descrição do defeito:</label>
+          <p class="text-gray-600 break-words w-full text-left">
+            A tela parou de funcionar do nada depois de dar tela azul e eu acidentalmente acertar um soco no computador.
+            Eu não sei o que aconteceu, mas acho que o problema é na tela ou na placa mãe ou a placa de video porque
+            travava toda hora.
+          </p>
+        </div>
+
       </div>
-      <div class="flex justify-center space-x-10">
-        <label>Descrição do defeito: </label>
-        <p>Dado do JSON</p>
-      </div>
-    <div *ngIf="finalized || budgeted">
-      <label class="font-bold size-8 text-8xl">$$$$$$$$$$</label>
     </div>
 
+    <div *ngIf="finalized || budgeted" class="mt-6">
+      <label class="font-bold text-2xl text-green-600">R$ 570,00</label>
+    </div>
 
-    <div class="justify-evenly" *ngIf="budgeted">
-      <div [ngClass]="button">
+    <div class="mt-6 flex justify-around" *ngIf="budgeted">
+      <div>
         <app-button
           [props]="{text: 'Aprovar Serviço', color: 'primary-4', size: 'large', textColor: 'white', hoverColor: 'primary-7' , onClick: onApprove}"></app-button>
       </div>
-      <div [ngClass]="button">
+      <div>
         <app-button
           [props]="{text: 'Rejeitar Serviço', color: 'secondary-4', size: 'large', textColor: 'white', hoverColor: 'secondary-6' , onClick: onReject}"></app-button>
       </div>
     </div>
-    <div *ngIf="finalized">
-     <div [ngClass]="button">
-      <app-button
-        [props]="{text: 'Pagar', color: 'primary-4', size: 'large', textColor: 'white', hoverColor: 'primary-7' , onClick: onPay}"></app-button>
+
+    <div *ngIf="finalized" class="mt-6">
+      <div>
+        <app-button
+          [props]="{text: 'Pagar', color: 'primary-4', size: 'large', textColor: 'white', hoverColor: 'primary-7' , onClick: onPay}"></app-button>
+      </div>
     </div>
-    </div>
-    </div>
-    <div class="relative overflow-x-auto flex justify-center items-center">
-      <table class="w-2/3 text-sm text-left rtl:text-right text-white">
-        <thead class="text-xs text-primary-6 bg-gray-900 uppercase dark:text-primary-4">
+
+    <div class="relative overflow-x-auto mt-10">
+      <table class="w-full text-sm text-left text-gray-700">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-200">
           <tr>
             <th scope="col" class="px-6 py-3">Nome do Funcionario</th>
             <th scope="col" class="px-6 py-3">Descrição do que foi feito</th>
@@ -52,8 +65,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="bg-white dark:bg-gray-800">
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Alisson</th>
+          <tr class="bg-white border-b">
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900">Alisson</th>
             <td class="px-6 py-4">Trocou a placa mãe</td>
             <td class="px-6 py-4">22/01/2024</td>
           </tr>
@@ -61,6 +74,8 @@
       </table>
     </div>
   </div>
-  <app-status-stepper></app-status-stepper>
+  <div class="pt-10 w-4/5 mx-auto">
+    <app-status-stepper class="mt-10"></app-status-stepper>
+  </div>
 </div>
-<app-footer></app-footer>
+<app-footer class="mt-10"></app-footer>

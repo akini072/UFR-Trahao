@@ -60,12 +60,12 @@ export class VisualizeServiceComponent implements OnChanges, OnInit {
       case 'approved':
         this.budgeted = false;
         this.finalized = true;
-        this.pageTitle = 'Pague já!';
+        this.pageTitle = 'Pagar Serviço';
         break;
       case 'pending':
         this.budgeted = true;
         this.finalized = false;
-        this.pageTitle = 'Aprove ou reprove o Orçamento!';
+        this.pageTitle = 'Serviço orçado';
         break;
       default:
         this.budgeted = false;
