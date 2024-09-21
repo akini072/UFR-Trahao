@@ -42,12 +42,15 @@ export class VisualizeServiceComponent implements OnChanges, OnInit {
     console.log("Valor mudasse")
   }
   onReject(){
+    //Adicionar o Modal que rejeita o nosso orçamento.
   }
 
   onApprove(){
+    //Adicionar o Modal que aprova o nosso orçamento.
   }
 
   onPay(){
+    //Adicioanr o Modal que paga.
   }
 
   checkStatus(){

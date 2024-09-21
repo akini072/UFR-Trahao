@@ -20,28 +20,10 @@
         <label>Descrição do defeito: </label>
         <p>Dado do JSON</p>
       </div>
-
-    <div class="relative overflow-x-auto flex justify-center items-center">
-      <table class="w-2/3 text-sm text-left rtl:text-right text-white">
-        <thead class="text-xs text-primary-6 bg-gray-900 uppercase dark:text-primary-4">
-          <tr>
-            <th scope="col" class="px-6 py-3">Nome do Funcionario</th>
-            <th scope="col" class="px-6 py-3">Descrição do que foi feito</th>
-            <th scope="col" class="px-6 py-3">Data</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="bg-white dark:bg-gray-800">
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Alisson</th>
-            <td class="px-6 py-4">Trocou a placa mãe</td>
-            <td class="px-6 py-4">22/01/2024</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
     <div *ngIf="finalized || budgeted">
       <label class="font-bold size-8 text-8xl">$$$$$$$$$$</label>
     </div>
+
 
     <div class="justify-evenly" *ngIf="budgeted">
       <div [ngClass]="button">
@@ -60,9 +42,25 @@
     </div>
     </div>
     </div>
+    <div class="relative overflow-x-auto flex justify-center items-center">
+      <table class="w-2/3 text-sm text-left rtl:text-right text-white">
+        <thead class="text-xs text-primary-6 bg-gray-900 uppercase dark:text-primary-4">
+          <tr>
+            <th scope="col" class="px-6 py-3">Nome do Funcionario</th>
+            <th scope="col" class="px-6 py-3">Descrição do que foi feito</th>
+            <th scope="col" class="px-6 py-3">Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-white dark:bg-gray-800">
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Alisson</th>
+            <td class="px-6 py-4">Trocou a placa mãe</td>
+            <td class="px-6 py-4">22/01/2024</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
-<div class="justify-center items-center"><!--//TODO: centralizar a porra da div-->
   <app-status-stepper></app-status-stepper>
 </div>
 <app-footer></app-footer>
