@@ -93,6 +93,7 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     requestGrid: 'grid grid-cols-1 w-10/12 m-auto justify-items-center md:grid-cols-2 lg:grid-cols-3 gap-4 p-4',
     paginationControl: 'w-10/12 m-auto flex justify-end my-4 items-center text-center',
     pageText: 'border p-2 text-sm',
+    pageTopContainer: "flex justify-between w-full items-center px-16"
   };
 
 
@@ -169,5 +170,5 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
 
   rightButtonProp: ButtonProps =  {text: '', icon: 'chevron_right', iconPosition: 'left' , color: 'white', size: 'small', textColor: 'black', extraClasses: 'border items-center text-center', onClick: this.nextPage}
   leftButtonProp: ButtonProps =  {text: '', icon: 'chevron_left', iconPosition: 'left' , color: 'white', size: 'small', textColor: 'black', extraClasses: 'border items-center text-center', onClick: this.previousPage}
-  
+  newRequestButtonProp: ButtonProps = {text: 'Nova Solicitação', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7' , onClick: this.navigateToNewRequest}
 }
