@@ -1,11 +1,13 @@
 import 'swiper/css';
 import { Swiper } from 'swiper';
 import { Autoplay } from 'swiper/modules';
-import { Component } from '@angular/core';
+import { Component, ViewContainerRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from "../../components/navbar/navbar.component";
 import { TestimonyCardComponent } from "../../components/testimony-card/testimony-card.component";
 import { FooterComponent } from "../../components/footer/footer.component";
+import { ModalService } from '../../utils/modal.service';
+import { ModalType } from '../../types/modal-type';
 
 @Component({
   selector: 'app-landing-page',
@@ -15,6 +17,9 @@ import { FooterComponent } from "../../components/footer/footer.component";
   styleUrl: './landing-page.component.css'
 })
 export class LandingPageComponent {
+
+  constructor(private modal: ModalService, private view: ViewContainerRef){}
+
   ngOnInit() {
     const swiper = new Swiper(".mySwiper", {
       loop: true,
@@ -25,6 +30,13 @@ export class LandingPageComponent {
         disableOnInteraction: false,
       },
       modules: [Autoplay]
+    });
+  }
+
+  openModal(){
+    const data = { title: 'Título do modal', message: 'Mensagem do modal', label: 'Ok' };
+    this.modal.open(this.view, ModalType.MESSAGE, data).subscribe((value) => {
+      console.log(value);
     });
   }
 }
