@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { Request, RequestStatus } from '../../../core/types/request';
+import { RequestCategory } from '../../../core/types/request-category';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent, ButtonProps } from "../../../core/components/button/button.component";
 import { ButtonStatusComponent } from "../../../core/components/button-status/button-status.component";
 import { LimitedDescriptionPipe } from '../../../core/utils/limited-description.pipe';
+import { RequestItem } from '../../pages/costumer-homepage/costumer-homepage.component';
 @Component({
   selector: 'app-request-card',
   standalone: true,
@@ -12,7 +13,7 @@ import { LimitedDescriptionPipe } from '../../../core/utils/limited-description.
   styleUrl: './request-card.component.css'
 })
 export class RequestCardComponent {
-  @Input() request: Request = {
+  @Input() request: RequestItem = {
     id: 0,
     title: 'Default Title',
     description: 'Default Description',
@@ -21,13 +22,10 @@ export class RequestCardComponent {
     image: 'https://via.placeholder.com/150'
   };
 
-  debugRequest(request: Request) {
-  }
 
-    /* export type RequestStatus = 'pending' | 'approved' | 'rejected' | 'paid' | "canceled" | "fixed" | "budgeted" | "redirected" | undefined; */
 
  
-  getColorbyStatus(status: RequestStatus):string {
+  getColorbyStatus(status: RequestCategory):string {
     let color: string;
 
     switch (status) {
@@ -61,7 +59,7 @@ export class RequestCardComponent {
     return color;
   }
 
-  getStatusText(status: RequestStatus): string {
+  getStatusText(status: RequestCategory): string {
     switch(status) {
       case 'open':
         return 'Aberta';
@@ -111,7 +109,7 @@ export class RequestCardComponent {
     color: this.buttonPropColor,
     size: 'medium',
     textColor: 'default-black',
-    onClick: () => this.debugRequest(this.request),
+    onClick: () => {},	
     extraClasses: 'cursor-pointer',
   }
 }

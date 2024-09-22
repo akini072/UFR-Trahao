@@ -1,10 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RequestStatus } from '../../types/request';
 import { RouterModule } from '@angular/router';
-
+import { RequestCategory } from '../../types/request-category';
 interface ButtonStatus{
-  type: RequestStatus;
+  type: RequestCategory;
   name: string;
   route: string;
 }
@@ -18,7 +17,7 @@ interface ButtonStatus{
 })
 
 export class ButtonStatusComponent {
-  @Input() status: RequestStatus;
+  @Input() status!: RequestCategory;
   @Input() color: string = 'bg-gray-300';
   
   cardButton = `text-xs p-2 cursor-pointer text-default-black font-semibold rounded`;
@@ -38,7 +37,7 @@ export class ButtonStatusComponent {
 
   }
 
-  selectButton(status: RequestStatus){
+  selectButton(status: RequestCategory){
     return this.buttonOptions.find(button=> button.type === status)    
   }
 
