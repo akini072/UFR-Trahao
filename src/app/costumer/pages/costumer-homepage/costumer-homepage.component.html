@@ -1,14 +1,20 @@
 <app-navbar [ngClass]="style.navbar"></app-navbar>
-<p [ngClass]="style.title">Solicitações de Serviço</p>
-<div [ngClass]="style.container">
+<div [ngClass]="style.pageTopContainer">
+    <p [ngClass]="style.title">Solicitações de Serviço</p>
     <div [ngClass]="style.innerContainer">
         <div [ngClass]="style.searchContainer">
-            <app-form-text-input placeholder="Pesquisar solicitação"></app-form-text-input>
-            <app-button [props]="{text: '', icon:'search', iconPosition: 'left', color: 'primary-8', size: 'small', textColor: 'white', hoverColor: 'primary-7' , onClick: navigateToNewRequest}"></app-button>
+            <app-form-text-input  placeholder="Pesquisar solicitação"></app-form-text-input>
         </div>
-        <app-button [props]="{text: 'Nova Solicitação', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7' , onClick: navigateToNewRequest}"></app-button>
+        <app-button [props]="newRequestButtonProp"></app-button>
     </div>
 </div>
+<div [ngClass]="style.container">
+</div>
 <div [ngClass]="style.requestGrid">
-    <app-request-card *ngFor="let request of requestList" [request]="request"></app-request-card>
+    <app-request-card *ngFor="let request of getPaginatedRequests()" [request]="request"></app-request-card>
+</div>
+<div [ngClass]="style.paginationControl">
+    <app-button [props]="leftButtonProp"></app-button>
+    <span [ngClass]="style.pageText">Página {{currentPage}} de {{totalPages}}</span>
+    <app-button [props]="rightButtonProp"></app-button>
 </div>
