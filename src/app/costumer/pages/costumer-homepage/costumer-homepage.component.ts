@@ -5,9 +5,17 @@ import { NavbarComponent } from '../../../core/components/navbar/navbar.componen
 import { ServiceRequestTableComponent } from '../../components/service-request-table/service-request-table.component';
 import { RequestTableComponent } from '../../../request-table/request-table.component';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
-import { Request } from '../../../core/types/request';
 import { ButtonComponent, ButtonProps } from "../../../core/components/button/button.component";
 import { FormTextInputComponent } from "../../../core/components/form-text-input/form-text-input.component";
+import { RequestCategory } from '../../../core/types/request-category';
+export interface RequestItem {
+  id: number;
+  title: string;
+  description: string;
+  status: RequestCategory;
+  created_at: string;
+  image: string;
+}
 
 @Component({
   selector: 'app-costumer-homepage',
@@ -16,8 +24,12 @@ import { FormTextInputComponent } from "../../../core/components/form-text-input
   templateUrl: './costumer-homepage.component.html',
   styleUrls: ['./costumer-homepage.component.css'] // Corrigido para styleUrls
 })
+
+
+
 export class CustomerHomepageComponent implements OnInit, OnDestroy {
-  requestList: Request[] = [
+
+  requestList: RequestItem[] = [
     {
       id: 1,
       title: 'Troca de Disco Rígido',
@@ -136,7 +148,7 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     this.totalPages = Math.ceil(this.requestList.length / this.itemsPerPage);
   }
 
-  getPaginatedRequests(): Request[] {
+  getPaginatedRequests(): RequestItem[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     console.log(`Paginated Requests from ${startIndex} to ${endIndex}`);
