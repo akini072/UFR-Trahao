@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-
+import { Component, Input } from '@angular/core';
+import { RequestStatus } from '../../../core/types/request-status';
 @Component({
   selector: 'app-status-stepper',
   standalone: true,
@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './status-stepper.component.css'
 })
 export class StatusStepperComponent {
-
+  @Input() statusList!: RequestStatus[];
 
   ol : string = "flex items-center justify-center text-xs text-gray-900 font-medium sm:text-base";
   liStart : string = "flex w-full relative text-indigo-600  after:content-['']  after:w-full after:h-0.5  after:bg-indigo-600 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-4";
