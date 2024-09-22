@@ -1,4 +1,4 @@
-import { Component,OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
@@ -21,55 +21,93 @@ export class VisualizeServiceComponent implements OnChanges, OnInit {
 
   budgeted: boolean = false;
   finalized: boolean = false;
+  rejected: boolean = false;
   pageTitle: string = '';
 
   ngOnInit(): void {
-      this.checkStatus();
+    this.checkStatus();
   }
 
-  requestList: Request[] = [
-    {
-      id: 1,
-      title: 'Alisson da Silva',
-      description: 'Computador',
-      status: 'pending',
-      created_at: '',
-      image: ''
-    }
-  ];
+  request: Request = {
+    requestId: 1,
+    requestDesc: 'Computador travando',
+    equipmentDesc: 'Notebook Lenovo velho',
+    defectDesc: 'A tela parou de funcionar do nada depois de dar tela azul e eu acidentalmente acertar um soco no computador. Eu não sei o que aconteceu, mas acho que o problema é na tela ou na placa mãe ou a placa de video porque travava toda hora.',
+    status: [
+      {
+        requestStatusId: '0',
+        dateTime: new Date(),
+        category: 'open', // Replace 'someCategory' with the actual category
+        request: {} as Request // Replace with actual request object if needed
+      },
+      {
+        requestStatusId: '1',
+        dateTime: new Date(),
+        category: 'budgeted', // Replace 'someCategory' with the actual category
+        request: {} as Request // Replace with actual request object if needed
+      },
+      {
+        requestStatusId: '2',
+        dateTime: new Date(),
+        category: 'budgeted', // Replace 'someCategory' with the actual category
+        request: {} as Request // Replace with actual request object if needed
+      },
+      {
+        requestStatusId: '3',
+        dateTime: new Date(),
+        category: 'open', // Replace 'someCategory' with the actual category
+        request: {} as Request // Replace with actual request object if needed
+      }
+    ],
+    budget: 1500.00,
+    repairDesc: '',
+    customerOrientations: '',
+    image: ''
+  };
 
   ngOnChanges(): void {
     console.log("Valor mudasse")
   }
-  onReject(){
+  onReject() {
     //Adicionar o Modal que rejeita o nosso orçamento.
   }
 
-  onApprove(){
+  onApprove() {
     //Adicionar o Modal que aprova o nosso orçamento.
   }
 
-  onPay(){
+  onPay() {
     //Adicioanr o Modal que paga.
   }
 
-  checkStatus(){
-    const request = this.requestList[0];
+  onRescue() {
+    //Adicionar o Modal que resgata
+  }
 
-    switch (request.status){
-      case 'approved':
+  checkStatus() {
+    switch (this.request.status[this.request.status.length - 1].category) {
+      case 'fixed':
         this.budgeted = false;
         this.finalized = true;
+        this.rejected = false;
         this.pageTitle = 'Pagar Serviço';
         break;
-      case 'pending':
+      case 'budgeted':
         this.budgeted = true;
         this.finalized = false;
+        this.rejected = false;
         this.pageTitle = 'Serviço orçado';
+        break;
+      case 'rejected':
+        this.budgeted = false;
+        this.finalized = false;
+        this.rejected = true;
+        this.pageTitle = 'Orçamento rejeitado';
         break;
       default:
         this.budgeted = false;
         this.finalized = false;
+        this.rejected = false;
         this.pageTitle = 'Visualizar Serviço';
         break;
     }
