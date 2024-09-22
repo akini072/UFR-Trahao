@@ -13,8 +13,7 @@ export class ModalService {
 
   constructor() { }
 
-  open(host: ViewContainerRef, type: ModalType, data: { [key: string]: any }): Observable<string> {
-    data['type'] = type;
+  open(host: ViewContainerRef, type: ModalType, data: { [key: string]: string }): Observable<string> {
     const injector = Injector.create({
       providers: [{ provide: 'data', useValue: data }]
     });
