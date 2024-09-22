@@ -1,10 +1,13 @@
-export type RequestCategory = 'open' | 'budjeted' | 'rejected' | 'approved' | 'redirected' | 'fixed' | 'paid' | "finalized";
+import { RequestStatus } from "./request-status";
 
 export interface Request {
-    id: number;
-    title: string;
-    description: string;
-    status: RequestCategory;
-    created_at: string;
+    requestId: number;
+    requestDesc: string;
+    equipmentDesc: string;
+    defectDesc: string;
+    status: RequestStatus[];
+    budget: number;
+    repairDesc: string;
+    customerOrientations: string;
     image: string;
 }
