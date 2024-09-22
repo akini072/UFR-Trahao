@@ -73,9 +73,8 @@ export class VisualizeServiceComponent implements OnChanges, OnInit {
     image: ''
   };
 
-  ngOnChanges(): void {
-    console.log("Valor mudasse")
-  }
+  ngOnChanges(): void {}
+  
   onReject() {
     //Adicionar o Modal que rejeita o nosso orçamento.
   }
