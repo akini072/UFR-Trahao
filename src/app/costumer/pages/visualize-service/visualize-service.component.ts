@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
@@ -17,7 +17,7 @@ import { Request } from '../../../core/types/request';
 
 
 
-export class VisualizeServiceComponent implements OnChanges, OnInit {
+export class VisualizeServiceComponent implements OnInit {
 
   budgeted: boolean = false;
   finalized: boolean = false;
@@ -72,8 +72,6 @@ export class VisualizeServiceComponent implements OnChanges, OnInit {
     customerOrientations: '',
     image: ''
   };
-
-  ngOnChanges(): void {}
   
   onReject() {
     //Adicionar o Modal que rejeita o nosso orçamento.
