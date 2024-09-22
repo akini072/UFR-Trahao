@@ -6,7 +6,7 @@ import { ServiceRequestTableComponent } from '../../components/service-request-t
 import { RequestTableComponent } from '../../../request-table/request-table.component';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
 import { Request } from '../../../core/types/request';
-import { ButtonComponent } from "../../../core/components/button/button.component";
+import { ButtonComponent, ButtonProps } from "../../../core/components/button/button.component";
 import { FormTextInputComponent } from "../../../core/components/form-text-input/form-text-input.component";
 
 @Component({
@@ -90,8 +90,11 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     container: 'flex w-full px-4 my-8 mx-auto',
     innerContainer: 'flex justify-end  gap-4',
     searchContainer: 'flex gap-2',
-    requestGrid: 'grid grid-cols-1 w-10/12 m-auto justify-items-center md:grid-cols-2 lg:grid-cols-3 gap-4 p-4'
+    requestGrid: 'grid grid-cols-1 w-10/12 m-auto justify-items-center md:grid-cols-2 lg:grid-cols-3 gap-4 p-4',
+    paginationControl: 'w-10/12 m-auto flex justify-end my-4 items-center text-center',
+    pageText: 'border p-2 text-sm',
   };
+
 
   currentPage: number = 1;
   itemsPerPage: number = 9;
@@ -107,6 +110,7 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
       this.updateItemsPerPage(event.target.innerWidth);
       this.updateTotalPages();
+      this.goToPage(1);
     });
   }
 
@@ -118,13 +122,13 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
 
   updateItemsPerPage(width: number) {
     if (width >= 1200) {
-      this.itemsPerPage = 9; // 3 colunas
+      this.itemsPerPage = 9; 
     } else if (width >= 992) {
-      this.itemsPerPage = 6; // 2 colunas
+      this.itemsPerPage = 6; 
     } else {
-      this.itemsPerPage = 3; // 1 coluna
+      this.itemsPerPage = 3; 
     }
-    this.updateTotalPages(); // Recalcular total de páginas após atualizar itemsPerPage
+    this.updateTotalPages(); 
   }
 
   updateTotalPages() {
@@ -138,17 +142,17 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     return this.requestList.slice(startIndex, endIndex);
   }
 
-  nextPage() {
-    console.log(`Navigated to next page: ${this.currentPage}`);
+  nextPage = () => {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
+      console.log(`Navigated to next page: ${this.currentPage}`);
     }
   }
 
-  previousPage() {
-    console.log(`Navigated to previous page: ${this.currentPage}`);
+  previousPage = () => {
     if (this.currentPage > 1) {
       this.currentPage--;
+      console.log(`Navigated to previous page: ${this.currentPage}`);
     }
   }
 
@@ -162,4 +166,8 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
   navigateToNewRequest = () => {
     this.router.navigate(['nova-solicitacao']);
   }
+
+  rightButtonProp: ButtonProps =  {text: '', icon: 'chevron_right', iconPosition: 'left' , color: 'white', size: 'small', textColor: 'black', extraClasses: 'border items-center text-center', onClick: this.nextPage}
+  leftButtonProp: ButtonProps =  {text: '', icon: 'chevron_left', iconPosition: 'left' , color: 'white', size: 'small', textColor: 'black', extraClasses: 'border items-center text-center', onClick: this.previousPage}
+  
 }

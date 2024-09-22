@@ -4,7 +4,6 @@
     <div [ngClass]="style.innerContainer">
         <div [ngClass]="style.searchContainer">
             <app-form-text-input placeholder="Pesquisar solicitação"></app-form-text-input>
-            <app-button [props]="{text: '', icon:'search', iconPosition: 'left', color: 'primary-8', size: 'small', textColor: 'white', hoverColor: 'primary-7' , onClick: navigateToNewRequest}"></app-button>
         </div>
         <app-button [props]="{text: 'Nova Solicitação', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7' , onClick: navigateToNewRequest}"></app-button>
     </div>
@@ -14,8 +13,8 @@
 <div [ngClass]="style.requestGrid">
     <app-request-card *ngFor="let request of getPaginatedRequests()" [request]="request"></app-request-card>
 </div>
-<div class="pagination-controls">
-    <app-button [props]="{text: 'Anterior', color: 'primary-8', size: 'small', textColor: 'white', hoverColor: 'primary-7' , onClick: previousPage}"></app-button>
-    <span>Página {{currentPage}} de {{totalPages}}</span>
-    <app-button [props]="{text: 'Próxima', color: 'primary-8', size: 'small', textColor: 'white', hoverColor: 'primary-7' , onClick: nextPage}"></app-button>
+<div class="{{style.paginationControl}}">
+    <app-button [props]="leftButtonProp"></app-button>
+    <span class="{{style.pageText}}">Página {{currentPage}} de {{totalPages}}</span>
+    <app-button [props]="rightButtonProp"></app-button>
 </div>
