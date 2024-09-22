@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../modal.component';
 
@@ -8,11 +8,10 @@ import { ModalComponent } from '../modal.component';
   imports: [CommonModule],
   templateUrl: '../modal.component.html',
 })
-export class ModalConfirmComponent extends ModalComponent{
+export class ModalConfirmComponent extends ModalComponent implements OnInit{
 
-  override ngOnInit(): void{
+  ngOnInit(): void {
     this.showCancel = true;
-    this.showInput = false;
   }
 
   override checkModal(): { [key: string]: boolean; } {

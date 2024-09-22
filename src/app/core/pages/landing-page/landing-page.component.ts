@@ -7,6 +7,7 @@ import { NavbarComponent } from "../../components/navbar/navbar.component";
 import { TestimonyCardComponent } from "../../components/testimony-card/testimony-card.component";
 import { FooterComponent } from "../../components/footer/footer.component";
 import { ModalService } from '../../utils/modal.service';
+import { ModalType } from '../../types/modal-type';
 
 @Component({
   selector: 'app-landing-page',
@@ -33,7 +34,8 @@ export class LandingPageComponent {
   }
 
   openModal(){
-    this.modal.modalFactory(this.view).subscribe((value) => {
+    const data = { title: 'Título do modal', message: 'Mensagem do modal', label: 'Ok' };
+    this.modal.open(this.view, ModalType.MESSAGE, data).subscribe((value) => {
       console.log(value);
     });
   }

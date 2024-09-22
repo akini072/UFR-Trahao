@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable, Subscriber } from 'rxjs';
 import { FormTextInputComponent } from '../form-text-input/form-text-input.component';
+import { ModalType } from '../../types/modal-type';
 
 @Component({
   selector: 'app-modal',
@@ -26,16 +27,10 @@ export abstract class ModalComponent {
   input = 'w-full'
   titleStyle = 'text-lg font-bold';
 
-  constructor(@Inject('data') private data: { [key: string]: string }) {
+  constructor(@Inject('data') data: { [key: string]: string }) {
     this.title = data['title'];
     this.message = data['message'];
     this.label = data['label'];
-  }
-
-  ngOnInit(): void {
-    this.showInput = false;
-    this.showCancel = false;
-    console.log(this.showInput);
   }
 
   open(): Observable<string> {

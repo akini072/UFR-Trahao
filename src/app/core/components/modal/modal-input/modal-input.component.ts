@@ -1,19 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../modal.component';
+import { FormTextInputComponent } from '../../form-text-input/form-text-input.component';
 
 @Component({
   selector: 'app-modal-input',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormTextInputComponent],
   templateUrl: '../modal.component.html'
 })
-export class ModalInputComponent extends ModalComponent {
+export class ModalInputComponent extends ModalComponent implements OnInit {
 
-  override ngOnInit(): void {
+  ngOnInit(): void {
     this.showInput = true;
-    this.showCancel = false;
-    console.log(this.showInput);
   }
 
   override checkModal(): { [key: string]: boolean; } {
