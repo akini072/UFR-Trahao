@@ -1,27 +1,36 @@
 <app-navbar [isLogged]="false"></app-navbar>
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
-  <div class="bg-white p-8 rounded shadow-md w-full max-w-sm">
-    <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+<div [ngClass]="main">
+  <div [ngClass]="form">
+    <h2 [ngClass]="title">Login</h2>
     <form>
-
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+        <label [ngClass]="label" for="email">
           E-mail
         </label>
-        <app-form-text-input type="email" status="" placeholder="nome@dominio.com"></app-form-text-input>
+        <app-form-text-input type="email" placeholder="nome@dominio.com"></app-form-text-input>
       </div>
 
       <div class="mb-6">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+        <label [ngClass]="label" for="password">
           Senha
         </label>
-        <app-form-text-input type="password" status="" placeholder="****"></app-form-text-input>
+        <app-form-text-input type="password" placeholder="****"></app-form-text-input>
       </div>
 
-      <div class="flex items-center justify-between">
-        <app-button [props]="{text: 'Entrar', color: 'secondary-4', size: 'medium', textColor: 'white', hoverColor: 'secondary-6' , onClick: onLogin, extraClasses:'font-bold focus:outline-none focus:shadow-outline'}"></app-button>
+      <div [ngClass]="button">
+        <app-button
+          [props]="{text: 'Entrar', color: 'secondary-4', size: 'medium', textColor: 'white', hoverColor: 'secondary-6' , onClick: onLogin, extraClasses:'font-bold focus:outline-none focus:shadow-outline'}"></app-button>
       </div>
+
     </form>
+
+    <hr class="mb-4">
+
+    <span [ngClass]="signUpSpan">Não possui conta?
+      <a [routerLink]="signUpRouterLink" [ngClass]="signUpRouter"> Cadastre-se </a>
+    </span>
+
+
   </div>
 </div>
 <app-footer></app-footer>
