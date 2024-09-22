@@ -38,24 +38,32 @@ export class VisualizeServiceComponent implements OnChanges, OnInit {
         requestStatusId: '0',
         dateTime: new Date(),
         category: 'open', // Replace 'someCategory' with the actual category
+        senderEmployee: '',
+        inChargeEmployee: 'Alisson Gabriel',
         request: {} as Request // Replace with actual request object if needed
       },
       {
         requestStatusId: '1',
         dateTime: new Date(),
         category: 'budgeted', // Replace 'someCategory' with the actual category
+        senderEmployee: '',
+        inChargeEmployee: 'Alisson Gabriel',
         request: {} as Request // Replace with actual request object if needed
       },
       {
         requestStatusId: '2',
         dateTime: new Date(),
         category: 'budgeted', // Replace 'someCategory' with the actual category
+        senderEmployee: '',
+        inChargeEmployee: 'Alisson Gabriel',
         request: {} as Request // Replace with actual request object if needed
       },
       {
         requestStatusId: '3',
         dateTime: new Date(),
         category: 'open', // Replace 'someCategory' with the actual category
+        senderEmployee: '',
+        inChargeEmployee: 'Alisson Gabriel',
         request: {} as Request // Replace with actual request object if needed
       }
     ],
