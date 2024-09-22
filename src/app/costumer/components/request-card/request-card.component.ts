@@ -1,36 +1,35 @@
 import { Component, Input } from '@angular/core';
-import { Request, RequestStatus } from '../../../core/types/request';
+import { RequestCategory } from '../../../core/types/request-category';
 import { CommonModule } from '@angular/common';
-import { formatDate } from '../../../core/utils/formatDate';
-import { getLimitedDescription } from '../../../core/utils/formatDescription';
+import { ButtonComponent, ButtonProps } from "../../../core/components/button/button.component";
+import { ButtonStatusComponent } from "../../../core/components/button-status/button-status.component";
+import { LimitedDescriptionPipe } from '../../../core/utils/limited-description.pipe';
+import { RequestItem } from '../../pages/costumer-homepage/costumer-homepage.component';
 @Component({
   selector: 'app-request-card',
   standalone: true,
-  imports: [CommonModule], // Add RequestStatus to imports array
+  imports: [CommonModule, ButtonComponent, ButtonStatusComponent, LimitedDescriptionPipe],
   templateUrl: './request-card.component.html',
   styleUrl: './request-card.component.css'
 })
 export class RequestCardComponent {
-  @Input() request: Request = {
+  @Input() request: RequestItem = {
     id: 0,
     title: 'Default Title',
     description: 'Default Description',
-    status: 'pending',
+    status: 'open',
     created_at: '2021-01-01',
     image: 'https://via.placeholder.com/150'
   };
-  formatDate = formatDate;
-  formatDescription = getLimitedDescription;
 
-  debugRequest(request: Request) {
-    console.log('Request:', request);
-  }
+
+
  
-  getColorbyStatus(status: RequestStatus):string {
+  getColorbyStatus(status: RequestCategory):string {
     let color: string;
 
     switch (status) {
-      case 'pending':
+      case 'open':
         color = 'bg-yellow-300';
         break;
       case 'approved':
@@ -39,11 +38,20 @@ export class RequestCardComponent {
       case 'rejected':
         color = 'bg-red-300';
         break;
-      case 'canceled':
+      case 'finalized':
         color = 'bg-gray-300';
         break;
       case 'paid':
         color = 'bg-blue-300';
+        break;
+      case 'fixed':
+        color = 'bg-teal-300';
+        break;
+      case 'budgeted':
+        color = 'bg-orange-300';
+        break;
+      case 'redirected':
+        color = 'bg-purple-300';
         break;
       default:
         color = 'bg-gray-300';
@@ -51,18 +59,24 @@ export class RequestCardComponent {
     return color;
   }
 
-  getStatusText(status: RequestStatus): string {
+  getStatusText(status: RequestCategory): string {
     switch(status) {
-      case 'pending':
-        return 'Pendente';
-      case 'approved':
-        return 'Aprovado';
+      case 'open':
+        return 'Aberta';
+      case 'budgeted':
+        return 'Orçada';
       case 'rejected':
-        return 'Rejeitado';
-      case 'canceled':
-        return 'Cancelado';
+        return 'Rejeitada';
+      case 'approved':
+        return 'Aprovada';
+      case 'redirected':
+        return 'Redirecionada';
+      case 'fixed':
+        return 'Arrumada';
       case 'paid':
-        return 'Pago';
+        return 'Paga';
+      case 'finalized':
+        return 'Finalizada';
       default:
         return 'Indefinido';
     }
@@ -82,7 +96,20 @@ export class RequestCardComponent {
     cardData: "flex flex-col gap-4",
     cardDescription: "text-sm text-default-black",
     cardDate: "text-xs text-default-black font-semibold",
-    cardButtonSection: "flex justify-end justify-self-end aling-self-end",
+    cardButtonSection: "flex justify-between justify-self-end aling-self-end items-center",
     cardButton: "text-xs p-2 cursor-pointer text-default-black font-semibold rounded",
+  }
+
+    buttonPropColor: string = "";
+    ngOnInit(): void {
+      this.buttonPropColor = this.getColorbyStatus(this.request.status);
+    }
+  button: ButtonProps = {
+    text: 'Visualizar',
+    color: this.buttonPropColor,
+    size: 'medium',
+    textColor: 'default-black',
+    onClick: () => {},	
+    extraClasses: 'cursor-pointer',
   }
 }
