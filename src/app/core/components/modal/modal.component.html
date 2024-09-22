@@ -1,0 +1,18 @@
+<div [ngClass]="screen">
+  <div id="modal" [ngClass]="checkModal()">
+    <div [ngClass]="header">
+      <button [ngClass]="btnClose"  (click)="close()"><span class="material-icons">close</span></button>
+      <h1 [ngClass]="titleStyle">{{ title }}</h1>
+    </div>
+    <p>{{ message }}</p>
+    @if(showInput) {
+    <app-form-text-input placeholder="Informe" [ngClass]="input"></app-form-text-input>
+    }
+    <div [ngClass]="footer">
+      @if(showCancel){
+      <button type="button" [ngClass]="btnConfirm">Cancelar</button>
+      }
+      <button type="button" [ngClass]="btnConfirm" (click)="resolve()">{{ label }}</button>
+    </div>
+  </div>
+</div>
