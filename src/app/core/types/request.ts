@@ -1,10 +1,13 @@
-export type RequestStatus = 'pending' | 'approved' | 'rejected' | 'paid' | "canceled" |  undefined;
+import { RequestStatus } from "./request-status";
 
 export interface Request {
-    id: number;
-    title: string;
-    description: string;
-    status: RequestStatus;
-    created_at: string;
+    requestId: number;
+    requestDesc: string;
+    equipmentDesc: string;
+    defectDesc: string;
+    status: RequestStatus[];
+    budget: number;
+    repairDesc: string;
+    customerOrientations: string;
     image: string;
 }

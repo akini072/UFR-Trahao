@@ -10,14 +10,19 @@
         <div class="{{style.cardDataContainer}}">
             <div class="{{style.cardData}}">
                 <div>
-                    <p class="{{style.cardDescription}}">{{ formatDescription(request.description, 30) }}</p>
+                    <p class="{{style.cardDescription}}">{{ request.description | limitedDescription: 30 }}</p>
                 </div>
                 <div>
-                    <p class="{{style.cardDate}}">{{formatDate(request.created_at)}}</p>
+                    <p class="{{style.cardDate}}">{{request.created_at  | date:'dd/MM/yyyy' }}</p>
                 </div>
             </div>
             <div class="{{style.cardButtonSection}}">
-                <a class="{{style.cardButton}} {{getColorbyStatus(request.status)}}">Visualizar</a>
+                <div>
+                    <app-button-status [status]="request.status" [color]="getColorbyStatus(request.status)"></app-button-status>
+                </div>
+                <div>
+                    <a class="{{style.cardButton}} {{getColorbyStatus(request.status)}}">Visualizar</a>
+                </div>
             </div>
         </div>
     </div>
