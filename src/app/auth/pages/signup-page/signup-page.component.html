@@ -30,6 +30,7 @@
             #cpfInput
             class="{{ input }}"
             type="text"
+            [value]="cpf | cpfMask"
             name="inputCpf"
             id="cpf"
             (input)="onCpfInput($event)"
@@ -45,6 +46,7 @@
             #cepInput
             class="{{ input }}"
             type="text"
+            [value]="cep | cepMask"
             name="inputCep"
             id="cep"
             (input)="onCepInput($event)"

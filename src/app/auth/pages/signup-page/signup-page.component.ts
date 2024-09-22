@@ -6,13 +6,15 @@ import { NavbarComponent } from '../../../core/components/navbar/navbar.componen
 import { FooterComponent } from '../../../core/components/footer/footer.component';
 import { ButtonComponent } from '../../../core/components/button/button.component';
 import { ViaCepApiService } from '../../utils/via-cep-api.service';
+import { CpfMaskPipe } from '../../../core/utils/pipes/cpfMask/cpf-mask.pipe';
+import { CepMaskPipe } from '../../../core/utils/pipes/cepMask/cep-mask.pipe';
 
 @Component({
   selector: 'app-signup-page',
   standalone: true,
   imports: [
     NavbarComponent,
-    FooterComponent,
+    FooterComponent, CpfMaskPipe, CepMaskPipe,
     ButtonComponent,
     HttpClientModule,
   ],
@@ -44,6 +46,10 @@ export class SignupPageComponent {
   @ViewChild('emailErrorMessage') emailErrorMessage!: ElementRef;
 
   private cepSubject = new Subject<string>();
+  public cpf: string = '';
+  public cep: string = '';
+  private cpfMaskPipe = new CpfMaskPipe();
+  private cepMaskPipe = new CepMaskPipe();
 
   constructor(private serviceAPI: ViaCepApiService) {
     // Configura o pipeline para buscar o endereço usando o CEP
@@ -111,13 +117,19 @@ export class SignupPageComponent {
   // Função chamada durante a digitação no campo CPF
   onCpfInput(event: Event) {
     const input = event.target as HTMLInputElement;
-    input.value = this.cleanInput(input.value); // Remove caracteres não numéricos
+    input.value = this.cpfMaskPipe.transform(input.value); // Atualiza o valor do campo com a máscara
+
+    const newCursorPosition = this.calculateCursorPosition(input.value);
+    input.setSelectionRange(newCursorPosition, newCursorPosition); // Restabelece a posição do cursor
   }
 
   // Função chamada durante a digitação no campo CEP
   onCepInput(event: Event) {
     const input = event.target as HTMLInputElement;
-    input.value = this.cleanInput(input.value); // Remove caracteres não numéricos
+    input.value = this.cepMaskPipe.transform(input.value); // Atualiza o valor do campo com a máscara
+
+    const newCursorPosition = this.calculateCursorPosition(input.value);
+    input.setSelectionRange(newCursorPosition, newCursorPosition); // Restabelece a posição do cursor
   }
 
   // Remove caracteres não numéricos do valor de entrada
@@ -204,5 +216,18 @@ export class SignupPageComponent {
     const cepInputElement = this.cepInput.nativeElement as HTMLInputElement;
     cepInputElement.style.borderColor = '';
     this.cepErrorMessage.nativeElement.style.display = 'none';
+  }
+
+  private calculateCursorPosition(maskedValue: string): number {
+    let newPosition = 0;
+  
+    // Encontra a posição do último dígito numérico
+    for (let i = 0; i < maskedValue.length; i++) {
+      if (/\d/.test(maskedValue[i])) { // Verifica se é um dígito
+        newPosition = i+1;
+      }
+    }
+  
+    return newPosition; // Retorna a nova posição
   }
 }
