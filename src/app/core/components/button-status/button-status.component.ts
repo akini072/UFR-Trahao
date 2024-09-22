@@ -4,7 +4,7 @@ import { RequestStatus } from '../../types/request';
 import { RouterModule } from '@angular/router';
 
 interface ButtonStatus{
-  type?: RequestStatus;
+  type: RequestStatus;
   name: string;
   route: string;
 }
@@ -18,50 +18,29 @@ interface ButtonStatus{
 })
 
 export class ButtonStatusComponent {
-  @Input() status: RequestStatus | undefined;
+  @Input() status: RequestStatus;
+  @Input() color: string = 'bg-gray-300';
+  
+  cardButton = `text-xs p-2 cursor-pointer text-default-black font-semibold rounded`;
 
-  button = "flex justify-center rounded-lg px-4 py-2 mx-2";
+  buttonOptions: ButtonStatus[] = [
+    { type: 'open', name: 'ABERTA', route: 'AAAA' },
+    { type: 'budgeted', name: 'ORÇADA', route: '' },
+    { type: 'rejected', name: 'REJEITADA', route: 'AAAA' },
+    { type: 'approved', name: 'APROVADA', route: 'AAAA' },
+    { type: 'redirected', name: 'REDIRECIONADA', route: '' },
+    { type: 'fixed', name: 'ARRUMADA', route: 'AAAA' },
+    { type: 'paid', name: 'PAGA', route: '' },
+    { type: 'finalized', name: 'FINALIZADA', route: '' },
+  ];	
 
-  buttonVisualize = `${this.button} align-end bg-primary-2 hover:bg-primary-1 text-white`;
-  buttonOrcada = `${this.button} text-white bg-primary-4 hover:bg-primary-3`;
-  buttonRejeitada = `${this.button} text-default-white bg-secondary-5 hover:bg-secondary-4`;
-  buttonPagar = `${this.button} bg-primary-8 text-white hover:bg-primary-7`;
+  debugButton(){
 
-  getButtonClass(status: RequestStatus): string {
-    let classButton: string;
-    switch(status) {
-      case 'pending':
-        classButton = this.buttonOrcada;
-        break;
-      
-      case 'approved':
-        classButton = this.buttonVisualize;
-        break;
-      
-      case 'rejected':
-        classButton = this.buttonRejeitada;
-        break;
-      
-      case 'paid':
-        classButton = this.buttonPagar;
-        break;
-      
-      default:
-        classButton = this.button;
-        break;
-      
-      }
-      return classButton;
   }
 
-  buttonStatus: ButtonStatus[] = [
-    { name: 'Orçada', route: 'orcamento'},
-    { type: 'approved',name: 'Visualizar Serviço', route: '/servico'},
-    { type: 'rejected',name: 'Rejeitada', route: '/resgatar'},
-    { type: 'pending',name: 'Pagamento', route: '/pagamento'}
-  ]
-
-  selectedButton: ButtonStatus = this.buttonStatus.filter(button => button.type === this.status)[0] || { name: 'Indefinido', route: '' };
+  selectButton(status: RequestStatus){
+    return this.buttonOptions.find(button=> button.type === status)    
+  }
 
 }
 
