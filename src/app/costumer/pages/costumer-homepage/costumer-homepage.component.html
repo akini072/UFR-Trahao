@@ -3,7 +3,7 @@
     <p [ngClass]="style.title">Solicitações de Serviço</p>
     <div [ngClass]="style.innerContainer">
         <div [ngClass]="style.searchContainer">
-            <app-form-text-input  placeholder="Pesquisar solicitação"></app-form-text-input>
+            <app-form-text-input (input)="searchKeyboard($event)"  placeholder="Pesquisar solicitação"></app-form-text-input>
         </div>
         <app-button [props]="newRequestButtonProp"></app-button>
     </div>
@@ -11,7 +11,7 @@
 <div [ngClass]="style.container">
 </div>
 <div [ngClass]="style.requestGrid">
-    <app-request-card *ngFor="let request of getPaginatedRequests()" [request]="request"></app-request-card>
+    <app-request-card *ngFor="let request of getPaginatedRequests(searchQuery)" [request]="request"></app-request-card>
 </div>
 <div [ngClass]="style.paginationControl">
     <app-button [props]="leftButtonProp"></app-button>
