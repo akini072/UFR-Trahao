@@ -7,20 +7,17 @@ import { FormTextInputComponent } from '../../form-text-input/form-text-input.co
   selector: 'app-modal-input',
   standalone: true,
   imports: [CommonModule, FormTextInputComponent],
-  templateUrl: '../modal.component.html'
+  templateUrl: '../modal.component.html',
 })
 export class ModalInputComponent extends ModalComponent implements OnInit {
-
   ngOnInit(): void {
     this.showInput = true;
+    this.showCancel = true;
   }
 
-  override checkModal(): { [key: string]: boolean; } {
+  override checkModal(): { [key: string]: boolean } {
     return { [this.modal]: true, 'border-red-300': true };
   }
 
-  override resolve() {
-    
-  }
-
+  override resolve() {}
 }
