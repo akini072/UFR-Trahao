@@ -37,35 +37,67 @@ export class VisualizeServiceComponent implements OnChanges, OnInit {
       {
         requestStatusId: '0',
         dateTime: new Date(),
-        category: 'open', // Replace 'someCategory' with the actual category
+        category: 'open',
         senderEmployee: '',
         inChargeEmployee: 'Alisson Gabriel',
-        request: {} as Request // Replace with actual request object if needed
+        request: {} as Request
       },
       {
         requestStatusId: '1',
         dateTime: new Date(),
-        category: 'budgeted', // Replace 'someCategory' with the actual category
+        category: 'budgeted',
         senderEmployee: '',
         inChargeEmployee: 'Alisson Gabriel',
-        request: {} as Request // Replace with actual request object if needed
-      },
+        request: {} as Request
+      } ,
       {
         requestStatusId: '2',
         dateTime: new Date(),
-        category: 'budgeted', // Replace 'someCategory' with the actual category
+        category: 'rejected',
         senderEmployee: '',
         inChargeEmployee: 'Alisson Gabriel',
-        request: {} as Request // Replace with actual request object if needed
+        request: {} as Request
       },
       {
         requestStatusId: '3',
         dateTime: new Date(),
-        category: 'open', // Replace 'someCategory' with the actual category
+        category: 'approved',
         senderEmployee: '',
         inChargeEmployee: 'Alisson Gabriel',
-        request: {} as Request // Replace with actual request object if needed
-      }
+        request: {} as Request
+      },
+      /* {
+        requestStatusId: '4',
+        dateTime: new Date(),
+        category: 'redirected',
+        senderEmployee: '',
+        inChargeEmployee: 'Alisson Gabriel',
+        request: {} as Request
+      },
+      {
+        requestStatusId: '5',
+        dateTime: new Date(),
+        category: 'fixed',
+        senderEmployee: '',
+        inChargeEmployee: 'Alisson Gabriel',
+        request: {} as Request
+      },
+      {
+        requestStatusId: '6',
+        dateTime: new Date(),
+        category: 'paid',
+        senderEmployee: '',
+        inChargeEmployee: 'Alisson Gabriel',
+        request: {} as Request
+      },
+      {
+        requestStatusId: '7',
+        dateTime: new Date(),
+        category: 'finalized',
+        senderEmployee: '',
+        inChargeEmployee: 'Alisson Gabriel',
+        request: {} as Request
+      } */
     ],
     budget: 1500.00,
     repairDesc: '',
@@ -74,7 +106,7 @@ export class VisualizeServiceComponent implements OnChanges, OnInit {
   };
 
   ngOnChanges(): void {}
-  
+
   onReject() {
     //Adicionar o Modal que rejeita o nosso orçamento.
   }
