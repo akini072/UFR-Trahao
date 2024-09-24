@@ -4,6 +4,7 @@ import { RequestStatus } from '../../../core/types/request-status';
 import { Request } from '../../../core/types/request';
 import { statusMap } from '../../../core/types/status-map';
 import { statusBGColor, statusBorderColor, statusTextColor } from '../../../core/types/status-color';
+import { Popover } from 'flowbite';
 
 @Component({
   selector: 'app-status-stepper',
@@ -79,4 +80,5 @@ export class StatusStepperComponent implements OnInit {
   liEnd: string = "z-0 flex w-full relative";
   item: string = "block whitespace-nowrap z-20";
   span: string = "w-6 h-6 border-2 rounded-full flex justify-center items-center mx-auto mb-3 text-sm lg:w-10 lg:h-10 material-icons-round";
+  pop: string = "absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800";
 }

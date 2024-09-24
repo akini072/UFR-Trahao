@@ -85,7 +85,7 @@ export class VisualizeServiceComponent implements OnInit {
         senderEmployee: '',
         inChargeEmployee: 'Alisson Gabriel',
         request: {} as Request
-      },
+      }/* ,
       {
         requestStatusId: '5',
         dateTime: new Date(),
@@ -109,7 +109,7 @@ export class VisualizeServiceComponent implements OnInit {
         senderEmployee: '',
         inChargeEmployee: 'Alisson Gabriel',
         request: {} as Request
-      }
+      } */
     ],
     budget: 1500.0,
     repairDesc: '',
