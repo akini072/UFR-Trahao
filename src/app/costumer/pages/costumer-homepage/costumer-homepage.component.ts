@@ -108,11 +108,14 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     pageTopContainer: "flex justify-between w-full items-center px-16"
   };
 
+  activeRequestList: RequestItem[] = this.requestList
+
 
   currentPage: number = 1;
   itemsPerPage: number = 9;
   totalPages: number = 1;
   resizeListener!: () => void;
+  searchQuery: string | undefined
 
   constructor(private router: Router, private renderer: Renderer2) {
     this.updateTotalPages();
@@ -144,35 +147,56 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     this.updateTotalPages(); 
   }
 
-  updateTotalPages() {
-    this.totalPages = Math.ceil(this.requestList.length / this.itemsPerPage);
+  searchKeyboard = (event: Event) => {
+    const input = event.target as HTMLInputElement;
+    const query = input.value;
+  
+    this.searchQuery = query ? query.toLocaleLowerCase() : ""
+ 
+    if(this.searchQuery === ""){
+      this.activeRequestList = this.requestList;
+      this.updateTotalPages();
+      this.goToPage(1);
+    }
   }
 
-  getPaginatedRequests(): RequestItem[] {
+  updateTotalPages() {
+    this.totalPages = Math.ceil(this.activeRequestList.length / this.itemsPerPage) || 1;
+
+  }
+
+  getPaginatedRequests(searchQuery?: string): RequestItem[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    console.log(`Paginated Requests from ${startIndex} to ${endIndex}`);
-    return this.requestList.slice(startIndex, endIndex);
+
+    let list = this.activeRequestList;
+
+    if (searchQuery) {
+        list = list.filter((item) => item.description.toLocaleLowerCase().includes(searchQuery) || item.title.toLocaleLowerCase().includes(searchQuery));
+    }
+
+    this.activeRequestList = list;
+
+    this.updateTotalPages();
+
+    return list.slice(startIndex, endIndex);
   }
 
   nextPage = () => {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
-      console.log(`Navigated to next page: ${this.currentPage}`);
     }
   }
 
   previousPage = () => {
     if (this.currentPage > 1) {
       this.currentPage--;
-      console.log(`Navigated to previous page: ${this.currentPage}`);
     }
   }
 
   goToPage(page: number) {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
-      console.log(`Navigated to page: ${this.currentPage}`);
     }
   }
 
