@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RequestStatus } from '../../../core/types/request-status';
 import { Request } from '../../../core/types/request';
 import { statusMap } from '../../../core/types/status-map';
-import { statusColorMap } from './../../../core/types/status-color-map';
+import { statusBGColor, statusBorderColor, statusTextColor } from '../../../core/types/status-color';
 
 @Component({
   selector: 'app-status-stepper',
@@ -12,101 +12,71 @@ import { statusColorMap } from './../../../core/types/status-color-map';
   templateUrl: './status-stepper.component.html',
   styleUrls: ['./status-stepper.component.css']
 })
-export class StatusStepperComponent {
-  @Input() statusList!: RequestStatus[];
-  originalStatusList = this.statusList;
+export class StatusStepperComponent implements OnInit {
+  @Input() statusList: RequestStatus[] = [];
+  private originalStatusList: RequestStatus[] = [];
+  staticSteps: RequestStatus[] = this.getStaticSteps();
 
-  staticSteps: RequestStatus[] = [
-    {
-      requestStatusId: '',
-      dateTime: new Date(),
-      category: 'budgeted',
-      senderEmployee: '',
-      inChargeEmployee: '',
-      request: {} as Request
-    },
-    {
-      requestStatusId: '',
-      dateTime: new Date(),
-      category: 'approved',
-      senderEmployee: '',
-      inChargeEmployee: '',
-      request: {} as Request
-    },
-    {
-      requestStatusId: '',
-      dateTime: new Date(),
-      category: 'fixed',
-      senderEmployee: '',
-      inChargeEmployee: '',
-      request: {} as Request
-    },
-    {
-      requestStatusId: '',
-      dateTime: new Date(),
-      category: 'paid',
-      senderEmployee: '',
-      inChargeEmployee: '',
-      request: {} as Request
-    },
-    {
-      requestStatusId: '',
-      dateTime: new Date(),
-      category: 'finalized',
-      senderEmployee: '',
-      inChargeEmployee: '',
-      request: {} as Request
-    }
-  ];
+  ngOnInit(): void {
+    this.originalStatusList = [...this.statusList];
+    this.statusList = this.getCombinedSteps();
+  }
 
-  ngOnInit() {
-    this.originalStatusList = this.statusList;
+  private getStaticSteps(): RequestStatus[] {
+    const defaultRequest: Request = {} as Request;
+    const currentDate = new Date();
+    return [
+      { requestStatusId: '', dateTime: currentDate, category: 'budgeted', senderEmployee: '', inChargeEmployee: '', request: defaultRequest },
+      { requestStatusId: '', dateTime: currentDate, category: 'approved', senderEmployee: '', inChargeEmployee: '', request: defaultRequest },
+      { requestStatusId: '', dateTime: currentDate, category: 'fixed', senderEmployee: '', inChargeEmployee: '', request: defaultRequest },
+      { requestStatusId: '', dateTime: currentDate, category: 'paid', senderEmployee: '', inChargeEmployee: '', request: defaultRequest },
+      { requestStatusId: '', dateTime: currentDate, category: 'finalized', senderEmployee: '', inChargeEmployee: '', request: defaultRequest }
+    ];
+  }
+
+  private getCombinedSteps(): RequestStatus[] {
     const combinedSteps = [...this.statusList];
     this.staticSteps.forEach(staticStep => {
-      const existingIndex = combinedSteps.findIndex(step => step.category === staticStep.category);
-      if (existingIndex === -1) {
+      if (!combinedSteps.some(step => step.category === staticStep.category)) {
         combinedSteps.push(staticStep);
       }
     });
-    this.statusList = combinedSteps;
+    return combinedSteps;
   }
 
-  ol: string = "flex items-center justify-center text-xs text-gray-900 font-medium sm:text-base ";
-  liComplete: string = "flex w-full relative text-indigo-600 ";
-  liIncomplete: string = "flex w-full relative text-gray-900 ";
-  liEnd: string = "flex relative text-gray-900";
-  item: string = "block whitespace-nowrap z-10";
-  span: string = "w-6 h-6 border-2 rounded-full flex justify-center items-center mx-auto mb-3 text-sm lg:w-10 lg:h-10 ";
-
-
   getLiClass(index: number): string {
-    if (index === this.statusList.length - 1) {
-      return this.liEnd;
+    const isLastIndex = index === this.statusList.length - 1;
+    const itemCategory = this.statusList[index].category;
+    const isComplete = index < this.originalStatusList.length;
+
+    if (isLastIndex) {
+      return `${this.liEnd}`; // ou uma nova classe específica para o último item
     }
-    if (index < this.originalStatusList.length) {
-      return this.liComplete;
-    }
-    return this.liIncomplete;
+    return isComplete ? `${this.liComplete} ${statusTextColor[itemCategory]}` : `${this.liIncomplete} ${statusTextColor[itemCategory]}`;
+  }
+
+  getSpanValue(index: number): string {
+    const isLastOriginalIndex = index === this.originalStatusList.length;
+    return isLastOriginalIndex ? "hourglass_top" : index < this.originalStatusList.length ? "check" : "hourglass_empty";
   }
 
   getSpanClass(category: string, index: number): string {
-    console.log(this.originalStatusList.length);
-    return `${this.span} ${index >= this.originalStatusList.length ? this.getCompleteColor(category) : this.getIncompleteColor(category)}`;
+    const isComplete = index < this.originalStatusList.length;
+    const incompleteClass = `${statusBGColor[category]} border-white text-white`;
+    const completeClass = `bg-white ${statusBorderColor[category]} ${statusTextColor[category]}`;
+
+    return `${this.span} ${isComplete ? incompleteClass : completeClass}`;
   }
 
   getStepLabel(category: string): string {
     return statusMap[category];
   }
 
-  getIncompleteColor(category: string): string {
-    return `bg-${statusColorMap[category]}
-            border-${statusColorMap[category]}
-            text-white`;
-  }
-
-  getCompleteColor(category: string): string {
-    return `text-${statusColorMap[category]}
-            border-${statusColorMap[category]}
-            bg-white`;
-  }
+  // CSS classes
+  ol: string = "flex items-center justify-center text-xs text-gray-900 font-medium sm:text-base";
+  liComplete: string = "z-0 flex w-full relative after:content-[''] after:w-full after:h-0.5 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-8 after:bg-green-600";
+  liIncomplete: string = "z-0 flex w-full relative after:content-[''] after:w-full after:h-0.5 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-8 after:bg-gray-200";
+  liEnd: string = "z-0 flex w-full relative";
+  item: string = "block whitespace-nowrap z-20";
+  span: string = "w-6 h-6 border-2 rounded-full flex justify-center items-center mx-auto mb-3 text-sm lg:w-10 lg:h-10 material-icons-round";
 }
