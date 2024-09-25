@@ -1,3 +1,4 @@
+<app-navbar [isLogged]="true"></app-navbar>
 <h1>Detalhes do Serviço</h1>
 <p>Cliente</p><label for="">Nome do CLiente</label>
 <p>Tipo de equipamento</p> <label for="">Computador</label>
@@ -7,12 +8,17 @@
 
 
 
-<div>
+<div *ngIf="open">
   <p>Valor do orçamento:</p>
   <input type="text" name="price" value=""/>
   <app-button [props]="{text: 'Orçar', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onBudget,}"></app-button>
 </div>
-<div>
+<div *ngIf="approved">
+  <p>'Valor orçado do JSON'</p>
   <app-button [props]="{text: 'Efetuar Manutenção', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onFix,}"></app-button>
   <app-button [props]="{text: 'Redirecionar', icon: '',iconPosition: 'left', color: 'blue-400', size: 'medium', textColor: 'black', hoverColor: 'blue-300', onClick: onRedirect,}"></app-button>
 </div>
+<div>
+
+</div>
+<app-footer></app-footer>

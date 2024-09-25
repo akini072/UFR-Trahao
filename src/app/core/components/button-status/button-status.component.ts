@@ -33,23 +33,23 @@ export class ButtonStatusComponent {
       case 'pending':
         classButton = this.buttonOrcada;
         break;
-      
+
       case 'approved':
         classButton = this.buttonVisualize;
         break;
-      
+
       case 'rejected':
         classButton = this.buttonRejeitada;
         break;
-      
+
       case 'paid':
         classButton = this.buttonPagar;
         break;
-      
+
       default:
         classButton = this.button;
         break;
-      
+
       }
       return classButton;
   }
