@@ -1,1 +1,18 @@
-<p>visualize-service-employee works!</p>
+<h1>Detalhes do Serviço</h1>
+<p>Cliente</p><label for="">Nome do CLiente</label>
+<p>Tipo de equipamento</p> <label for="">Computador</label>
+<p>Descrição do problema</p> <label for="">quebrou</label>
+<p></p>
+
+
+
+
+<div>
+  <p>Valor do orçamento:</p>
+  <input type="text" name="price" value=""/>
+  <app-button [props]="{text: 'Orçar', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onBudget,}"></app-button>
+</div>
+<div>
+  <app-button [props]="{text: 'Efetuar Manutenção', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onFix,}"></app-button>
+  <app-button [props]="{text: 'Redirecionar', icon: '',iconPosition: 'left', color: 'blue-400', size: 'medium', textColor: 'black', hoverColor: 'blue-300', onClick: onRedirect,}"></app-button>
+</div>
