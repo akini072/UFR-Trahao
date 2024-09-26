@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { ServiceRequestTableComponent } from '../../components/service-request-table/service-request-table.component';
-import { RequestTableComponent } from '../../../request-table/request-table.component';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
 import { ButtonComponent, ButtonProps } from "../../../core/components/button/button.component";
 import { FormTextInputComponent } from "../../../core/components/form-text-input/form-text-input.component";
 import { RequestCategory } from '../../../core/types/request-category';
+import { RequestTableComponent } from '../../components/request-table/request-table.component';
 export interface RequestItem {
   id: number;
   title: string;
@@ -20,9 +20,9 @@ export interface RequestItem {
 @Component({
   selector: 'app-costumer-homepage',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, ServiceRequestTableComponent, RouterModule, RequestTableComponent,RequestCardComponent, ButtonComponent, FormTextInputComponent],
+  imports: [CommonModule, NavbarComponent, ServiceRequestTableComponent, RouterModule,RequestCardComponent, ButtonComponent, FormTextInputComponent, RequestTableComponent],
   templateUrl: './costumer-homepage.component.html',
-  styleUrls: ['./costumer-homepage.component.css'] // Corrigido para styleUrls
+  styleUrls: ['./costumer-homepage.component.css']
 })
 
 
