@@ -57,8 +57,8 @@ export class StatusStepperComponent implements OnInit {
   }
 
   getSpanValue(index: number): string {
-    const isLastOriginalIndex = index === this.originalStatusList.length;
-    return isLastOriginalIndex ? "hourglass_top" : index < this.originalStatusList.length ? "check" : "hourglass_empty";
+    const isIncomplete = index === this.originalStatusList.length;
+    return isIncomplete ? "hourglass_top" : index < this.originalStatusList.length ? "check" : "hourglass_empty";
   }
 
   getSpanClass(category: string, index: number): string {
@@ -73,6 +73,41 @@ export class StatusStepperComponent implements OnInit {
     return statusMap[category];
   }
 
+  getPopoverHeadClass(category: string): string {
+    return `${statusBGColor[category]} ${statusBorderColor[category]} ${this.popoverHead}`;
+  }
+
+  getPopoverText(index: number): string {
+    const isComplete = index < this.originalStatusList.length;
+    const inProgress = index === this.originalStatusList.length;
+    const category = this.statusList[index].category;
+    const dateTimeText = `${this.statusList[index].dateTime.toLocaleDateString('pt-BR')} às ${this.statusList[index].dateTime.toLocaleTimeString('pt-BR')}`;
+
+    if (isComplete) {
+      return this.getCompletePopoverText(category, index, dateTimeText);
+    } else if (inProgress) {
+      return `Em andamento`;
+    } else {
+      return `Aguardando fase anterior`;
+    }
+  }
+
+  private getCompletePopoverText(category: string, index: number, dateTimeText: string): string {
+    const statusText = statusMap[category];
+    const senderEmployee = this.statusList[index].senderEmployee;
+    const inChargeEmployee = this.statusList[index].inChargeEmployee;
+
+    if (category === 'redirected') {
+      return `${statusText} por ${senderEmployee} para ${inChargeEmployee} em ${dateTimeText}`;
+    }
+
+    if (category !== 'open' && category !== 'paid' && category !== 'rejected') {
+      return `${statusText} por ${inChargeEmployee} em ${dateTimeText}`;
+    }
+
+    return dateTimeText;
+  }
+
   // CSS classes
   ol: string = "flex items-center justify-center text-xs text-gray-900 font-medium sm:text-base";
   liComplete: string = "z-0 flex w-full relative after:content-[''] after:w-full after:h-0.5 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-8 after:bg-green-600";
@@ -81,4 +116,6 @@ export class StatusStepperComponent implements OnInit {
   item: string = "block whitespace-nowrap z-20";
   span: string = "w-6 h-6 border-2 rounded-full flex justify-center items-center mx-auto mb-3 text-sm lg:w-10 lg:h-10 material-icons-round";
   pop: string = "absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800";
+  popoverHead: string = "px-3 py-2 border-b rounded-t-lg ";
+  popoverTitle: string = "font-bold text-white";
 }
