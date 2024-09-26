@@ -104,13 +104,14 @@ export class StatusStepperComponent implements OnInit {
   private getCompletePopoverText(category: string, index: number, dateTimeText: string): string {
     const statusText = statusMap[category];
     const senderEmployee = this.statusList[index].senderEmployee;
+    console.log(senderEmployee);
     const inChargeEmployee = this.statusList[index].inChargeEmployee;
 
     if (category === 'redirected') {
       return `${statusText} por ${senderEmployee} para ${inChargeEmployee} em ${dateTimeText}`;
     }
 
-    if (category !== 'open' && category !== 'paid' && category !== 'rejected') {
+    if (category !== 'open' && category !== 'paid' && category !== 'rejected' && category !== 'approved') {
       return `${statusText} por ${inChargeEmployee} em ${dateTimeText}`;
     }
 
