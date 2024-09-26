@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RequestStatus } from '../../types/request';
+import { RequestStatus } from '../../types/request-status';
 import { RouterModule } from '@angular/router';
 
 interface ButtonStatus{
