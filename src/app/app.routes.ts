@@ -5,6 +5,7 @@ import { SignupPageComponent } from './auth/pages/signup-page/signup-page.compon
 import { CustomerHomepageComponent } from './costumer/pages/costumer-homepage/costumer-homepage.component';
 import { NewRequestPageComponent } from './costumer/pages/new-request-page/new-request-page.component';
 import { VisualizeServiceEmployeeComponent } from './employee/pages/visualize-service-employee/visualize-service-employee.component';
+import { VisualizeServiceComponent } from './costumer/pages/visualize-service/visualize-service.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/index', pathMatch: 'full' },
@@ -13,5 +14,6 @@ export const routes: Routes = [
     { path: 'cadastro', component: SignupPageComponent },
     { path: 'customer', component: CustomerHomepageComponent },
     { path: 'nova-solicitacao', component: NewRequestPageComponent },
-    { path: 'visualizar-empregado', component: VisualizeServiceEmployeeComponent}
+    { path: 'visualizar-empregado', component: VisualizeServiceEmployeeComponent},
+    { path: 'visualizar-servico', component: VisualizeServiceComponent }
 ];
