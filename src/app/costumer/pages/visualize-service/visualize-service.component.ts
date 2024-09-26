@@ -82,8 +82,8 @@ export class VisualizeServiceComponent implements OnInit {
         requestStatusId: '4',
         dateTime: new Date(),
         category: 'redirected',
-        senderEmployee: '',
-        inChargeEmployee: 'Alisson Gabriel',
+        senderEmployee: 'Alisson Gabriel',
+        inChargeEmployee: 'Mateus Bazan',
         request: {} as Request
       }/* ,
       {
@@ -91,7 +91,7 @@ export class VisualizeServiceComponent implements OnInit {
         dateTime: new Date(),
         category: 'fixed',
         senderEmployee: '',
-        inChargeEmployee: 'Alisson Gabriel',
+        inChargeEmployee: 'Mateus Bazan',
         request: {} as Request
       },
       {
@@ -99,7 +99,7 @@ export class VisualizeServiceComponent implements OnInit {
         dateTime: new Date(),
         category: 'paid',
         senderEmployee: '',
-        inChargeEmployee: 'Alisson Gabriel',
+        inChargeEmployee: 'Mateus Bazan',
         request: {} as Request
       },
       {
@@ -107,7 +107,7 @@ export class VisualizeServiceComponent implements OnInit {
         dateTime: new Date(),
         category: 'finalized',
         senderEmployee: '',
-        inChargeEmployee: 'Alisson Gabriel',
+        inChargeEmployee: 'Mateus Bazan',
         request: {} as Request
       } */
     ],
