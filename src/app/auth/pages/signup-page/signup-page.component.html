@@ -1,0 +1,110 @@
+<app-navbar [isLogged]="false"></app-navbar>
+<div class="{{ screen }}">
+  <div class="{{ signInBox }}">
+    <div class="{{ title }}">Cadastro</div>
+    <div>
+      <form>
+        <div class="{{ sectionT1 }}">
+          <label class="{{ lable }}" for="name">Nome: </label>
+          <input class="{{ input }}" type="text" name="inputSame" id="name" />
+          <label class="{{ lable }}" for="surname">Sobrenome:</label>
+          <input
+            class="{{ input }}"
+            type="text"
+            name="InputSurname"
+            id="surname"
+          />
+        </div>
+
+        <div class="{{ sectionT1 }}">
+          <label class="{{ lable }}" for="email">Email: </label>
+          <input
+            class="{{ input }}"
+            type="text"
+            name="inputEmail"
+            id="email"
+            (blur)="onEmailBlur()"
+          />
+          <label class="{{ lable }}" for="cpf">CPF:</label>
+          <input
+            #cpfInput
+            class="{{ input }}"
+            type="text"
+            [value]="cpf | cpfMask"
+            name="inputCpf"
+            id="cpf"
+            (input)="onCpfInput($event)"
+            (blur)="onCpfBlur()"
+          />
+        </div>
+
+        <hr />
+
+        <div class="{{ sectionT2 }}">
+          <label class="{{ lable }}" for="cep">CEP: </label>
+          <input
+            #cepInput
+            class="{{ input }}"
+            type="text"
+            [value]="cep | cepMask"
+            name="inputCep"
+            id="cep"
+            (input)="onCepInput($event)"
+            (blur)="onCepBlur()"
+          />
+        </div>
+
+        <div class="{{ sectionT1 }}">
+          <label class="{{ lable }}" for="place">Logradouro: </label>
+          <input
+            class="{{ inputBlocked }}"
+            type="text"
+            name="inputPlace"
+            id="place"
+            readonly
+          />
+          <label class="{{ lable }}" for="number">Número: </label>
+          <input
+            class="{{ input }}"
+            type="text"
+            name="inputNumber"
+            id="number"
+          />
+        </div>
+
+        <div class="{{ sectionT1 }}">
+          <label class="{{ lable }}" for="city">Cidade: </label>
+          <input
+            class="{{ inputBlocked }}"
+            type="text"
+            name="inputCity"
+            id="city"
+            readonly
+          />
+          <label class="{{ lable }}" for="state">Estado: </label>
+          <input
+            class="{{ inputBlocked }}"
+            type="text"
+            name="inputState"
+            id="state"
+            readonly
+          />
+        </div>
+      </form>
+    </div>
+
+    <div class="{{ sectionT2 }}">
+      <button class="{{ button }}" type="button">Cadastrar-se!</button>
+    </div>
+  </div>
+  <div #errorMessage class="text-red-500 mt-2" style="display: none">
+    *CPF inválido
+  </div>
+  <div #cepErrorMessage class="text-red-500 mt-2" style="display: none">
+    *CEP inexistente
+  </div>
+  <div #emailErrorMessage class="text-red-500 mt-2" style="display: none">
+    *E-mail inválido
+  </div>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,41 @@
+.swiper {
+    width: 50%;
+    height: auto;
+    border-radius: 1.5rem;
+    cursor: grab;
+    margin: 0;
+    z-index: 0 !important;
+}
+
+.swiper-slide {
+    display: flex;
+    align-items: center;
+    border-radius: 1.5rem;
+    justify-content: center;
+    z-index: 0 !important;
+}
+
+.swiper-slide img {
+    object-fit: cover;
+    border-radius: 1.5rem;
+    border: 1px solid white;
+    z-index: 0 !important;
+}
+
+#title{
+    width: 45%;
+    height: auto;
+    right: 45%;
+    top: 4rem;
+    position: absolute;
+    display: inline-block;
+    z-index: 2 !important;
+}
+
+#title::before{
+    content: 'Sua manutenção sem tensão';
+    color: white;
+    position: absolute;
+    bottom: 0.125rem;
+    left: 0.125rem;
+}
