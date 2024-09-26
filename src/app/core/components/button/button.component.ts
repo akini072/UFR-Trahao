@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 
 type ButtonSize = 'small' | 'medium' | 'large';
 
-interface ButtonProps {
+export interface ButtonProps {
   text: string;
   color: string;
   size: ButtonSize;
