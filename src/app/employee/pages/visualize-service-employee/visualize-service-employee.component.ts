@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { ButtonComponent } from '../../../core/components/button/button.component';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
 import { Request } from '../../../core/types/request';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-visualize-service-employee',
   standalone: true,
-  imports: [ButtonComponent, NavbarComponent, FooterComponent],
+  imports: [ButtonComponent, NavbarComponent, FooterComponent, CommonModule],
   templateUrl: './visualize-service-employee.component.html',
   styleUrl: './visualize-service-employee.component.css'
 })
@@ -71,7 +72,7 @@ export class VisualizeServiceEmployeeComponent {
       {
         requestStatusId: '3',
         dateTime: new Date(),
-        category: 'open', // Replace 'someCategory' with the actual category
+        category: 'approved', // Replace 'someCategory' with the actual category
         senderEmployee: '',
         inChargeEmployee: 'Alisson Gabriel',
         request: {} as Request // Replace with actual request object if needed

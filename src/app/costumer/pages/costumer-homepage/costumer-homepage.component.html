@@ -9,12 +9,7 @@
     </div>
 </div>
 <div [ngClass]="style.container">
-</div>
 <div [ngClass]="style.requestGrid">
-<<<<<<< HEAD
-    <app-request-card *ngFor="let request of requestList" [request]="request"></app-request-card>
-</div>
-=======
     <app-request-card *ngFor="let request of getPaginatedRequests(searchQuery)" [request]="request"></app-request-card>
 </div>
 <div [ngClass]="style.paginationControl">
@@ -22,4 +17,3 @@
     <span [ngClass]="style.pageText">Página {{currentPage}} de {{totalPages}}</span>
     <app-button [props]="rightButtonProp"></app-button>
 </div>
->>>>>>> 40b2baa2014099728e31ada63b2eca80cd9d4e84
