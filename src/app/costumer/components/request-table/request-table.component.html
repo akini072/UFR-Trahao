@@ -1,0 +1,69 @@
+<table
+  class="table-auto border min-w-full border-gray-400 rounded-lg divide-gray-400 shadow"
+>
+  <thead class="bg-gray-50">
+    <tr>
+      <th
+        scope="col"
+        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+      >
+        ID
+      </th>
+      <th
+        scope="col"
+        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+      >
+        EQUIPAMENTO
+      </th>
+      <th
+        scope="col"
+        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+      >
+        DESC. SOLICITAÇÃO
+      </th>
+      <th
+        scope="col"
+        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+      >
+        DATA SOLICITAÇÃO
+      </th>
+      <th
+        scope="col"
+        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+      >
+        STATUS
+      </th>
+      <th
+        scope="col"
+        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+      >
+        AÇÃO
+      </th>
+    </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+    <tr *ngFor="let request of requests">
+      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+        {{ request.id }}
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        {{ request.title }}
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        {{ request.description | limitedDescription : 30 }}
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        {{ request.created_at | date : "dd/MM/yyyy" }}
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        {{ request.status  | statusText }}
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        <app-button-status
+          [color]="request.status | statusColor : 'background'"
+          [status]="request.status"
+        />
+      </td>
+    </tr>
+  </tbody>
+</table>
