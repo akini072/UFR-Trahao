@@ -1,0 +1,29 @@
+<div class="{{style.cardContainer}} ">
+  <div class="{{style.cardHeader}} {{getColorbyStatus(request.status)}}">
+    <p class="{{style.title}}">{{ request.title }}</p>
+    <p class="{{style.statusText}}">{{ getStatusText(request.status) }}</p>
+  </div>
+  <div class="{{style.cardContentContainer}}">
+    <div class="{{style.cardImageContainer}}">
+      <img class="" alt="Imagem da solicitação" src="{{'https://via.placeholder.com/150'}}">
+    </div>
+    <div class="{{style.cardDataContainer}}">
+      <div class="{{style.cardData}}">
+        <div>
+          <p class="{{style.cardDescription}}">{{ request.description | limitedDescription: 30 }}</p>
+        </div>
+        <div>
+          <p class="{{style.cardDate}}">{{request.created_at | date:'dd/MM/yyyy' }}</p>
+        </div>
+      </div>
+      <div class="{{style.cardButtonSection}}">
+        <div>
+          <app-button-status [status]="request.status" [color]="getColorbyStatus(request.status)"></app-button-status>
+        </div>
+        <div>
+          <a class="{{style.cardButton}} {{getColorbyStatus(request.status)}}">Visualizar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<!-- Tela para abrir novas solicitações -->
+
+<app-navbar></app-navbar>
+<p class="px-4 text-2xl font-bold text-primary-8 my-8 text-center md:text-left">Solicite um Serviço</p>
+
+<div class="categoria grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-20 max-w-4xl mx-auto p-6">
+    <label for="categoria" class="text-left md:text-right">Categoria do equipamento:</label>
+    <select name="categoria" id="categoria" class="md:col-span-2 max-w-min p-2 border-2 border-black rounded bg-transparent">
+        <option value="cadeiraErgonomica">Cadeira ergonômica</option>
+        <option value="caixaDeSomBluetooth">Caixa de som Bluetooth</option>
+        <option value="cameraFotograficaProfissional">Câmera fotográfica profissional</option>
+        <option value="fornoEletrico">Forno elétrico</option>
+        <option value="impressoraColorida">Impressora colorida</option>
+        <option value="maquinaDeCafe">Máquina de café</option>
+        <option value="mouseSemFio">Mouse sem fio</option>
+        <option value="notebookGamer">Notebook gamer</option>
+        <option value="projetorDeAltaDefinicao">Projetor de alta definição</option>
+        <option value="roteadorWifi">Roteador Wi-Fi</option>
+        <option value="smartTv4k">Smart TV 4K</option>
+        <option value="tabletComCanetaStylus">Tablet com caneta stylus</option>
+        <option value="tecladoMecanico">Teclado mecânico</option>
+        <option value="ventiladorDeTeto">Ventilador de teto</option>
+    </select>
+</div>
+
+<div class="descricao-equipamento max-w-4xl mx-auto p-6">
+    <div class="form grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-20 max-w-4xl mx-auto">
+        <label for="descricao-equipamento" class="md:text-right">Descrição do equipamento:</label>
+        <input type="text" name="descricao-equipamento" id="descricao-equipamento" (input)="getRemainingCharacters(30, 'descricao-equipamento')" maxlength="30" placeholder="Descreva o equipamento..." class="border-2 border-black rounded p-2 col-span-2">
+    </div>
+    <p class="col-span-3 text-right mt-2" [ngClass]="{'text-red-600': remainingCharactersEquipamento <= 5}">{{ remainingCharactersEquipamento }} caracteres restantes</p>
+</div>
+
+<div class="descricao-defeito max-w-4xl mx-auto p-6">
+    <div class="form grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-20 max-w-4xl mx-auto">
+        <label for="descricao-defeito" class="md:text-right">Descrição do defeito:</label>
+        <textarea name="descricao-defeito" id="descricao-defeito" (input)="getRemainingCharacters(255, 'descricao-defeito')" maxlength="255" placeholder="Insira os detalhes do problema..." class="border-2 border-black rounded p-2 col-span-2 h-40 resize-none"></textarea>
+    </div>
+    <p class="col-span-3 text-right mt-2" [ngClass]="{'text-red-600': remainingCharactersDefeito <= 5}">{{ remainingCharactersDefeito }} caracteres restantes</p>
+</div>
+
+<div class="buttons grid grid-cols-1 md:grid-cols-6 max-w-4xl mx-auto gap-4 p-6">
+    <input type="button" value="Voltar" class="cursor-pointer md:col-start-5 bg-primary-6 hover:bg-primary-9 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+    <input type="button" value="Solicitar" class="cursor-pointer md:col-start-6 bg-primary-6 hover:bg-primary-9 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+</div>
+
+<app-footer></app-footer>

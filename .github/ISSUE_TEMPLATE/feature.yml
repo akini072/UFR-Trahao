@@ -1,5 +1,5 @@
 name: Novo requisito
-title: RF<numero> - <breve descrição do requisito>
+title: FED - <breve descrição do requisito>
 description: "Requisito a ser implementado (Feature, História de usuário)"
 labels: ["feature"]
 projects: ["Salgado2004/projects/3"]
@@ -30,6 +30,10 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: "Lista de critérios de aceitação (use o formato de lista do markdown iniciando cada linha com -)"
+      label: "O que deve ser feito (use o formato de lista do markdown iniciando cada linha com -)"
     validations:
       required: true
+  - type: textarea
+    attributes:
+      label: "Notas"
+      description: "Outras informações úteis, regras de negócio, requisitos relacionados, links para a wiki, etc."
