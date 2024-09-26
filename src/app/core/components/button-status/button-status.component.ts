@@ -14,7 +14,7 @@ interface ButtonStatus{
   imports: [CommonModule, RouterModule],
   templateUrl: './button-status.component.html',
   styleUrl: './button-status.component.css'
-})
+})  
 
 export class ButtonStatusComponent {
   @Input() status!: RequestCategory;
