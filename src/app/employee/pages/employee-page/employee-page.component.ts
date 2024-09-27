@@ -23,7 +23,7 @@ export interface RequestItem {
 }
 
 @Component({
-  selector: 'app-costumer-homepage',
+  selector: 'app-employee-page',
   standalone: true,
   imports: [
     CommonModule,
