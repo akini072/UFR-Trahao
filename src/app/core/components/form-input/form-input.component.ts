@@ -5,15 +5,15 @@ import { Component, Input } from '@angular/core';
 type FormTextInputType = 'text' | 'password' | 'email' | 'number' | 'date';
 
 @Component({
-  selector: 'app-form-text-input',
+  selector: 'app-form-input',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './form-text-input.component.html',
-  styleUrls: ['./form-text-input.component.css'],
+  templateUrl: './form-input.component.html',
+  styleUrls: ['./form-input.component.css'],
   providers: [DatePipe]
 })
 
-export class FormTextInputComponent {
+export class FormInputComponent {
   @Input() type: FormTextInputType = 'text';
   @Input() placeholder: string | undefined;
   @Input() value: string | undefined;

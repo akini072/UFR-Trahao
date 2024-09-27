@@ -6,7 +6,7 @@ import { ServiceRequestTableComponent } from '../../components/service-request-t
 import { RequestTableComponent } from '../../../request-table/request-table.component';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
 import { ButtonComponent, ButtonProps } from "../../../core/components/button/button.component";
-import { FormTextInputComponent } from "../../../core/components/form-text-input/form-text-input.component";
+import { FormInputComponent } from "../../../core/components/form-input/form-input.component";
 import { RequestCategory } from '../../../core/types/request-category';
 export interface RequestItem {
   id: number;
@@ -20,7 +20,7 @@ export interface RequestItem {
 @Component({
   selector: 'app-costumer-homepage',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, ServiceRequestTableComponent, RouterModule, RequestTableComponent,RequestCardComponent, ButtonComponent, FormTextInputComponent],
+  imports: [CommonModule, NavbarComponent, ServiceRequestTableComponent, RouterModule, RequestTableComponent,RequestCardComponent, ButtonComponent, FormInputComponent],
   templateUrl: './costumer-homepage.component.html',
   styleUrls: ['./costumer-homepage.component.css'] // Corrigido para styleUrls
 })
