@@ -5,3 +5,4 @@
     <span class="material-icons">{{icon}}</span>
   </button>
 </div>
+<span *ngIf="control?.errors" [ngClass]="error">{{ getErrorMessage() }}</span>
