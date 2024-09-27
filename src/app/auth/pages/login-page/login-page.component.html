@@ -2,26 +2,26 @@
 <div [ngClass]="main">
   <div [ngClass]="form">
     <h2 [ngClass]="title">Login</h2>
-    <form>
-      <div class="mb-4">
+    <form [formGroup]="formGroup">
+      <div>
         <label [ngClass]="label" for="email">
-          E-mail
+          E-mail<span class="text-red-500 text-sm">*</span>
         </label>
-        <app-form-input type="email" placeholder="nome@dominio.com"></app-form-input>
+        <app-form-input type="email" placeholder="nome@dominio.com" [control]="email" [validations]="['email', 'required']"></app-form-input>
       </div>
 
-      <div class="mb-6">
+      <div>
         <label [ngClass]="label" for="password">
-          Senha
+          Senha<span class="text-red-500 text-sm">*</span>
         </label>
-        <app-form-input type="password" placeholder="****"></app-form-input>
+        <app-form-input type="password" placeholder="****" [control]="password" [validations]="['required']"></app-form-input>
       </div>
 
       <div [ngClass]="button">
+        <span *ngIf="error" [ngClass]="errorStyle">{{ getErrorMessage() }}</span>
         <app-button
           [props]="{text: 'Entrar', color: 'secondary-4', size: 'medium', textColor: 'white', hoverColor: 'secondary-6' , onClick: onLogin, extraClasses:'font-bold focus:outline-none focus:shadow-outline'}"></app-button>
       </div>
-
     </form>
 
     <hr class="mb-4">
