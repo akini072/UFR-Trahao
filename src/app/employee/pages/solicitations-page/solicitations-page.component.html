@@ -1,10 +1,27 @@
-<div class="{{ screen }}">
-  <app-navbar-employee></app-navbar-employee>
-  <div class="{{ aroundContainer }}">
-    <div class="{{ title }}">Todas as Solicitações:</div>
-    <div class="{{ centralContainer }}">
-      <div class="{{ solicitationArea }}"></div>
+<app-navbar-employee></app-navbar-employee>
+<div [ngClass]="style.pageTopContainer">
+  <p [ngClass]="style.title">Todas as Solicitações</p>
+  <div [ngClass]="style.innerContainer">
+    <div [ngClass]="style.searchContainer">
+      <app-form-text-input
+        (input)="searchKeyboard($event)"
+        placeholder="Pesquisar solicitação"
+      ></app-form-text-input>
     </div>
   </div>
-  <app-footer class="mt-auto"></app-footer>
 </div>
+<div [ngClass]="style.container"></div>
+<div [ngClass]="style.requestGrid">
+  <app-request-card
+    *ngFor="let request of getPaginatedRequests(searchQuery)"
+    [request]="request"
+  ></app-request-card>
+</div>
+<div [ngClass]="style.paginationControl">
+  <app-button [props]="leftButtonProp"></app-button>
+  <span [ngClass]="style.pageText"
+    >Página {{ currentPage }} de {{ totalPages }}</span
+  >
+  <app-button [props]="rightButtonProp"></app-button>
+</div>
+<app-footer></app-footer>
