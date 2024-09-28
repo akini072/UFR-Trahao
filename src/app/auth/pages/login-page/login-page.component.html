@@ -7,14 +7,14 @@
         <label [ngClass]="label" for="email">
           E-mail<span class="text-red-500 text-sm">*</span>
         </label>
-        <app-form-input type="email" placeholder="nome@dominio.com" [control]="email" [validations]="['email', 'required']"></app-form-input>
+        <app-form-input id="email" type="email" placeholder="nome@dominio.com" [control]="email" [validations]="['email', 'required']"></app-form-input>
       </div>
 
       <div>
         <label [ngClass]="label" for="password">
           Senha<span class="text-red-500 text-sm">*</span>
         </label>
-        <app-form-input type="password" placeholder="****" [control]="password" [validations]="['required']"></app-form-input>
+        <app-form-input id="password" type="password" placeholder="****" [control]="password" [validations]="['required']"></app-form-input>
       </div>
 
       <div [ngClass]="button">

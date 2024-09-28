@@ -34,7 +34,7 @@ export class LoginPageComponent {
 
   onLogin = () => {
     if (this.formGroup.valid) {
-      console.log(this.email.value, this.password.value);
+      console.log({'email': this.email.value, 'password': this.password.value});
       this.router.navigate(['/customer']);
     } else {
       this.error = true;
@@ -51,8 +51,8 @@ export class LoginPageComponent {
     return "Informações inválidas";
   }
 
-  main: string = "flex items-center justify-center min-h-screen bg-gray-100"
-  form: string = "bg-white p-8 rounded shadow-md w-full max-w-sm";
+  main: string = "flex items-center justify-center bg-gray-100"
+  form: string = "bg-white p-8 rounded shadow-md w-full max-w-sm my-8";
   label: string = "block text-gray-700 text-sm font-bold mb-2";
   button: string = "flex items-center justify-between flex-col gap-2 mb-4 flex md:justify-center";
   signUpSpan: string = "block text-sm text-gray-500 dark:text-neutral-400 text-center cursor-default";
