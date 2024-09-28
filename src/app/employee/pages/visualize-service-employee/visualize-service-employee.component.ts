@@ -77,7 +77,7 @@ export class VisualizeServiceEmployeeComponent {
       {
         requestStatusId: '3',
         dateTime: new Date(),
-        category: 'open', // Replace 'someCategory' with the actual category
+        category: 'approved', // Replace 'someCategory' with the actual category
         senderEmployee: '',
         inChargeEmployee: 'Alisson Gabriel',
         request: {} as Request // Replace with actual request object if needed
@@ -124,4 +124,13 @@ export class VisualizeServiceEmployeeComponent {
       console.log(value);
     });
   };
+
+  main:string = 'container mx-auto p-4';
+  title:string = 'text-2xl font-bold mb-4 text-center';
+  subtitle: string = "text-xl font-bold mb-4 basis-full";
+  submain: string = 'mb-4 px-8 p-4 border rounded-lg shadow-sm flex flex-wrap';
+  submain2: string = 'mb-4 p-4 border rounded-lg shadow-sm';
+  basisHalf: string = "basis-1/2 mb-4";
+  basisFull: string = "basis-full mb-4";
+  semibold: string = "font-semibold mb-2";
 }
