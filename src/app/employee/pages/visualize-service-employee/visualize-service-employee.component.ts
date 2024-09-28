@@ -88,7 +88,7 @@ export class VisualizeServiceEmployeeComponent {
     image: ''
   }
 
-  onFix(){
+  onFix=()=>{
     const data = {
       title: 'Serviço Realizado',
       message: 'Confirma que o serviço foi realizado?',
@@ -100,7 +100,7 @@ export class VisualizeServiceEmployeeComponent {
     //implementar a lógica para arrumar o componente. deve guardar o funcionario, data e hora
   };
 
-  onRedirect(){
+  onRedirect=()=>{
     //implementar a lógica para passar o concerto para outro funcionario
     const data = {
       title: 'Serviço Redirecionado',
@@ -114,5 +114,13 @@ export class VisualizeServiceEmployeeComponent {
 
   onBudget(){
     //implementar lógica de salvar o valor do orçamento e timestamp junto do nome do funcionario
+    const data = {
+      title: 'Orçamento',
+      message: 'Por favor, insira o valor do orçamento realizado',
+      label: 'Orçar',
+    };
+    this.modal.open(this.view, ModalType.INPUT, data).subscribe((value) => {
+      console.log(value);
+    });
   };
 }
