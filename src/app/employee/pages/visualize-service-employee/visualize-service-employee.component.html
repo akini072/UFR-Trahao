@@ -16,7 +16,7 @@
 </div>
 <div *ngIf="approved">
   <p>Valor orçado:</p> <label for="">{{request.budget | currency: 'BRL'}}</label>
-  <app-button [props]="{text: 'Efetuar Manutenção', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onFix,}"></app-button>
-  <app-button [props]="{text: 'Redirecionar', icon: '',iconPosition: 'left', color: 'gray-400', size: 'medium', textColor: 'black', hoverColor: 'gray-300', onClick: onRedirect,}"></app-button>
+  <app-button [props]="{text: 'Efetuar Manutenção', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onFix}"></app-button>
+  <app-button [props]="{text: 'Redirecionar', icon: '',iconPosition: 'left', color: 'gray-400', size: 'medium', textColor: 'black', hoverColor: 'gray-300', onClick: onRedirect}"></app-button>
 </div>
 <app-footer></app-footer>
