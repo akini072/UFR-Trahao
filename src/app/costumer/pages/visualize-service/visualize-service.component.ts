@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  SimpleChanges,
-  ViewContainerRef,
-} from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
@@ -117,8 +112,7 @@ export class VisualizeServiceComponent implements OnInit {
     image: '',
   };
 
-  ngOnChanges(): void {}
-  onReject() {
+  onReject = () => {
     //Adicionar o Modal que rejeita o nosso orçamento.
     const data = {
       title: 'Serviço Recusado',
@@ -130,11 +124,11 @@ export class VisualizeServiceComponent implements OnInit {
     });
   }
 
-  onApprove() {
+  onApprove = () => {
     //Adicionar o Modal que aprova o nosso orçamento.
     const data = {
       title: 'Serviço Aprovado',
-      message: 'Serviço aprovado no valor de R$ xxxx',
+      message: 'Serviço aprovado no valor de R$ ' + this.request.budget + '.',
       label: 'Aprovar',
     };
     this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
@@ -142,11 +136,11 @@ export class VisualizeServiceComponent implements OnInit {
     });
   }
 
-  onPay() {
+  onPay = () => {
     //Adicioanr o Modal que paga.
   }
 
-  onRescue() {
+  onRescue = () => {
     //Adicionar o Modal que resgata
     const data = {
       title: 'Resgatar Serviço',
