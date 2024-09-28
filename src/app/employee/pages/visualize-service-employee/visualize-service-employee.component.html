@@ -1,25 +1,27 @@
 <app-navbar [isLogged]="true"></app-navbar>
-<div [ngClass]="main">
-  <h1 [ngClass]="title">Detalhes do Serviço</h1>
+<div class="bg-gray-100">
 
-  <div [ngClass]="submain"> <!-- client information -->
-    <h2 [ngClass]="subtitle"> Informações do Cliente </h2>
+  <div [ngClass]="main">
+    <h1 [ngClass]="title">Detalhes do Serviço</h1>
 
-    <div [ngClass]="basisHalf">
-      <p [ngClass]="semibold">Cliente</p>
-      <label for="" class="block">{{request.requestId}}</label>
-      <!-- só pra nao ficar vazio mas teria q pegar do cliente -->
-    </div>
+    <div [ngClass]="submain"> <!-- client information -->
+      <h2 [ngClass]="subtitle"> Informações do Cliente </h2>
 
-    <div [ngClass]="basisHalf">
-      <p [ngClass]="semibold">CPF</p>
-      <label for="" class="block">{{request.requestId}}</label>
-      <!-- só pra nao ficar vazio mas teria q pegar do cliente -->
-    </div>
+      <div [ngClass]="basisHalf">
+        <p [ngClass]="semibold">Cliente</p>
+        <label for="" class="block">{{request.requestId}}</label>
+        <!-- só pra nao ficar vazio mas teria q pegar do cliente -->
+      </div>
 
-    <div [ngClass]="basisHalf">
-      <p [ngClass]="semibold">Email</p>
-      <label for="" class="block">{{request.requestId}}</label>
+      <div [ngClass]="basisHalf">
+        <p [ngClass]="semibold">CPF</p>
+        <label for="" class="block">{{request.requestId}}</label>
+        <!-- só pra nao ficar vazio mas teria q pegar do cliente -->
+      </div>
+
+      <div [ngClass]="basisHalf">
+        <p [ngClass]="semibold">Email</p>
+        <label for="" class="block">{{request.requestId}}</label>
       <!-- só pra nao ficar vazio mas teria q pegar do cliente -->
     </div>
 
@@ -61,7 +63,7 @@
     <input type="text" value="" class="border p-2 rounded mb-4 me-4 basis-1/3"/>
     <!-- TODO: DEIXAR MASCARAS DE DINHEIRO PARA AS GERAÇÕES FUTURAS TAMBÉM TROCAR O INPUT 👍 (Y)-->
     <app-button
-      [props]="{text: 'Orçar', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onBudget,}"></app-button>
+    [props]="{text: 'Orçar', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onBudget,}"></app-button>
   </div>
 
   <div *ngIf="approved" [ngClass]="submain2">
@@ -69,9 +71,11 @@
     <p [ngClass]="semibold">Valor orçado:</p>
     <label for="" class="block mb-4">{{request.budget | currency: 'BRL'}}</label>
     <app-button class="me-4"
-      [props]="{text: 'Efetuar Manutenção', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onFix}"></app-button>
+    [props]="{text: 'Efetuar Manutenção', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onFix}"></app-button>
     <app-button
-      [props]="{text: 'Redirecionar', icon: '',iconPosition: 'left', color: 'gray-400', size: 'medium', textColor: 'black', hoverColor: 'gray-300', onClick: onRedirect}"></app-button>
+    [props]="{text: 'Redirecionar', icon: '',iconPosition: 'left', color: 'gray-400', size: 'medium', textColor: 'black', hoverColor: 'gray-300', onClick: onRedirect}"></app-button>
   </div>
 </div>
+</div>
 <app-footer></app-footer>
+

@@ -126,10 +126,10 @@ export class VisualizeServiceEmployeeComponent {
   };
 
   main:string = 'container mx-auto p-4';
+  submain: string = 'mb-4 px-8 p-4 border rounded-lg shadow-sm flex flex-wrap bg-white';
+  submain2: string = 'mb-4 p-4 border rounded-lg shadow-sm bg-white';
   title:string = 'text-2xl font-bold mb-4 text-center';
   subtitle: string = "text-xl font-bold mb-4 basis-full";
-  submain: string = 'mb-4 px-8 p-4 border rounded-lg shadow-sm flex flex-wrap';
-  submain2: string = 'mb-4 p-4 border rounded-lg shadow-sm';
   basisHalf: string = "basis-1/2 mb-4";
   basisFull: string = "basis-full mb-4";
   semibold: string = "font-semibold mb-2";
