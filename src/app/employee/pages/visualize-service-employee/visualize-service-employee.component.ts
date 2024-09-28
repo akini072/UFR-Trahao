@@ -1,9 +1,11 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,ViewContainerRef } from '@angular/core';
 import { ButtonComponent } from '../../../core/components/button/button.component';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
 import { Request } from '../../../core/types/request';
 import { CommonModule } from '@angular/common';
+import { ModalService } from '../../../core/utils/modal.service';
+import { ModalType } from '../../../core/types/modal-type';
 
 @Component({
   selector: 'app-visualize-service-employee',
@@ -13,6 +15,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './visualize-service-employee.component.css'
 })
 export class VisualizeServiceEmployeeComponent {
+
+  constructor(private modal: ModalService, private view: ViewContainerRef) {}
 
   open: boolean = false;
   approved: boolean = false;
@@ -84,12 +88,28 @@ export class VisualizeServiceEmployeeComponent {
     image: ''
   }
 
-  onFix(){}
+  onFix(){
+    const data = {
+      title: 'Serviço Realizado',
+      message: 'Confirma que o serviço foi realizado?',
+      label: 'Realizar',
+    };
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
+      console.log(value);
+    });
     //implementar a lógica para arrumar o componente. deve guardar o funcionario, data e hora
-  ;
+  };
 
   onRedirect(){
     //implementar a lógica para passar o concerto para outro funcionario
+    const data = {
+      title: 'Serviço Redirecionado',
+      message: 'Por favor, informe o nome do funcionario a redirecionar',
+      label: 'Redirecionar',
+    };
+    this.modal.open(this.view, ModalType.INPUT, data).subscribe((value) => {
+      console.log(value);
+    });
   };
 
   onBudget(){
