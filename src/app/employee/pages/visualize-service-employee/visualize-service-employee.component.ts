@@ -6,11 +6,12 @@ import { Request } from '../../../core/types/request';
 import { CommonModule } from '@angular/common';
 import { ModalService } from '../../../core/utils/modal.service';
 import { ModalType } from '../../../core/types/modal-type';
+import { StatusStepperComponent } from "../../../costumer/components/status-stepper/status-stepper.component";
 
 @Component({
   selector: 'app-visualize-service-employee',
   standalone: true,
-  imports: [ButtonComponent, NavbarComponent, FooterComponent, CommonModule],
+  imports: [ButtonComponent, NavbarComponent, FooterComponent, CommonModule, StatusStepperComponent],
   templateUrl: './visualize-service-employee.component.html',
   styleUrl: './visualize-service-employee.component.css'
 })
@@ -76,7 +77,7 @@ export class VisualizeServiceEmployeeComponent {
       {
         requestStatusId: '3',
         dateTime: new Date(),
-        category: 'approved', // Replace 'someCategory' with the actual category
+        category: 'open', // Replace 'someCategory' with the actual category
         senderEmployee: '',
         inChargeEmployee: 'Alisson Gabriel',
         request: {} as Request // Replace with actual request object if needed
