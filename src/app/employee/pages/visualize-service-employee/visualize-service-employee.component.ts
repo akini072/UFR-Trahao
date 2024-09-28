@@ -113,14 +113,14 @@ export class VisualizeServiceEmployeeComponent {
     });
   };
 
-  onBudget(){
+  onBudget=()=>{
     //implementar lógica de salvar o valor do orçamento e timestamp junto do nome do funcionario
     const data = {
       title: 'Orçamento',
-      message: 'Por favor, insira o valor do orçamento realizado',
+      message: 'Por favor, confira o valor do orçamento',
       label: 'Orçar',
     };
-    this.modal.open(this.view, ModalType.INPUT, data).subscribe((value) => {
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
       console.log(value);
     });
   };
