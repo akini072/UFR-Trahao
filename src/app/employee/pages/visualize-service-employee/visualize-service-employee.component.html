@@ -1,10 +1,10 @@
 <app-navbar [isLogged]="true"></app-navbar>
 <h1>Detalhes do Serviço</h1>
-<div>
+<div class="client information">
   <p>Cliente</p><label for="">{{request.requestId}}</label> //só pra nao ficar vazio mas teria q pegar do cliente
   <p>CPF</p><label for="">{{request.requestId}}</label> //só pra nao ficar vazio mas teria q pegar do cliente
 </div>
-<div>
+<div class="request status information">
   <p>Tipo de equipamento</p> <label for="">{{request.equipmentDesc}}</label>
   <p>Descrição da requisição</p> <label for="">{{request.requestDesc}}</label>
   <p>Descrição do problema</p> <label for="">{{request.defectDesc}}</label>
