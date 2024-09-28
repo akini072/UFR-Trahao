@@ -3,7 +3,10 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 export class CustomValidator{
     cpfValidator(): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
-            const cpf = control.value;
+            const cpf = control.value?.replace(/\D/g, '');
+            if (!cpf) {
+                return null;
+            }
             if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
                 return { invalidCpf: true };
             }
@@ -36,7 +39,10 @@ export class CustomValidator{
 
     cepValidator(): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
-            const cep = control.value;
+            const cep = control.value?.replace(/\D/g, '');
+            if (!cep) {
+                return null;
+            }
             if (cep.length !== 8) {
                 return { invalidCep: true };
             }
