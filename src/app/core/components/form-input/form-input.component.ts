@@ -6,7 +6,7 @@ import { CepMaskPipe } from '../../utils/pipes/cepMask/cep-mask.pipe';
 import { CpfMaskPipe } from '../../utils/pipes/cpfMask/cpf-mask.pipe';
 
 
-type FormTextInputType = 'text' | 'password' | 'email' | 'number' | 'date';
+type FormTextInputType = 'text' | 'password' | 'email' | 'number';
 
 @Component({
   selector: 'app-form-input',
@@ -18,6 +18,7 @@ type FormTextInputType = 'text' | 'password' | 'email' | 'number' | 'date';
 })
 
 export class FormInputComponent {
+  @Input() id?: string;
   @Input() type: FormTextInputType = 'text';
   @Input() validations?: string[];
   @Input() placeholder?: string;
