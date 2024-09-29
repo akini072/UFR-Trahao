@@ -1,0 +1,114 @@
+{
+    "addresses": [
+        {
+            "addressId": 1,
+            "cep": "12345-678",
+            "uf": "SP",
+            "city": "São Paulo",
+            "district": "Centro",
+            "street": "Rua Exemplo 1",
+            "number": "123",
+            "active": true
+        },
+        {
+            "addressId": 2,
+            "cep": "23456-789",
+            "uf": "SP",
+            "city": "São Paulo",
+            "district": "Jardins",
+            "street": "Rua Exemplo 2",
+            "number": "456",
+            "active": true
+        },
+        {
+            "addressId": 3,
+            "cep": "34567-890",
+            "uf": "SP",
+            "city": "São Paulo",
+            "district": "Itaim",
+            "street": "Rua Exemplo 3",
+            "number": "789",
+            "active": true
+        },
+        {
+            "addressId": 4,
+            "cep": "45678-901",
+            "uf": "SP",
+            "city": "São Paulo",
+            "district": "Moema",
+            "street": "Rua Exemplo 4",
+            "number": "101",
+            "active": true
+        },
+        {
+            "addressId": 5,
+            "cep": "56789-012",
+            "uf": "SP",
+            "city": "São Paulo",
+            "district": "Pinheiros",
+            "street": "Rua Exemplo 5",
+            "number": "202",
+            "active": true
+        },
+        {
+            "addressId": 6,
+            "cep": "67890-123",
+            "uf": "SP",
+            "city": "São Paulo",
+            "district": "Vila Mariana",
+            "street": "Rua Exemplo 6",
+            "number": "303",
+            "active": true
+        },
+        {
+            "addressId": 7,
+            "cep": "78901-234",
+            "uf": "SP",
+            "city": "São Paulo",
+            "district": "Santana",
+            "street": "Rua Exemplo 7",
+            "number": "404",
+            "active": true
+        },
+        {
+            "addressId": 8,
+            "cep": "89012-345",
+            "uf": "SP",
+            "city": "São Paulo",
+            "district": "Lapa",
+            "street": "Rua Exemplo 8",
+            "number": "505",
+            "active": true
+        },
+        {
+            "addressId": 9,
+            "cep": "90123-456",
+            "uf": "SP",
+            "city": "São Paulo",
+            "district": "Liberdade",
+            "street": "Rua Exemplo 9",
+            "number": "606",
+            "active": false
+        },
+        {
+            "addressId": 10,
+            "cep": "01234-567",
+            "uf": "SP",
+            "city": "São Paulo",
+            "district": "Vila Prudente",
+            "street": "Rua Exemplo 10",
+            "number": "707",
+            "active": false
+        },
+        {
+            "addressId": 11,
+            "cep": "12345-678",
+            "uf": "SP",
+            "city": "São Paulo",
+            "district": "Tatuapé",
+            "street": "Rua Exemplo 11",
+            "number": "808",
+            "active": false
+        }
+    ]
+}
