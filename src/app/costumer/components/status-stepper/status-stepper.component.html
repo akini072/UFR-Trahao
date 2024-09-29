@@ -1,8 +1,18 @@
 <ol [ngClass]="ol">
   <li *ngFor="let status of statusList; let i = index" [ngClass]="getLiClass(i)">
-    <div [ngClass]="item">
+    <div [ngClass]="item" [attr.data-popover-target]="'popover-information' + i">
       <span [ngClass]="getSpanClass(status.category, i)" [innerHTML]="getSpanValue(i)"></span>
       {{ getStepLabel(status.category) }}
+    </div>
+
+    <div data-popover [id]="'popover-information' + i" role="tooltip" [ngClass]="pop">
+      <div [ngClass]="getPopoverHeadClass(status.category)">
+        <h3 [ngClass]="popoverTitle" [innerHTML]="getStepLabel(status.category)"></h3>
+      </div>
+      <div class="px-3 py-2">
+        <p [innerHTML]="getPopoverText(i)"></p>
+      </div>
+      <div data-popper-arrow></div>
     </div>
   </li>
 </ol>
