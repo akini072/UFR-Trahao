@@ -1,0 +1,7 @@
+<div [ngClass]="style.container">
+  <h2 [ngClass]="style.header">Filtros:</h2>
+  <div [ngClass]="style.filtersContainer">
+    <app-filter-select filterType="status" [onFilter]="onFilter"></app-filter-select>
+    <app-filter-select filterType="date" [onFilter]="onFilter"></app-filter-select>
+  </div>
+</div>
