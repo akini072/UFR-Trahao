@@ -7,7 +7,7 @@ import { RequestCategory } from '../../../types/request-category';
 })
 export class StatusTextPipe implements PipeTransform {
 
-  transform(value: RequestCategory): string {
+  transform(value: string): string {
     switch(value) {
       case 'open':
         return 'Aberta';

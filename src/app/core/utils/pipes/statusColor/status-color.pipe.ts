@@ -3,6 +3,7 @@ import {
   statusBGColor,
   statusBorderColor,
   statusTextColor,
+  statusColor
 } from '../../../types/status-color';
 import { RequestCategory } from '../../../types/request-category';
 
@@ -13,14 +14,14 @@ import { RequestCategory } from '../../../types/request-category';
 export class StatusColorPipe implements PipeTransform {
   transform(
     status: RequestCategory,
-    type: 'background' | 'border' | 'text'
+    type?: 'background' | 'border' | 'text' 
   ): string {
     const map =
-      type === 'background'
+      type ? (type === 'background'
         ? statusBGColor
         : type === 'border'
         ? statusBorderColor
-        : statusTextColor;
+        : statusTextColor) : statusColor;
 
     const defaultReturn =
       type === 'background'
