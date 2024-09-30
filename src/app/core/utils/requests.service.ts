@@ -1,6 +1,6 @@
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { RequestItem } from '../types/request-item';
 import { map } from 'rxjs/operators';
@@ -14,12 +14,14 @@ export class RequestsService {
   constructor(private http: HttpClient) { }
 
   listRequests(): Observable<RequestItem[]> {
-    return this.http.get<{ requests: any[] }>(this.baseUrl + 'requests.json').pipe(
-      map((response) => {
-        const requestMap: { [key: number]: { createdAt: string; status: string; requestDesc: string; defectDesc: string } } = {};
+    const requests$ = this.http.get<{ requests: any[] }>(this.baseUrl + 'requests.json');
+    const statuses$ = this.http.get<{ statuses: any[] }>(this.baseUrl + 'requestStatuses.json');
   
-        response.requests.forEach((status) => {
-          const { requestId, statusDesc, dateTime, requestDesc, defectDesc } = status;
+    return forkJoin([requests$, statuses$]).pipe(
+      map(([requestsResponse, statusesResponse]) => {
+        const requestMap: { [key: number]: { createdAt: string; status: string; requestDesc: string; defectDesc: string } } = {};
+        requestsResponse.requests.forEach((request) => {
+          const { requestId, statusDesc, dateTime, requestDesc, defectDesc } = request;
   
           if (!requestMap[requestId]) {
             requestMap[requestId] = { 
@@ -36,6 +38,13 @@ export class RequestsService {
           }
         });
   
+        statusesResponse.statuses.forEach((status) => {
+          const { requestId, statusDesc } = status;
+          if (requestMap[requestId]) {
+            requestMap[requestId].status = statusDesc;
+          }
+        });
+  
         return Object.entries(requestMap).map(([requestId, data]) => ({
           id: Number(requestId),
           title: data.requestDesc,
@@ -46,5 +55,5 @@ export class RequestsService {
         })) as RequestItem[];
       })
     );
-  }  
+  }    
 }
