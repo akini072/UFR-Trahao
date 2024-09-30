@@ -3,10 +3,10 @@
   <p [ngClass]="style.title">Solicitações em Aberto</p>
   <div [ngClass]="style.innerContainer">
     <div [ngClass]="style.searchContainer">
-      <app-form-text-input
+      <app-form-input
         (input)="searchKeyboard($event)"
         placeholder="Pesquisar solicitação"
-      ></app-form-text-input>
+      ></app-form-input>
     </div>
   </div>
 </div>

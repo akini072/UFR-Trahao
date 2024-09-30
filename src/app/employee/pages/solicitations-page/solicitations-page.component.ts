@@ -9,7 +9,7 @@ import {
   ButtonComponent,
   ButtonProps,
 } from '../../../core/components/button/button.component';
-import { FormTextInputComponent } from '../../../core/components/form-text-input/form-text-input.component';
+import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { RequestCategory } from '../../../core/types/request-category';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
 import { FilterSelectComponent } from '../../../costumer/components/filter-section/components/filter-select/filter-select.component';
@@ -36,7 +36,7 @@ export interface RequestItem {
     RequestTableComponent,
     RequestCardComponent,
     ButtonComponent,
-    FormTextInputComponent,
+    FormInputComponent,
     NavbarEmployeeComponent,
     FooterComponent,
     FilterSelectComponent,
