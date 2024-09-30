@@ -4,11 +4,8 @@ import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { ServiceRequestTableComponent } from '../../components/service-request-table/service-request-table.component';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
-import {
-  ButtonComponent,
-  ButtonProps,
-} from '../../../core/components/button/button.component';
-import { FormTextInputComponent } from '../../../core/components/form-text-input/form-text-input.component';
+import { ButtonComponent, ButtonProps } from "../../../core/components/button/button.component";
+import { FormInputComponent } from "../../../core/components/form-input/form-input.component";
 import { RequestCategory } from '../../../core/types/request-category';
 import { RequestTableComponent } from '../../components/request-table/request-table.component';
 import { FilterSectionComponent } from '../../components/filter-section/filter-section.component';
@@ -32,7 +29,7 @@ export interface RequestItem {
     RouterModule,
     RequestCardComponent,
     ButtonComponent,
-    FormTextInputComponent,
+    FormInputComponent,
     RequestTableComponent,
     FilterSectionComponent,
     ToggleSwitchComponent,

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../modal.component';
-import { FormTextInputComponent } from '../../form-text-input/form-text-input.component';
+import { FormInputComponent } from '../../form-input/form-input.component';
 
 @Component({
   selector: 'app-modal-input',
   standalone: true,
-  imports: [CommonModule, FormTextInputComponent],
+  imports: [CommonModule, FormInputComponent],
   templateUrl: '../modal.component.html',
 })
 export class ModalInputComponent extends ModalComponent implements OnInit {
