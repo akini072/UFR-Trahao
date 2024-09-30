@@ -1,56 +1,131 @@
 <app-navbar [isLogged]="false"></app-navbar>
-<div [ngClass]="screen">
-  <div [ngClass]="signInBox">
-    <div [ngClass]="title">Cadastro</div>
+<div [ngClass]="style.screen">
+  <div [ngClass]="style.signInBox">
+    <div [ngClass]="style.title">Cadastro</div>
     <div>
       <form>
-        <div [ngClass]="sectionT1">
-          <label [ngClass]="lable" for="name">Nome<span class="text-red-500 text-sm">*</span></label>
-          <app-form-input type="text" placeholder="Digite seu nome" [control]="nome" [validations]="['required']"
-            class="w-full md:w-2/3 lg:w-1/2" />
-          <label [ngClass]="lable" for="surname">Sobrenome<span class="text-red-500 text-sm">*</span></label>
-          <app-form-input type="text" placeholder="Digite seu sobrenome" [control]="sobrenome"
-            [validations]="['required']" class="w-full md:w-2/3 lg:w-1/2" />
+        <div [ngClass]="style.sectionT1">
+          <label [ngClass]="style.lable" for="name"
+            >Nome<span class="{{ style.requiredSpan }}">*</span></label
+          >
+          <app-form-input
+            type="text"
+            placeholder="Digite seu nome"
+            [control]="nome"
+            [validations]="['required']"
+            class="w-full md:w-2/3 lg:w-1/2"
+          />
+          <label [ngClass]="style.lable" for="surname"
+            >Sobrenome<span class="{{ style.requiredSpan }}">*</span></label
+          >
+          <app-form-input
+            type="text"
+            placeholder="Digite seu sobrenome"
+            [control]="sobrenome"
+            [validations]="['required']"
+            class="w-full md:w-2/3 lg:w-1/2"
+          />
         </div>
 
-        <div [ngClass]="sectionT1">
-          <label [ngClass]="lable" for="email">Email<span class="text-red-500 text-sm">*</span></label>
-          <app-form-input id="email" type="email" placeholder="nome@dominio.com" [control]="email"
-            [validations]="['email', 'required']" class="w-full md:w-2/3 lg:w-1/2" />
-          <label [ngClass]="lable" for="cpf">CPF<span class="text-red-500 text-sm">*</span></label>
-          <app-form-input id="cpf" type="text" placeholder="Digite seu CPF" [control]="cpf" [validations]="['required', 'cpf']"
-            class="w-full md:w-2/3 lg:w-1/2" mask="cpf" />
+        <div [ngClass]="style.sectionT1">
+          <label [ngClass]="style.lable" for="email"
+            >Email<span class="{{ style.requiredSpan }}">*</span></label
+          >
+          <app-form-input
+            id="email"
+            type="email"
+            placeholder="nome@dominio.com"
+            [control]="email"
+            [validations]="['email', 'required']"
+            class="w-full md:w-2/3 lg:w-1/2"
+          />
+          <label [ngClass]="style.lable" for="cpf"
+            >CPF<span class="{{ style.requiredSpan }}">*</span></label
+          >
+          <app-form-input
+            id="cpf"
+            type="text"
+            placeholder="Digite seu CPF"
+            [control]="cpf"
+            [validations]="['required', 'cpf']"
+            class="w-full md:w-2/3 lg:w-1/2"
+            mask="cpf"
+          />
         </div>
 
         <hr />
 
-        <div [ngClass]="sectionT3">
-          <label [ngClass]="lable" for="cep">CEP<span class="text-red-500 text-sm">*</span></label>
-          <app-form-input type="text" placeholder="Digite seu CEP" [control]="cep" [validations]="['required', 'cep']"
-            class="w-full md:w-2/3 lg:w-1/2" mask="cep"/>
+        <div [ngClass]="style.sectionT3">
+          <label [ngClass]="style.lable" for="cep"
+            >CEP<span class="{{ style.requiredSpan }}">*</span></label
+          >
+          <app-form-input
+            type="text"
+            placeholder="Digite seu CEP"
+            [control]="cep"
+            [validations]="['required', 'cep']"
+            class="w-full md:w-2/3 lg:w-1/2"
+            mask="cep"
+          />
         </div>
 
-        <div [ngClass]="sectionT1">
-          <label [ngClass]="lable" for="place">Logradouro: </label>
-          <input [ngClass]="inputBlocked" type="text" placeholder="Rua, Avenida, etc" id="place" readonly />
-          <label [ngClass]="lable" for="number">Número<span class="text-red-500 text-sm">*</span></label>
-          <app-form-input type="number" placeholder="Digite o número" [control]="numero"
-            [validations]="['required', 'number']" class="w-full md:w-2/3 lg:w-1/2" />
+        <div [ngClass]="style.sectionT1">
+          <label [ngClass]="style.lable" for="place">Logradouro: </label>
+          <input
+            [ngClass]="style.inputBlocked"
+            type="text"
+            placeholder="Rua, Avenida, etc"
+            id="place"
+            readonly
+          />
+          <label [ngClass]="style.lable" for="number"
+            >Número<span class="{{ style.requiredSpan }}">*</span></label
+          >
+          <app-form-input
+            type="number"
+            placeholder="Digite o número"
+            [control]="numero"
+            [validations]="['required', 'number']"
+            class="w-full md:w-2/3 lg:w-1/2"
+          />
         </div>
 
-        <div [ngClass]="sectionT1">
-          <label [ngClass]="lable" for="city">Cidade: </label>
-          <input [ngClass]="inputBlocked" type="text" id="city" placeholder="Cidade" readonly />
-          <label [ngClass]="lable" for="state">Estado: </label>
-          <input [ngClass]="inputBlocked" type="text" id="state" placeholder="UF" readonly />
+        <div [ngClass]="style.sectionT1">
+          <label [ngClass]="style.lable" for="city">Cidade: </label>
+          <input
+            [ngClass]="style.inputBlocked"
+            type="text"
+            id="city"
+            placeholder="Cidade"
+            readonly
+          />
+          <label [ngClass]="style.lable" for="state">Estado: </label>
+          <input
+            [ngClass]="style.inputBlocked"
+            type="text"
+            id="state"
+            placeholder="UF"
+            readonly
+          />
         </div>
       </form>
     </div>
 
-    <div [ngClass]="sectionT2">
-      <span *ngIf="error" [ngClass]="errorStyle">{{ getErrorMessage() }}</span>
+    <div [ngClass]="style.sectionT2">
+      <span *ngIf="error" [ngClass]="style.errorStyle">{{
+        getErrorMessage()
+      }}</span>
       <app-button
-          [props]="{text: 'Cadastrar-se', color: 'secondary-4', size: 'medium', textColor: 'white', hoverColor: 'secondary-6' , onClick: onSignUp, extraClasses:'font-bold focus:outline-none focus:shadow-outline'}"></app-button>
+        [props]="{
+          text: 'Cadastrar-se',
+          color: 'secondary-4',
+          size: 'medium',
+          textColor: 'white',
+          hoverColor: 'secondary-6',
+          onClick: onSignUp,
+          extraClasses: 'font-bold focus:outline-none focus:shadow-outline'
+        }"
+      ></app-button>
     </div>
   </div>
 </div>
