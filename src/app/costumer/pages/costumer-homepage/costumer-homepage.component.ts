@@ -13,6 +13,8 @@ import { RequestTableComponent } from '../../components/request-table/request-ta
 import { FilterSectionComponent } from '../../components/filter-section/filter-section.component';
 import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/toggle-switch.component';
 import { RequestItem } from '../../../core/types/request-item';
+import { RequestsService } from '../../../core/utils/requests.service'
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-costumer-homepage',
@@ -28,12 +30,13 @@ import { RequestItem } from '../../../core/types/request-item';
     RequestTableComponent,
     FilterSectionComponent,
     ToggleSwitchComponent,
+    HttpClientModule
   ],
   templateUrl: './costumer-homepage.component.html',
   styleUrls: ['./costumer-homepage.component.css'],
 })
 export class CustomerHomepageComponent implements OnInit, OnDestroy {
-  requestList: RequestItem[] = []
+  requestList: RequestItem[] = [];
 
   style = {
     navbar: '',
@@ -62,12 +65,16 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
   activeFilters: { filter: string; value?: string }[] = [];
   displayTable: boolean = false;
 
-  constructor(private router: Router, private renderer: Renderer2) {
+  constructor(private router: Router, private renderer: Renderer2, private requestsService : RequestsService) {
     this.updateTotalPages();
     this.updateItemsPerPage(window.innerWidth);
   }
 
   ngOnInit(): void {
+    this.requestsService.listRequests().subscribe((data) => {
+      this.requestList = data;
+      this.activeRequestList = this.requestList;
+    });
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
       this.updateItemsPerPage(event.target.innerWidth);
       this.updateTotalPages();
