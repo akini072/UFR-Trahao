@@ -1,27 +1,47 @@
-<div class="{{style.cardContainer}} ">
-  <div class="{{style.cardHeader}} {{getColorbyStatus(request.status)}}">
-    <p class="{{style.title}}">{{ request.title }}</p>
-    <p class="{{style.statusText}}">{{ getStatusText(request.status) }}</p>
+<div class="{{ style.cardContainer }} ">
+  <div
+    class="{{ style.cardHeader }} {{
+      request.status | statusColor : 'background'
+    }}"
+  >
+    <p class="{{ style.title }}">{{ request.title }}</p>
+    <p class="{{ style.statusText }}">{{request.status | statusText }}</p>
   </div>
-  <div class="{{style.cardContentContainer}}">
-    <div class="{{style.cardImageContainer}}">
-      <img class="" alt="Imagem da solicitação" src="{{'https://via.placeholder.com/150'}}">
+  <div class="{{ style.cardContentContainer }}">
+    <div class="{{ style.cardImageContainer }}">
+      <img
+        class=""
+        alt="Imagem da solicitação"
+        src="{{ 'https://via.placeholder.com/150' }}"
+      />
     </div>
-    <div class="{{style.cardDataContainer}}">
-      <div class="{{style.cardData}}">
+    <div class="{{ style.cardDataContainer }}">
+      <div class="{{ style.cardData }}">
         <div>
-          <p class="{{style.cardDescription}}">{{ request.description | limitedDescription: 30 }}</p>
+          <p class="{{ style.cardDescription }}">
+            {{ request.description | limitedDescription : 30 }}
+          </p>
         </div>
         <div>
-          <p class="{{style.cardDate}}">{{request.created_at | date:'dd/MM/yyyy' }}</p>
+          <p class="{{ style.cardDate }}">
+            {{ request.created_at | date : "dd/MM/yyyy" }}
+          </p>
         </div>
       </div>
-      <div class="{{style.cardButtonSection}}">
+      <div class="{{ style.cardButtonSection }}">
         <div>
-          <app-button-status [status]="request.status" [color]="getColorbyStatus(request.status)"></app-button-status>
+          <app-button-status
+            [status]="request.status"
+            [color]="request.status | statusColor : 'background'"
+          ></app-button-status>
         </div>
         <div>
-          <a class="{{style.cardButton}} {{getColorbyStatus(request.status)}}">Visualizar</a>
+          <a
+            class="{{ style.cardButton }} {{
+              request.status | statusColor : 'background'
+            }}"
+            >Visualizar</a
+          >
         </div>
       </div>
     </div>

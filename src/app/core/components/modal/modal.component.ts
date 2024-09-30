@@ -1,13 +1,13 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable, Subscriber } from 'rxjs';
-import { FormTextInputComponent } from '../form-text-input/form-text-input.component';
+import { FormInputComponent } from '../form-input/form-input.component';
 import { ModalType } from '../../types/modal-type';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [CommonModule, FormTextInputComponent],
+  imports: [CommonModule, FormInputComponent],
   templateUrl: './modal.component.html',
 })
 export abstract class ModalComponent {
