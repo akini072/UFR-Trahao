@@ -3,10 +3,10 @@
   <p [ngClass]="style.title">Solicitações de Serviço</p>
   <div [ngClass]="style.innerContainer">
     <div [ngClass]="style.searchContainer">
-      <app-form-text-input
+      <app-form-input
         (input)="searchKeyboard($event)"
         placeholder="Pesquisar solicitação"
-      ></app-form-text-input>
+      ></app-form-input>
     </div>
     <app-button [props]="newRequestButtonProp"></app-button>
   </div>
