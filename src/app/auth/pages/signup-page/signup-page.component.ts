@@ -7,7 +7,7 @@ import { NavbarComponent } from '../../../core/components/navbar/navbar.componen
 import { FooterComponent } from '../../../core/components/footer/footer.component';
 import { ButtonComponent } from '../../../core/components/button/button.component';
 import { ViaCepApiService } from '../../utils/via-cep-api.service';
-import { FormInputComponent } from "../../../core/components/form-input/form-input.component";
+import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ModalService } from '../../../core/utils/modal.service';
 import { ModalType } from '../../../core/types/modal-type';
@@ -15,15 +15,15 @@ import { ModalType } from '../../../core/types/modal-type';
 @Component({
   selector: 'app-signup-page',
   standalone: true,
-  imports: [ 
+  imports: [
     NavbarComponent,
     FooterComponent,
     ButtonComponent,
     HttpClientModule,
     CommonModule,
     FormInputComponent,
-    ReactiveFormsModule
-],
+    ReactiveFormsModule,
+  ],
   providers: [ViaCepApiService],
   templateUrl: './signup-page.component.html',
   styleUrls: ['./signup-page.component.css'],
@@ -41,8 +41,12 @@ export class SignupPageComponent {
   numero: FormControl;
   error: boolean = false;
   private cepSubject = new Subject<string>();
-  
-  constructor(private serviceAPI: ViaCepApiService, private modal: ModalService, private view: ViewContainerRef) {
+
+  constructor(
+    private serviceAPI: ViaCepApiService,
+    private modal: ModalService,
+    private view: ViewContainerRef
+  ) {
     this.formGroup = new FormGroup({
       nome: new FormControl(''),
       sobrenome: new FormControl(''),
@@ -52,7 +56,7 @@ export class SignupPageComponent {
       logradouro: new FormControl(''),
       cidade: new FormControl(''),
       estado: new FormControl(''),
-      numero: new FormControl('')
+      numero: new FormControl(''),
     });
     this.nome = this.formGroup.get('nome') as FormControl;
     this.sobrenome = this.formGroup.get('sobrenome') as FormControl;
@@ -80,34 +84,35 @@ export class SignupPageComponent {
         debounceTime(300), // Aguarda 300ms após o último evento antes de realizar a requisição
         switchMap((cep) => serviceAPI.getAddress(cep)) // Faz a requisição para obter o endereço
       )
-      .subscribe(
-        (address) => {
-          if (address && address.logradouro) {
-            // Preenche os campos de endereço se a resposta for válida
-            this.logradouro.setValue(address.logradouro);
-            (document.getElementById('place') as HTMLInputElement).value = address.logradouro;
-            this.cidade.setValue(address.localidade);
-            (document.getElementById('city') as HTMLInputElement).value = address.localidade;
-            this.estado.setValue(address.uf);
-            (document.getElementById('state') as HTMLInputElement).value = address.uf;
-          }
+      .subscribe((address) => {
+        if (address && address.logradouro) {
+          // Preenche os campos de endereço se a resposta for válida
+          this.logradouro.setValue(address.logradouro);
+          (document.getElementById('place') as HTMLInputElement).value =
+            address.logradouro;
+          this.cidade.setValue(address.localidade);
+          (document.getElementById('city') as HTMLInputElement).value =
+            address.localidade;
+          this.estado.setValue(address.uf);
+          (document.getElementById('state') as HTMLInputElement).value =
+            address.uf;
         }
-      );
+      });
   }
 
   onSignUp = () => {
     if (this.formGroup.valid) {
       this.error = false;
       console.log({
-        'nome': this.nome.value,
-        'sobrenome': this.sobrenome.value,
-        'email': this.email.value,
-        'cpf': this.cpf.value,
-        'cep': this.cep.value,
-        'logradouro': this.logradouro.value,
-        'cidade': this.cidade.value,
-        'estado': this.estado.value,
-        'numero': this.numero.value
+        nome: this.nome.value,
+        sobrenome: this.sobrenome.value,
+        email: this.email.value,
+        cpf: this.cpf.value,
+        cep: this.cep.value,
+        logradouro: this.logradouro.value,
+        cidade: this.cidade.value,
+        estado: this.estado.value,
+        numero: this.numero.value,
       });
       const data = {
         title: 'Cadastro bem-sucedido',
@@ -120,27 +125,32 @@ export class SignupPageComponent {
     } else {
       this.error = true;
     }
-  }
+  };
 
   getErrorMessage() {
     const controls = this.formGroup.controls;
-    const hasRequiredError = Object.values(controls).some(control => control.errors?.['required']);
-  
+    const hasRequiredError = Object.values(controls).some(
+      (control) => control.errors?.['required']
+    );
+
     if (hasRequiredError) {
-      return "Preencha todos os campos obrigatórios";
+      return 'Preencha todos os campos obrigatórios';
     }
-    return "Informações inválidas";
+    return 'Informações inválidas';
   }
 
-  screen = 'flex flex-col items-center justify-center bg-gray-100 px-4 md:px-8 lg:px-16';
-  signInBox = 'bg-white p-6 md:p-6 lg:p-10 xl:p-12 my-8 rounded shadow-md w-full max-w-sm md:max-w-lg lg:max-w-2xl xl:max-w-3xl relative';
-  title = 'text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center';
-  lable = 'text-gray-700 text-sm md:text-base text-center p-1 m-2 font-bold mb-2';
-  input = 'shadow appearance-none border rounded w-full md:w-2/3 lg:w-1/2 my-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline';
-  inputBlocked = 'shadow appearance-none border border-gray-300 rounded w-full md:w-2/3 lg:w-1/2 my-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100';
-  button = 'bg-secondary-4 hover:bg-secondary-6 text-white font-bold mt-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline';
-  sectionT1 = 'flex flex-col md:flex-row md:justify-between w-full';
-  sectionT2 = 'flex flex-col items-center gap-2 md:justify-center w-full';
-  sectionT3 = 'flex flex-row items-center gap-2 md:justify-center w-full';
-  errorStyle = 'text-red-500 text-sm italic';
+  style = {
+    screen: 'flex flex-col items-center justify-center bg-gray-100 px-4 md:px-8 lg:px-16 h-screen',
+    signInBox: 'bg-white p-6 md:p-6 lg:p-10 xl:p-12 my-8 rounded shadow-md w-full max-w-sm md:max-w-lg lg:max-w-2xl xl:max-w-3xl relative',
+    title: 'text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center',
+    lable: 'text-gray-700 text-sm md:text-base text-center p-1 m-2 font-bold mb-2',
+    input: 'shadow appearance-none border rounded w-full md:w-2/3 lg:w-1/2 my-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+    inputBlocked: 'shadow appearance-none border border-gray-300 rounded w-full md:w-2/3 lg:w-1/2 my-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100',
+    button: 'bg-secondary-4 hover:bg-secondary-6 text-white font-bold mt-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline',
+    sectionT1: 'flex flex-col md:flex-row md:justify-between w-full',
+    sectionT2: 'flex flex-col items-center gap-2 md:justify-center w-full',
+    sectionT3: 'flex flex-row items-center gap-2 md:justify-center w-full',
+    errorStyle: 'text-red-500 text-sm italic',
+    requiredSpan: 'text-red-500 text-sm'
+  };
 }
