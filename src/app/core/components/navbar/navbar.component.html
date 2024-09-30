@@ -2,7 +2,7 @@
   <div class="{{ navDiv }}">
     <div class="{{ navData }}">
       <img src="assets/images/logo.svg" class="h-14" />
-      <p class="{{ navLogo }}">MANUTADS</p>
+      <p class="{{ navLogo }}" (click)="goToIndex()">MANUTADS</p>
       <p *ngIf="isLogged" class="{{ navUserText }}">Bem vindo: User</p>
     </div>
     <ul class="{{ navList }}">
