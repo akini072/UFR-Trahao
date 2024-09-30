@@ -14,7 +14,7 @@ import { FilterSectionComponent } from '../../components/filter-section/filter-s
 import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/toggle-switch.component';
 import { RequestItem } from '../../../core/types/request-item';
 import { RequestsService } from '../../../core/utils/requests.service'
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-costumer-homepage',
@@ -65,7 +65,7 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
   activeFilters: { filter: string; value?: string }[] = [];
   displayTable: boolean = false;
 
-  constructor(private router: Router, private renderer: Renderer2, private requestsService : RequestsService) {
+  constructor(private router: Router, private renderer: Renderer2, private requestsService : RequestsService, private http: HttpClient) {
     this.updateTotalPages();
     this.updateItemsPerPage(window.innerWidth);
   }
