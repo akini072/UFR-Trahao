@@ -1,24 +1,24 @@
 <app-navbar [isLogged]="false"></app-navbar>
-<div [ngClass]="main">
-  <div [ngClass]="form">
-    <h2 [ngClass]="title">Login</h2>
+<div [ngClass]="style.main">
+  <div [ngClass]="style.form">
+    <h2 [ngClass]="style.title">Login</h2>
     <form [formGroup]="formGroup">
       <div>
-        <label [ngClass]="label" for="email">
-          E-mail<span class="text-red-500 text-sm">*</span>
+        <label [ngClass]="style.label" for="email">
+          E-mail<span class="{{style.requiredSpan}}">*</span>
         </label>
         <app-form-input id="email" type="email" placeholder="nome@dominio.com" [control]="email" [validations]="['email', 'required']"></app-form-input>
       </div>
 
       <div>
-        <label [ngClass]="label" for="password">
-          Senha<span class="text-red-500 text-sm">*</span>
+        <label [ngClass]="style.label" for="password">
+          Senha<span class="{{style.requiredSpan}}">*</span>
         </label>
         <app-form-input id="password" type="password" placeholder="****" [control]="password" [validations]="['required']"></app-form-input>
       </div>
 
-      <div [ngClass]="button">
-        <span *ngIf="error" [ngClass]="errorStyle">{{ getErrorMessage() }}</span>
+      <div [ngClass]="style.button">
+        <span *ngIf="error" [ngClass]="style.errorStyle">{{ getErrorMessage() }}</span>
         <app-button
           [props]="{text: 'Entrar', color: 'secondary-4', size: 'medium', textColor: 'white', hoverColor: 'secondary-6' , onClick: onLogin, extraClasses:'font-bold focus:outline-none focus:shadow-outline'}"></app-button>
       </div>
@@ -26,8 +26,8 @@
 
     <hr class="mb-4">
 
-    <span [ngClass]="signUpSpan">Não possui conta?
-      <a [routerLink]="signUpRouterLink" [ngClass]="signUpRouter"> Cadastre-se </a>
+    <span [ngClass]="style.signUpSpan">Não possui conta?
+      <a [routerLink]="signUpRouterLink" [ngClass]="style.signUpRouter"> Cadastre-se </a>
     </span>
 
 
