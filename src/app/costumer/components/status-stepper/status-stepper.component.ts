@@ -110,7 +110,7 @@ export class StatusStepperComponent implements OnInit {
       return `${statusText} por ${senderEmployee} para ${inChargeEmployee} em ${dateTimeText}`;
     }
 
-    if (category !== 'open' && category !== 'paid' && category !== 'rejected') {
+    if (category !== 'open' && category !== 'paid' && category !== 'rejected' && category !== 'approved') {
       return `${statusText} por ${inChargeEmployee} em ${dateTimeText}`;
     }
 
