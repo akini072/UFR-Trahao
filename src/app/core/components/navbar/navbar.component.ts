@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 interface NavItem {
   name: string;
@@ -18,13 +18,15 @@ interface NavItem {
 export class NavbarComponent {
   @Input() isLogged: boolean = true;
 
+  constructor(private router: Router) {}
+
   navContainer =
     'flex flex-1 bg-primary-8 justify-between pt-2 md:h-20 md:pt-0'; //Nav
   navDiv =
     'flex flex-wrap h-full w-full items-center justify-center md:px-6 md:flex-nowrap md:justify-between'; //Div geral
   navData =
     'flex flex-wrap gap-2 align-middle justify-center items-center py-2 md:gap-4 md:flex-nowrap'; //Div logo+bem-vindo
-  navLogo = 'text-3xl font-serif text-white'; //logo texto
+  navLogo = 'text-3xl font-serif text-white cursor-pointer'; //logo texto
   navUserText = 'w-full text-secondary-0 text-center'; //bem-vindo
   navList = 'flex h-full w-full align-center justify-center md:gap-2 md:w-auto'; //ul botões
   navItem =
@@ -38,4 +40,8 @@ export class NavbarComponent {
     { name: 'Home', route: '/home', login: true },
     { name: 'Serviços', route: '/about', login: true },
   ];
+
+  goToIndex(){
+    this.router.navigate(['/']);
+  }
 }
