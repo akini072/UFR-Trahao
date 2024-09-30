@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { NavbarEmployeeComponent } from '../../components/navbar-employee/navbar-employee.component';
 import { ServiceRequestTableComponent } from '../../components/service-request-table/service-request-table.component';
-import { RequestTableComponent } from '../../../request-table/request-table.component';
+import { RequestTableComponent } from '../../../costumer/components/request-table/request-table.component';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
 import {
   ButtonComponent,
@@ -12,6 +12,9 @@ import {
 import { FormTextInputComponent } from '../../../core/components/form-text-input/form-text-input.component';
 import { RequestCategory } from '../../../core/types/request-category';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
+import { FilterSelectComponent } from '../../../costumer/components/filter-section/components/filter-select/filter-select.component';
+import { FilterSectionComponent } from '../../../costumer/components/filter-section/filter-section.component';
+import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/toggle-switch.component';
 
 export interface RequestItem {
   id: number;
@@ -36,6 +39,9 @@ export interface RequestItem {
     FormTextInputComponent,
     NavbarEmployeeComponent,
     FooterComponent,
+    FilterSelectComponent,
+    FilterSectionComponent,
+    ToggleSwitchComponent,
   ],
   templateUrl: './solicitations-page.component.html',
   styleUrls: ['./solicitations-page.component.css'], // Corrigido para styleUrls
@@ -134,15 +140,21 @@ export class SolicitationsPageComponent implements OnInit, OnDestroy {
       'w-10/12 m-auto flex justify-end my-4 items-center text-center',
     pageText: 'border p-2 text-sm',
     pageTopContainer: 'flex justify-between w-full items-center px-16',
+    tableDisplay: 'flex justify-center m-auto rounded-lg w-3/4',
+    filterContainer: 'flex place-items-end',
+    switchContainer: 'h-8',
   };
 
   activeRequestList: RequestItem[] = this.requestList;
+  activeFilters: { filter: string; value?: string }[] = [];
 
   currentPage: number = 1;
   itemsPerPage: number = 9;
   totalPages: number = 1;
   resizeListener!: () => void;
   searchQuery: string | undefined;
+
+  displayTable: boolean = false;
 
   constructor(private router: Router, private renderer: Renderer2) {
     this.updateTotalPages();
@@ -173,6 +185,11 @@ export class SolicitationsPageComponent implements OnInit, OnDestroy {
     }
     this.updateTotalPages();
   }
+
+  toggleDisplayTable = () => {
+    this.displayTable = !this.displayTable;
+    console.log(this.displayTable);
+  };
 
   searchKeyboard = (event: Event) => {
     const input = event.target as HTMLInputElement;
@@ -233,6 +250,32 @@ export class SolicitationsPageComponent implements OnInit, OnDestroy {
 
   navigateToNewRequest = () => {
     this.router.navigate(['nova-solicitacao']);
+  };
+
+  applyFilter = (filter: string, value?: string) => {
+    const key = filter === 'date' ? 'created_at' : filter;
+
+    const existingFilterIndex = this.activeFilters.findIndex(
+      (f) => f.filter === key
+    );
+
+    if (existingFilterIndex !== -1) {
+      if (!value || value === 'all' || value === '') {
+        this.activeFilters.splice(existingFilterIndex, 1);
+      } else {
+        this.activeFilters[existingFilterIndex].value = value;
+      }
+    } else {
+      if (value && value !== 'all' && value !== '') {
+        this.activeFilters.push({ filter: key, value });
+      }
+    }
+
+    this.activeRequestList = this.requestList.filter((item) => {
+      return this.activeFilters.every(
+        (f) => item[f.filter as keyof RequestItem] === f.value
+      );
+    });
   };
 
   rightButtonProp: ButtonProps = {

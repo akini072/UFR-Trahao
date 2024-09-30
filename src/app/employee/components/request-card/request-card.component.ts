@@ -8,6 +8,8 @@ import {
 import { ButtonStatusComponent } from '../../../core/components/button-status/button-status.component';
 import { LimitedDescriptionPipe } from '../../../core/utils/limited-description.pipe';
 import { RequestItem } from '../../pages/employee-page/employee-page.component';
+import { StatusTextPipe } from '../../../core/utils/pipes/statusText/status-text.pipe';
+import { StatusColorPipe } from '../../../core/utils/pipes/statusColor/status-color.pipe';
 @Component({
   selector: 'app-request-card',
   standalone: true,
@@ -16,9 +18,12 @@ import { RequestItem } from '../../pages/employee-page/employee-page.component';
     ButtonComponent,
     ButtonStatusComponent,
     LimitedDescriptionPipe,
+    StatusTextPipe,
+    StatusColorPipe,
   ],
   templateUrl: './request-card.component.html',
   styleUrl: './request-card.component.css',
+  providers: [StatusColorPipe],
 })
 export class RequestCardComponent {
   @Input() request: RequestItem = {
@@ -30,62 +35,7 @@ export class RequestCardComponent {
     image: 'https://via.placeholder.com/150',
   };
 
-  getColorbyStatus(status: RequestCategory): string {
-    let color: string;
-
-    switch (status) {
-      case 'open':
-        color = 'bg-gray-300';
-        break;
-      case 'approved':
-        color = 'bg-yellow-300';
-        break;
-      case 'rejected':
-        color = 'bg-red-300';
-        break;
-      case 'finalized':
-        color = 'bg-green-300';
-        break;
-      case 'paid':
-        color = 'bg-orange-300';
-        break;
-      case 'fixed':
-        color = 'bg-teal-300';
-        break;
-      case 'budgeted':
-        color = 'bg-amber-700';
-        break;
-      case 'redirected':
-        color = 'bg-purple-300';
-        break;
-      default:
-        color = 'bg-gray-300';
-    }
-    return color;
-  }
-
-  getStatusText(status: RequestCategory): string {
-    switch (status) {
-      case 'open':
-        return 'Aberta';
-      case 'budgeted':
-        return 'Orçada';
-      case 'rejected':
-        return 'Rejeitada';
-      case 'approved':
-        return 'Aprovada';
-      case 'redirected':
-        return 'Redirecionada';
-      case 'fixed':
-        return 'Arrumada';
-      case 'paid':
-        return 'Paga';
-      case 'finalized':
-        return 'Finalizada';
-      default:
-        return 'Indefinido';
-    }
-  }
+  constructor(private statusColorPipe: StatusColorPipe) {}
 
   style = {
     cardContainer:
@@ -108,7 +58,10 @@ export class RequestCardComponent {
 
   buttonPropColor: string = '';
   ngOnInit(): void {
-    this.buttonPropColor = this.getColorbyStatus(this.request.status);
+    this.buttonPropColor = this.statusColorPipe.transform(
+      this.request.status,
+      'background'
+    );
   }
   button: ButtonProps = {
     text: 'Visualizar',
@@ -119,7 +72,7 @@ export class RequestCardComponent {
     extraClasses: 'cursor-pointer',
   };
 
-  // Troca de Texto
+  // Adicionar esta função ao RequestCardComponent
   getButtonText(status: RequestCategory): string {
     return status === 'open' ? 'Orçar Agora' : 'Visualizar';
   }

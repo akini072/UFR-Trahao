@@ -1,7 +1,11 @@
 <div class="{{ style.cardContainer }} ">
-  <div class="{{ style.cardHeader }} {{ getColorbyStatus(request.status) }}">
+  <div
+    class="{{ style.cardHeader }} {{
+      request.status | statusColor : 'background'
+    }}"
+  >
     <p class="{{ style.title }}">{{ request.title }}</p>
-    <p class="{{ style.statusText }}">{{ getStatusText(request.status) }}</p>
+    <p class="{{ style.statusText }}">{{ request.status | statusText }}</p>
   </div>
   <div class="{{ style.cardContentContainer }}">
     <div class="{{ style.cardImageContainer }}">
@@ -28,10 +32,9 @@
         <div>
           <a
             class="{{ style.cardButton }} {{
-              getColorbyStatus(request.status)
+              request.status | statusColor : 'background'
             }}"
-          >
-            {{ getButtonText(request.status) }}</a
+            >{{ getButtonText(request.status) }}</a
           >
         </div>
       </div>
