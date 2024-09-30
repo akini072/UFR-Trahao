@@ -121,7 +121,7 @@ export class StatusStepperComponent implements OnInit {
   ol: string = "flex items-center justify-center text-xs text-gray-900 font-medium sm:text-base";
   liComplete: string = "z-0 flex w-full relative after:content-[''] after:w-full after:h-0.5 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-8 after:bg-green-600";
   liIncomplete: string = "z-0 flex w-full relative after:content-[''] after:w-full after:h-0.5 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-8 after:bg-gray-200";
-  liEnd: string = "z-0 flex w-full relative";
+  liEnd: string = "z-0 flex relative";
   item: string = "block whitespace-nowrap z-20";
   span: string = "w-6 h-6 border-2 rounded-full flex justify-center items-center mx-auto mb-3 text-sm lg:w-10 lg:h-10 material-icons-round";
   pop: string = "absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800";
