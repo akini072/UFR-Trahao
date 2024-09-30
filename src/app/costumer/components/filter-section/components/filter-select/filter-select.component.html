@@ -1,0 +1,21 @@
+<div [ngClass]="style.container">
+  <label [ngClass]="style.label">{{ filterLabelMap[filterType] }}</label>
+  <select
+    [ngClass]="style.select"
+    id="filterSelect"
+    *ngIf="filterType != 'date'"
+    (change)="handleFilterChange($event)"
+  >
+    <option value="select" selected disabled>Selecione</option>
+    <option value="all">Todos</option>
+    <option *ngFor="let option of filterOptions" [value]="option.value">
+      {{ filterType === "status" ? (option.label | statusText) : option.label }}
+    </option>
+  </select>
+  <input
+    type="date"
+    [ngClass]="style.inputDate"
+    *ngIf="filterType == 'date'"
+    (change)="handleFilterChange($event)"
+  />
+</div>
