@@ -1,0 +1,8 @@
+<div [ngClass]="style.container">
+  <span [ngClass]="style.label">{{ label }}</span>
+  <label [ngClass]="style.switchContainer">
+    <input type="checkbox" [ngClass]="style.input" (change)="onToggle()" />
+    <div [ngClass]="style.switchBackground"></div>
+    <span [ngClass]="style.switchThumb"></span>
+  </label>
+</div>
