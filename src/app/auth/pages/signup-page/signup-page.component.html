@@ -1,110 +1,57 @@
 <app-navbar [isLogged]="false"></app-navbar>
-<div class="{{ screen }}">
-  <div class="{{ signInBox }}">
-    <div class="{{ title }}">Cadastro</div>
+<div [ngClass]="screen">
+  <div [ngClass]="signInBox">
+    <div [ngClass]="title">Cadastro</div>
     <div>
       <form>
-        <div class="{{ sectionT1 }}">
-          <label class="{{ lable }}" for="name">Nome: </label>
-          <input class="{{ input }}" type="text" name="inputSame" id="name" />
-          <label class="{{ lable }}" for="surname">Sobrenome:</label>
-          <input
-            class="{{ input }}"
-            type="text"
-            name="InputSurname"
-            id="surname"
-          />
+        <div [ngClass]="sectionT1">
+          <label [ngClass]="lable" for="name">Nome<span class="text-red-500 text-sm">*</span></label>
+          <app-form-input type="text" placeholder="Digite seu nome" [control]="nome" [validations]="['required']"
+            class="w-full md:w-2/3 lg:w-1/2" />
+          <label [ngClass]="lable" for="surname">Sobrenome<span class="text-red-500 text-sm">*</span></label>
+          <app-form-input type="text" placeholder="Digite seu sobrenome" [control]="sobrenome"
+            [validations]="['required']" class="w-full md:w-2/3 lg:w-1/2" />
         </div>
 
-        <div class="{{ sectionT1 }}">
-          <label class="{{ lable }}" for="email">Email: </label>
-          <input
-            class="{{ input }}"
-            type="text"
-            name="inputEmail"
-            id="email"
-            (blur)="onEmailBlur()"
-          />
-          <label class="{{ lable }}" for="cpf">CPF:</label>
-          <input
-            #cpfInput
-            class="{{ input }}"
-            type="text"
-            [value]="cpf | cpfMask"
-            name="inputCpf"
-            id="cpf"
-            (input)="onCpfInput($event)"
-            (blur)="onCpfBlur()"
-          />
+        <div [ngClass]="sectionT1">
+          <label [ngClass]="lable" for="email">Email<span class="text-red-500 text-sm">*</span></label>
+          <app-form-input id="email" type="email" placeholder="nome@dominio.com" [control]="email"
+            [validations]="['email', 'required']" class="w-full md:w-2/3 lg:w-1/2" />
+          <label [ngClass]="lable" for="cpf">CPF<span class="text-red-500 text-sm">*</span></label>
+          <app-form-input id="cpf" type="text" placeholder="Digite seu CPF" [control]="cpf" [validations]="['required', 'cpf']"
+            class="w-full md:w-2/3 lg:w-1/2" mask="cpf" />
         </div>
 
         <hr />
 
-        <div class="{{ sectionT2 }}">
-          <label class="{{ lable }}" for="cep">CEP: </label>
-          <input
-            #cepInput
-            class="{{ input }}"
-            type="text"
-            [value]="cep | cepMask"
-            name="inputCep"
-            id="cep"
-            (input)="onCepInput($event)"
-            (blur)="onCepBlur()"
-          />
+        <div [ngClass]="sectionT3">
+          <label [ngClass]="lable" for="cep">CEP<span class="text-red-500 text-sm">*</span></label>
+          <app-form-input type="text" placeholder="Digite seu CEP" [control]="cep" [validations]="['required', 'cep']"
+            class="w-full md:w-2/3 lg:w-1/2" mask="cep"/>
         </div>
 
-        <div class="{{ sectionT1 }}">
-          <label class="{{ lable }}" for="place">Logradouro: </label>
-          <input
-            class="{{ inputBlocked }}"
-            type="text"
-            name="inputPlace"
-            id="place"
-            readonly
-          />
-          <label class="{{ lable }}" for="number">Número: </label>
-          <input
-            class="{{ input }}"
-            type="text"
-            name="inputNumber"
-            id="number"
-          />
+        <div [ngClass]="sectionT1">
+          <label [ngClass]="lable" for="place">Logradouro: </label>
+          <input [ngClass]="inputBlocked" type="text" placeholder="Rua, Avenida, etc" id="place" readonly />
+          <label [ngClass]="lable" for="number">Número<span class="text-red-500 text-sm">*</span></label>
+          <app-form-input type="number" placeholder="Digite o número" [control]="numero"
+            [validations]="['required', 'number']" class="w-full md:w-2/3 lg:w-1/2" />
         </div>
 
-        <div class="{{ sectionT1 }}">
-          <label class="{{ lable }}" for="city">Cidade: </label>
-          <input
-            class="{{ inputBlocked }}"
-            type="text"
-            name="inputCity"
-            id="city"
-            readonly
-          />
-          <label class="{{ lable }}" for="state">Estado: </label>
-          <input
-            class="{{ inputBlocked }}"
-            type="text"
-            name="inputState"
-            id="state"
-            readonly
-          />
+        <div [ngClass]="sectionT1">
+          <label [ngClass]="lable" for="city">Cidade: </label>
+          <input [ngClass]="inputBlocked" type="text" id="city" placeholder="Cidade" readonly />
+          <label [ngClass]="lable" for="state">Estado: </label>
+          <input [ngClass]="inputBlocked" type="text" id="state" placeholder="UF" readonly />
         </div>
       </form>
     </div>
 
-    <div class="{{ sectionT2 }}">
-      <button class="{{ button }}" type="button">Cadastrar-se!</button>
+    <div [ngClass]="sectionT2">
+      <span *ngIf="error" [ngClass]="errorStyle">{{ getErrorMessage() }}</span>
+      <app-button
+          [props]="{text: 'Cadastrar-se', color: 'secondary-4', size: 'medium', textColor: 'white', hoverColor: 'secondary-6' , onClick: onSignUp, extraClasses:'font-bold focus:outline-none focus:shadow-outline'}"></app-button>
     </div>
-  </div>
-  <div #errorMessage class="text-red-500 mt-2" style="display: none">
-    *CPF inválido
-  </div>
-  <div #cepErrorMessage class="text-red-500 mt-2" style="display: none">
-    *CEP inexistente
-  </div>
-  <div #emailErrorMessage class="text-red-500 mt-2" style="display: none">
-    *E-mail inválido
   </div>
 </div>
 <app-footer></app-footer>

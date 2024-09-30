@@ -1,0 +1,30 @@
+<app-navbar-employee></app-navbar-employee>
+<div [ngClass]="style.pageTopContainer">
+  <p [ngClass]="style.title">Solicitações em Aberto</p>
+  <div [ngClass]="style.innerContainer">
+    <div [ngClass]="style.searchContainer">
+      <app-form-input
+        (input)="searchKeyboard($event)"
+        placeholder="Pesquisar solicitação"
+      ></app-form-input>
+    </div>
+  </div>
+</div>
+<div [ngClass]="style.container"></div>
+<div [ngClass]="style.requestGrid">
+  <app-request-card
+    *ngFor="let request of getPaginatedRequests(searchQuery)"
+    [request]="request"
+  ></app-request-card>
+</div>
+<div [ngClass]="style.paginationControl">
+  <app-button [props]="leftButtonProp"></app-button>
+  <span [ngClass]="style.pageText">
+    Página {{ currentPage }} de {{ totalPages }}
+  </span>
+  <app-button [props]="rightButtonProp"></app-button>
+</div>
+<div [ngClass]="style.paginationControl">
+  <app-button [props]="newRequestButtonProp"></app-button>
+</div>
+<app-footer></app-footer>
