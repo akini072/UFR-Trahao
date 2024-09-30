@@ -19,7 +19,7 @@ interface ButtonStatus{
 export class ButtonStatusComponent {
   @Input() status!: RequestCategory;
   @Input() color: string = 'bg-gray-300';
-  
+
   cardButton = `text-xs p-2 cursor-pointer text-default-black font-semibold rounded`;
 
   buttonOptions: ButtonStatus[] = [
@@ -31,16 +31,14 @@ export class ButtonStatusComponent {
     { type: 'fixed', name: 'ARRUMADA', route: 'AAAA' },
     { type: 'paid', name: 'PAGA', route: '' },
     { type: 'finalized', name: 'FINALIZADA', route: '' },
-  ];	
+  ];
 
   debugButton(){
 
   }
 
   selectButton(status: RequestCategory){
-    return this.buttonOptions.find(button=> button.type === status)    
+    return this.buttonOptions.find(button=> button.type === status)
   }
 
 }
-
-
