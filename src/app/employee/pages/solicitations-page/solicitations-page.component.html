@@ -1,6 +1,6 @@
-<app-navbar [ngClass]="style.navbar"></app-navbar>
+<app-navbar-employee></app-navbar-employee>
 <div [ngClass]="style.pageTopContainer">
-  <p [ngClass]="style.title">Solicitações de Serviço</p>
+  <p [ngClass]="style.title">Todas as Solicitações</p>
   <div [ngClass]="style.innerContainer">
     <div [ngClass]="style.searchContainer">
       <app-form-input
@@ -8,13 +8,16 @@
         placeholder="Pesquisar solicitação"
       ></app-form-input>
     </div>
-    <app-button [props]="newRequestButtonProp"></app-button>
   </div>
 </div>
+
 <div [ngClass]="style.filterContainer">
   <app-filter-section [filterAction]="applyFilter" />
   <div [ngClass]="style.switchContainer">
-    <app-toggle-switch [onToggle]="toggleDisplayTable" [label]="'Tabela:'"></app-toggle-switch>
+    <app-toggle-switch
+      [onToggle]="toggleDisplayTable"
+      [label]="'Tabela:'"
+    ></app-toggle-switch>
   </div>
 </div>
 
@@ -28,6 +31,7 @@
 <div *ngIf="displayTable" [ngClass]="style.tableDisplay">
   <app-request-table [requests]="getPaginatedRequests()" />
 </div>
+
 <div [ngClass]="style.paginationControl">
   <app-button [props]="leftButtonProp"></app-button>
   <span [ngClass]="style.pageText"
@@ -35,4 +39,4 @@
   >
   <app-button [props]="rightButtonProp"></app-button>
 </div>
-
+<app-footer></app-footer>
