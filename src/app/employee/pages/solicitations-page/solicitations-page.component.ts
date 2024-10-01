@@ -1,40 +1,132 @@
 import { Component, Renderer2, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
+import { NavbarEmployeeComponent } from '../../components/navbar-employee/navbar-employee.component';
 import { ServiceRequestTableComponent } from '../../components/service-request-table/service-request-table.component';
+import { RequestTableComponent } from '../../../costumer/components/request-table/request-table.component';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
-import { ButtonComponent, ButtonProps } from "../../../core/components/button/button.component";
-import { FormInputComponent } from "../../../core/components/form-input/form-input.component";
+import {
+  ButtonComponent,
+  ButtonProps,
+} from '../../../core/components/button/button.component';
+import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { RequestCategory } from '../../../core/types/request-category';
-import { RequestTableComponent } from '../../components/request-table/request-table.component';
-import { FilterSectionComponent } from '../../components/filter-section/filter-section.component';
+import { FooterComponent } from '../../../core/components/footer/footer.component';
+import { FilterSelectComponent } from '../../../costumer/components/filter-section/components/filter-select/filter-select.component';
+import { FilterSectionComponent } from '../../../costumer/components/filter-section/filter-section.component';
 import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/toggle-switch.component';
-import { RequestItem } from '../../../core/types/request-item';
-import { RequestsService } from '../../../core/utils/requests.service'
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+
+export interface RequestItem {
+  id: number;
+  title: string;
+  description: string;
+  status: RequestCategory;
+  created_at: string;
+  image: string;
+}
 
 @Component({
-  selector: 'app-costumer-homepage',
+  selector: 'app-solicitations-page',
   standalone: true,
   imports: [
     CommonModule,
-    NavbarComponent,
+    NavbarEmployeeComponent,
     ServiceRequestTableComponent,
     RouterModule,
+    RequestTableComponent,
     RequestCardComponent,
     ButtonComponent,
     FormInputComponent,
-    RequestTableComponent,
+    NavbarEmployeeComponent,
+    FooterComponent,
+    FilterSelectComponent,
     FilterSectionComponent,
     ToggleSwitchComponent,
-    HttpClientModule
   ],
-  templateUrl: './costumer-homepage.component.html',
-  styleUrls: ['./costumer-homepage.component.css'],
+  templateUrl: './solicitations-page.component.html',
+  styleUrls: ['./solicitations-page.component.css'], // Corrigido para styleUrls
 })
-export class CustomerHomepageComponent implements OnInit, OnDestroy {
-  requestList: RequestItem[] = [];
+export class SolicitationsPageComponent implements OnInit, OnDestroy {
+  requestList: RequestItem[] = [
+    {
+      id: 1,
+      title: 'Troca de Disco Rígido',
+      description:
+        'Substituição do disco rígido antigo por um novo SSD para melhorar o desempenho do sistema.',
+      status: 'open',
+      created_at: '2024-09-01',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+    {
+      id: 2,
+      title: 'Atualização de Software',
+      description:
+        'Atualização do sistema operacional e dos principais aplicativos para a versão mais recente.',
+      status: 'approved',
+      created_at: '2024-09-02',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+    {
+      id: 3,
+      title: 'Reparo de Tela',
+      description: 'Reparo da tela quebrada do notebook.',
+      status: 'rejected',
+      created_at: '2024-09-03',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+    {
+      id: 4,
+      title: 'Limpeza de Sistema',
+      description:
+        'Limpeza completa do sistema para remover poeira e melhorar a ventilação.',
+      status: 'paid',
+      created_at: '2024-09-04',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+    {
+      id: 5,
+      title: 'Instalação de Memória RAM',
+      description:
+        'Instalação de memória RAM adicional para melhorar o desempenho do computador.',
+      status: 'budgeted',
+      created_at: '2024-09-05',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+    {
+      id: 6,
+      title: 'Configuração de Rede',
+      description:
+        'Configuração de rede local e Wi-Fi para melhor conectividade.',
+      status: 'finalized',
+      created_at: '2024-09-06',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+    {
+      id: 7,
+      title: 'Reparo de Placa Mãe',
+      description: 'Diagnóstico e reparo da placa mãe do desktop.',
+      status: 'fixed',
+      created_at: '2024-09-07',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+    {
+      id: 8,
+      title: 'Substituição de Fonte de Alimentação',
+      description:
+        'Substituição da fonte de alimentação defeituosa por uma nova.',
+      status: 'redirected',
+      created_at: '2024-09-08',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+  ];
 
   style = {
     navbar: '',
@@ -48,31 +140,28 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
       'w-10/12 m-auto flex justify-end my-4 items-center text-center',
     pageText: 'border p-2 text-sm',
     pageTopContainer: 'flex justify-between w-full items-center px-16',
-    tableDisplay: "flex justify-center m-auto rounded-lg w-3/4",
-    filterContainer: "flex place-items-end",
-    switchContainer: "h-8",
+    tableDisplay: 'flex justify-center m-auto rounded-lg w-3/4',
+    filterContainer: 'flex place-items-end',
+    switchContainer: 'h-8',
   };
 
   activeRequestList: RequestItem[] = this.requestList;
+  activeFilters: { filter: string; value?: string }[] = [];
 
   currentPage: number = 1;
   itemsPerPage: number = 9;
   totalPages: number = 1;
   resizeListener!: () => void;
   searchQuery: string | undefined;
-  activeFilters: { filter: string; value?: string }[] = [];
+
   displayTable: boolean = false;
 
-  constructor(private router: Router, private renderer: Renderer2, private requestsService : RequestsService, private http: HttpClient) {
+  constructor(private router: Router, private renderer: Renderer2) {
     this.updateTotalPages();
     this.updateItemsPerPage(window.innerWidth);
   }
 
   ngOnInit(): void {
-    this.requestsService.listRequests().subscribe((data) => {
-      this.requestList = data;
-      this.activeRequestList = this.requestList;
-    });
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
       this.updateItemsPerPage(event.target.innerWidth);
       this.updateTotalPages();
@@ -102,20 +191,18 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     console.log(this.displayTable);
   };
 
-  searchKeyboard(event: Event): void {
-    const searchQuery = (event.target as HTMLInputElement).value.toLowerCase();
-    const filteredList = this.requestList.filter((item) => {
-      return this.activeFilters.every(
-        (f) => item[f.filter as keyof RequestItem] === f.value
-      );
-    });
+  searchKeyboard = (event: Event) => {
+    const input = event.target as HTMLInputElement;
+    const query = input.value;
 
-    this.activeRequestList = filteredList.filter((item) => {
-      return Object.values(item).some((val) =>
-        val.toString().toLowerCase().includes(searchQuery)
-      );
-    });
-  }
+    this.searchQuery = query ? query.toLocaleLowerCase() : '';
+
+    if (this.searchQuery === '') {
+      this.activeRequestList = this.requestList;
+      this.updateTotalPages();
+      this.goToPage(1);
+    }
+  };
 
   updateTotalPages() {
     this.totalPages =
