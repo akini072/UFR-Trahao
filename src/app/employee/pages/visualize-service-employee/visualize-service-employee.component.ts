@@ -21,6 +21,7 @@ export class VisualizeServiceEmployeeComponent {
 
   open: boolean = false;
   approved: boolean = false;
+  paid: boolean = false;
 
   ngOnInit(){
     this.checkStatus();
@@ -31,14 +32,22 @@ export class VisualizeServiceEmployeeComponent {
       case 'open':
         this.open = true;
         this.approved = false;
+        this.paid = false;
         break;
       case 'approved':
         this.open = false;
         this.approved = true;
-        break
+        this.paid = false;
+        break;
+      case 'paid':
+        this.open = false;
+        this.approved = false;
+        this.paid = true;
+        break;
       default:
         this.open = false;
         this.approved = false;
+        this.paid = false;
         break;
     }
 
@@ -77,7 +86,7 @@ export class VisualizeServiceEmployeeComponent {
       {
         requestStatusId: '3',
         dateTime: new Date(),
-        category: 'approved', // Replace 'someCategory' with the actual category
+        category: 'paid', // Replace 'someCategory' with the actual category
         senderEmployee: '',
         inChargeEmployee: 'Alisson Gabriel',
         request: {} as Request // Replace with actual request object if needed
@@ -119,6 +128,17 @@ export class VisualizeServiceEmployeeComponent {
       title: 'Orçamento',
       message: 'Por favor, confira o valor do orçamento',
       label: 'Orçar',
+    };
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
+      console.log(value);
+    });
+  };
+
+  onPaid=()=>{
+    const data = {
+      title: 'Finalização',
+      message: 'Você confirma a finalização do serviço? Tem certeza mesmo?',
+      label: 'Finalizar'
     };
     this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
       console.log(value);
