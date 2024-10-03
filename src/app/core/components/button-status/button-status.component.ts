@@ -59,8 +59,6 @@ export class ButtonStatusComponent {
     },
   ];
 
-  debugButton() {}
-
   selectButton(status: RequestCategory) {
     return this.buttonOptions.find((button) => button.type === status);
   }
