@@ -1,65 +1,34 @@
-<table
-  class="table-auto border min-w-full border-gray-400 rounded-lg divide-gray-400 shadow"
->
-  <thead class="bg-gray-50">
+<table [ngClass]="style.table">
+  <thead [ngClass]="style.head">
     <tr>
-      <th
-        scope="col"
-        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-      >
-        ID
-      </th>
-      <th
-        scope="col"
-        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-      >
-        EQUIPAMENTO
-      </th>
-      <th
-        scope="col"
-        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-      >
-        DESC. SOLICITAÇÃO
-      </th>
-      <th
-        scope="col"
-        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-      >
-        DATA SOLICITAÇÃO
-      </th>
-      <th
-        scope="col"
-        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-      >
-        STATUS
-      </th>
-      <th
-        scope="col"
-        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-      >
-        AÇÃO
-      </th>
+      <th scope="col" [ngClass]="style.col">ID</th>
+      <th scope="col" [ngClass]="style.col">EQUIPAMENTO</th>
+      <th scope="col" [ngClass]="style.col">DESC. SOLICITAÇÃO</th>
+      <th scope="col" [ngClass]="style.col">DATA SOLICITAÇÃO</th>
+      <th scope="col" [ngClass]="style.col">STATUS</th>
+      <th scope="col" [ngClass]="style.col">AÇÃO</th>
     </tr>
   </thead>
-  <tbody class="bg-white divide-y divide-gray-200">
+  <tbody [ngClass]="style.body">
     <tr *ngFor="let request of requests">
-      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+      <td [ngClass]="style.idRow">
         {{ request.id }}
       </td>
-      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+      <td [ngClass]="style.commomRow">
         {{ request.title }}
       </td>
-      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+      <td [ngClass]="style.commomRow">
         {{ request.description | limitedDescription : 30 }}
       </td>
-      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+      <td [ngClass]="style.commomRow">
         {{ request.created_at | date : "dd/MM/yyyy" }}
       </td>
-      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-        {{ request.status  | statusText }}
+      <td [ngClass]="style.commomRow">
+        {{ request.status | statusText }}
       </td>
-      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+      <td [ngClass]="style.commomRow">
         <app-button-status
+          [displayDisabled]="true"
           [color]="request.status | statusColor : 'background'"
           [status]="request.status"
         />
