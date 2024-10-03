@@ -24,6 +24,7 @@ export class ModalService {
       instance.subscribe((value) => {
         modal.destroy();
         if(value === 'close'){
+          observer.next("chegou");//Código colocado somente para teste do Modal, mudar para algo mais util ou não.
           observer.complete();
         }
       });

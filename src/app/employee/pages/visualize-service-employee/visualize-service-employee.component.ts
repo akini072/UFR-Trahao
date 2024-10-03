@@ -75,7 +75,7 @@ export class VisualizeServiceEmployeeComponent {
       {
         requestStatusId: '3',
         dateTime: new Date(),
-        category: 'paid', // Replace 'someCategory' with the actual category
+        category: 'approved', // Replace 'someCategory' with the actual category
         senderEmployee: '',
         inChargeEmployee: 'Alisson Gabriel',
         request: {} as Request // Replace with actual request object if needed
@@ -93,8 +93,9 @@ export class VisualizeServiceEmployeeComponent {
       message: 'Confirma que o serviço foi realizado?',
       label: 'Realizar',
     };
-    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
-      console.log(value);
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe(() => {
+      this.request.status[this.request.status.length-1].category = 'paid';
+      console.log(this.request.status[this.request.status.length-1].category);
     });
     //implementar a lógica para arrumar o componente. deve guardar o funcionario, data e hora
   };
