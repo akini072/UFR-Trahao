@@ -16,4 +16,13 @@ import { StatusColorPipe } from "../../../core/utils/pipes/statusColor/status-co
 })
 export class RequestTableComponent {
   @Input() requests: RequestItem[] = [];
+
+  style = {
+    table: "table-auto border min-w-full border-gray-400 rounded-lg divide-gray-400 shadow",
+    head: "bg-gray-50",
+    col: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+    body: "bg-white divide-y divide-gray-200",
+    idRow: "px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900",
+    commomRow: "px-6 py-4 whitespace-nowrap text-sm text-gray-500",
+  }
 }
