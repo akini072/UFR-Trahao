@@ -31,23 +31,12 @@ export class VisualizeServiceEmployeeComponent {
     switch (this.request.status[this.request.status.length-1].category) {
       case 'open':
         this.open = true;
-        this.approved = false;
-        this.paid = false;
         break;
       case 'approved':
-        this.open = false;
         this.approved = true;
-        this.paid = false;
         break;
       case 'paid':
-        this.open = false;
-        this.approved = false;
         this.paid = true;
-        break;
-      default:
-        this.open = false;
-        this.approved = false;
-        this.paid = false;
         break;
     }
 
@@ -135,6 +124,7 @@ export class VisualizeServiceEmployeeComponent {
   };
 
   onPaid=()=>{
+    //inserir lógica de finalizar o serviço
     const data = {
       title: 'Finalização',
       message: 'Você confirma a finalização do serviço? Tem certeza mesmo?',
