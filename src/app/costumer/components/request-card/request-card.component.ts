@@ -41,8 +41,8 @@ export class RequestCardComponent {
     cardContainer:
       'w-80 h-96 border rounded-lg overflow-hidden shadow-md flex flex-col align-middle justify-center items-center',
     cardHeader: `flex w-full items-center justify-between p-3 w-full`,
-    title: 'text-md text-default-black font-bold',
-    statusText: 'text-xs text-default-black',
+    title: 'text-md text-white font-bold',
+    statusText: 'text-xs text-white',
     cardContentContainer: 'flex flex-col w-full justify-between flex-1',
     cardImageContainer: 'flex justify-center h-1/2 overflow-hidden',
     cardImage: 'h-4/6 ',
@@ -53,7 +53,7 @@ export class RequestCardComponent {
     cardButtonSection:
       'flex justify-between justify-self-end aling-self-end items-center',
     cardButton:
-      'text-xs p-2 cursor-pointer text-default-black font-semibold rounded',
+      'text-xs p-2 cursor-pointer text-white font-semibold rounded',
   };
 
   buttonPropColor: string = '';
@@ -67,7 +67,7 @@ export class RequestCardComponent {
     text: 'Visualizar',
     color: this.buttonPropColor,
     size: 'medium',
-    textColor: 'default-black',
+    textColor: 'white',
     onClick: () => {},
     extraClasses: 'cursor-pointer',
   };
