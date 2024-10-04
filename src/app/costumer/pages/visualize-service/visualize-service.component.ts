@@ -113,7 +113,6 @@ export class VisualizeServiceComponent implements OnInit {
   };
 
   onReject = () => {
-    //Adicionar o Modal que rejeita o nosso orçamento.
     const data = {
       title: 'Serviço Recusado',
       message: 'Por favor, informe o motivo da rejeição',
@@ -138,7 +137,15 @@ export class VisualizeServiceComponent implements OnInit {
 
   onPay = () => {
     //Adicioanr o Modal que paga.
-  }
+    const data = {
+      title: 'Pagar serviço',
+      message: 'Confirmar pagamento?',
+      label: 'Pagar',
+    };
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
+      console.log(value);
+    });
+  };
 
   onRescue = () => {
     //Adicionar o Modal que resgata
@@ -155,27 +162,18 @@ export class VisualizeServiceComponent implements OnInit {
   checkStatus() {
     switch (this.request.status[this.request.status.length - 1].category) {
       case 'fixed':
-        this.budgeted = false;
         this.finalized = true;
-        this.rejected = false;
         this.pageTitle = 'Pagar Serviço';
         break;
       case 'budgeted':
         this.budgeted = true;
-        this.finalized = false;
-        this.rejected = false;
         this.pageTitle = 'Serviço orçado';
         break;
       case 'rejected':
-        this.budgeted = false;
-        this.finalized = false;
         this.rejected = true;
         this.pageTitle = 'Orçamento rejeitado';
         break;
       default:
-        this.budgeted = false;
-        this.finalized = false;
-        this.rejected = false;
         this.pageTitle = 'Visualizar Serviço';
         break;
     }
