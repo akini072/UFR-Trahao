@@ -21,6 +21,7 @@ export class VisualizeServiceEmployeeComponent {
 
   open: boolean = false;
   approved: boolean = false;
+  paid: boolean = false;
 
   ngOnInit(){
     this.checkStatus();
@@ -30,15 +31,12 @@ export class VisualizeServiceEmployeeComponent {
     switch (this.request.status[this.request.status.length-1].category) {
       case 'open':
         this.open = true;
-        this.approved = false;
         break;
       case 'approved':
-        this.open = false;
         this.approved = true;
-        break
-      default:
-        this.open = false;
-        this.approved = false;
+        break;
+      case 'paid':
+        this.paid = true;
         break;
     }
 
@@ -95,8 +93,9 @@ export class VisualizeServiceEmployeeComponent {
       message: 'Confirma que o serviço foi realizado?',
       label: 'Realizar',
     };
-    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
-      console.log(value);
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe(() => {
+      this.request.status[this.request.status.length-1].category = 'paid';
+      console.log(this.request.status[this.request.status.length-1].category);
     });
     //implementar a lógica para arrumar o componente. deve guardar o funcionario, data e hora
   };
@@ -119,6 +118,18 @@ export class VisualizeServiceEmployeeComponent {
       title: 'Orçamento',
       message: 'Por favor, confira o valor do orçamento',
       label: 'Orçar',
+    };
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
+      console.log(value);
+    });
+  };
+
+  onPaid=()=>{
+    //inserir lógica de finalizar o serviço
+    const data = {
+      title: 'Finalização',
+      message: 'Você confirma a finalização do serviço? Tem certeza mesmo?',
+      label: 'Finalizar'
     };
     this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
       console.log(value);
