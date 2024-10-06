@@ -1,18 +1,19 @@
-<div [ngClass]="screen">
+<div id="screen" [ngClass]="style.screen" (click)="close($event)">
   <div id="modal" [ngClass]="checkModal()">
-    <div [ngClass]="header">
-      <button [ngClass]="btnClose"  (click)="close()"><span class="material-icons">close</span></button>
-      <h1 [ngClass]="titleStyle">{{ title }}</h1>
+    <div [ngClass]="style.header">
+      <button [ngClass]="style.close" (click)="close($event)"><span id="close" class="material-icons">close</span></button>
+      <h1 [ngClass]="style.title">{{ title }}</h1>
     </div>
     <p>{{ message }}</p>
     @if(showInput) {
-    <app-form-input placeholder="Informe" [ngClass]="input"></app-form-input>
+      <app-form-input id="input" type="text" placeholder="Informe" [ngClass]="style.input" [control]="inputControl" [validations]="['required']"></app-form-input>
+      <span *ngIf="error" [ngClass]="style.error">O campo não deve estar vazio</span>
     }
-    <div [ngClass]="footer">
+    <div [ngClass]="style.footer">
       @if(showCancel){
-      <button type="button" [ngClass]="btnConfirm">Cancelar</button>
+      <button type="button" [ngClass]="style.button" (click)="cancel()">Cancelar</button>
       }
-      <button type="button" [ngClass]="btnConfirm" (click)="resolve()">{{ label }}</button>
+      <button type="button" [ngClass]="style.button" (click)="resolve()">{{ label }}</button>
     </div>
   </div>
 </div>
