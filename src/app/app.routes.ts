@@ -8,6 +8,7 @@ import { VisualizeServiceEmployeeComponent } from './employee/pages/visualize-se
 import { VisualizeServiceComponent } from './costumer/pages/visualize-service/visualize-service.component';
 import { EmployeePageComponent } from './employee/pages/employee-page/employee-page.component';
 import { SolicitationsPageComponent } from './employee/pages/solicitations-page/solicitations-page.component';
+import { CategoryManagementComponent } from './employee/pages/category-management/category-management.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/index', pathMatch: 'full' },
@@ -20,4 +21,5 @@ export const routes: Routes = [
   { path: 'visualizar-servico', component: VisualizeServiceComponent },
   { path: 'pagina-funcionario', component: EmployeePageComponent },
   { path: 'solicitacoes', component: SolicitationsPageComponent },
+  { path: 'cadastro-de-categorias', component: CategoryManagementComponent },
 ];
