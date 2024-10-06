@@ -40,6 +40,9 @@ export abstract class ModalComponent {
     this.label = data['label'];
   }
 
+  /**
+   * Abre o modal e retorna um Observable que notifica sobre o ciclo de vida do modal.
+   */
   open(): Observable<ModalResponse> {
     const meuObservable: Observable<ModalResponse> = new Observable((observer) => {
       this.lifeCycle = observer;
@@ -47,7 +50,11 @@ export abstract class ModalComponent {
     return meuObservable;
   }
 
-  close(event: any): void{
+  /**
+   * Fecha o modal quando o evento de clique ocorre no elemento com id 'screen' ou 'close'.
+   * @param event Evento de clique que dispara o fechamento do modal.
+   */
+  close(event: any): void {
     const target = event.target as HTMLElement;
     if (target.id === 'screen' || target.id === 'close') {
       this.lifeCycle.next({ assert: false });
@@ -55,7 +62,10 @@ export abstract class ModalComponent {
     }
   }
   
-  cancel(): void{
+  /**
+   * Cancela o modal e notifica o observador que a ação foi cancelada.
+   */
+  cancel(): void {
     this.lifeCycle.next({ assert: false });
     this.lifeCycle.complete();
   }
