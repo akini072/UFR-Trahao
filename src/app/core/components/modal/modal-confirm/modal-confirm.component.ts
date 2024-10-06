@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../modal.component';
+import { FormInputComponent } from '../../form-input/form-input.component';
 
 @Component({
   selector: 'app-modal-confirm',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormInputComponent],
   templateUrl: '../modal.component.html',
 })
 export class ModalConfirmComponent extends ModalComponent implements OnInit{
@@ -15,11 +16,12 @@ export class ModalConfirmComponent extends ModalComponent implements OnInit{
   }
 
   override checkModal(): { [key: string]: boolean; } {
-    return { [this.modal]: true, 'border-yellow-400': true };
+    return { [this.style.modal]: true, 'border-yellow-400': true };
   }
 
-  override resolve(): boolean {
-    return true;
+  override resolve(): void {
+    this.lifeCycle.next({ assert: true });
+    this.lifeCycle.complete();
   }
 
 }
