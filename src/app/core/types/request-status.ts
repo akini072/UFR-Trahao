@@ -8,4 +8,5 @@ export interface RequestStatus {
   senderEmployee: String;
   inChargeEmployee: String;
   request: Request;
+  requestId?: number;
 }

@@ -32,6 +32,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     ToggleSwitchComponent,
     HttpClientModule
   ],
+  providers: [RequestsService],
   templateUrl: './costumer-homepage.component.html',
   styleUrls: ['./costumer-homepage.component.css'],
 })
@@ -71,7 +72,7 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.requestsService.listRequests().subscribe((data) => {
+    this.requestsService.listRequests().then((data: RequestItem[]) => {
       this.requestList = data;
       this.activeRequestList = this.requestList;
     });
@@ -101,7 +102,6 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
 
   toggleDisplayTable = () => {
     this.displayTable = !this.displayTable;
-    console.log(this.displayTable);
   };
 
   searchKeyboard(event: Event): void {
