@@ -24,11 +24,14 @@ export class FormInputComponent {
   @Input() placeholder?: string;
   @Input() mask?: string;
   @Input() control?: FormControl;
-  input = "shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline";
-  eye: string = "absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none hover:text-blue-600 dark:text-neutral-600 dark:hover:text-blue-500";
+
   icon: string = 'visibility_off';
-  error: string = 'text-red-500 text-sm italic';
   visibility: boolean = false;
+  style = {
+    input: "shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline",
+    eye: "absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none hover:text-blue-600 dark:text-neutral-600 dark:hover:text-blue-500",
+    error: 'text-red-500 text-sm italic',
+  }
 
   ngOnInit() {
     this.configureValidators();
