@@ -119,8 +119,19 @@ export class VisualizeServiceComponent implements OnInit {
       message: 'Por favor, informe o motivo da rejeição',
       label: 'Recusar',
     };
-    this.modal.open(this.view, ModalType.INPUT, data).subscribe((value) => {
-      console.log(value);
+    this.modal.open(this.view, ModalType.INPUT, data).subscribe((value: ModalResponse) => {
+      //TEST: Adicionar o status de rejeitado ao nosso serviço
+      if(value.assert) {
+        this.request.status.push({
+          requestStatusId: '2',
+          dateTime: new Date(),
+          category: 'rejected',
+          senderEmployee: '',
+          inChargeEmployee: 'Alisson Gabriel',
+          request: {} as Request
+        });
+        this.checkStatus();
+      }
     });
   }
 
