@@ -7,6 +7,7 @@ import { StatusStepperComponent } from '../../components/status-stepper/status-s
 import { Request } from '../../../core/types/request';
 import { ModalService } from '../../../core/utils/modal.service';
 import { ModalType } from '../../../core/types/modal-type';
+import { ModalResponse } from '../../../core/types/modal-response';
 
 @Component({
   selector: 'app-visualize-service',
@@ -130,8 +131,19 @@ export class VisualizeServiceComponent implements OnInit {
       message: 'Serviço aprovado no valor de R$ ' + this.request.budget + '.',
       label: 'Aprovar',
     };
-    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
-      console.log(value);
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
+      //TEST: Adicionar o status de aprovado ao nosso serviço.
+      if(value.assert) {
+        this.request.status.push({
+          requestStatusId: '3',
+          dateTime: new Date(),
+          category: 'approved',
+          senderEmployee: '',
+          inChargeEmployee: 'Alisson Gabriel',
+          request: {} as Request
+        });
+        this.checkStatus();
+      }
     });
   }
 
