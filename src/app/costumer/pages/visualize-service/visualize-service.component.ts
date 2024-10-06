@@ -165,8 +165,19 @@ export class VisualizeServiceComponent implements OnInit {
       message: 'Confirmar pagamento?',
       label: 'Pagar',
     };
-    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
-      console.log(value);
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
+      //TEST: Adicionar o status de pago ao nosso serviço.
+      if(value.assert) {
+        this.request.status.push({
+          requestStatusId: '6',
+          dateTime: new Date(),
+          category: 'paid',
+          senderEmployee: '',
+          inChargeEmployee: 'Mateus Bazan',
+          request: {} as Request
+        });
+        this.checkStatus();
+      }
     });
   };
 
@@ -197,17 +208,26 @@ export class VisualizeServiceComponent implements OnInit {
     switch (this.request.status[this.request.status.length - 1].category) {
       case 'fixed':
         this.finalized = true;
+        this.budgeted = false;
+        this.rejected = false;
         this.pageTitle = 'Pagar Serviço';
         break;
       case 'budgeted':
         this.budgeted = true;
+        this.finalized = false;
+        this.rejected = false;
         this.pageTitle = 'Serviço orçado';
         break;
       case 'rejected':
         this.rejected = true;
+        this.finalized = false;
+        this.budgeted = false;
         this.pageTitle = 'Orçamento rejeitado';
         break;
       default:
+        this.rejected = false;
+        this.finalized = false;
+        this.budgeted = false;
         this.pageTitle = 'Visualizar Serviço';
         break;
     }
