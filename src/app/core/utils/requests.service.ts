@@ -1,9 +1,11 @@
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { RequestStatus } from '../types/request-status';
+import { Request } from '../types/request';
 import { RequestItem } from '../types/request-item';
-import { map } from 'rxjs/operators';
+import { RequestCategory } from '../types/request-category';
 
 @Injectable({
   providedIn: 'root',
@@ -11,49 +13,33 @@ import { map } from 'rxjs/operators';
 export class RequestsService {
   private baseUrl: string = environment.baseUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
+  
+  private getRequests(): Observable<Request[]> {
+    return this.http.get<Request[]>(this.baseUrl + 'requests.json');
+  }
+  
+  private getRequestStatuses(): Observable<RequestStatus[]> {
+    return this.http.get<RequestStatus[]>(this.baseUrl + 'requestStatuses.json');
+  }
 
-  listRequests(): Observable<RequestItem[]> {
-    const requests$ = this.http.get<{ requests: any[] }>(this.baseUrl + 'requests.json');
-    const statuses$ = this.http.get<{ statuses: any[] }>(this.baseUrl + 'requestStatuses.json');
-  
-    return forkJoin([requests$, statuses$]).pipe(
-      map(([requestsResponse, statusesResponse]) => {
-        const requestMap: { [key: number]: { createdAt: string; status: string; requestDesc: string; defectDesc: string } } = {};
-        requestsResponse.requests.forEach((request) => {
-          const { requestId, statusDesc, dateTime, requestDesc, defectDesc } = request;
-  
-          if (!requestMap[requestId]) {
-            requestMap[requestId] = { 
-              createdAt: dateTime, 
-              status: statusDesc,
-              requestDesc,
-              defectDesc
-            };
-          } else {
-            if (new Date(dateTime) < new Date(requestMap[requestId].createdAt)) {
-              requestMap[requestId].createdAt = dateTime;
-            }
-            requestMap[requestId].status = statusDesc;
-          }
-        });
-  
-        statusesResponse.statuses.forEach((status) => {
-          const { requestId, statusDesc } = status;
-          if (requestMap[requestId]) {
-            requestMap[requestId].status = statusDesc;
-          }
-        });
-  
-        return Object.entries(requestMap).map(([requestId, data]) => ({
-          id: Number(requestId),
-          title: data.requestDesc,
-          description: data.defectDesc,
-          status: data.status,
-          created_at: data.createdAt,
-          image: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg=='
-        })) as RequestItem[];
-      })
-    );
-  }    
+  async listRequests(): Promise<RequestItem[]> {
+    const requests: Request[] = await lastValueFrom(this.getRequests());
+    const statuses: RequestStatus[] = await lastValueFrom(this.getRequestStatuses());
+    
+    const requestItems = requests.map((request: Request) => {
+      const statusList = statuses.filter((status) => status.requestId === request.requestId);
+      const status = statusList[statusList.length - 1]?.category;
+      return {
+        id: request.requestId,
+        title: request.equipmentDesc,
+        description: request.defectDesc,
+        status: status,
+        created_at: `${statusList[0]?.dateTime}`,
+        image: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+      } as RequestItem;
+    });
+    
+    return requestItems;
+  }
 }
