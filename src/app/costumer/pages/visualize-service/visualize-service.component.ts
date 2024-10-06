@@ -177,8 +177,19 @@ export class VisualizeServiceComponent implements OnInit {
       message: 'Deseja resgatar e aprovar esse serviço?',
       label: 'Resgatar',
     };
-    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
-      console.log(value);
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
+      //TEST: Adicionar o status de resgatado ao nosso serviço.
+      if(value.assert) {
+        this.request.status.push({
+          requestStatusId: '4',
+          dateTime: new Date(),
+          category: 'redirected',
+          senderEmployee: 'Alisson Gabriel',
+          inChargeEmployee: 'Mateus Bazan',
+          request: {} as Request
+        });
+        this.checkStatus();
+      }
     });
   }
 
