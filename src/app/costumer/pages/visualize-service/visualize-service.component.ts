@@ -7,6 +7,7 @@ import { StatusStepperComponent } from '../../components/status-stepper/status-s
 import { Request } from '../../../core/types/request';
 import { ModalService } from '../../../core/utils/modal.service';
 import { ModalType } from '../../../core/types/modal-type';
+import { ModalResponse } from '../../../core/types/modal-response';
 
 @Component({
   selector: 'app-visualize-service',
@@ -113,14 +114,24 @@ export class VisualizeServiceComponent implements OnInit {
   };
 
   onReject = () => {
-    //Adicionar o Modal que rejeita o nosso orçamento.
     const data = {
       title: 'Serviço Recusado',
       message: 'Por favor, informe o motivo da rejeição',
       label: 'Recusar',
     };
-    this.modal.open(this.view, ModalType.INPUT, data).subscribe((value) => {
-      console.log(value);
+    this.modal.open(this.view, ModalType.INPUT, data).subscribe((value: ModalResponse) => {
+      //TEST: Adicionar o status de rejeitado ao nosso serviço
+      if(value.assert) {
+        this.request.status.push({
+          requestStatusId: '2',
+          dateTime: new Date(),
+          category: 'rejected',
+          senderEmployee: '',
+          inChargeEmployee: 'Alisson Gabriel',
+          request: {} as Request
+        });
+        this.checkStatus();
+      }
     });
   }
 
@@ -131,14 +142,44 @@ export class VisualizeServiceComponent implements OnInit {
       message: 'Serviço aprovado no valor de R$ ' + this.request.budget + '.',
       label: 'Aprovar',
     };
-    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
-      console.log(value);
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
+      //TEST: Adicionar o status de aprovado ao nosso serviço.
+      if(value.assert) {
+        this.request.status.push({
+          requestStatusId: '3',
+          dateTime: new Date(),
+          category: 'approved',
+          senderEmployee: '',
+          inChargeEmployee: 'Alisson Gabriel',
+          request: {} as Request
+        });
+        this.checkStatus();
+      }
     });
   }
 
   onPay = () => {
     //Adicioanr o Modal que paga.
-  }
+    const data = {
+      title: 'Pagar serviço',
+      message: 'Confirmar pagamento?',
+      label: 'Pagar',
+    };
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
+      //TEST: Adicionar o status de pago ao nosso serviço.
+      if(value.assert) {
+        this.request.status.push({
+          requestStatusId: '6',
+          dateTime: new Date(),
+          category: 'paid',
+          senderEmployee: '',
+          inChargeEmployee: 'Mateus Bazan',
+          request: {} as Request
+        });
+        this.checkStatus();
+      }
+    });
+  };
 
   onRescue = () => {
     //Adicionar o Modal que resgata
@@ -147,16 +188,27 @@ export class VisualizeServiceComponent implements OnInit {
       message: 'Deseja resgatar e aprovar esse serviço?',
       label: 'Resgatar',
     };
-    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
-      console.log(value);
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
+      //TEST: Adicionar o status de resgatado ao nosso serviço.
+      if(value.assert) {
+        this.request.status.push({
+          requestStatusId: '4',
+          dateTime: new Date(),
+          category: 'redirected',
+          senderEmployee: 'Alisson Gabriel',
+          inChargeEmployee: 'Mateus Bazan',
+          request: {} as Request
+        });
+        this.checkStatus();
+      }
     });
   }
 
   checkStatus() {
     switch (this.request.status[this.request.status.length - 1].category) {
       case 'fixed':
-        this.budgeted = false;
         this.finalized = true;
+        this.budgeted = false;
         this.rejected = false;
         this.pageTitle = 'Pagar Serviço';
         break;
@@ -167,15 +219,15 @@ export class VisualizeServiceComponent implements OnInit {
         this.pageTitle = 'Serviço orçado';
         break;
       case 'rejected':
-        this.budgeted = false;
-        this.finalized = false;
         this.rejected = true;
+        this.finalized = false;
+        this.budgeted = false;
         this.pageTitle = 'Orçamento rejeitado';
         break;
       default:
-        this.budgeted = false;
-        this.finalized = false;
         this.rejected = false;
+        this.finalized = false;
+        this.budgeted = false;
         this.pageTitle = 'Visualizar Serviço';
         break;
     }
