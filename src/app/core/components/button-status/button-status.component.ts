@@ -2,10 +2,11 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { RequestCategory } from '../../types/request-category';
-interface ButtonStatus{
+interface ButtonStatus {
   type: RequestCategory;
   name: string;
   route: string;
+  isDisabled?: boolean;
 }
 
 @Component({
@@ -13,32 +14,52 @@ interface ButtonStatus{
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './button-status.component.html',
-  styleUrl: './button-status.component.css'
-})  
-
+  styleUrl: './button-status.component.css',
+})
 export class ButtonStatusComponent {
   @Input() status!: RequestCategory;
   @Input() color: string = 'bg-gray-300';
+  @Input() displayDisabled: boolean = false;
 
-  cardButton = `text-xs p-2 cursor-pointer text-default-black font-semibold rounded`;
+  cardButton = `text-xs p-2 cursor-pointer text-default-white font-semibold rounded`;
 
   buttonOptions: ButtonStatus[] = [
-    { type: 'open', name: 'ABERTA', route: 'AAAA' },
-    { type: 'budgeted', name: 'ORÇADA', route: '' },
-    { type: 'rejected', name: 'REJEITADA', route: 'AAAA' },
-    { type: 'approved', name: 'APROVADA', route: 'AAAA' },
-    { type: 'redirected', name: 'REDIRECIONADA', route: '' },
-    { type: 'fixed', name: 'ARRUMADA', route: 'AAAA' },
-    { type: 'paid', name: 'PAGA', route: '' },
-    { type: 'finalized', name: 'FINALIZADA', route: '' },
+    {
+      type: 'open',
+      name: 'ABERTA',
+      route: '',
+      isDisabled: true,
+    },
+    { type: 'budgeted', name: 'APROVAR/REJEITAR', route: '' },
+    { type: 'rejected', name: 'RESGATAR', route: '' },  
+    {
+      type: 'approved',
+      name: 'APROVADA',
+      route: '',
+      isDisabled: true,
+    },
+    {
+      type: 'redirected',
+      name: 'REDIRECIONADA',
+      route: '',
+      isDisabled: true,
+    },
+    { type: 'fixed', name: 'PAGAR', route: '' },
+    {
+      type: 'paid',
+      name: 'PAGO',
+      route: '',
+      isDisabled: true,
+    },
+    {
+      type: 'finalized',
+      name: 'FINALIZADA',
+      route: '',
+      isDisabled: true,
+    },
   ];
 
-  debugButton(){
-
+  selectButton(status: RequestCategory) {
+    return this.buttonOptions.find((button) => button.type === status);
   }
-
-  selectButton(status: RequestCategory){
-    return this.buttonOptions.find(button=> button.type === status)
-  }
-
 }

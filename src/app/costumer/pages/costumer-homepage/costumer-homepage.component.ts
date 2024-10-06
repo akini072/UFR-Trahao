@@ -10,9 +10,14 @@ import { RequestCategory } from '../../../core/types/request-category';
 import { RequestTableComponent } from '../../components/request-table/request-table.component';
 import { FilterSectionComponent } from '../../components/filter-section/filter-section.component';
 import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/toggle-switch.component';
-import { RequestItem } from '../../../core/types/request-item';
-import { RequestsService } from '../../../core/utils/requests.service'
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+export interface RequestItem {
+  id: number;
+  title: string;
+  description: string;
+  status: RequestCategory;
+  created_at: string;
+  image: string;
+}
 
 @Component({
   selector: 'app-costumer-homepage',
@@ -28,13 +33,91 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     RequestTableComponent,
     FilterSectionComponent,
     ToggleSwitchComponent,
-    HttpClientModule
   ],
   templateUrl: './costumer-homepage.component.html',
   styleUrls: ['./costumer-homepage.component.css'],
 })
 export class CustomerHomepageComponent implements OnInit, OnDestroy {
-  requestList: RequestItem[] = [];
+  requestList: RequestItem[] = [
+    {
+      id: 1,
+      title: 'Troca de Disco Rígido',
+      description:
+        'Substituição do disco rígido antigo por um novo SSD para melhorar o desempenho do sistema.',
+      status: 'open',
+      created_at: '2024-09-01',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+    {
+      id: 2,
+      title: 'Atualização de Software',
+      description:
+        'Atualização do sistema operacional e dos principais aplicativos para a versão mais recente.',
+      status: 'approved',
+      created_at: '2024-09-02',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+    {
+      id: 3,
+      title: 'Reparo de Tela',
+      description: 'Reparo da tela quebrada do notebook.',
+      status: 'rejected',
+      created_at: '2024-09-03',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+    {
+      id: 4,
+      title: 'Limpeza de Sistema',
+      description:
+        'Limpeza completa do sistema para remover poeira e melhorar a ventilação.',
+      status: 'paid',
+      created_at: '2024-09-04',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+    {
+      id: 5,
+      title: 'Instalação de Memória RAM',
+      description:
+        'Instalação de memória RAM adicional para melhorar o desempenho do computador.',
+      status: 'budgeted',
+      created_at: '2024-09-05',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+    {
+      id: 6,
+      title: 'Configuração de Rede',
+      description:
+        'Configuração de rede local e Wi-Fi para melhor conectividade.',
+      status: 'finalized',
+      created_at: '2024-09-06',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+    {
+      id: 7,
+      title: 'Reparo de Placa Mãe',
+      description: 'Diagnóstico e reparo da placa mãe do desktop.',
+      status: 'fixed',
+      created_at: '2024-09-07',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+    {
+      id: 8,
+      title: 'Substituição de Fonte de Alimentação',
+      description:
+        'Substituição da fonte de alimentação defeituosa por uma nova.',
+      status: 'redirected',
+      created_at: '2024-09-08',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+  ];
 
   style = {
     navbar: '',
@@ -63,16 +146,12 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
   activeFilters: { filter: string; value?: string }[] = [];
   displayTable: boolean = false;
 
-  constructor(private router: Router, private renderer: Renderer2, private requestsService : RequestsService, private http: HttpClient) {
+  constructor(private router: Router, private renderer: Renderer2) {
     this.updateTotalPages();
     this.updateItemsPerPage(window.innerWidth);
   }
 
   ngOnInit(): void {
-    this.requestsService.listRequests().subscribe((data) => {
-      this.requestList = data;
-      this.activeRequestList = this.requestList;
-    });
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
       this.updateItemsPerPage(event.target.innerWidth);
       this.updateTotalPages();
