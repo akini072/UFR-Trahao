@@ -1,0 +1,147 @@
+import { Component,OnInit,ViewContainerRef } from '@angular/core';
+import { ButtonComponent } from '../../../core/components/button/button.component';
+import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
+import { FooterComponent } from '../../../core/components/footer/footer.component';
+import { Request } from '../../../core/types/request';
+import { CommonModule } from '@angular/common';
+import { ModalService } from '../../../core/utils/modal.service';
+import { ModalType } from '../../../core/types/modal-type';
+import { StatusStepperComponent } from "../../../costumer/components/status-stepper/status-stepper.component";
+
+@Component({
+  selector: 'app-visualize-service-employee',
+  standalone: true,
+  imports: [ButtonComponent, NavbarComponent, FooterComponent, CommonModule, StatusStepperComponent],
+  templateUrl: './visualize-service-employee.component.html',
+  styleUrl: './visualize-service-employee.component.css'
+})
+export class VisualizeServiceEmployeeComponent {
+
+  constructor(private modal: ModalService, private view: ViewContainerRef) {}
+
+  open: boolean = false;
+  approved: boolean = false;
+  paid: boolean = false;
+
+  ngOnInit(){
+    this.checkStatus();
+  }
+
+  checkStatus(){
+    switch (this.request.status[this.request.status.length-1].category) {
+      case 'open':
+        this.open = true;
+        break;
+      case 'approved':
+        this.approved = true;
+        break;
+      case 'paid':
+        this.paid = true;
+        break;
+    }
+
+  }
+
+  request: Request = {
+    requestId: 1,
+    requestDesc: 'Computador travando',
+    equipmentDesc: 'Notebook Lenovo velho',
+    defectDesc: 'A tela parou de funcionar do nada depois de dar tela azul e eu acidentalmente acertar um soco no computador. Eu não sei o que aconteceu, mas acho que o problema é na tela ou na placa mãe ou a placa de video porque travava toda hora.',
+    status: [
+      {
+        requestStatusId: '0',
+        dateTime: new Date(),
+        category: 'open', // Replace 'someCategory' with the actual category
+        senderEmployee: '',
+        inChargeEmployee: 'Alisson Gabriel',
+        request: {} as Request // Replace with actual request object if needed
+      },
+      {
+        requestStatusId: '1',
+        dateTime: new Date(),
+        category: 'budgeted', // Replace 'someCategory' with the actual category
+        senderEmployee: '',
+        inChargeEmployee: 'Alisson Gabriel',
+        request: {} as Request // Replace with actual request object if needed
+      },
+      {
+        requestStatusId: '2',
+        dateTime: new Date(),
+        category: 'budgeted', // Replace 'someCategory' with the actual category
+        senderEmployee: '',
+        inChargeEmployee: 'Alisson Gabriel',
+        request: {} as Request // Replace with actual request object if needed
+      },
+      {
+        requestStatusId: '3',
+        dateTime: new Date(),
+        category: 'approved', // Replace 'someCategory' with the actual category
+        senderEmployee: '',
+        inChargeEmployee: 'Alisson Gabriel',
+        request: {} as Request // Replace with actual request object if needed
+      }
+    ],
+    budget: 1500.00,
+    repairDesc: '',
+    customerOrientations: '',
+    image: ''
+  }
+
+  onFix=()=>{
+    const data = {
+      title: 'Serviço Realizado',
+      message: 'Confirma que o serviço foi realizado?',
+      label: 'Realizar',
+    };
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe(() => {
+      this.request.status[this.request.status.length-1].category = 'paid';
+      console.log(this.request.status[this.request.status.length-1].category);
+    });
+    //implementar a lógica para arrumar o componente. deve guardar o funcionario, data e hora
+  };
+
+  onRedirect=()=>{
+    //implementar a lógica para passar o concerto para outro funcionario
+    const data = {
+      title: 'Serviço Redirecionado',
+      message: 'Por favor, informe o nome do funcionario a redirecionar',
+      label: 'Redirecionar',
+    };
+    this.modal.open(this.view, ModalType.INPUT, data).subscribe((value) => {
+      console.log(value);
+    });
+  };
+
+  onBudget=()=>{
+    //implementar lógica de salvar o valor do orçamento e timestamp junto do nome do funcionario
+    const data = {
+      title: 'Orçamento',
+      message: 'Por favor, confira o valor do orçamento',
+      label: 'Orçar',
+    };
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
+      console.log(value);
+    });
+  };
+
+  onPaid=()=>{
+    //inserir lógica de finalizar o serviço
+    const data = {
+      title: 'Finalização',
+      message: 'Você confirma a finalização do serviço? Tem certeza mesmo?',
+      label: 'Finalizar'
+    };
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
+      console.log(value);
+    });
+  };
+
+  main:string = 'container mx-auto p-4';
+  submain: string = 'mb-4 px-8 p-4 border rounded-lg shadow-sm flex flex-wrap bg-white';
+  submain2: string = 'mb-4 p-4 border rounded-lg shadow-sm bg-white';
+  title:string = 'text-2xl font-bold mb-4 text-center';
+  subtitle: string = "text-xl font-bold mb-4 basis-full";
+  basisHalf: string = "basis-1/2 mb-4";
+  basisFull: string = "basis-full mb-4";
+  semibold: string = "font-semibold mb-2";
+}

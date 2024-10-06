@@ -1,33 +1,33 @@
 <app-navbar [isLogged]="false"></app-navbar>
-<div [ngClass]="main">
-  <div [ngClass]="form">
-    <h2 [ngClass]="title">Login</h2>
-    <form>
-      <div class="mb-4">
-        <label [ngClass]="label" for="email">
-          E-mail
+<div [ngClass]="style.main">
+  <div [ngClass]="style.form">
+    <h2 [ngClass]="style.title">Login</h2>
+    <form [formGroup]="formGroup">
+      <div>
+        <label [ngClass]="style.label" for="email">
+          E-mail<span class="{{style.requiredSpan}}">*</span>
         </label>
-        <app-form-text-input type="email" placeholder="nome@dominio.com"></app-form-text-input>
+        <app-form-input id="email" type="email" placeholder="nome@dominio.com" [control]="email" [validations]="['email', 'required']"></app-form-input>
       </div>
 
-      <div class="mb-6">
-        <label [ngClass]="label" for="password">
-          Senha
+      <div>
+        <label [ngClass]="style.label" for="password">
+          Senha<span class="{{style.requiredSpan}}">*</span>
         </label>
-        <app-form-text-input type="password" placeholder="****"></app-form-text-input>
+        <app-form-input id="password" type="password" placeholder="****" [control]="password" [validations]="['required']"></app-form-input>
       </div>
 
-      <div [ngClass]="button">
+      <div [ngClass]="style.button">
+        <span *ngIf="error" [ngClass]="style.errorStyle">{{ getErrorMessage() }}</span>
         <app-button
           [props]="{text: 'Entrar', color: 'secondary-4', size: 'medium', textColor: 'white', hoverColor: 'secondary-6' , onClick: onLogin, extraClasses:'font-bold focus:outline-none focus:shadow-outline'}"></app-button>
       </div>
-
     </form>
 
     <hr class="mb-4">
 
-    <span [ngClass]="signUpSpan">Não possui conta?
-      <a [routerLink]="signUpRouterLink" [ngClass]="signUpRouter"> Cadastre-se </a>
+    <span [ngClass]="style.signUpSpan">Não possui conta?
+      <a [routerLink]="signUpRouterLink" [ngClass]="style.signUpRouter"> Cadastre-se </a>
     </span>
 
 
