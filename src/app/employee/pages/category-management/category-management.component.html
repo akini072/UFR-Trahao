@@ -1,0 +1,66 @@
+<app-navbar-employee></app-navbar-employee>
+
+<div [ngClass]="style.titleContainer">
+    <p [ngClass]="style.title">Controle de Categorias</p>
+    <button [ngClass]="style.button">
+        <span [ngClass]="style.buttonIcon">+</span>
+        <span>Nova categoria</span>
+    </button>
+</div>
+
+<div [ngClass]="style.container">
+    <div [ngClass]="style.innerContainer">
+        <table [ngClass]="style.table">
+            <thead [ngClass]="style.tableHeader">
+                <tr [ngClass]="style.tableHeaderRow">
+                    <th [ngClass]="style.tableHeaderSmallCell">
+                        <div [ngClass]="style.tableHeaderCellDiv">
+                            <div [ngClass]="style.columnName">
+                                <p>ID</p>
+                                <img src="../../../../assets/images/icons/arrow-up-icon.png" alt="#" [ngClass]="style.arrowIcon">
+                            </div>
+                            <input type="text" [ngClass]="style.searchInput">
+                        </div>
+                    </th>
+                    <th [ngClass]="style.tableHeaderLargeCell">
+                        <div [ngClass]="style.tableHeaderCellDiv">
+                            <div [ngClass]="style.columnName">
+                                <p>Descrição</p>
+                            </div>
+                            <input type="text" [ngClass]="style.searchInput">
+                        </div>
+                    </th>
+                    <th [ngClass]="style.tableHeaderSmallCell">
+                        <div [ngClass]="style.tableHeaderCellDiv">
+                            <div [ngClass]="style.columnName">
+                                <p>Ações</p>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>                    
+            <tbody [ngClass]="style.tableBody">
+                <tr [ngClass]="style.tableBodyRow">
+                    <td [ngClass]="style.tableBodyId">1</td>
+                    <td [ngClass]="style.tableBodyDescription">Notebook</td>
+                    <td [ngClass]="style.tableBodyActions">
+                        <img src="../../../../assets/images/icons/update-icon.png" alt="#" [ngClass]="style.actionIcon"> 
+                        <img src="../../../../assets/images/icons/delete-icon.png" alt="#" [ngClass]="style.actionIcon">
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" [ngClass]="style.tableFooter">Total de produtos: 5</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div [ngClass]="style.paginationControl">
+        <app-button [props]="leftButtonProp"></app-button>
+        <span class="">Página 1 de 1</span>
+        <app-button [props]="rightButtonProp"></app-button>
+      </div>
+</div>
+
+<app-footer></app-footer>
