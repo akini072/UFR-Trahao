@@ -1,0 +1,370 @@
+[
+    {
+        "requestStatusId": 1,
+        "requestId": 1,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-08-25T10:00:00"
+    },
+    {
+        "requestStatusId": 2,
+        "requestId": 2,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-08-26T10:00:00"
+    },
+    {
+        "requestStatusId": 3,
+        "requestId": 2,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "budgeted",
+        "dateTime": "2024-08-27T10:00:00"
+    },
+    {
+        "requestStatusId": 4,
+        "requestId": 3,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-08-28T10:00:00"
+    },
+    {
+        "requestStatusId": 5,
+        "requestId": 3,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "budgeted",
+        "dateTime": "2024-08-29T10:00:00"
+    },
+    {
+        "requestStatusId": 6,
+        "requestId": 3,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "rejected",
+        "dateTime": "2024-09-12T10:00:00"
+    },
+    {
+        "requestStatusId": 7,
+        "requestId": 4,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-13T10:00:00"
+    },
+    {
+        "requestStatusId": 8,
+        "requestId": 4,
+        "category": "budgeted",
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "dateTime": "2024-09-13T11:00:00"
+    },
+    {
+        "requestStatusId": 9,
+        "requestId": 4,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "approved",
+        "dateTime": "2024-09-14T10:00:00"
+    },
+    {
+        "requestStatusId": 10,
+        "requestId": 5,
+        "inChargeEmployeeId": 13,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-15T10:00:00"
+    },
+    {
+        "requestStatusId": 11,
+        "requestId": 5,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 13,
+        "category": "redirected",
+        "dateTime": "2024-09-16T10:00:00"
+    },
+    {
+        "requestStatusId": 12,
+        "requestId": 6,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-16T11:00:00"
+    },
+    {
+        "requestStatusId": 13,
+        "requestId": 6,
+        "category": "budgeted",
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "dateTime": "2024-09-16T12:00:00"
+    },
+    {
+        "requestStatusId": 14,
+        "requestId": 6,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "approved",
+        "dateTime": "2024-09-18T10:00:00"
+    },
+    {
+        "requestStatusId": 15,
+        "requestId": 6,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "fixed",
+        "dateTime": "2024-09-20T10:00:00"
+    },
+    {
+        "requestStatusId": 16,
+        "requestId": 7,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-20T15:00:00"
+    },
+    {
+        "requestStatusId": 17,
+        "requestId": 7,
+        "category": "budgeted",
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "dateTime": "2024-09-21T10:00:00"
+    },
+    {
+        "requestStatusId": 18,
+        "requestId": 7,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "approved",
+        "dateTime": "2024-09-21T11:00:00"
+    },
+    {
+        "requestStatusId": 19,
+        "requestId": 7,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "fixed",
+        "dateTime": "2024-09-21T20:00:00"
+    },
+    {
+        "requestStatusId": 20,
+        "requestId": 7,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "paid",
+        "dateTime": "2024-09-22T10:00:00"
+    },
+    {
+        "requestStatusId": 21,
+        "requestId": 8,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-22T11:00:00"
+    },
+    {
+        "requestStatusId": 22,
+        "requestId": 8,
+        "category": "budgeted",
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "dateTime": "2024-09-22T12:00:00"
+    },
+    {
+        "requestStatusId": 23,
+        "requestId": 8,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "approved",
+        "dateTime": "2024-09-23T10:00:00"
+    },
+    {
+        "requestStatusId": 24,
+        "requestId": 8,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "fixed",
+        "dateTime": "2024-09-23T11:00:00"
+    },
+    {
+        "requestStatusId": 25,
+        "requestId": 8,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "paid",
+        "dateTime": "2024-09-23T12:00:00"
+    },
+    {
+        "requestStatusId": 26,
+        "requestId": 8,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "finalized",
+        "dateTime": "2024-09-23T14:00:00"
+    },
+    {
+        "requestStatusId": 27,
+        "requestId": 9,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-23T14:00:01"
+    },
+    {
+        "requestStatusId": 28,
+        "requestId": 10,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-23T14:30:00"
+    },
+    {
+        "requestStatusId": 29,
+        "requestId": 11,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-24T09:15:23"
+    },
+    {
+        "requestStatusId": 30,
+        "requestId": 12,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-24T10:45:10"
+    },
+    {
+        "requestStatusId": 31,
+        "requestId": 13,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-25T08:00:12"
+    },
+    {
+        "requestStatusId": 32,
+        "requestId": 14,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-25T11:30:50"
+    },
+    {
+        "requestStatusId": 33,
+        "requestId": 15,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-26T10:20:00"
+    },
+    {
+        "requestStatusId": 34,
+        "requestId": 16,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-26T12:10:15"
+    },
+    {
+        "requestStatusId": 35,
+        "requestId": 17,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-27T09:00:10"
+    },
+    {
+        "requestStatusId": 36,
+        "requestId": 18,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-27T11:45:25"
+    },
+    {
+        "requestStatusId": 37,
+        "requestId": 19,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-28T08:30:55"
+    },
+    {
+        "requestStatusId": 38,
+        "requestId": 20,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-28T09:10:34"
+    },
+    {
+        "requestStatusId": 39,
+        "requestId": 22,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-28T10:25:00"
+    },
+    {
+        "requestStatusId": 40,
+        "requestId": 23,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-28T11:45:10"
+    },
+    {
+        "requestStatusId": 41,
+        "requestId": 24,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-28T12:30:05"
+    },
+    {
+        "requestStatusId": 42,
+        "requestId": 25,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-28T13:45:50"
+    },
+    {
+        "requestStatusId": 43,
+        "requestId": 26,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-28T14:30:10"
+    },
+    {
+        "requestStatusId": 44,
+        "requestId": 27,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-28T15:45:25"
+    },
+    {
+        "requestStatusId": 45,
+        "requestId": 28,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-28T16:10:55"
+    },
+    {
+        "requestStatusId": 46,
+        "requestId": 29,
+        "inChargeEmployeeId": 12,
+        "SenderEmployeeId": 0,
+        "category": "open",
+        "dateTime": "2024-09-28T19:00:00"
+    }
+]

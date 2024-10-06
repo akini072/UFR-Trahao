@@ -7,7 +7,7 @@ import {
 } from '../../../core/components/button/button.component';
 import { ButtonStatusComponent } from '../../../core/components/button-status/button-status.component';
 import { LimitedDescriptionPipe } from '../../../core/utils/limited-description.pipe';
-import { RequestItem } from '../../pages/costumer-homepage/costumer-homepage.component';
+import { RequestItem } from '../../../core/types/request-item';
 import { StatusTextPipe } from '../../../core/utils/pipes/statusText/status-text.pipe';
 import { StatusColorPipe } from '../../../core/utils/pipes/statusColor/status-color.pipe';
 @Component({

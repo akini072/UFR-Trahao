@@ -1,0 +1,159 @@
+[
+    {
+        "userId": 1,
+        "email": "joao.silva@example.com",
+        "name": "João Silva",
+        "password": "senha123",
+        "cpf": "12345678901",
+        "phoneNumber": "11911112222",
+        "addressId": 1,
+        "type": "Customer",
+        "status": true
+    },
+    {
+        "userId": 2,
+        "email": "lucas.farias@example.com",
+        "name": "Lucas Farias",
+        "password": "senha110",
+        "cpf": "87654321098",
+        "phoneNumber": "11555554444",
+        "addressId": 2,
+        "type": "Customer",
+        "status": true
+    },
+    {
+        "userId": 3,
+        "email": "tatiane.oliveira@example.com",
+        "name": "Tatiane Oliveira",
+        "password": "senha111",
+        "cpf": "76543210987",
+        "phoneNumber": "11444443333",
+        "addressId": 3,
+        "type": "Customer",
+        "status": true
+    },
+    {
+        "userId": 4,
+        "email": "sandro.souza@example.com",
+        "name": "Sandro Souza",
+        "password": "senha112",
+        "cpf": "65432109876",
+        "phoneNumber": "11333332222",
+        "addressId": 4,
+        "type": "Customer",
+        "status": true
+    },
+    {
+        "userId": 5,
+        "email": "carlos.santos@example.com",
+        "name": "Carlos Santos",
+        "password": "senha789",
+        "cpf": "34567890123",
+        "phoneNumber": "11933334444",
+        "addressId": 5,
+        "type": "Customer",
+        "status": true
+    },
+    {
+        "userId": 6,
+        "email": "fernanda.lima@example.com",
+        "name": "Fernanda Lima",
+        "password": "senha101",
+        "cpf": "45678901234",
+        "phoneNumber": "11944445555",
+        "addressId": 6,
+        "type": "Customer",
+        "status": true
+    },
+    {
+        "userId": 7,
+        "email": "luana.silveira@example.com",
+        "name": "Luana Silveira",
+        "password": "senha103",
+        "cpf": "67890123456",
+        "phoneNumber": "11966667777",
+        "addressId": 7,
+        "type": "Customer",
+        "status": true
+    },
+    {
+        "userId": 8,
+        "email": "roberto.almeida@example.com",
+        "name": "Roberto Almeida",
+        "password": "senha104",
+        "cpf": "78901234567",
+        "phoneNumber": "11977778888",
+        "addressId": 8,
+        "type": "Customer",
+        "status": true
+    },
+    {
+        "userId": 9,
+        "email": "patricia.melo@example.com",
+        "name": "Patrícia Melo",
+        "password": "senha105",
+        "cpf": "89012345678",
+        "phoneNumber": "11988889999",
+        "addressId": 9,
+        "type": "Customer",
+        "status": false
+    },
+    {
+        "userId": 10,
+        "email": "rafael.oliveira@example.com",
+        "name": "Rafael Oliveira",
+        "password": "senha106",
+        "cpf": "90123456789",
+        "phoneNumber": "11999990000",
+        "addressId": 10,
+        "type": "Customer",
+        "status": false
+    },
+    {
+        "userId": 11,
+        "email": "julia.pereira@example.com",
+        "name": "Júlia Pereira",
+        "password": "senha107",
+        "cpf": "01234567890",
+        "phoneNumber": "11888887777",
+        "addressId": 11,
+        "type": "Customer",
+        "status": false
+    },
+    {
+        "userId": 12,
+        "email": "maria.oliveira@example.com",
+        "name": "Maria Oliveira",
+        "password": "senha456",
+        "birthDate": "1985-05-20",
+        "type": "Employee",
+        "status": true
+    },
+    {
+        "userId": 13,
+        "email": "andre.martins@example.com",
+        "name": "André Martins",
+        "password": "senha102",
+        "birthDate": "1987-03-15",
+        "type": "Employee",
+        "status": true
+    },
+    {
+        "userId": 14,
+        "email": "fernando.rocha@example.com",
+        "name": "Fernando Rocha",
+        "password": "senha108",
+        "birthDate": "1990-07-25",
+        "type": "Employee",
+        "status": true
+    },
+    {
+        "userId": 15,
+        "email": "bruna.costa@example.com",
+        "name": "Bruna Costa",
+        "password": "senha109",
+        "birthDate": "1988-12-10",
+        "type": "Employee",
+        "status": false
+    }
+]
