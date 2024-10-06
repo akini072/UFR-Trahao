@@ -39,6 +39,9 @@ export class FormInputComponent {
       this.control?.valueChanges.subscribe((value) => {
         this.control?.setValue(this.configureMask(), { emitEvent: false });
       });
+      this.control?.statusChanges.subscribe(() => {
+        this.updateErrorMessage();
+      });
     }
   }
 
@@ -78,20 +81,20 @@ export class FormInputComponent {
     return this.control?.value;
   }
 
-  getErrorMessage(): string {
+  updateErrorMessage(): void {
     if (this.control?.hasError('email')) {
-      return 'Email inválido';
+      this.errorMessage = 'Email inválido';
     }
     if (this.control?.hasError('invalidCpf')) {
-      return 'CPF inválido';
+      this.errorMessage = 'CPF inválido';
     }
     if (this.control?.hasError('invalidCep')) {
-      return 'CEP inválido';
+      this.errorMessage = 'CEP inválido';
     }
     if (this.control?.hasError('pattern')) {
-      return 'Apenas números são permitidos';
+      this.errorMessage = 'Apenas números são permitidos';
     }
-    return '';
+    this.errorMessage = '';
   }
 
   toggleVisibility(): void {
