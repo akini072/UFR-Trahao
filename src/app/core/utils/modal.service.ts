@@ -15,12 +15,20 @@ export class ModalService {
 
   constructor() {}
 
+  /**
+   * Abre um modal do tipo especificado e injeta os dados fornecidos.
+   * @param host - O ViewContainerRef onde o modal será criado.
+   * @param type - O tipo de modal a ser aberto.
+   * @param data - Os dados a serem injetados no modal.
+   * @returns Um Observable que emite a resposta do modal.
+   */
   open(host: ViewContainerRef, type: ModalType, data: { [key: string]: string }): Observable<ModalResponse> {
     this.type = type;
     const injector = Injector.create({
       providers: [{ provide: 'data', useValue: data }]
     });
 
+    // Cria um observable para gerenciar o ciclo de vida do modal
     const lifeCycle: Observable<ModalResponse> = new Observable((observer) => {
       const modal = host.createComponent<ModalComponent>(this.modalFactory(), {injector});
       const instance = modal.instance.open();
@@ -33,12 +41,16 @@ export class ModalService {
     return lifeCycle;
   }
 
-  private modalFactory(): Type<ModalComponent>{
+  /**
+   * Retorna o tipo de componente modal apropriado com base no tipo de modal.
+   * @returns O tipo de componente modal.
+   */
+  private modalFactory(): Type<ModalComponent> {
     switch(this.type){
       case ModalType.INPUT:
         return ModalInputComponent;
       case ModalType.CONFIRM:
-        return ModalConfirmComponent
+        return ModalConfirmComponent;
       case ModalType.MESSAGE:
       default:
         return ModalMessageComponent;
