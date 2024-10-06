@@ -75,6 +75,11 @@
     <app-button
     [props]="{text: 'Redirecionar', icon: '',iconPosition: 'left', color: 'gray-400', size: 'medium', textColor: 'black', hoverColor: 'gray-300', onClick: onRedirect}"></app-button>
   </div>
+    <div *ngIf="paid" [ngClass]="submain2">
+      <h2 [ngClass]="subtitle">Ações</h2>
+      <app-button class="me-4"
+      [props]="{text: 'Finalizar', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onPaid}"></app-button>
+    </div>
 </div>
 </div>
 <app-footer></app-footer>

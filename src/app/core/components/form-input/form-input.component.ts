@@ -5,7 +5,6 @@ import { CustomValidator } from '../../utils/custom-validators';
 import { CepMaskPipe } from '../../utils/pipes/cepMask/cep-mask.pipe';
 import { CpfMaskPipe } from '../../utils/pipes/cpfMask/cpf-mask.pipe';
 
-
 type FormTextInputType = 'text' | 'password' | 'email' | 'number';
 
 @Component({
@@ -24,21 +23,33 @@ export class FormInputComponent {
   @Input() placeholder?: string;
   @Input() mask?: string;
   @Input() control?: FormControl;
-  input = "shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline";
-  eye: string = "absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none hover:text-blue-600 dark:text-neutral-600 dark:hover:text-blue-500";
+
   icon: string = 'visibility_off';
-  error: string = 'text-red-500 text-sm italic';
   visibility: boolean = false;
+  errorMessage: string = '';
+
+  style = {
+    input: "shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline",
+    eye: "absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none hover:text-blue-600 dark:text-neutral-600 dark:hover:text-blue-500",
+    error: 'text-red-500 text-sm italic',
+  }
 
   ngOnInit() {
     this.configureValidators();
     if(this.control){
+      // Inscreve-se nas mudanças de valor do controle para aplicar a máscara configurada e as mensagens de erro
       this.control?.valueChanges.subscribe((value) => {
         this.control?.setValue(this.configureMask(), { emitEvent: false });
+      });
+      this.control?.statusChanges.subscribe(() => {
+        this.updateErrorMessage();
       });
     }
   }
 
+  /**
+   * Configura os validadores com base nas validações fornecidas.
+   */
   configureValidators(): void {
     const customValidator = new CustomValidator();
     const validators: ValidatorFn[] = [];
@@ -65,6 +76,10 @@ export class FormInputComponent {
     this.control?.updateValueAndValidity();
   }
 
+  /**
+   * Aplica a máscara configurada ao valor do controle.
+   * @returns O valor do controle com a máscara aplicada.
+   */
   configureMask(): string {
     if (this.mask === 'cpf') {
       return new CpfMaskPipe().transform(this.control?.value);
@@ -75,22 +90,28 @@ export class FormInputComponent {
     return this.control?.value;
   }
 
-  getErrorMessage(): string {
+  /**
+   * Retorna a mensagem de erro apropriada com base nos erros do controle.
+   */
+  updateErrorMessage(): void {
     if (this.control?.hasError('email')) {
-      return 'Email inválido';
+      this.errorMessage = 'Email inválido';
     }
     if (this.control?.hasError('invalidCpf')) {
-      return 'CPF inválido';
+      this.errorMessage = 'CPF inválido';
     }
     if (this.control?.hasError('invalidCep')) {
-      return 'CEP inválido';
+      this.errorMessage = 'CEP inválido';
     }
     if (this.control?.hasError('pattern')) {
-      return 'Apenas números são permitidos';
+      this.errorMessage = 'Apenas números são permitidos';
     }
-    return '';
+    this.errorMessage = '';
   }
 
+  /**
+   * Alterna a visibilidade do campo de entrada (usado para campos de senha).
+   */
   toggleVisibility(): void {
     this.icon = this.visibility ? `visibility_off` : `visibility`;
     this.visibility = !this.visibility;
