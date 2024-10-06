@@ -1,0 +1,16 @@
+<nav class="{{ navContainer }}">
+  <div class="{{ navDiv }}">
+    <div class="{{ navData }}">
+      <img src="assets/images/logo.svg" class="h-14" />
+      <p class="{{ navLogo }}">MANUTADS</p>
+      <p *ngIf="isLogged" class="{{ navUserText }}">Bem vindo: User</p>
+    </div>
+    <ul class="{{ navList }}">
+      @for (item of navItems; track item) {
+      <li *ngIf="isLogged ? item.login : !item.login" [ngClass]="navItem">
+        <a [routerLink]="item.route" [ngClass]="navAnchor">{{ item.name }}</a>
+      </li>
+      }
+    </ul>
+  </div>
+</nav>

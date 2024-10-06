@@ -1,110 +1,132 @@
 <app-navbar [isLogged]="false"></app-navbar>
-<div class="{{ screen }}">
-  <div class="{{ signInBox }}">
-    <div class="{{ title }}">Cadastro</div>
+<div [ngClass]="style.screen">
+  <div [ngClass]="style.signInBox">
+    <div [ngClass]="style.title">Cadastro</div>
     <div>
       <form>
-        <div class="{{ sectionT1 }}">
-          <label class="{{ lable }}" for="name">Nome: </label>
-          <input class="{{ input }}" type="text" name="inputSame" id="name" />
-          <label class="{{ lable }}" for="surname">Sobrenome:</label>
-          <input
-            class="{{ input }}"
+        <div [ngClass]="style.sectionT1">
+          <label [ngClass]="style.lable" for="name"
+            >Nome<span class="{{ style.requiredSpan }}">*</span></label
+          >
+          <app-form-input
             type="text"
-            name="InputSurname"
-            id="surname"
+            placeholder="Digite seu nome"
+            [control]="nome"
+            [validations]="['required']"
+            class="w-full md:w-2/3 lg:w-1/2"
+          />
+          <label [ngClass]="style.lable" for="surname"
+            >Sobrenome<span class="{{ style.requiredSpan }}">*</span></label
+          >
+          <app-form-input
+            type="text"
+            placeholder="Digite seu sobrenome"
+            [control]="sobrenome"
+            [validations]="['required']"
+            class="w-full md:w-2/3 lg:w-1/2"
           />
         </div>
 
-        <div class="{{ sectionT1 }}">
-          <label class="{{ lable }}" for="email">Email: </label>
-          <input
-            class="{{ input }}"
-            type="text"
-            name="inputEmail"
+        <div [ngClass]="style.sectionT1">
+          <label [ngClass]="style.lable" for="email"
+            >Email<span class="{{ style.requiredSpan }}">*</span></label
+          >
+          <app-form-input
             id="email"
-            (blur)="onEmailBlur()"
+            type="email"
+            placeholder="nome@dominio.com"
+            [control]="email"
+            [validations]="['email', 'required']"
+            class="w-full md:w-2/3 lg:w-1/2"
           />
-          <label class="{{ lable }}" for="cpf">CPF:</label>
-          <input
-            #cpfInput
-            class="{{ input }}"
-            type="text"
-            [value]="cpf | cpfMask"
-            name="inputCpf"
+          <label [ngClass]="style.lable" for="cpf"
+            >CPF<span class="{{ style.requiredSpan }}">*</span></label
+          >
+          <app-form-input
             id="cpf"
-            (input)="onCpfInput($event)"
-            (blur)="onCpfBlur()"
+            type="text"
+            placeholder="Digite seu CPF"
+            [control]="cpf"
+            [validations]="['required', 'cpf']"
+            class="w-full md:w-2/3 lg:w-1/2"
+            mask="cpf"
           />
         </div>
 
         <hr />
 
-        <div class="{{ sectionT2 }}">
-          <label class="{{ lable }}" for="cep">CEP: </label>
-          <input
-            #cepInput
-            class="{{ input }}"
+        <div [ngClass]="style.sectionT3">
+          <label [ngClass]="style.lable" for="cep"
+            >CEP<span class="{{ style.requiredSpan }}">*</span></label
+          >
+          <app-form-input
             type="text"
-            [value]="cep | cepMask"
-            name="inputCep"
-            id="cep"
-            (input)="onCepInput($event)"
-            (blur)="onCepBlur()"
+            placeholder="Digite seu CEP"
+            [control]="cep"
+            [validations]="['required', 'cep']"
+            class="w-full md:w-2/3 lg:w-1/2"
+            mask="cep"
           />
         </div>
 
-        <div class="{{ sectionT1 }}">
-          <label class="{{ lable }}" for="place">Logradouro: </label>
+        <div [ngClass]="style.sectionT1">
+          <label [ngClass]="style.lable" for="place">Logradouro: </label>
           <input
-            class="{{ inputBlocked }}"
+            [ngClass]="style.inputBlocked"
             type="text"
-            name="inputPlace"
+            placeholder="Rua, Avenida, etc"
             id="place"
             readonly
           />
-          <label class="{{ lable }}" for="number">Número: </label>
-          <input
-            class="{{ input }}"
-            type="text"
-            name="inputNumber"
-            id="number"
+          <label [ngClass]="style.lable" for="number"
+            >Número<span class="{{ style.requiredSpan }}">*</span></label
+          >
+          <app-form-input
+            type="number"
+            placeholder="Digite o número"
+            [control]="numero"
+            [validations]="['required', 'number']"
+            class="w-full md:w-2/3 lg:w-1/2"
           />
         </div>
 
-        <div class="{{ sectionT1 }}">
-          <label class="{{ lable }}" for="city">Cidade: </label>
+        <div [ngClass]="style.sectionT1">
+          <label [ngClass]="style.lable" for="city">Cidade: </label>
           <input
-            class="{{ inputBlocked }}"
+            [ngClass]="style.inputBlocked"
             type="text"
-            name="inputCity"
             id="city"
+            placeholder="Cidade"
             readonly
           />
-          <label class="{{ lable }}" for="state">Estado: </label>
+          <label [ngClass]="style.lable" for="state">Estado: </label>
           <input
-            class="{{ inputBlocked }}"
+            [ngClass]="style.inputBlocked"
             type="text"
-            name="inputState"
             id="state"
+            placeholder="UF"
             readonly
           />
         </div>
       </form>
     </div>
 
-    <div class="{{ sectionT2 }}">
-      <button class="{{ button }}" type="button">Cadastrar-se!</button>
+    <div [ngClass]="style.sectionT2">
+      <span *ngIf="error" [ngClass]="style.errorStyle">{{
+        getErrorMessage()
+      }}</span>
+      <app-button
+        [props]="{
+          text: 'Cadastrar-se',
+          color: 'secondary-4',
+          size: 'medium',
+          textColor: 'white',
+          hoverColor: 'secondary-6',
+          onClick: onSignUp,
+          extraClasses: 'font-bold focus:outline-none focus:shadow-outline'
+        }"
+      ></app-button>
     </div>
-  </div>
-  <div #errorMessage class="text-red-500 mt-2" style="display: none">
-    *CPF inválido
-  </div>
-  <div #cepErrorMessage class="text-red-500 mt-2" style="display: none">
-    *CEP inexistente
-  </div>
-  <div #emailErrorMessage class="text-red-500 mt-2" style="display: none">
-    *E-mail inválido
   </div>
 </div>
 <app-footer></app-footer>
