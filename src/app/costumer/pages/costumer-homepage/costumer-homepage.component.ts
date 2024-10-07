@@ -34,6 +34,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   templateUrl: './costumer-homepage.component.html',
   styleUrls: ['./costumer-homepage.component.css'],
 })
+
 export class CustomerHomepageComponent implements OnInit, OnDestroy {
   requestList: RequestItem[] = [];
 
@@ -161,10 +162,6 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     }
   }
 
-  navigateToNewRequest = () => {
-    this.router.navigate(['nova-solicitacao']);
-  };
-
   applyFilter = (filter: string, value?: string) => {
     const key = filter === 'date' ? 'created_at' : filter;
 
@@ -190,6 +187,11 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
       );
     });
   };
+  
+  navigateToNewRequest = () => {
+    this.router.navigate(['nova-solicitacao']);
+  };
+
 
   rightButtonProp: ButtonProps = {
     text: '',

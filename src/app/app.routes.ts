@@ -21,5 +21,5 @@ export const routes: Routes = [
   { path: 'visualizar-servico', component: VisualizeServiceComponent },
   { path: 'pagina-funcionario', component: EmployeePageComponent },
   { path: 'solicitacoes', component: SolicitationsPageComponent },
-  { path: 'cadastro-de-categorias', component: CategoryManagementComponent },
+  { path: 'categorias', component: CategoryManagementComponent },
 ];

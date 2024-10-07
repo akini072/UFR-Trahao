@@ -1,0 +1,25 @@
+<table [ngClass]="style.table">
+  <thead [ngClass]="style.head">
+    <tr>
+      <th scope="col" [ngClass]="style.col">ID</th>
+      <th scope="col" [ngClass]="style.col">CATEGORIA EQUIPAMENTO</th>
+      <th scope="col" [ngClass]="style.col">AÇÃO</th>
+    </tr>
+  </thead>
+  <tbody [ngClass]="style.body">
+    <tr *ngFor="let category of categoriesList">
+      <td [ngClass]="style.idRow">
+        {{ category.id }}
+      </td>
+      <td [ngClass]="style.commomRow">
+        {{ category.name }}
+      </td>
+      <td [ngClass]="style.commomRow">
+        <div [ngClass]="style.actionsContainer">
+          <app-button [props]="getButtonProps(category.id, 'edit')" />
+          <app-button [props]="getButtonProps(category.id, 'delete')" />
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
