@@ -131,8 +131,28 @@ export class CategoryManagementComponent {
       );
     });
 
-    this.updateTotalPages()
+    this.updateTotalPages();
   }
+
+  onAddCategory = () => {
+    console.log('teste');
+
+    this.modal
+      .open(this.view, ModalType.INPUT, {
+        title: 'Adicionar categoria',
+        message: 'Digite o nome da nova categoria',
+        label: 'Salvar',
+      })
+      .subscribe((value) => {
+        if (value.assert) {
+          this.activeCategoryList = [
+            ...this.activeCategoryList,
+            { id: this.categoryList.length + 1, name: value.message || '' },
+          ];
+          this.updateTotalPages();
+        }
+      });
+  };
 
   updateTotalPages() {
     this.totalPages =
@@ -268,6 +288,6 @@ export class CategoryManagementComponent {
     size: 'medium',
     textColor: 'white',
     hoverColor: 'primary-6',
-    onClick: () => {},
-  };
+    onClick: this.onAddCategory,
+  };  
 }
