@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 type ButtonSize = 'small' | 'medium' | 'large';
 
@@ -20,14 +20,15 @@ export interface ButtonProps {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './button.component.html',
-  styleUrl: './button.component.css'
+  styleUrl: './button.component.css',
 })
-export class ButtonComponent {
-
+export class ButtonComponent implements OnInit {
   @Input() props: ButtonProps = {} as ButtonProps;
 
+  activeProps: ButtonProps = {} as ButtonProps;
+
   getSize(): string {
-    switch (this.props.size) {
+    switch (this.activeProps.size) {
       case 'small':
         return 'py-1 px-2 text-center items-center text-sm';
       case 'medium':
@@ -39,14 +40,18 @@ export class ButtonComponent {
     }
   }
 
-  getClasses() {
-    return [
-      `bg-${this.props.color}`,
-      `text-${this.props.textColor}`,
-      `hover:bg-${this.props.hoverColor}`,
-      'rounded',
-      `${this.getSize()}`,
-      `${this.props.extraClasses}`,
-    ].join(' ');
+  ngOnInit(): void {
+    this.activeProps = { ...this.props };
+  }
+
+  getClasses(): string {
+    const baseClasses = `bg-${this.activeProps.color} text-${
+      this.activeProps.textColor
+    } rounded ${this.getSize()}`;
+    const hoverClass = this.activeProps.hoverColor
+      ? `hover:bg-${this.activeProps.hoverColor}`
+      : '';
+    const extraClasses = this.activeProps.extraClasses || '';
+    return `${baseClasses} ${hoverClass} ${extraClasses}`.trim();
   }
 }
