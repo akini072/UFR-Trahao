@@ -2,16 +2,17 @@ import { Component, Renderer2, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
-import { ServiceRequestTableComponent } from '../../components/service-request-table/service-request-table.component';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
-import { ButtonComponent, ButtonProps } from "../../../core/components/button/button.component";
-import { FormInputComponent } from "../../../core/components/form-input/form-input.component";
-import { RequestCategory } from '../../../core/types/request-category';
+import {
+  ButtonComponent,
+  ButtonProps,
+} from '../../../core/components/button/button.component';
+import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { RequestTableComponent } from '../../components/request-table/request-table.component';
 import { FilterSectionComponent } from '../../components/filter-section/filter-section.component';
 import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/toggle-switch.component';
 import { RequestItem } from '../../../core/types/request-item';
-import { RequestsService } from '../../../core/utils/requests.service'
+import { RequestsService } from '../../../core/utils/requests.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
@@ -20,7 +21,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     NavbarComponent,
-    ServiceRequestTableComponent,
     RouterModule,
     RequestCardComponent,
     ButtonComponent,
@@ -28,13 +28,12 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     RequestTableComponent,
     FilterSectionComponent,
     ToggleSwitchComponent,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [RequestsService],
   templateUrl: './costumer-homepage.component.html',
   styleUrls: ['./costumer-homepage.component.css'],
 })
-
 export class CustomerHomepageComponent implements OnInit, OnDestroy {
   requestList: RequestItem[] = [];
 
@@ -50,9 +49,9 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
       'w-10/12 m-auto flex justify-end my-4 items-center text-center',
     pageText: 'border p-2 text-sm',
     pageTopContainer: 'flex justify-between w-full items-center px-16',
-    tableDisplay: "flex justify-center m-auto rounded-lg w-3/4",
-    filterContainer: "flex place-items-end",
-    switchContainer: "h-8",
+    tableDisplay: 'flex justify-center m-auto rounded-lg w-3/4',
+    filterContainer: 'flex place-items-end',
+    switchContainer: 'h-8',
   };
 
   activeRequestList: RequestItem[] = this.requestList;
@@ -65,7 +64,12 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
   activeFilters: { filter: string; value?: string }[] = [];
   displayTable: boolean = false;
 
-  constructor(private router: Router, private renderer: Renderer2, private requestsService : RequestsService, private http: HttpClient) {
+  constructor(
+    private router: Router,
+    private renderer: Renderer2,
+    private requestsService: RequestsService,
+    private http: HttpClient
+  ) {
     this.updateTotalPages();
     this.updateItemsPerPage(window.innerWidth);
   }
@@ -187,11 +191,10 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
       );
     });
   };
-  
+
   navigateToNewRequest = () => {
     this.router.navigate(['nova-solicitacao']);
   };
-
 
   rightButtonProp: ButtonProps = {
     text: '',
