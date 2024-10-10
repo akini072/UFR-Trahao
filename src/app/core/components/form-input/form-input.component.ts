@@ -94,19 +94,25 @@ export class FormInputComponent {
    * Retorna a mensagem de erro apropriada com base nos erros do controle.
    */
   updateErrorMessage(): void {
-    if (this.control?.hasError('email')) {
-      this.errorMessage = 'Email inválido';
+    const errorType = this.control?.errors ? Object.keys(this.control.errors)[0] : null;
+    
+    switch (errorType) {
+      case 'email':
+        this.errorMessage = 'Email inválido';
+        break;
+      case 'invalidCpf':
+        this.errorMessage = 'CPF inválido';
+        break;
+      case 'invalidCep':
+        this.errorMessage = 'CEP inválido';
+        break;
+      case 'pattern':
+        this.errorMessage = 'Apenas números são permitidos';
+        break;
+      default:
+        this.errorMessage = '';
+        break;
     }
-    if (this.control?.hasError('invalidCpf')) {
-      this.errorMessage = 'CPF inválido';
-    }
-    if (this.control?.hasError('invalidCep')) {
-      this.errorMessage = 'CEP inválido';
-    }
-    if (this.control?.hasError('pattern')) {
-      this.errorMessage = 'Apenas números são permitidos';
-    }
-    this.errorMessage = '';
   }
 
   /**
