@@ -35,5 +35,6 @@ export class NavbarEmployeeComponent {
   navItems: NavItem[] = [
     { name: 'Início', route: '/pagina-funcionario', login: true },
     { name: 'Solicitações', route: '/solicitacoes', login: true },
+    { name: 'Funcionários', route: '/funcionarios', login: true },
   ];
 }
