@@ -1,0 +1,33 @@
+<table [ngClass]="style.table">
+  <thead [ngClass]="style.head">
+    <tr>
+      <th scope="col" [ngClass]="style.col">ID</th>
+      <th scope="col" [ngClass]="style.col">NOME</th>
+      <th scope="col" [ngClass]="style.col">E-MAIL</th>
+      <th scope="col" [ngClass]="style.col">DATA DE NASCIMENTO</th>
+      <th scope="col" [ngClass]="style.col">AÇÃO</th>
+    </tr>
+  </thead>
+  <tbody [ngClass]="style.body">
+    <tr *ngFor="let employee of employesList">
+      <td [ngClass]="style.idRow">
+        {{ employee.id }}
+      </td>
+      <td [ngClass]="style.commomRow">
+        {{ employee.name }}
+      </td>
+      <td [ngClass]="style.commomRow">
+        {{ employee.email }}
+      </td>
+      <td [ngClass]="style.commomRow">
+        {{ employee.date }}
+      </td>
+      <td [ngClass]="style.commomRow">
+        <div [ngClass]="style.actionsContainer">
+          <app-button [props]="getButtonProps(employee.id, 'edit')" />
+          <app-button [props]="getButtonProps(employee.id, 'delete')" />
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
