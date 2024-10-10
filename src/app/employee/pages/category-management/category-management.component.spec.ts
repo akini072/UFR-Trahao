@@ -8,10 +8,9 @@ describe('CategoryManagementComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CategoryManagementComponent]
-    })
-    .compileComponents();
-    
+      imports: [CategoryManagementComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(CategoryManagementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
