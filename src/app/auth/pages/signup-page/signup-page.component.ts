@@ -103,24 +103,12 @@ export class SignupPageComponent {
   onSignUp = () => {
     if (this.formGroup.valid) {
       this.error = false;
-      console.log({
-        nome: this.nome.value,
-        sobrenome: this.sobrenome.value,
-        email: this.email.value,
-        cpf: this.cpf.value,
-        cep: this.cep.value,
-        logradouro: this.logradouro.value,
-        cidade: this.cidade.value,
-        estado: this.estado.value,
-        numero: this.numero.value,
-      });
       const data = {
         title: 'Cadastro bem-sucedido',
         message: 'Sua senha de 4 dígitos foi enviada por e-email',
         label: 'Ok',
       };
       this.modal.open(this.view, ModalType.MESSAGE, data).subscribe((value) => {
-        console.log(value);
       });
     } else {
       this.error = true;

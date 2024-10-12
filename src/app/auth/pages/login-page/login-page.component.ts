@@ -40,7 +40,6 @@ export class LoginPageComponent {
 
   onLogin = () => {
     if (this.formGroup.valid) {
-      console.log({ email: this.email.value, password: this.password.value });
       this.router.navigate(['/customer']);
     } else {
       this.error = true;
