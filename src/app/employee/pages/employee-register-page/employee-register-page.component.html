@@ -1,0 +1,59 @@
+<app-navbar [isLogged]="false"></app-navbar>
+<main [ngClass]="style.main">
+
+  <div [ngClass]="style.form">
+
+    <h2 [ngClass]="style.title">Cadastro de Funcionário</h2>
+    <form [formGroup]="formGroup">
+<div class="flex flex-row gap-6">
+
+  <div [ngClass]="style.bigger">
+
+    <div>
+      <label [ngClass]="style.label" for="email">
+        E-mail<span class="{{style.requiredSpan}}"> *</span>
+      </label>
+      <app-form-input id="email" type="email" placeholder="exemplo@domínio.com" [control]="email"
+      [validations]="['email', 'required']"></app-form-input>
+    </div>
+
+    <div>
+      <label [ngClass]="style.label" for="name">
+        Nome<span class="{{style.requiredSpan}}"> *</span>
+      </label>
+      <app-form-input id="name" type="text" placeholder="Nome" [control]="name"
+      [validations]="['required'] "></app-form-input>
+    </div>
+
+  </div>
+
+  <div [ngClass]="style.smaller">
+    <div>
+      <label [ngClass]="style.label" for="password">
+        Senha<span class="{{style.requiredSpan}}">*</span>
+      </label>
+      <app-form-input id="password" type="password" placeholder="****" [control]="password"
+      [validations]="['required']"></app-form-input>
+    </div>
+
+    <div>
+      <label [ngClass]="style.label" for="birthdate">
+        Data de Nascimento<span class="{{style.requiredSpan}}"> *</span>
+      </label>
+      <input type="date" [ngClass]="style.input" name="data" id="data" placeholder="dd/mm/aaaa">
+      <!-- <app-form-input id="birthdate" type="date" placeholder="dd/mm/aaaa" [control]="birthDate" [validations]="['required']"></app-form-input> -->
+    </div>
+  </div>
+
+</div>
+
+  <div [ngClass]="style.button">
+    <span *ngIf="error" [ngClass]="style.errorStyle">{{ getErrorMessage() }}</span>
+    <app-button
+    [props]="{text: 'Cadastrar', color: 'secondary-4', size: 'medium', textColor: 'white', hoverColor: 'secondary-6' , onClick: onCreate, extraClasses:'font-bold focus:outline-none focus:shadow-outline'}"></app-button>
+  </div>
+
+</form>
+</div>
+</main>
+<app-footer></app-footer>
