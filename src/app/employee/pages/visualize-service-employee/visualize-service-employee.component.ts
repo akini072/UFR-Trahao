@@ -95,7 +95,6 @@ export class VisualizeServiceEmployeeComponent {
     };
     this.modal.open(this.view, ModalType.CONFIRM, data).subscribe(() => {
       this.request.status[this.request.status.length-1].category = 'paid';
-      console.log(this.request.status[this.request.status.length-1].category);
     });
     //implementar a lógica para arrumar o componente. deve guardar o funcionario, data e hora
   };
@@ -108,7 +107,6 @@ export class VisualizeServiceEmployeeComponent {
       label: 'Redirecionar',
     };
     this.modal.open(this.view, ModalType.INPUT, data).subscribe((value) => {
-      console.log(value);
     });
   };
 
@@ -120,7 +118,6 @@ export class VisualizeServiceEmployeeComponent {
       label: 'Orçar',
     };
     this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
-      console.log(value);
     });
   };
 
@@ -132,16 +129,18 @@ export class VisualizeServiceEmployeeComponent {
       label: 'Finalizar'
     };
     this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
-      console.log(value);
     });
   };
 
-  main:string = 'container mx-auto p-4';
-  submain: string = 'mb-4 px-8 p-4 border rounded-lg shadow-sm flex flex-wrap bg-white';
-  submain2: string = 'mb-4 p-4 border rounded-lg shadow-sm bg-white';
-  title:string = 'text-2xl font-bold mb-4 text-center';
-  subtitle: string = "text-xl font-bold mb-4 basis-full";
-  basisHalf: string = "basis-1/2 mb-4";
-  basisFull: string = "basis-full mb-4";
-  semibold: string = "font-semibold mb-2";
+  styles = {
+    main: 'container mx-auto p-4',
+    submain: 'mb-4 px-8 p-4 border rounded-lg shadow-sm flex flex-wrap bg-white',
+    submain2: 'mb-4 p-4 border rounded-lg shadow-sm bg-white',
+    title: 'text-2xl font-bold mb-4 text-center',
+    subtitle: 'text-xl font-bold mb-4 basis-full',
+    basisHalf: 'basis-1/2 mb-4',
+    basisFull: 'basis-full mb-4',
+    semibold: 'font-semibold mb-2'
+  }
+
 }

@@ -2,26 +2,21 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../../../core/components/navbar/navbar.component";
 import { FooterComponent } from "../../../core/components/footer/footer.component";
+import { FormInputComponent } from "../../../core/components/form-input/form-input.component";
 
 @Component({
   selector: 'app-new-request-page',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, FooterComponent],
+  imports: [CommonModule, NavbarComponent, FooterComponent, FormInputComponent],
   templateUrl: './new-request-page.component.html',
   styleUrl: './new-request-page.component.css'
 })
 export class NewRequestPageComponent {
-  remainingCharactersEquipamento = 30; //Caracteres restantes para atingir o limite no input de descrição do equipamento
-  remainingCharactersDefeito = 255; //Caracteres restantes para atingir o limite no input de descrição do defeito
+  remainingCharactersEquipamento = 30; 
+  remainingCharactersDefeito = 255; 
 
-  /**
- * Atualiza a quantidade de caracteres restantes em um input/textarea cada vez que o conteúdo do campo é alterado
- * 
- * @param limit - O número máximo de caracteres permitidos
- * @param inputId - O ID do elemento de entrada (input ou textarea)
- * 
- * @returns - não retorna nenhum valor
- */
+  
+
   getRemainingCharacters(limit: number, inputId: string): void {
     const inputElement = document.getElementById(inputId) as HTMLInputElement | HTMLTextAreaElement;
     if (inputElement) {
@@ -33,4 +28,21 @@ export class NewRequestPageComponent {
       }
     }
   }
+
+  styles = {
+    navbar: 'app-navbar',
+    title: 'px-4 text-2xl font-bold text-primary-8 my-8 text-center md:text-left',
+    categoriaContainer: 'categoria grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-20 max-w-4xl mx-auto p-6',
+    categoriaLabel: 'text-left md:text-right',
+    categoriaSelect: 'md:col-span-2 max-w-min p-2 border-2 border-black rounded bg-transparent',
+    descricaoEquipamentoContainer: 'descricao-equipamento max-w-4xl mx-auto p-6',
+    formContainer: 'form grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-20 max-w-4xl mx-auto',
+    descricaoEquipamentoLabel: 'md:text-right',
+    descricaoEquipamentoInput: 'border-2 border-black rounded p-2 col-span-2',
+    remainingCharactersText: 'col-span-3 text-right mt-2',
+    descricaoDefeitoContainer: 'descricao-defeito max-w-4xl mx-auto p-6',
+    descricaoDefeitoLabel: 'md:text-right',
+    descricaoDefeitoTextarea: 'border-2 border-black rounded p-2 col-span-2 h-40 resize-none',
+    textRed: 'text-red-600'
+  };
 }
