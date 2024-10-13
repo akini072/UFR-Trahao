@@ -1,8 +1,28 @@
 <div class="relative">
-  <input [id]="id" *ngIf="!control" [type]="type" [ngClass]="style.input" [placeholder]="placeholder">
-  <input [id]="id" *ngIf="control" [type]="type" [ngClass]="style.input" [placeholder]="placeholder" [formControl]="control">
-  <button *ngIf="type === 'password' || visibility == true" type="button" [ngClass]="style.eye" (click)="toggleVisibility()">
-    <span class="material-icons">{{icon}}</span>
+  <input
+    [id]="id"
+    *ngIf="!control"
+    [attr.maxlength]="maxLength"
+    [type]="type"
+    [ngClass]="style.input"
+    [placeholder]="placeholder"
+  />
+  <input
+    [id]="id"
+    *ngIf="control"
+    [type]="type"
+    [attr.maxlength]="maxLength"
+    [ngClass]="style.input"
+    [placeholder]="placeholder"
+    [formControl]="control"
+  />
+  <button
+    *ngIf="type === 'password' || visibility == true"
+    type="button"
+    [ngClass]="style.eye"
+    (click)="toggleVisibility()"
+  >
+    <span class="material-icons">{{ icon }}</span>
   </button>
 </div>
 <span *ngIf="control?.errors" [ngClass]="style.error">{{ errorMessage }}</span>

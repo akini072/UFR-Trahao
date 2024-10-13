@@ -135,7 +135,6 @@ export class CategoryManagementComponent {
   }
 
   onAddCategory = () => {
-    console.log('teste');
 
     this.modal
       .open(this.view, ModalType.INPUT, {
