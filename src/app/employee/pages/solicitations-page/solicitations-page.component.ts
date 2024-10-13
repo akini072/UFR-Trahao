@@ -188,7 +188,7 @@ export class SolicitationsPageComponent implements OnInit, OnDestroy {
 
   toggleDisplayTable = () => {
     this.displayTable = !this.displayTable;
-    console.log(this.displayTable);
+
   };
 
   searchKeyboard = (event: Event) => {

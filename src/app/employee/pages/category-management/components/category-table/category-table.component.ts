@@ -19,8 +19,7 @@ export class CategoryTableComponent implements OnInit {
   @Input() onDelete: (id: number) => void = () => {};
 
   ngOnInit(): void {
-    console.log(this.onDelete);
-    console.log(this.onEdit);
+
   }
 
   style = {

@@ -23,6 +23,7 @@ export class FormInputComponent {
   @Input() placeholder?: string;
   @Input() mask?: string;
   @Input() control?: FormControl;
+  @Input() maxLength?: number;
 
   icon: string = 'visibility_off';
   visibility: boolean = false;
@@ -70,6 +71,9 @@ export class FormInputComponent {
         if (validation === 'number'){
           validators.push(Validators.pattern('^[0-9]*$'));
         }
+        if (this.maxLength) {
+          validators.push(Validators.maxLength(this.maxLength));
+        }
       });
     }
     this.control?.setValidators(validators);
@@ -108,6 +112,9 @@ export class FormInputComponent {
         break;
       case 'pattern':
         this.errorMessage = 'Apenas números são permitidos';
+        break;
+      case 'maxlength':
+        this.errorMessage = `Máximo de ${this.maxLength} caracteres`;
         break;
       default:
         this.errorMessage = '';
