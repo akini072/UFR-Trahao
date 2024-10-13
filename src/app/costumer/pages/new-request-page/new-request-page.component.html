@@ -5,29 +5,16 @@
 <div [ngClass]="styles.categoriaContainer">
   <label for="categoria" [ngClass]="styles.categoriaLabel">Categoria do equipamento:</label>
   <select name="categoria" id="categoria" [ngClass]="styles.categoriaSelect">
-    <option value="cadeiraErgonomica">Cadeira ergonômica</option>
-    <option value="caixaDeSomBluetooth">Caixa de som Bluetooth</option>
-    <option value="cameraFotograficaProfissional">Câmera fotográfica profissional</option>
-    <option value="fornoEletrico">Forno elétrico</option>
-    <option value="impressoraColorida">Impressora colorida</option>
-    <option value="maquinaDeCafe">Máquina de café</option>
-    <option value="mouseSemFio">Mouse sem fio</option>
-    <option value="notebookGamer">Notebook gamer</option>
-    <option value="projetorDeAltaDefinicao">Projetor de alta definição</option>
-    <option value="roteadorWifi">Roteador Wi-Fi</option>
-    <option value="smartTv4k">Smart TV 4K</option>
-    <option value="tabletComCanetaStylus">Tablet com caneta stylus</option>
-    <option value="tecladoMecanico">Teclado mecânico</option>
-    <option value="ventiladorDeTeto">Ventilador de teto</option>
+    <option *ngFor="let categorie of categories" [value]="categorie.value">{{ categorie.label }}</option>
   </select>
 </div>
 
 <div [ngClass]="styles.descricaoEquipamentoContainer">
   <div [ngClass]="styles.formContainer">
-    <app-form-input name="descricao-equipamento" id="descricao-equipamento"  maxlength="30" placeholder="Descreva o equipamento..." (input)="getRemainingCharacters(30, 'descricao-equipamento')" maxlength="30" />
-    <label for="descricao-equipamento" [ngClass]="styles.descricaoEquipamentoLabel">Descrição do equipamento:</label>
+      <label for="descricao-equipamento" [ngClass]="styles.descricaoEquipamentoLabel">Descrição do equipamento:</label>
+      <app-form-input [validations]="['maxLength']" [maxLength]="30" name="descricao-equipamento" [id]="'descricao-equipamento'"   placeholder="Descreva o equipamento..." (input)="getRemainingCharacters(30, 'descricao-equipamento')" maxlength="30" />
+      <p [ngClass]="[styles.remainingCharactersText, remainingCharactersColorText]">{{ remainingCharactersEquipamento }} caracteres restantes</p>
   </div>
-  <p [ngClass]="styles.remainingCharactersText">{{ remainingCharactersEquipamento }} caracteres restantes</p>
 </div>
 
 <div [ngClass]="styles.descricaoDefeitoContainer">
