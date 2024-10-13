@@ -1,0 +1,6 @@
+<div class="relative">
+  <input *ngIf="control" [id]="id" [type]="'date'" [ngClass]="style.input" [placeholder]="placeholder" [formControl]="control">
+  <input *ngIf="!control" [id]="id" [type]="'date'" [ngClass]="style.input" [placeholder]="placeholder">
+  <span *ngIf="control?.errors" [ngClass]="style.error">{{ errorMessage }}</span>
+</div>
+
