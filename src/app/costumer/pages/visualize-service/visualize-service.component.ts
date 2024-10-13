@@ -114,18 +114,30 @@ export class VisualizeServiceComponent implements OnInit {
   };
 
   styles = {
-    rejectedContainer: 'mt-6',
-    buttonContainer: 'mt-6',
-    tableContainer: 'relative overflow-x-auto mt-10',
-    table: 'w-full text-sm text-left text-gray-700',
-    tableHeader: 'text-xs text-gray-700 uppercase bg-gray-200',
-    tableHeaderCell: 'px-6 py-3',
-    tableRow: 'bg-white border-b',
-    tableRowCell: 'px-6 py-4',
-    tableRowHeader: 'px-6 py-4 font-medium text-gray-900',
-    statusStepperContainer: 'pt-10 w-4/5 mx-auto',
-    statusStepper: 'mt-10'
+    container: "bg-gray-100 text-center py-10 min-h-screen",
+    card: "max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8",
+    title: "text-3xl font-bold mb-6 text-gray-800",
+    contentSection: "space-y-6",
+    labelText: "font-semibold text-gray-700 text-left",
+    valueText: "text-gray-600 text-right",
+    rowFlex: "flex justify-between items-center",
+    gridSection: "grid grid-cols-1 gap-4",
+    descriptionText: "break-words max-w-md",
+    defectSection: "flex flex-col items-start",
+    finalSection: "mt-6",
+    budgetText: "font-bold text-2xl text-green-600",
+    buttonContainer: "mt-6 flex justify-around",
+    buttonPrimary: "primary-4",
+    buttonSecondary: "secondary-4",
+    tableContainer: "relative overflow-x-auto mt-10",
+    table: "w-full text-sm text-left text-gray-700",
+    tableHeader: "text-xs text-gray-700 uppercase bg-gray-200",
+    tableRow: "bg-white border-b",
+    tableCell: "px-6 py-4",
+    footer: "mt-10",
+    stepperContainer: "pt-10 w-4/5 mx-auto"
   };
+  
 
   onReject = () => {
     const data = {

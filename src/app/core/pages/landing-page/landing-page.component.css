@@ -18,8 +18,11 @@
     height: 100%;
     object-fit: fill;
     z-index: -1 !important;
-    opacity: 0.4;
-
+    mask-image: linear-gradient(
+        to bottom right, 
+        rgba(0, 0, 0, 0.2), 
+        rgba(0, 0, 0, 1)
+    );
 }
 
 
