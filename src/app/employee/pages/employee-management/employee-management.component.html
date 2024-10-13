@@ -1,0 +1,28 @@
+<app-navbar-employee></app-navbar-employee>
+<div [ngClass]="style.wrapper">
+  <div [ngClass]="style.titleContainer">
+    <p [ngClass]="style.title">Gerenciar Funcionários</p>
+    <app-button [props]="newEmployeeButtonProp" />
+  </div>
+  <div [ngClass]="style.searchContainer">
+    <app-form-input
+      (input)="searchKeyboard($event)"
+      placeholder="Pesquisar funcionário"
+    ></app-form-input>
+  </div>
+  <div [ngClass]="style.tableDisplay">
+    <app-employee-table
+      [onDelete]="onDelete"
+      [onEdit]="onEdit"
+      [employeesList]="getPaginatedRequests()"
+    />
+  </div>
+  <div [ngClass]="style.paginationControl">
+    <app-button [props]="leftButtonProp"></app-button>
+    <span [ngClass]="style.pageText"
+      >Página {{ currentPage }} de {{ totalPages }}</span
+    >
+    <app-button [props]="rightButtonProp"></app-button>
+  </div>
+</div>
+<app-footer></app-footer>

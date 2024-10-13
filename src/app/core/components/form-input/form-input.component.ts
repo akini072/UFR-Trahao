@@ -31,7 +31,7 @@ export class FormInputComponent {
 
   style = {
     input: "shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline",
-    eye: "absolute inset-y-0 end-0 flex items-center z-20 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none hover:text-blue-600 dark:text-neutral-600 dark:hover:text-blue-500",
+    eye: "absolute inset-y-0 end-0 flex items-center z-1 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-none hover:text-blue-600 dark:text-neutral-600 dark:hover:text-blue-500",
     error: 'text-red-500 text-sm italic',
   }
 
@@ -99,7 +99,7 @@ export class FormInputComponent {
    */
   updateErrorMessage(): void {
     const errorType = this.control?.errors ? Object.keys(this.control.errors)[0] : null;
-    
+
     switch (errorType) {
       case 'email':
         this.errorMessage = 'Email inválido';
