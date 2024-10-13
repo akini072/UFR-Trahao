@@ -2,10 +2,7 @@ import { Component, Renderer2, ViewContainerRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarEmployeeComponent } from '../../components/navbar-employee/navbar-employee.component';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
-import {
-  ButtonComponent,
-  ButtonProps,
-} from '../../../core/components/button/button.component';
+import { ButtonComponent, ButtonProps } from '../../../core/components/button/button.component';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { RequestsService } from '../../../core/utils/requests.service';
@@ -44,6 +41,7 @@ export class EmployeeManagementComponent {
   searchQuery: string | undefined;
   activeFilters: { filter: string; value?: string }[] = [];
   displayTable: boolean = false;
+
 
   employeeList: EmployeeItem[] = [
     {
@@ -93,19 +91,19 @@ export class EmployeeManagementComponent {
     container: 'flex w-full px-4 my-8 mx-auto',
     innerContainer: 'flex justify-end  gap-4',
     searchContainer: 'flex flex-1 justify-end px-16 mb-8 gap-2',
-    paginationControl:
-      'w-10/12 m-auto flex justify-end my-4 items-center text-center',
+    paginationControl: 'w-10/12 m-auto flex justify-end my-4 items-center text-center',
     pageText: 'border p-2 text-sm',
     pageTopContainer: 'flex justify-between w-full items-center px-16',
     tableDisplay: 'flex justify-center m-auto rounded-lg w-3/4',
     filterContainer: 'flex place-items-end',
     switchContainer: 'h-8',
-    wrapper: 'min-h-screen py-4',
+    wrapper: 'min-h-screen py-4 bg-gray-100',
   };
   constructor(
     private modal: ModalService,
     private view: ViewContainerRef,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private router: Router
   ) {
     this.updateTotalPages();
     this.updateItemsPerPage(window.innerWidth);
@@ -159,9 +157,7 @@ export class EmployeeManagementComponent {
   }
 
   onAddEmployee = () => {
-    console.log('teste');
-
-    this.modal
+    /* this.modal
       .open(this.view, ModalType.INPUT, {
         title: 'Adicionar categoria',
         message: 'Digite o nome da nova categoria',
@@ -180,7 +176,8 @@ export class EmployeeManagementComponent {
           ];
           this.updateTotalPages();
         }
-      });
+      }); */
+    this.router.navigate(['/cadastro-funcionario']);
   };
 
   updateTotalPages() {
@@ -252,24 +249,8 @@ export class EmployeeManagementComponent {
   };
 
   onEdit = (id: number) => {
-    this.modal
-      .open(this.view, ModalType.INPUT, {
-        title: 'Editar Categoria',
-        message: 'Altere o nome da categoria',
-        label: 'Salvar',
-      })
-      .subscribe((value: ModalResponse) => {
-        if (value.assert) {
-          const newActiveList = this.activeEmployeeList.map((item) => {
-            if (item.id === id) {
-              return { ...item, name: value.message || '' };
-            }
-            return item;
-          });
 
-          this.activeEmployeeList = newActiveList as EmployeeItem[];
-        }
-      });
+    this.router.navigate(['/cadastro-funcionario'], { queryParams: { id } });
   };
 
   onDelete = (id: number) => {
