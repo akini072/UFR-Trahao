@@ -1,0 +1,61 @@
+<app-navbar [isLogged]="false"></app-navbar>
+<main [ngClass]="style.main">
+
+  <div [ngClass]="style.form">
+
+    <h2 [ngClass]="style.title">{{modo}} de Funcionário</h2>
+    <form [formGroup]="formGroup">
+      <div [ngClass]="style.flexRow">
+
+        <div [ngClass]="style.bigger">
+
+          <div>
+            <label [ngClass]="style.label" for="email">
+              E-mail<span class="{{style.requiredSpan}}"> *</span>
+            </label>
+            <app-form-input id="email" type="email" placeholder="exemplo@domínio.com" [control]="email"
+              [validations]="['email', 'required']">
+            </app-form-input>
+          </div>
+
+          <div>
+            <label [ngClass]="style.label" for="name">
+              Nome<span class="{{style.requiredSpan}}"> *</span>
+            </label>
+            <app-form-input id="name" type="text" placeholder="Nome" [control]="name"
+              [validations]="['required'] "></app-form-input>
+          </div>
+
+        </div>
+
+        <div [ngClass]="style.smaller">
+          <div>
+            <label [ngClass]="style.label" for="password">
+              Senha<span class="{{style.requiredSpan}}">*</span>
+            </label>
+            <app-form-input id="password" type="password" placeholder="****" [control]="password"
+              [validations]="['required']"></app-form-input>
+          </div>
+
+          <div>
+            <label [ngClass]="style.label" for="birthdate">
+              Data de Nascimento<span class="{{style.requiredSpan}}"> *</span>
+            </label>
+            <app-date-input id="birthdate" placeholder="dd/mm/aaaa" [control]="birthDate"
+              [validations]="['required', 'age']"></app-date-input>
+          </div>
+        </div>
+
+      </div>
+
+      <div [ngClass]="style.button">
+        <span *ngIf="error" [ngClass]="style.errorStyle">{{ getErrorMessage() }}</span>
+        <app-button *ngIf="!isEditMode" [props]="onRegisterButton"></app-button>
+        <app-button *ngIf="isEditMode" [props]="onUpdateButton"></app-button>
+        <app-button *ngIf="isEditMode" [props]="onDeleteButton"></app-button>
+      </div>
+
+    </form>
+  </div>
+</main>
+<app-footer></app-footer>
