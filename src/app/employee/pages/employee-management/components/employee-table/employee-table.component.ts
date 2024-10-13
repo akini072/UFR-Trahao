@@ -14,14 +14,11 @@ import {
   styleUrl: './employee-table.component.css',
 })
 export class EmployeeTableComponent implements OnInit {
-  @Input() employesList: EmployeeItem[] = [];
+  @Input() employeesList: EmployeeItem[] = [];
   @Input() onEdit: (id: number) => void = () => {};
   @Input() onDelete: (id: number) => void = () => {};
 
-  ngOnInit(): void {
-    console.log(this.onDelete);
-    console.log(this.onEdit);
-  }
+  ngOnInit(): void {}
 
   style = {
     table:
