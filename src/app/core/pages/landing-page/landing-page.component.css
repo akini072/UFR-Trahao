@@ -18,9 +18,10 @@
     height: 100%;
     object-fit: fill;
     z-index: -1 !important;
+    border-top-left-radius: 3%;
     mask-image: linear-gradient(
-        to bottom right, 
-        rgba(0, 0, 0, 0.2), 
+        to right, 
+        rgba(0, 0, 0, 0.01), 
         rgba(0, 0, 0, 1)
     );
 }
