@@ -26,13 +26,7 @@
   ></app-request-card>
 </div>
 <div *ngIf="displayTable" [ngClass]="style.tableDisplay">
-  <app-request-table [requests]="getPaginatedRequests()" />
+  <app-request-table [requests]="getPaginatedRequests()" [totalPages]="totalPages" [currentPage]="currentPage" [nextPage]="nextPage" [previousPage]="previousPage" />
 </div>
-<div [ngClass]="style.paginationControl">
-  <app-button [props]="leftButtonProp"></app-button>
-  <span [ngClass]="style.pageText"
-    >Página {{ currentPage }} de {{ totalPages }}</span
-  >
-  <app-button [props]="rightButtonProp"></app-button>
-</div>
+
 

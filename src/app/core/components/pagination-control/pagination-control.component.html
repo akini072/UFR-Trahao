@@ -1,0 +1,7 @@
+<div [ngClass]="style.paginationControl">
+    <app-button [props]="leftButtonProp"></app-button>
+    <span [ngClass]="style.pageText"
+      >Página {{ currentPage }} de {{ totalPages }}</span
+    >
+    <app-button [props]="rightButtonProp"></app-button>
+</div>

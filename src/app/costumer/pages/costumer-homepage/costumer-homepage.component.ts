@@ -1,5 +1,5 @@
-import { Component, Renderer2, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Renderer2, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
@@ -14,6 +14,8 @@ import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/to
 import { RequestItem } from '../../../core/types/request-item';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { GlobalTableComponent } from "../../../core/components/global-table/global-table.component";
+import { PaginationControlComponent } from "../../../core/components/pagination-control/pagination-control.component";
 
 @Component({
   selector: 'app-costumer-homepage',
@@ -29,8 +31,10 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     FilterSectionComponent,
     ToggleSwitchComponent,
     HttpClientModule,
-  ],
-  providers: [RequestsService],
+    GlobalTableComponent,
+    PaginationControlComponent
+],
+  providers: [RequestsService, DatePipe],
   templateUrl: './costumer-homepage.component.html',
   styleUrls: ['./costumer-homepage.component.css'],
 })
@@ -68,7 +72,9 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     private router: Router,
     private renderer: Renderer2,
     private requestsService: RequestsService,
-    private http: HttpClient
+    private http: HttpClient,
+    private datePipe: DatePipe,
+    private cdr: ChangeDetectorRef
   ) {
     this.updateTotalPages();
     this.updateItemsPerPage(window.innerWidth);
@@ -144,25 +150,28 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     this.activeRequestList = list;
 
     this.updateTotalPages();
-
     return list.slice(startIndex, endIndex);
   }
 
   nextPage = () => {
     if (this.currentPage < this.totalPages) {
-      this.currentPage++;
+      this.currentPage++;      
+      this.cdr.detectChanges();
     }
   };
 
   previousPage = () => {
     if (this.currentPage > 1) {
       this.currentPage--;
+      this.cdr.detectChanges();
+
     }
   };
 
   goToPage(page: number) {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
+      this.cdr.detectChanges();
     }
   }
 
@@ -190,6 +199,8 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
         (f) => item[f.filter as keyof RequestItem] === f.value
       );
     });
+    this.cdr.detectChanges();
+
   };
 
   navigateToNewRequest = () => {
