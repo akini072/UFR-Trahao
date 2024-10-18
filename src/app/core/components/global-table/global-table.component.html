@@ -1,0 +1,33 @@
+<table [ngClass]="style.table">
+    <thead [ngClass]="style.head">
+      <tr>
+        <th *ngFor="let column of columns" scope="col" [ngClass]="style.col">{{ column.label }}</th>
+        <th *ngIf="actions.length > 0 || actionTemplate" scope="col" [ngClass]="style.col">AÇÕES</th>
+      </tr>
+    </thead>
+    <tbody [ngClass]="style.body">
+      <tr *ngFor="let item of data">
+        <td *ngFor="let column of columns" [ngClass]="style.commomRow">
+          <ng-container *ngIf="!column.template">
+            {{ item[column.key] }}
+          </ng-container>
+          <ng-container *ngIf="column.template">
+            <ng-container *ngTemplateOutlet="column.template; context: { $implicit: item }"></ng-container>
+          </ng-container>
+        </td>
+        <td *ngIf="actions.length > 0 || actionTemplate" [ngClass]="style.commomRow">
+          <div [ngClass]="style.actionsContainer">
+            <ng-container *ngIf="actionTemplate">
+              <ng-container *ngTemplateOutlet="actionTemplate; context: { $implicit: item }"></ng-container>
+            </ng-container>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <app-pagination-control
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    [previousPage]="previousPage"
+    [nextPage]="nextPage" 
+    />

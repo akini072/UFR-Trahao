@@ -1,4 +1,4 @@
-<table [ngClass]="style.table">
+<!-- <table [ngClass]="style.table">
   <thead [ngClass]="style.head">
     <tr>
       <th scope="col" [ngClass]="style.col">ID</th>
@@ -35,4 +35,22 @@
       </td>
     </tr>
   </tbody>
-</table>
+</table> -->
+
+<app-global-table
+  [data]="requests"
+  [columns]="columns"
+  [actionTemplate]="actionTemplate"
+  [totalPages]="totalPages"
+  [currentPage]="currentPage"
+  [previousPage]="previousPage"
+  [nextPage]="nextPage"
+></app-global-table>
+
+<ng-template #actionTemplate let-item>
+  <app-button-status
+    [displayDisabled]="true"
+    [color]="item.status | statusColor : 'background'"
+    [status]="item.status"
+  />
+</ng-template>
