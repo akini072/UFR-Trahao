@@ -198,12 +198,19 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
         this.activeFilters.push({ filter: key, value });
       }
     }
-
+    
     this.activeRequestList = this.requestList.filter((item) => {
       return this.activeFilters.every(
-        (f) => item[f.filter as keyof RequestItem] === f.value
+        (f) => {
+          if(key === 'created_at'){
+            return this.datePipe.transform(item.created_at, 'yyyy-MM-dd') === f.value;
+          }else{
+            return item[f.filter as keyof RequestItem] === f.value
+          }
+        }
       );
     });
+    
     this.cdr.detectChanges();
 
     this.goToPage(1);
