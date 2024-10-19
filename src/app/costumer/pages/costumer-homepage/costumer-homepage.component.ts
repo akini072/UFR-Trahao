@@ -1,4 +1,10 @@
-import { Component, Renderer2, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  Renderer2,
+  OnInit,
+  OnDestroy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
@@ -14,8 +20,8 @@ import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/to
 import { RequestItem } from '../../../core/types/request-item';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { GlobalTableComponent } from "../../../core/components/global-table/global-table.component";
-import { PaginationControlComponent } from "../../../core/components/pagination-control/pagination-control.component";
+import { GlobalTableComponent } from '../../../core/components/global-table/global-table.component';
+import { PaginationControlComponent } from '../../../core/components/pagination-control/pagination-control.component';
 
 @Component({
   selector: 'app-costumer-homepage',
@@ -32,8 +38,8 @@ import { PaginationControlComponent } from "../../../core/components/pagination-
     ToggleSwitchComponent,
     HttpClientModule,
     GlobalTableComponent,
-    PaginationControlComponent
-],
+    PaginationControlComponent,
+  ],
   providers: [RequestsService, DatePipe],
   templateUrl: './costumer-homepage.component.html',
   styleUrls: ['./costumer-homepage.component.css'],
@@ -155,7 +161,7 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
 
   nextPage = () => {
     if (this.currentPage < this.totalPages) {
-      this.currentPage++;      
+      this.currentPage++;
       this.cdr.detectChanges();
     }
   };
@@ -164,7 +170,6 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     if (this.currentPage > 1) {
       this.currentPage--;
       this.cdr.detectChanges();
-
     }
   };
 
@@ -201,6 +206,7 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     });
     this.cdr.detectChanges();
 
+    this.goToPage(1);
   };
 
   navigateToNewRequest = () => {
