@@ -46,4 +46,17 @@ export class RequestsService {
     
     return requestItems;
   }
+
+  async getRequestById(requestId: number){
+    const requests: Request[] = await lastValueFrom(this.getRequests());
+    const statuses: RequestStatus[] = await lastValueFrom(this.getRequestStatuses());
+
+    const request = requests.filter((req) => req.requestId == requestId)[0];
+    request.status = statuses.filter((status) => status.requestId == request.requestId);
+    for(let status of request.status){
+      status.dateTime = new Date(status.dateTime);
+    }
+
+    return request;
+  }
 }

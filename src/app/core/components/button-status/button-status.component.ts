@@ -30,8 +30,8 @@ export class ButtonStatusComponent {
       route: '',
       isDisabled: true,
     },
-    { type: 'budgeted', name: 'APROVAR/REJEITAR', route: '' },
-    { type: 'rejected', name: 'RESGATAR', route: '' },  
+    { type: 'budgeted', name: 'APROVAR/REJEITAR', route: '../visualizar-servico' },
+    { type: 'rejected', name: 'RESGATAR', route: '../visualizar-servico' },  
     {
       type: 'approved',
       name: 'APROVADA',
@@ -44,7 +44,7 @@ export class ButtonStatusComponent {
       route: '',
       isDisabled: true,
     },
-    { type: 'fixed', name: 'PAGAR', route: '' },
+    { type: 'fixed', name: 'PAGAR', route: '../visualizar-servico' },
     {
       type: 'paid',
       name: 'PAGO',

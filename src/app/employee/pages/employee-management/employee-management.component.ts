@@ -1,6 +1,6 @@
 import { Component, Renderer2, ViewContainerRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarEmployeeComponent } from '../../components/navbar-employee/navbar-employee.component';
+import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
 import { ButtonComponent, ButtonProps } from '../../../core/components/button/button.component';
 import { HttpClient } from '@angular/common/http';
@@ -24,7 +24,7 @@ export interface EmployeeItem {
   standalone: true,
   imports: [
     CommonModule,
-    NavbarEmployeeComponent,
+    NavbarComponent,
     FooterComponent,
     ButtonComponent,
     EmployeeTableComponent,

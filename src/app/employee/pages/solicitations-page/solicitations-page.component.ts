@@ -1,7 +1,7 @@
 import { Component, Renderer2, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { NavbarEmployeeComponent } from '../../components/navbar-employee/navbar-employee.component';
+import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { ServiceRequestTableComponent } from '../../components/service-request-table/service-request-table.component';
 import { RequestTableComponent } from '../../../costumer/components/request-table/request-table.component';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
@@ -11,6 +11,7 @@ import {
 } from '../../../core/components/button/button.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { RequestCategory } from '../../../core/types/request-category';
+import { RequestsService } from '../../../core/utils/requests.service';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
 import { FilterSelectComponent } from '../../../costumer/components/filter-section/components/filter-select/filter-select.component';
 import { FilterSectionComponent } from '../../../costumer/components/filter-section/filter-section.component';
@@ -30,103 +31,24 @@ export interface RequestItem {
   standalone: true,
   imports: [
     CommonModule,
-    NavbarEmployeeComponent,
+    NavbarComponent,
     ServiceRequestTableComponent,
     RouterModule,
     RequestTableComponent,
     RequestCardComponent,
     ButtonComponent,
     FormInputComponent,
-    NavbarEmployeeComponent,
     FooterComponent,
     FilterSelectComponent,
     FilterSectionComponent,
     ToggleSwitchComponent,
   ],
+  providers: [RequestsService],
   templateUrl: './solicitations-page.component.html',
   styleUrls: ['./solicitations-page.component.css'], // Corrigido para styleUrls
 })
 export class SolicitationsPageComponent implements OnInit, OnDestroy {
-  requestList: RequestItem[] = [
-    {
-      id: 1,
-      title: 'Troca de Disco Rígido',
-      description:
-        'Substituição do disco rígido antigo por um novo SSD para melhorar o desempenho do sistema.',
-      status: 'open',
-      created_at: '2024-09-01',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-    {
-      id: 2,
-      title: 'Atualização de Software',
-      description:
-        'Atualização do sistema operacional e dos principais aplicativos para a versão mais recente.',
-      status: 'approved',
-      created_at: '2024-09-02',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-    {
-      id: 3,
-      title: 'Reparo de Tela',
-      description: 'Reparo da tela quebrada do notebook.',
-      status: 'rejected',
-      created_at: '2024-09-03',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-    {
-      id: 4,
-      title: 'Limpeza de Sistema',
-      description:
-        'Limpeza completa do sistema para remover poeira e melhorar a ventilação.',
-      status: 'paid',
-      created_at: '2024-09-04',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-    {
-      id: 5,
-      title: 'Instalação de Memória RAM',
-      description:
-        'Instalação de memória RAM adicional para melhorar o desempenho do computador.',
-      status: 'budgeted',
-      created_at: '2024-09-05',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-    {
-      id: 6,
-      title: 'Configuração de Rede',
-      description:
-        'Configuração de rede local e Wi-Fi para melhor conectividade.',
-      status: 'finalized',
-      created_at: '2024-09-06',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-    {
-      id: 7,
-      title: 'Reparo de Placa Mãe',
-      description: 'Diagnóstico e reparo da placa mãe do desktop.',
-      status: 'fixed',
-      created_at: '2024-09-07',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-    {
-      id: 8,
-      title: 'Substituição de Fonte de Alimentação',
-      description:
-        'Substituição da fonte de alimentação defeituosa por uma nova.',
-      status: 'redirected',
-      created_at: '2024-09-08',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-  ];
+  requestList: RequestItem[] = [];
 
   style = {
     navbar: '',
@@ -156,12 +78,16 @@ export class SolicitationsPageComponent implements OnInit, OnDestroy {
 
   displayTable: boolean = false;
 
-  constructor(private router: Router, private renderer: Renderer2) {
+  constructor(private router: Router, private renderer: Renderer2, private requestsService: RequestsService) {
     this.updateTotalPages();
     this.updateItemsPerPage(window.innerWidth);
   }
 
   ngOnInit(): void {
+    this.requestsService.listRequests().then((data: RequestItem[]) => {
+      this.requestList = data;
+      this.activeRequestList = this.requestList;
+    });
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
       this.updateItemsPerPage(event.target.innerWidth);
       this.updateTotalPages();
