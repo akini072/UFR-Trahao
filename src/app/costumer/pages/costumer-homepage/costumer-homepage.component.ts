@@ -19,7 +19,6 @@ import { FilterSectionComponent } from '../../components/filter-section/filter-s
 import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/toggle-switch.component';
 import { RequestItem } from '../../../core/types/request-item';
 import { RequestsService } from '../../../core/utils/requests.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { GlobalTableComponent } from '../../../core/components/global-table/global-table.component';
 import { PaginationControlComponent } from '../../../core/components/pagination-control/pagination-control.component';
 
@@ -36,7 +35,6 @@ import { PaginationControlComponent } from '../../../core/components/pagination-
     RequestTableComponent,
     FilterSectionComponent,
     ToggleSwitchComponent,
-    HttpClientModule,
     GlobalTableComponent,
     PaginationControlComponent,
   ],
@@ -76,7 +74,6 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     private router: Router,
     private renderer: Renderer2,
     private requestsService: RequestsService,
-    private http: HttpClient,
     private datePipe: DatePipe,
     private cdr: ChangeDetectorRef
   ) {

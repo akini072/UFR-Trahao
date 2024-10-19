@@ -1,4 +1,4 @@
-import { Component,OnInit,ViewContainerRef } from '@angular/core';
+import { Component,ViewContainerRef,ViewChild } from '@angular/core';
 import { ButtonComponent } from '../../../core/components/button/button.component';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
@@ -6,28 +6,44 @@ import { Request } from '../../../core/types/request';
 import { CommonModule } from '@angular/common';
 import { ModalService } from '../../../core/utils/modal.service';
 import { ModalType } from '../../../core/types/modal-type';
+import { RequestsService } from '../../../core/utils/requests.service';
+import { ActivatedRoute } from '@angular/router';
 import { StatusStepperComponent } from "../../../costumer/components/status-stepper/status-stepper.component";
 
 @Component({
   selector: 'app-visualize-service-employee',
   standalone: true,
   imports: [ButtonComponent, NavbarComponent, FooterComponent, CommonModule, StatusStepperComponent],
+  providers: [RequestsService],
   templateUrl: './visualize-service-employee.component.html',
   styleUrl: './visualize-service-employee.component.css'
 })
 export class VisualizeServiceEmployeeComponent {
-
-  constructor(private modal: ModalService, private view: ViewContainerRef) {}
-
+  private serviceId!: number;
   open: boolean = false;
   approved: boolean = false;
   paid: boolean = false;
+  request: Request;
+  @ViewChild(StatusStepperComponent) statusStepper!: StatusStepperComponent;
 
-  ngOnInit(){
-    this.checkStatus();
+  constructor(private modal: ModalService, 
+    private view: ViewContainerRef,  
+    private route: ActivatedRoute,
+    private requestsService: RequestsService) {
+    try{
+      this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
+      this.requestsService.getRequestById(this.serviceId).then((data: Request) => {
+        this.request = data;
+        this.checkStatus();
+      });
+    } catch(error){
+      console.error(error);
+    }
+    this.request = {} as Request;
   }
 
   checkStatus(){
+    this.statusStepper.setStatusSteps(this.request.status);
     switch (this.request.status[this.request.status.length-1].category) {
       case 'open':
         this.open = true;
@@ -40,51 +56,6 @@ export class VisualizeServiceEmployeeComponent {
         break;
     }
 
-  }
-
-  request: Request = {
-    requestId: 1,
-    requestDesc: 'Computador travando',
-    equipmentDesc: 'Notebook Lenovo velho',
-    defectDesc: 'A tela parou de funcionar do nada depois de dar tela azul e eu acidentalmente acertar um soco no computador. Eu não sei o que aconteceu, mas acho que o problema é na tela ou na placa mãe ou a placa de video porque travava toda hora.',
-    status: [
-      {
-        requestStatusId: '0',
-        dateTime: new Date(),
-        category: 'open', // Replace 'someCategory' with the actual category
-        senderEmployee: '',
-        inChargeEmployee: 'Alisson Gabriel',
-        request: {} as Request // Replace with actual request object if needed
-      },
-      {
-        requestStatusId: '1',
-        dateTime: new Date(),
-        category: 'budgeted', // Replace 'someCategory' with the actual category
-        senderEmployee: '',
-        inChargeEmployee: 'Alisson Gabriel',
-        request: {} as Request // Replace with actual request object if needed
-      },
-      {
-        requestStatusId: '2',
-        dateTime: new Date(),
-        category: 'budgeted', // Replace 'someCategory' with the actual category
-        senderEmployee: '',
-        inChargeEmployee: 'Alisson Gabriel',
-        request: {} as Request // Replace with actual request object if needed
-      },
-      {
-        requestStatusId: '3',
-        dateTime: new Date(),
-        category: 'approved', // Replace 'someCategory' with the actual category
-        senderEmployee: '',
-        inChargeEmployee: 'Alisson Gabriel',
-        request: {} as Request // Replace with actual request object if needed
-      }
-    ],
-    budget: 1500.00,
-    repairDesc: '',
-    customerOrientations: '',
-    image: ''
   }
 
   onFix=()=>{
