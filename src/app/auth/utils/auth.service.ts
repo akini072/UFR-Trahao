@@ -5,7 +5,6 @@ import { Credentials } from '../types/credentials';
   providedIn: 'root'
 })
 export class AuthService {
-
   user = {
     'name': 'Leonardo Salgado',
     'email': 'leosalgado2004@gmail.com',
@@ -40,5 +39,9 @@ export class AuthService {
       return credentials;
     }
     throw Error("Usuário ou senha inválidos");
+  }
+
+  logout() {
+    sessionStorage.removeItem('credentials');
   }
 }

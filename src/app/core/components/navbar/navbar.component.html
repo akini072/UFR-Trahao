@@ -5,12 +5,17 @@
       <p [ngClass]="style.navLogo" (click)="goToIndex()">MANUTADS</p>
       <p *ngIf="isLogged" [ngClass]="style.navUserText">Bem vindo: {{ user }}</p>
     </div>
-    <ul [ngClass]="style.navList">
-      @for (item of navItems; track item) {
-      <li *ngIf="isLogged ? item.login : !item.login" [ngClass]="style.navItem">
-        <a [routerLink]="item.route" [ngClass]="style.navAnchor">{{ item.name }}</a>
-      </li>
+    <div [ngClass]="style.navRow">
+      <ul [ngClass]="style.navList">
+        @for (item of navItems; track item) {
+        <li *ngIf="isLogged ? item.login : !item.login" [ngClass]="style.navItem">
+          <a [routerLink]="item.route" [ngClass]="style.navAnchor">{{ item.name }}</a>
+        </li>
+        }
+      </ul>
+      @if (isLogged) {
+        <button [ngClass]="style.navButton" (click)="logout()">Sair</button>
       }
-    </ul>
+    </div>
   </div>
 </nav>
