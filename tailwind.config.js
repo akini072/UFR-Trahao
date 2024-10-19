@@ -62,20 +62,6 @@ module.exports = {
       },
     },
   },
-  purge: [
-    "./src/**/*.html",
-    "./src/**/*.js",
-    "./src/**/*.jsx",
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-  ],
-  content: [
-    "./src/**/*.html",
-    "./src/**/*.js",
-    "./src/**/*.jsx",
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-    "./node_modules/flowbite/**/*.js",
-  ],
+
   plugins: [require("flowbite/plugin")],
 };

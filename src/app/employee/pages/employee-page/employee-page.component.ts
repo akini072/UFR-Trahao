@@ -12,6 +12,7 @@ import {
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { RequestCategory } from '../../../core/types/request-category';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
+import { PaginationControlComponent } from "../../../core/components/pagination-control/pagination-control.component";
 
 export interface RequestItem {
   id: number;
@@ -35,7 +36,8 @@ export interface RequestItem {
     ButtonComponent,
     FormInputComponent,
     FooterComponent,
-  ],
+    PaginationControlComponent
+],
   templateUrl: './employee-page.component.html',
   styleUrls: ['./employee-page.component.css'], // Corrigido para styleUrls
 })
@@ -56,7 +58,7 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
       title: 'Atualização de Software',
       description:
         'Atualização do sistema operacional e dos principais aplicativos para a versão mais recente.',
-      status: 'approved',
+      status: 'open',
       created_at: '2024-09-02',
       image:
         'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
@@ -65,7 +67,7 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
       id: 3,
       title: 'Reparo de Tela',
       description: 'Reparo da tela quebrada do notebook.',
-      status: 'rejected',
+      status: 'open',
       created_at: '2024-09-03',
       image:
         'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
@@ -75,7 +77,7 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
       title: 'Limpeza de Sistema',
       description:
         'Limpeza completa do sistema para remover poeira e melhorar a ventilação.',
-      status: 'paid',
+      status: 'open',
       created_at: '2024-09-04',
       image:
         'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
@@ -85,7 +87,7 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
       title: 'Instalação de Memória RAM',
       description:
         'Instalação de memória RAM adicional para melhorar o desempenho do computador.',
-      status: 'budgeted',
+      status: 'open',
       created_at: '2024-09-05',
       image:
         'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
@@ -95,7 +97,7 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
       title: 'Configuração de Rede',
       description:
         'Configuração de rede local e Wi-Fi para melhor conectividade.',
-      status: 'finalized',
+      status: 'open',
       created_at: '2024-09-06',
       image:
         'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
@@ -104,7 +106,7 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
       id: 7,
       title: 'Reparo de Placa Mãe',
       description: 'Diagnóstico e reparo da placa mãe do desktop.',
-      status: 'fixed',
+      status: 'open',
       created_at: '2024-09-07',
       image:
         'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
@@ -114,7 +116,27 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
       title: 'Substituição de Fonte de Alimentação',
       description:
         'Substituição da fonte de alimentação defeituosa por uma nova.',
-      status: 'redirected',
+      status: 'open',
+      created_at: '2024-09-08',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+    {
+      id: 9,
+      title: 'Substituição de Fonte de Alimentação',
+      description:
+        'Substituição da fonte de alimentação defeituosa por uma nova.',
+      status: 'open',
+      created_at: '2024-09-08',
+      image:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
+    },
+    {
+      id: 10,
+      title: 'Substituição de Fonte de Alimentação',
+      description:
+        'Substituição da fonte de alimentação defeituosa por uma nova.',
+      status: 'open',
       created_at: '2024-09-08',
       image:
         'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
@@ -125,14 +147,15 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
     navbar: '',
     title: 'px-4 text-2xl font-bold text-primary-8 my-8',
     container: 'flex w-full px-4 my-8 mx-auto',
-    innerContainer: 'flex justify-end  gap-4',
+    innerContainer: 'flex justify-end gap-4',
     searchContainer: 'flex gap-2',
     requestGrid:
-      'grid grid-cols-1 w-10/12 m-auto justify-items-center md:grid-cols-2 lg:grid-cols-3 gap-4 p-4',
+      'grid grid-cols-1 w-10/12 mx-auto my-8 justify-items-center md:grid-cols-2 lg:grid-cols-3 gap-4 p-4',
     paginationControl:
       'w-10/12 m-auto flex justify-end my-4 items-center text-center',
     pageText: 'border p-2 text-sm',
     pageTopContainer: 'flex justify-between w-full items-center px-16',
+    wrapper: 'flex flex-col min-h-screen',
   };
 
   activeRequestList: RequestItem[] = this.requestList;

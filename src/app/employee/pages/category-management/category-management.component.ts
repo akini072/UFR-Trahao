@@ -132,6 +132,7 @@ export class CategoryManagementComponent {
     });
 
     this.updateTotalPages();
+    this.goToPage(1);
   }
 
   onAddCategory = () => {
