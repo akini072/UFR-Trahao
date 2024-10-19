@@ -1,7 +1,7 @@
 
 <div *ngIf="enableReport" [ngClass]="style.reportRow">
   <app-button [props]="generateReportButton"/>
-  <app-toggle-switch [onToggle]="toggleFilters" [label]="'Aplicar filtros no relatório:'"></app-toggle-switch>
+  <app-toggle-switch *ngIf="enableReportFilters" [onToggle]="toggleFilters" [label]="'Aplicar filtros no relatório:'"></app-toggle-switch>
 </div>
 <table [ngClass]="style.table">
   <thead [ngClass]="style.head">
