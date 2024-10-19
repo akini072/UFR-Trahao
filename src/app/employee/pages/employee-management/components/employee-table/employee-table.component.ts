@@ -1,35 +1,35 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { EmployeeItem } from '../../employee-management.component';
-import {
-  ButtonComponent,
-  ButtonProps,
-} from '../../../../../core/components/button/button.component';
+import { ButtonComponent, ButtonProps } from '../../../../../core/components/button/button.component';
+import { GlobalTableComponent } from '../../../../../core/components/global-table/global-table.component';
 
 @Component({
   selector: 'app-employee-table',
   standalone: true,
-  imports: [CommonModule, ButtonComponent],
+  imports: [CommonModule, ButtonComponent, GlobalTableComponent],
   templateUrl: './employee-table.component.html',
-  styleUrl: './employee-table.component.css',
+  styleUrls: ['./employee-table.component.css'],
 })
 export class EmployeeTableComponent implements OnInit {
   @Input() employeesList: EmployeeItem[] = [];
   @Input() onEdit: (id: number) => void = () => {};
   @Input() onDelete: (id: number) => void = () => {};
+  @Input() currentPage: number = 1;
+  @Input() totalPages: number = 1;
+  @Input() nextPage: () => void = () => {};
+  @Input() previousPage: () => void = () => {};
+
+  columns = [
+    { key: 'id', label: 'ID' },
+    { key: 'name', label: 'NOME' },
+    { key: 'email', label: 'E-MAIL' },
+    { key: 'date', label: 'DATA DE NASCIMENTO' }
+  ];
+
+  @ViewChild('actionTemplate', { static: true }) actionTemplate!: TemplateRef<any>;
 
   ngOnInit(): void {}
-
-  style = {
-    table:
-      'table-auto border min-w-full border-gray-400 rounded-lg divide-gray-400 shadow',
-    head: 'bg-gray-50',
-    col: 'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider',
-    body: 'bg-white divide-y divide-gray-200',
-    idRow: 'px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900',
-    commomRow: 'px-6 py-4 whitespace-nowrap text-sm text-gray-500',
-    actionsContainer: 'flex gap-4 items-center justify-between',
-  };
 
   getButtonProps = (id: number, type: 'delete' | 'edit') => {
     if (type === 'delete') {
@@ -48,8 +48,8 @@ export class EmployeeTableComponent implements OnInit {
   editButtonProps: ButtonProps = {
     text: '',
     icon: 'edit',
-    color: 'primary-6',
-    hoverColor: 'primary-4',
+    color: 'secondary-6',
+    hoverColor: 'secondary-4',
     textColor: 'white',
     size: 'small',
     iconPosition: 'right',
