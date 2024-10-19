@@ -38,7 +38,7 @@ export class RequestTableComponent implements OnInit, OnChanges {
   @Input() totalPages: number = 1;
   @Input() nextPage: () => void = () => {};
   @Input() previousPage: () => void = () => {};
-  @Input() cdr!: ChangeDetectorRef;
+  @Input() reportData: RequestItem[] = [];
 
   constructor(
     private statusTextPipe: StatusTextPipe,
@@ -55,8 +55,26 @@ export class RequestTableComponent implements OnInit, OnChanges {
     formattedStatus: string;
   }[] = [];
 
+  formattedReportData: {
+    id: number;
+    title: string;
+    description: string;
+    status: string;
+    created_at: string;
+    image: string;
+    formattedStatus: string;
+  }[] = [];
+
   updateRequests = () => {
     this.formattedRequests = this.requests.map((req) => {
+      return {
+        ...req,
+        created_at: this.datePipe.transform(req.created_at, 'dd/MM/yyyy') || '',
+        formattedStatus: this.statusTextPipe.transform(req.status),
+      };
+    });
+    
+    this.formattedReportData = this.reportData.map((req) => {
       return {
         ...req,
         created_at: this.datePipe.transform(req.created_at, 'dd/MM/yyyy') || '',

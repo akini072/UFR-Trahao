@@ -19,6 +19,8 @@
     "@angular/platform-browser-dynamic": "^17.1.0",
     "@angular/router": "^17.1.0",
     "flowbite": "^2.5.1",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.4",
     "material-icons": "^1.13.12",
     "rxjs": "~7.8.0",
     "swiper": "^11.1.14",
