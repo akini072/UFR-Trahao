@@ -9,25 +9,25 @@
 
       <div [ngClass]="styles.basisHalf">
         <p [ngClass]="styles.semibold">Cliente</p>
-        <label for="" class="block">{{request.requestId}}</label>
+        <label for="" class="block">{{ customer.name }}</label>
         <!-- só pra nao ficar vazio mas teria q pegar do cliente -->
       </div>
 
       <div [ngClass]="styles.basisHalf">
         <p [ngClass]="styles.semibold">CPF</p>
-        <label for="" class="block">{{request.requestId}}</label>
+        <label for="" class="block">{{ customer.cpf | cpfMask }}</label>
         <!-- só pra nao ficar vazio mas teria q pegar do cliente -->
       </div>
 
       <div [ngClass]="styles.basisHalf">
         <p [ngClass]="styles.semibold">Email</p>
-        <label for="" class="block">{{request.requestId}}</label>
+        <label for="" class="block">{{ customer.email }}</label>
       <!-- só pra nao ficar vazio mas teria q pegar do cliente -->
     </div>
 
     <div [ngClass]="styles.basisHalf">
       <p [ngClass]="styles.semibold">Endereço</p>
-      <label for="" class="block">{{request.requestId}}</label>
+      <label for="" class="block">{{ customer.address | addressPipe }}</label>
       <!-- só pra nao ficar vazio mas teria q pegar do cliente -->
     </div>
 
