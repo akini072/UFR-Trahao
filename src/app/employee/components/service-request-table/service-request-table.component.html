@@ -1,4 +1,4 @@
-<div class="p-4 rounded flex justify-center">
+<!-- <div class="p-4 rounded flex justify-center">
     <table class="table w-4/5 divide-y divide-gray-200 rounded">
       <thead class="bg-slate-300 rounded-sm">
         <tr>
@@ -8,11 +8,8 @@
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
-        <!-- ID	Equipamento	Desc. Solicitação	Data Solicitação	Defeito	Status	Ações
- -->
         <tr *ngFor="let row of data">
-<!--           <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ row.id }}</td>
- -->          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ row.equipamento }}</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ row.equipamento }}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ row.descSolicitacao }}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ row.dataSolicitacao }}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ row.defeito }}</td>
@@ -33,5 +30,23 @@
         </tr>
       </tbody>
     </table>
+  </div> -->
+
+  <div class="p-4 rounded flex justify-center">
+    <app-global-table
+      [data]="data"
+      [columns]="columns"
+      [actions]="actions"
+      [actionTemplate]="actionTemplate"
+    ></app-global-table>
+  
+    <ng-template #actionTemplate let-item>
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 rounded" (click)="editItem(item)">
+        <span class="material-icons">edit</span>
+      </button>
+      <button class="bg-red-500 hover:bg-red-700 text-white font-bold p-2 rounded" (click)="deleteItem(item)">
+        <span class="material-icons">delete</span>
+      </button>
+    </ng-template>
   </div>
   
