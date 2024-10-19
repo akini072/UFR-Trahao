@@ -1,38 +1,21 @@
-<table [ngClass]="style.table">
-  <thead [ngClass]="style.head">
-    <tr>
-      <th scope="col" [ngClass]="style.col">ID</th>
-      <th scope="col" [ngClass]="style.col">EQUIPAMENTO</th>
-      <th scope="col" [ngClass]="style.col">DESC. SOLICITAÇÃO</th>
-      <th scope="col" [ngClass]="style.col">DATA SOLICITAÇÃO</th>
-      <th scope="col" [ngClass]="style.col">STATUS</th>
-      <th scope="col" [ngClass]="style.col">AÇÃO</th>
-    </tr>
-  </thead>
-  <tbody [ngClass]="style.body">
-    <tr *ngFor="let request of requests">
-      <td [ngClass]="style.idRow">
-        {{ request.id }}
-      </td>
-      <td [ngClass]="style.commomRow">
-        {{ request.title }}
-      </td>
-      <td [ngClass]="style.commomRow">
-        {{ request.description | limitedDescription : 30 }}
-      </td>
-      <td [ngClass]="style.commomRow">
-        {{ request.created_at | date : "dd/MM/yyyy" }}
-      </td>
-      <td [ngClass]="style.commomRow">
-        {{ request.status | statusText }}
-      </td>
-      <td [ngClass]="style.commomRow">
-        <app-button-status
-          [displayDisabled]="true"
-          [color]="request.status | statusColor : 'background'"
-          [status]="request.status"
-        />
-      </td>
-    </tr>
-  </tbody>
-</table>
+<app-global-table
+  [data]="formattedRequests"
+  [columns]="columns"
+  [actionTemplate]="actionTemplate"
+  [totalPages]="totalPages"
+  [currentPage]="currentPage"
+  [previousPage]="handlePreviousPage"
+  [nextPage]="handleNextPage"
+  [reportData]="formattedReportData"
+  title="solicitacoes-servico"
+  [enableReport]="true"
+  [enableReportFilters]="true"	
+></app-global-table>
+
+<ng-template #actionTemplate let-item>
+  <app-button-status
+    [displayDisabled]="true"
+    [color]="item.status | statusColor : 'background'"
+    [status]="item.status"
+  />
+</ng-template>
