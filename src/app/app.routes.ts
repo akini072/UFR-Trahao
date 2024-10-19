@@ -11,6 +11,7 @@ import { SolicitationsPageComponent } from './employee/pages/solicitations-page/
 import { CategoryManagementComponent } from './employee/pages/category-management/category-management.component';
 import { EmployeeManagementComponent } from './employee/pages/employee-management/employee-management.component';
 import { EmployeeRegisterPageComponent } from './employee/pages/employee-register-page/employee-register-page.component';
+import { ReportPageComponent } from './finance/pages/report-page/report-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/index', pathMatch: 'full' },
@@ -26,4 +27,5 @@ export const routes: Routes = [
   { path: 'solicitacoes', component: SolicitationsPageComponent },
   { path: 'categorias', component: CategoryManagementComponent },
   { path: 'funcionarios', component: EmployeeManagementComponent },
+  { path: 'relatorio-mensal', component: ReportPageComponent },
 ];

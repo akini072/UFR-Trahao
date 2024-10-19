@@ -10,7 +10,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { ToggleSwitchComponent } from "../toggle-switch/toggle-switch.component"; 
 
-interface Column {
+export interface Column {
   key: string;
   label: string;
   template?: TemplateRef<any>;
@@ -44,6 +44,7 @@ export class GlobalTableComponent<T> implements OnInit, OnChanges {
   @Input() totalPages: number = 1;
   @Input() nextPage: () => void = () => {};
   @Input() previousPage: () => void = () => {};
+  @Input() enableReportFilters: boolean = false;
 
   filtersEnabled: boolean = false;
 
@@ -73,7 +74,13 @@ export class GlobalTableComponent<T> implements OnInit, OnChanges {
       ...this.generateReportButton,
       onClick: () => {
         const doc = new jsPDF();
+
+        const title = this.title ? this.title : 'Relatório';
+        doc.setFontSize(18);
+        doc.text(title, 14, 22);
+
         autoTable(doc, {
+          startY: 30,
           head: [this.columns.map((column) => column.label)],
           theme: 'grid',
           body: data.map((item) => this.columns.map((column) => {
