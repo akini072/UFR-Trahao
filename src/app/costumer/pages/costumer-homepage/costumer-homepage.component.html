@@ -14,19 +14,36 @@
 <div [ngClass]="style.filterContainer">
   <app-filter-section [filterAction]="applyFilter" />
   <div [ngClass]="style.switchContainer">
-    <app-toggle-switch [onToggle]="toggleDisplayTable" [label]="'Tabela:'"></app-toggle-switch>
+    <app-toggle-switch
+      [onToggle]="toggleDisplayTable"
+      [label]="'Tabela:'"
+    ></app-toggle-switch>
   </div>
 </div>
 
 <div [ngClass]="style.container"></div>
-<div *ngIf="!displayTable" [ngClass]="style.requestGrid">
-  <app-request-card
-    *ngFor="let request of getPaginatedRequests(searchQuery)"
-    [request]="request"
-  ></app-request-card>
+<div *ngIf="!displayTable">
+  <div [ngClass]="style.requestGrid">
+    <app-request-card
+      *ngFor="let request of getPaginatedRequests(searchQuery)"
+      [request]="request"
+    ></app-request-card>
+  </div>
+
+  <app-pagination-control
+    [currentPage]="currentPage"
+    [nextPage]="nextPage"
+    [previousPage]="previousPage"
+    [totalPages]="totalPages"
+  />
 </div>
+
 <div *ngIf="displayTable" [ngClass]="style.tableDisplay">
-  <app-request-table [requests]="getPaginatedRequests()" [totalPages]="totalPages" [currentPage]="currentPage" [nextPage]="nextPage" [previousPage]="previousPage" />
+  <app-request-table
+    [requests]="getPaginatedRequests()"
+    [totalPages]="totalPages"
+    [currentPage]="currentPage"
+    [nextPage]="nextPage"
+    [previousPage]="previousPage"
+  />
 </div>
-
-
