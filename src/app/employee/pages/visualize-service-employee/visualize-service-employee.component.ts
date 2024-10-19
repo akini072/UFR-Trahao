@@ -7,14 +7,19 @@ import { CommonModule } from '@angular/common';
 import { ModalService } from '../../../core/utils/modal.service';
 import { ModalType } from '../../../core/types/modal-type';
 import { RequestsService } from '../../../core/utils/requests.service';
+import { CustomerService } from '../../../core/utils/customer.service';
 import { ActivatedRoute } from '@angular/router';
+import { CpfMaskPipe } from '../../../core/utils/pipes/cpfMask/cpf-mask.pipe';
+import { AddressPipePipe } from '../../../core/utils/pipes/address-pipe.pipe';
+import { ModalResponse } from '../../../core/types/modal-response';
 import { StatusStepperComponent } from "../../../costumer/components/status-stepper/status-stepper.component";
+import { Customer } from '../../../core/types/customer';
 
 @Component({
   selector: 'app-visualize-service-employee',
   standalone: true,
-  imports: [ButtonComponent, NavbarComponent, FooterComponent, CommonModule, StatusStepperComponent],
-  providers: [RequestsService],
+  imports: [ButtonComponent, NavbarComponent, FooterComponent, CommonModule, StatusStepperComponent, CpfMaskPipe, AddressPipePipe],
+  providers: [RequestsService, CustomerService],
   templateUrl: './visualize-service-employee.component.html',
   styleUrl: './visualize-service-employee.component.css'
 })
@@ -24,22 +29,30 @@ export class VisualizeServiceEmployeeComponent {
   approved: boolean = false;
   paid: boolean = false;
   request: Request;
+  customer: Customer;
   @ViewChild(StatusStepperComponent) statusStepper!: StatusStepperComponent;
 
   constructor(private modal: ModalService, 
     private view: ViewContainerRef,  
     private route: ActivatedRoute,
-    private requestsService: RequestsService) {
+    private requestsService: RequestsService,
+    private customerService: CustomerService
+  ) {
     try{
       this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
       this.requestsService.getRequestById(this.serviceId).then((data: Request) => {
         this.request = data;
+        this.customerService.getCustomer(this.request.customerId).then((data) => {
+          this.customer = data;
+          console.log(this.customer);
+        });
         this.checkStatus();
       });
     } catch(error){
       console.error(error);
     }
     this.request = {} as Request;
+    this.customer = {} as Customer;
   }
 
   checkStatus(){
@@ -49,10 +62,16 @@ export class VisualizeServiceEmployeeComponent {
         this.open = true;
         break;
       case 'approved':
+      case 'redirected':
         this.approved = true;
         break;
       case 'paid':
         this.paid = true;
+        break;
+      default:
+        this.open = false;
+        this.approved = false;
+        this.paid = false;
         break;
     }
 
@@ -64,10 +83,20 @@ export class VisualizeServiceEmployeeComponent {
       message: 'Confirma que o serviço foi realizado?',
       label: 'Realizar',
     };
-    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe(() => {
-      this.request.status[this.request.status.length-1].category = 'paid';
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
+      //TEST: Adicionar o status de consertado ao nosso serviço
+      if(value.assert){
+        this.request.status.push({
+          requestStatusId: '4',
+          dateTime: new Date(),
+          category: 'fixed',
+          senderEmployee: '',
+          inChargeEmployee: 'Alisson Gabriel',
+          request: {} as Request
+        });
+        this.checkStatus();
+      }
     });
-    //implementar a lógica para arrumar o componente. deve guardar o funcionario, data e hora
   };
 
   onRedirect=()=>{
@@ -77,7 +106,18 @@ export class VisualizeServiceEmployeeComponent {
       message: 'Por favor, informe o nome do funcionario a redirecionar',
       label: 'Redirecionar',
     };
-    this.modal.open(this.view, ModalType.INPUT, data).subscribe((value) => {
+    this.modal.open(this.view, ModalType.INPUT, data).subscribe((value: ModalResponse) => {
+      if(value.assert){
+        this.request.status.push({
+          requestStatusId: '4',
+          dateTime: new Date(),
+          category: 'redirected',
+          senderEmployee: 'Alisson Gabriel',
+          inChargeEmployee: value.message || '',
+          request: {} as Request
+        });
+        this.checkStatus();
+      }
     });
   };
 
@@ -88,7 +128,18 @@ export class VisualizeServiceEmployeeComponent {
       message: 'Por favor, confira o valor do orçamento',
       label: 'Orçar',
     };
-    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
+      if(value.assert){
+        this.request.status.push({
+          requestStatusId: '2',
+          dateTime: new Date(),
+          category: 'budgeted',
+          senderEmployee: '',
+          inChargeEmployee: 'Alisson Gabriel',
+          request: {} as Request
+        });
+        this.checkStatus();
+      }
     });
   };
 
@@ -99,7 +150,18 @@ export class VisualizeServiceEmployeeComponent {
       message: 'Você confirma a finalização do serviço? Tem certeza mesmo?',
       label: 'Finalizar'
     };
-    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
+      if(value.assert){
+        this.request.status.push({
+          requestStatusId: '6',
+          dateTime: new Date(),
+          category: 'finalized',
+          senderEmployee: '',
+          inChargeEmployee: 'Alisson Gabriel',
+          request: {} as Request
+        });
+        this.checkStatus();
+      }
     });
   };
 
