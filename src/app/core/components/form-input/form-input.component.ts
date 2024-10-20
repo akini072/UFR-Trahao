@@ -4,6 +4,7 @@ import { FormControl, ReactiveFormsModule, Validators, ValidatorFn } from '@angu
 import { CustomValidator } from '../../utils/custom-validators';
 import { CepMaskPipe } from '../../utils/pipes/cepMask/cep-mask.pipe';
 import { CpfMaskPipe } from '../../utils/pipes/cpfMask/cpf-mask.pipe';
+import { PhonePipePipe } from '../../utils/pipes/phone-pipe.pipe';
 
 type FormTextInputType = 'text' | 'password' | 'email' | 'number';
 
@@ -90,6 +91,9 @@ export class FormInputComponent {
     }
     if (this.mask === 'cep') {
       return new CepMaskPipe().transform(this.control?.value);
+    }
+    if (this.mask === 'phone') {
+      return new PhonePipePipe().transform(this.control?.value);
     }
     return this.control?.value;
   }
