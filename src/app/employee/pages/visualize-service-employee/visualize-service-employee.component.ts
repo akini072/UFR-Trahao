@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CpfMaskPipe } from '../../../core/utils/pipes/cpfMask/cpf-mask.pipe';
 import { AddressPipePipe } from '../../../core/utils/pipes/address-pipe.pipe';
 import { ModalResponse } from '../../../core/types/modal-response';
-import { StatusStepperComponent } from "../../../costumer/components/status-stepper/status-stepper.component";
+import { StatusStepperComponent } from "../../../customer/components/status-stepper/status-stepper.component";
 import { Customer } from '../../../core/types/customer';
 
 @Component({
