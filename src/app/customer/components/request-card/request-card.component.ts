@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { RequestCategory } from '../../../core/types/request-category';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import {
   ButtonComponent,
-  ButtonProps,
+  ButtonProps
 } from '../../../core/components/button/button.component';
 import { ButtonStatusComponent } from '../../../core/components/button-status/button-status.component';
 import { LimitedDescriptionPipe } from '../../../core/utils/limited-description.pipe';
@@ -20,6 +20,7 @@ import { StatusColorPipe } from '../../../core/utils/pipes/statusColor/status-co
     LimitedDescriptionPipe,
     StatusTextPipe,
     StatusColorPipe,
+    RouterModule
   ],
   templateUrl: './request-card.component.html',
   styleUrl: './request-card.component.css',

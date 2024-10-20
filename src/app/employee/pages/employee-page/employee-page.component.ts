@@ -1,14 +1,15 @@
 import { Component, Renderer2, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { NavbarEmployeeComponent } from '../../components/navbar-employee/navbar-employee.component';
+import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { ServiceRequestTableComponent } from '../../components/service-request-table/service-request-table.component';
-import { RequestTableComponent } from '../../../costumer/components/request-table/request-table.component';
+import { RequestTableComponent } from '../../../customer/components/request-table/request-table.component';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
 import {
   ButtonComponent,
   ButtonProps,
 } from '../../../core/components/button/button.component';
+import { RequestsService } from '../../../core/utils/requests.service';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { RequestCategory } from '../../../core/types/request-category';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
@@ -28,7 +29,7 @@ export interface RequestItem {
   standalone: true,
   imports: [
     CommonModule,
-    NavbarEmployeeComponent,
+    NavbarComponent,
     ServiceRequestTableComponent,
     RouterModule,
     RequestTableComponent,
@@ -38,110 +39,12 @@ export interface RequestItem {
     FooterComponent,
     PaginationControlComponent
 ],
+  providers: [RequestsService],
   templateUrl: './employee-page.component.html',
   styleUrls: ['./employee-page.component.css'], // Corrigido para styleUrls
 })
 export class EmployeePageComponent implements OnInit, OnDestroy {
-  requestList: RequestItem[] = [
-    {
-      id: 1,
-      title: 'Troca de Disco Rígido',
-      description:
-        'Substituição do disco rígido antigo por um novo SSD para melhorar o desempenho do sistema.',
-      status: 'open',
-      created_at: '2024-09-01',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-    {
-      id: 2,
-      title: 'Atualização de Software',
-      description:
-        'Atualização do sistema operacional e dos principais aplicativos para a versão mais recente.',
-      status: 'open',
-      created_at: '2024-09-02',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-    {
-      id: 3,
-      title: 'Reparo de Tela',
-      description: 'Reparo da tela quebrada do notebook.',
-      status: 'open',
-      created_at: '2024-09-03',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-    {
-      id: 4,
-      title: 'Limpeza de Sistema',
-      description:
-        'Limpeza completa do sistema para remover poeira e melhorar a ventilação.',
-      status: 'open',
-      created_at: '2024-09-04',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-    {
-      id: 5,
-      title: 'Instalação de Memória RAM',
-      description:
-        'Instalação de memória RAM adicional para melhorar o desempenho do computador.',
-      status: 'open',
-      created_at: '2024-09-05',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-    {
-      id: 6,
-      title: 'Configuração de Rede',
-      description:
-        'Configuração de rede local e Wi-Fi para melhor conectividade.',
-      status: 'open',
-      created_at: '2024-09-06',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-    {
-      id: 7,
-      title: 'Reparo de Placa Mãe',
-      description: 'Diagnóstico e reparo da placa mãe do desktop.',
-      status: 'open',
-      created_at: '2024-09-07',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-    {
-      id: 8,
-      title: 'Substituição de Fonte de Alimentação',
-      description:
-        'Substituição da fonte de alimentação defeituosa por uma nova.',
-      status: 'open',
-      created_at: '2024-09-08',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-    {
-      id: 9,
-      title: 'Substituição de Fonte de Alimentação',
-      description:
-        'Substituição da fonte de alimentação defeituosa por uma nova.',
-      status: 'open',
-      created_at: '2024-09-08',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-    {
-      id: 10,
-      title: 'Substituição de Fonte de Alimentação',
-      description:
-        'Substituição da fonte de alimentação defeituosa por uma nova.',
-      status: 'open',
-      created_at: '2024-09-08',
-      image:
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==',
-    },
-  ];
+  requestList: RequestItem[] = [];
 
   style = {
     navbar: '',
@@ -166,12 +69,16 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
   resizeListener!: () => void;
   searchQuery: string | undefined;
 
-  constructor(private router: Router, private renderer: Renderer2) {
+  constructor(private router: Router, private renderer: Renderer2, private requestsService: RequestsService) {
     this.updateTotalPages();
     this.updateItemsPerPage(window.innerWidth);
   }
 
   ngOnInit(): void {
+    this.requestsService.listRequests().then((data: RequestItem[]) => {
+      this.requestList = data;
+      this.activeRequestList = this.requestList;
+    });
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
       this.updateItemsPerPage(event.target.innerWidth);
       this.updateTotalPages();
@@ -256,8 +163,8 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
     }
   }
 
-  navigateToNewRequest = () => {
-    this.router.navigate(['nova-solicitacao']);
+  navigateToRequest = (id: number) => {
+    this.router.navigate(['/funcionario/visualizar-servico', id]);
   };
 
   rightButtonProp: ButtonProps = {
@@ -280,14 +187,5 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
     textColor: 'black',
     extraClasses: 'border items-center text-center',
     onClick: this.previousPage,
-  };
-
-  newRequestButtonProp: ButtonProps = {
-    text: 'Nova Solicitação',
-    color: 'primary-8',
-    size: 'medium',
-    textColor: 'white',
-    hoverColor: 'primary-7',
-    onClick: this.navigateToNewRequest,
   };
 }

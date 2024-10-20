@@ -6,6 +6,8 @@ import { FooterComponent } from '../../../core/components/footer/footer.componen
 import { ButtonComponent } from '../../../core/components/button/button.component';
 import { Router, RouterModule } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../../utils/auth.service';
+import { Credentials } from '../../types/credentials';
 
 @Component({
   selector: 'app-login-page',
@@ -19,6 +21,7 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     ReactiveFormsModule,
   ],
+  providers: [ AuthService ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',
 })
@@ -29,7 +32,7 @@ export class LoginPageComponent {
   error: boolean = false;
   signUpRouterLink: string = '/cadastro';
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private auth: AuthService) {
     this.formGroup = new FormGroup({
       email: new FormControl(''),
       password: new FormControl(''),
@@ -40,7 +43,22 @@ export class LoginPageComponent {
 
   onLogin = () => {
     if (this.formGroup.valid) {
-      this.router.navigate(['/customer']);
+      try{
+        let credentials: Credentials = this.auth.login(this.email.value, this.password.value);
+        switch(credentials.profile){
+          case 'Employee':
+            this.router.navigate(['/funcionario']);
+            break;
+          case 'Customer':
+          default:
+            this.router.navigate(['/cliente']);
+            break;
+        }
+      } catch(error){
+        this.formGroup.setErrors({credentials: true});
+        this.formGroup.updateValueAndValidity;
+        this.error = true;
+      }
     } else {
       this.error = true;
     }

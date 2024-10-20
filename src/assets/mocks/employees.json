@@ -1,0 +1,73 @@
+[
+    {
+        "id": 1,
+        "email": "alisson.gabriel@example.com",
+        "name": "Alisson Gabriel",
+        "password": "senha123",
+        "birthDate": "1992-01-10",
+        "profile": "Employee"
+    },
+    {
+        "id": 2,
+        "email": "mateus.bazan@example.com",
+        "name": "Mateus Bazan",
+        "password": "senha456",
+        "birthDate": "1993-02-20",
+        "profile": "Employee"
+        
+    },
+    {
+        "id": 3,
+        "email": "raul.bana@example.com",
+        "name": "Raul Bana",
+        "password": "senha789",
+        "birthDate": "1994-03-30",
+        "profile": "Employee"
+        
+    },
+    {
+        "id": 4,
+        "email": "gabriel.tronie@example.com",
+        "name": "Gabriel Tronie",
+        "password": "senha101",
+        "birthDate": "1995-04-15",
+        "profile": "Employee"
+        
+    },
+    {
+        "id": 5,
+        "email": "pedro.henrique@example.com",
+        "name": "Pedro Henrique Souza",
+        "password": "senha202",
+        "birthDate": "1996-05-25",
+        "profile": "Employee"
+        
+    },
+    {
+        "id": 7,
+        "email": "maria.oliveira@example.com",
+        "name": "Maria Oliveira",
+        "password": "senha456",
+        "birthDate": "1985-05-20",
+        "profile": "Employee"
+        
+    },
+    {
+        "id": 8,
+        "email": "andre.martins@example.com",
+        "name": "André Martins",
+        "password": "senha102",
+        "birthDate": "1987-03-15",
+        "profile": "Employee"
+        
+    },
+    {
+        "id": 9,
+        "email": "fernando.rocha@example.com",
+        "name": "Fernando Rocha",
+        "password": "senha108",
+        "birthDate": "1990-07-25",
+        "profile": "Employee"
+        
+    }
+]

@@ -1,16 +1,21 @@
-<nav class="{{ navContainer }}">
-  <div class="{{ navDiv }}">
-    <div class="{{ navData }}">
+<nav [ngClass]="style.navContainer">
+  <div [ngClass]="style.navDiv">
+    <div [ngClass]="style.navData">
       <img src="assets/images/logo.svg" class="h-14" />
-      <p class="{{ navLogo }}" (click)="goToIndex()">MANUTADS</p>
-      <p *ngIf="isLogged" class="{{ navUserText }}">Bem vindo: User</p>
+      <p [ngClass]="style.navLogo" (click)="goToIndex()">MANUTADS</p>
+      <p *ngIf="isLogged" [ngClass]="style.navUserText">Bem vindo: {{ user }}</p>
     </div>
-    <ul class="{{ navList }}">
-      @for (item of navItems; track item) {
-      <li *ngIf="isLogged ? item.login : !item.login" [ngClass]="navItem">
-        <a [routerLink]="item.route" [ngClass]="navAnchor">{{ item.name }}</a>
-      </li>
+    <div [ngClass]="style.navRow">
+      <ul [ngClass]="style.navList">
+        @for (item of navItems; track item) {
+        <li *ngIf="isLogged ? item.login : !item.login" [ngClass]="style.navItem">
+          <a [routerLink]="item.route" [ngClass]="style.navAnchor">{{ item.name }}</a>
+        </li>
+        }
+      </ul>
+      @if (isLogged) {
+        <button [ngClass]="style.navButton" (click)="logout()">Sair</button>
       }
-    </ul>
+    </div>
   </div>
 </nav>

@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { EmployeeItem } from '../../employee-management.component';
 import { ButtonComponent, ButtonProps } from '../../../../../core/components/button/button.component';
 import { GlobalTableComponent } from '../../../../../core/components/global-table/global-table.component';
+import { Employee } from '../../../../../core/types/employee';
 
 @Component({
   selector: 'app-employee-table',
@@ -12,7 +12,7 @@ import { GlobalTableComponent } from '../../../../../core/components/global-tabl
   styleUrls: ['./employee-table.component.css'],
 })
 export class EmployeeTableComponent implements OnInit {
-  @Input() employeesList: EmployeeItem[] = [];
+  @Input() employeesList: Employee[] = [];
   @Input() onEdit: (id: number) => void = () => {};
   @Input() onDelete: (id: number) => void = () => {};
   @Input() currentPage: number = 1;

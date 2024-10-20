@@ -19,12 +19,11 @@ import { FilterSectionComponent } from '../../components/filter-section/filter-s
 import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/toggle-switch.component';
 import { RequestItem } from '../../../core/types/request-item';
 import { RequestsService } from '../../../core/utils/requests.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { GlobalTableComponent } from '../../../core/components/global-table/global-table.component';
 import { PaginationControlComponent } from '../../../core/components/pagination-control/pagination-control.component';
 
 @Component({
-  selector: 'app-costumer-homepage',
+  selector: 'app-customer-homepage',
   standalone: true,
   imports: [
     CommonModule,
@@ -36,13 +35,12 @@ import { PaginationControlComponent } from '../../../core/components/pagination-
     RequestTableComponent,
     FilterSectionComponent,
     ToggleSwitchComponent,
-    HttpClientModule,
     GlobalTableComponent,
     PaginationControlComponent,
   ],
   providers: [RequestsService, DatePipe],
-  templateUrl: './costumer-homepage.component.html',
-  styleUrls: ['./costumer-homepage.component.css'],
+  templateUrl: './customer-homepage.component.html',
+  styleUrls: ['./customer-homepage.component.css'],
 })
 export class CustomerHomepageComponent implements OnInit, OnDestroy {
   requestList: RequestItem[] = [];
@@ -76,7 +74,6 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     private router: Router,
     private renderer: Renderer2,
     private requestsService: RequestsService,
-    private http: HttpClient,
     private datePipe: DatePipe,
     private cdr: ChangeDetectorRef
   ) {
@@ -196,7 +193,7 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
         this.activeFilters.push({ filter: key, value });
       }
     }
-    
+
     this.activeRequestList = this.requestList.filter((item) => {
       return this.activeFilters.every(
         (f) => {
@@ -208,14 +205,14 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
         }
       );
     });
-    
+
     this.cdr.detectChanges();
 
     this.goToPage(1);
   };
 
   navigateToNewRequest = () => {
-    this.router.navigate(['nova-solicitacao']);
+    this.router.navigate(['/cliente/nova-solicitacao']);
   };
 
   rightButtonProp: ButtonProps = {

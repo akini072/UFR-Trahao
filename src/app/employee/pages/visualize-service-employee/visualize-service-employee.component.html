@@ -1,4 +1,4 @@
-<app-navbar [isLogged]="true"></app-navbar>
+<app-navbar></app-navbar>
 <div class="bg-gray-100">
 
   <div [ngClass]="styles.main">
@@ -9,26 +9,22 @@
 
       <div [ngClass]="styles.basisHalf">
         <p [ngClass]="styles.semibold">Cliente</p>
-        <label for="" class="block">{{request.requestId}}</label>
-        <!-- só pra nao ficar vazio mas teria q pegar do cliente -->
+        <label for="" class="block">{{ customer.name }}</label>
       </div>
 
       <div [ngClass]="styles.basisHalf">
         <p [ngClass]="styles.semibold">CPF</p>
-        <label for="" class="block">{{request.requestId}}</label>
-        <!-- só pra nao ficar vazio mas teria q pegar do cliente -->
+        <label for="" class="block">{{ customer.cpf | cpfMask }}</label>
       </div>
 
       <div [ngClass]="styles.basisHalf">
         <p [ngClass]="styles.semibold">Email</p>
-        <label for="" class="block">{{request.requestId}}</label>
-      <!-- só pra nao ficar vazio mas teria q pegar do cliente -->
+        <label for="" class="block">{{ customer.email }}</label>
     </div>
 
     <div [ngClass]="styles.basisHalf">
       <p [ngClass]="styles.semibold">Endereço</p>
-      <label for="" class="block">{{request.requestId}}</label>
-      <!-- só pra nao ficar vazio mas teria q pegar do cliente -->
+      <label for="" class="block">{{ customer.address | addressPipe }}</label>
     </div>
 
   </div>
@@ -53,7 +49,7 @@
     </div>
 
     <div [ngClass]="styles.basisFull">
-      <app-status-stepper class="" [statusList]="request.status"></app-status-stepper>
+      <app-status-stepper></app-status-stepper>
     </div>
   </div>
 

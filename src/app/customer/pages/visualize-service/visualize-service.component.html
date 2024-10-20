@@ -1,4 +1,4 @@
-<app-navbar [isLogged]="true"></app-navbar>
+<app-navbar></app-navbar>
 <div [ngClass]="styles.container">
   <div [ngClass]="styles.card">
     <h1 [ngClass]="styles.title">{{ pageTitle }}</h1>
@@ -34,12 +34,12 @@
     <div [ngClass]="styles.buttonContainer" *ngIf="budgeted">
       <div>
         <app-button
-          [props]="{text: 'Aprovar Serviço', color: styles.buttonPrimary, size: 'large', textColor: 'white', hoverColor: 'primary-7', onClick: onApprove}">
+          [props]="{text: 'Aprovar Serviço', color: styles.button, size: 'large', textColor: 'white', hoverColor: 'secondary-6', onClick: onApprove}">
         </app-button>
       </div>
       <div>
         <app-button
-          [props]="{text: 'Rejeitar Serviço', color: styles.buttonSecondary, size: 'large', textColor: 'white', hoverColor: 'secondary-6', onClick: onReject}">
+          [props]="{text: 'Rejeitar Serviço', color: styles.button, size: 'large', textColor: 'white', hoverColor: 'secondary-6', onClick: onReject}">
         </app-button>
       </div>
     </div>
@@ -47,7 +47,7 @@
     <div *ngIf="finalized" [ngClass]="styles.finalSection">
       <div>
         <app-button
-          [props]="{text: 'Pagar', color: styles.buttonPrimary, size: 'large', textColor: 'white', hoverColor: 'primary-7', onClick: onPay}">
+          [props]="{text: 'Pagar', color: styles.button, size: 'large', textColor: 'white', hoverColor: 'secondary-6', onClick: onPay}">
         </app-button>
       </div>
     </div>
@@ -55,32 +55,13 @@
     <div *ngIf="rejected" [ngClass]="styles.finalSection">
       <div>
         <app-button
-          [props]="{text: 'Resgatar Serviço', color: styles.buttonPrimary, size: 'large', textColor: 'white', hoverColor: 'primary-7', onClick: onRescue}">
+          [props]="{text: 'Resgatar Serviço', color: styles.button, size: 'large', textColor: 'white', hoverColor: 'secondary-6', onClick: onRescue}">
         </app-button>
       </div>
     </div>
-
-    <div [ngClass]="styles.tableContainer">
-      <table [ngClass]="styles.table">
-        <thead [ngClass]="styles.tableHeader">
-          <tr>
-            <th scope="col" [ngClass]="styles.tableCell">Nome do Funcionario</th>
-            <th scope="col" [ngClass]="styles.tableCell">Descrição do que foi feito</th>
-            <th scope="col" [ngClass]="styles.tableCell">Data</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr [ngClass]="styles.tableRow">
-            <th scope="row" [ngClass]="[styles.tableCell, 'font-medium', 'text-gray-900']">Alisson</th>
-            <td [ngClass]="styles.tableCell">Trocou a placa mãe</td>
-            <td [ngClass]="styles.tableCell">22/01/2024</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
   <div [ngClass]="styles.stepperContainer">
-    <app-status-stepper class="mt-10" [statusList]="request.status"></app-status-stepper>
+    <app-status-stepper statusStepper class="mt-10"></app-status-stepper>
   </div>
 </div>
 <app-footer [ngClass]="styles.footer"></app-footer>

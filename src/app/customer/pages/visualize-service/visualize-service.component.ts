@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, ViewContainerRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
@@ -8,6 +8,8 @@ import { Request } from '../../../core/types/request';
 import { ModalService } from '../../../core/utils/modal.service';
 import { ModalType } from '../../../core/types/modal-type';
 import { ModalResponse } from '../../../core/types/modal-response';
+import { ActivatedRoute } from '@angular/router';
+import { RequestsService } from '../../../core/utils/requests.service';
 
 @Component({
   selector: 'app-visualize-service',
@@ -19,99 +21,35 @@ import { ModalResponse } from '../../../core/types/modal-response';
     CommonModule,
     StatusStepperComponent,
   ],
+  providers: [RequestsService],
   templateUrl: './visualize-service.component.html',
   styleUrl: './visualize-service.component.css',
 })
-export class VisualizeServiceComponent implements OnInit {
+export class VisualizeServiceComponent {
+  serviceId!: number;
   budgeted: boolean = false;
   finalized: boolean = false;
   rejected: boolean = false;
   pageTitle: string = '';
+  request: Request;
+  @ViewChild(StatusStepperComponent) statusStepper!: StatusStepperComponent;
 
-  constructor(private modal: ModalService, private view: ViewContainerRef) {}
-
-  ngOnInit(): void {
-    this.checkStatus();
+  constructor(
+    private modal: ModalService, 
+    private view: ViewContainerRef, 
+    private route: ActivatedRoute,
+    private requestsService: RequestsService) {
+      try{
+        this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
+        this.requestsService.getRequestById(this.serviceId).then((data: Request) => {
+          this.request = data;
+          this.checkStatus();
+        });
+      } catch(error){
+        console.error(error);
+      }
+      this.request = {} as Request;
   }
-
-  request: Request = {
-    requestId: 1,
-    requestDesc: 'Computador travando',
-    equipmentDesc: 'Notebook Lenovo velho',
-    defectDesc:
-      'A tela parou de funcionar do nada depois de dar tela azul e eu acidentalmente acertar um soco no computador. Eu não sei o que aconteceu, mas acho que o problema é na tela ou na placa mãe ou a placa de video porque travava toda hora.',
-    status: [
-      {
-        requestStatusId: '0',
-        dateTime: new Date(),
-        category: 'open',
-        senderEmployee: '',
-        inChargeEmployee: 'Alisson Gabriel',
-        request: {} as Request
-      },
-      {
-        requestStatusId: '1',
-        dateTime: new Date(),
-        category: 'budgeted',
-        senderEmployee: '',
-        inChargeEmployee: 'Alisson Gabriel',
-
-        request: {} as Request, // Replace with actual request object if needed
-      },
-      {
-        requestStatusId: '2',
-        dateTime: new Date(),
-        category: 'rejected',
-        senderEmployee: '',
-        inChargeEmployee: 'Alisson Gabriel',
-        request: {} as Request, // Replace with actual request object if needed
-      },
-      {
-        requestStatusId: '3',
-        dateTime: new Date(),
-        category: 'approved',
-        senderEmployee: '',
-        inChargeEmployee: 'Alisson Gabriel',
-        request: {} as Request
-      },
-      {
-        requestStatusId: '4',
-        dateTime: new Date(),
-        category: 'redirected',
-        senderEmployee: 'Alisson Gabriel',
-        inChargeEmployee: 'Mateus Bazan',
-        request: {} as Request
-      },
-      {
-        requestStatusId: '5',
-        dateTime: new Date(),
-        category: 'fixed',
-        senderEmployee: '',
-        inChargeEmployee: 'Mateus Bazan',
-        request: {} as Request
-      },
-      /*     {
-      {
-        requestStatusId: '6',
-        dateTime: new Date(),
-        category: 'paid',
-        senderEmployee: '',
-        inChargeEmployee: 'Mateus Bazan',
-        request: {} as Request
-      },
-        requestStatusId: '7',
-        dateTime: new Date(),
-        category: 'finalized',
-        senderEmployee: '',
-        inChargeEmployee: 'Mateus Bazan',
-        request: {} as Request
-      }  */
-    ],
-    budget: 1500.0,
-    repairDesc: '',
-    customerOrientations: '',
-    image: '',
-  };
 
   styles = {
     container: "bg-gray-100 text-center py-10 min-h-screen",
@@ -127,15 +65,14 @@ export class VisualizeServiceComponent implements OnInit {
     finalSection: "mt-6",
     budgetText: "font-bold text-2xl text-green-600",
     buttonContainer: "mt-6 flex justify-around",
-    buttonPrimary: "primary-4",
-    buttonSecondary: "secondary-4",
+    button: "secondary-4",
     tableContainer: "relative overflow-x-auto mt-10",
     table: "w-full text-sm text-left text-gray-700",
     tableHeader: "text-xs text-gray-700 uppercase bg-gray-200",
     tableRow: "bg-white border-b",
     tableCell: "px-6 py-4",
     footer: "mt-10",
-    stepperContainer: "pt-10 w-4/5 mx-auto"
+    stepperContainer: "pt-10 max-w-3xl mx-auto"
   };
   
 
@@ -220,7 +157,7 @@ export class VisualizeServiceComponent implements OnInit {
         this.request.status.push({
           requestStatusId: '4',
           dateTime: new Date(),
-          category: 'redirected',
+          category: 'approved',
           senderEmployee: 'Alisson Gabriel',
           inChargeEmployee: 'Mateus Bazan',
           request: {} as Request
@@ -231,7 +168,9 @@ export class VisualizeServiceComponent implements OnInit {
   }
 
   checkStatus() {
-    switch (this.request.status[this.request.status.length - 1].category) {
+    this.statusStepper.setStatusSteps(this.request.status);
+    let status = this.request.status[this.request.status.length - 1].category;
+    switch (status) {
       case 'fixed':
         this.finalized = true;
         this.budgeted = false;
@@ -258,6 +197,4 @@ export class VisualizeServiceComponent implements OnInit {
         break;
     }
   }
-  button: string =
-    'flex items-center justify-between mb-4 flex md:justify-center';
 }
