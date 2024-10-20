@@ -2,67 +2,87 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../../../core/components/navbar/navbar.component";
 import { FooterComponent } from "../../../core/components/footer/footer.component";
+import { EquipCategoryService } from './../../../core/utils/equip-category.service';
 import { FormInputComponent } from "../../../core/components/form-input/form-input.component";
+import { EquipCategory } from '../../../core/types/equip-category';
+import { ButtonComponent, ButtonProps } from '../../../core/components/button/button.component';
+import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-request-page',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, FooterComponent, FormInputComponent],
+  imports: [CommonModule, NavbarComponent, FooterComponent, FormInputComponent, HttpClientModule, ButtonComponent],
   templateUrl: './new-request-page.component.html',
-  styleUrl: './new-request-page.component.css'
+  styleUrl: './new-request-page.component.css',
+  providers: [EquipCategoryService]
 })
 export class NewRequestPageComponent {
-  remainingCharactersEquipamento = 30; 
-  remainingCharactersDefeito = 255; 
+  remainingCharactersEquipamento = 30;
+  remainingCharactersDefeito = 255;
   remainingCharactersColorText = "";
-  
+  remainingCharactersColorTextDefect = "";
+  categoryList: EquipCategory[] = [];
+
+  constructor(private equipCategoryService: EquipCategoryService, private router: Router) {
+    this.equipCategoryService.getEquipCategoryList().then((categoryList) => {
+      this.categoryList = categoryList;
+    });
+  }
 
   getRemainingCharacters(limit: number, inputId: string): void {
     const inputElement = document.getElementById(inputId) as HTMLInputElement | HTMLTextAreaElement;
-    console.log(inputElement.value.length);
     if (inputElement) {
       const currentLength = inputElement.value.length;
-      if (inputId === 'descricao-equipamento') {
+      if (inputId === 'descEquip') {
         this.remainingCharactersEquipamento = (limit - currentLength > 0) ? (limit - currentLength) : 0;
         this.remainingCharactersColorText = (limit - currentLength > 5) ? "" : this.styles.textRed;
-      } else if (inputId === 'descricao-defeito') {
+      } else if (inputId === 'descDefect') {
         this.remainingCharactersDefeito = limit - currentLength;
+        this.remainingCharactersColorTextDefect = (limit - currentLength > 5) ? "" : this.styles.textRed;
       }
     }
   }
 
-  categories = [
-    { value: 'cadeiraErgonomica', label: 'Cadeira ergonômica' },
-    { value: 'caixaDeSomBluetooth', label: 'Caixa de som Bluetooth' },
-    { value: 'cameraFotograficaProfissional', label: 'Câmera fotográfica profissional' },
-    { value: 'fornoEletrico', label: 'Forno elétrico' },
-    { value: 'impressoraColorida', label: 'Impressora colorida' },
-    { value: 'maquinaDeCafe', label: 'Máquina de café' },
-    { value: 'mouseSemFio', label: 'Mouse sem fio' },
-    { value: 'notebookGamer', label: 'Notebook gamer' },
-    { value: 'projetorDeAltaDefinicao', label: 'Projetor de alta definição' },
-    { value: 'roteadorWifi', label: 'Roteador Wi-Fi' },
-    { value: 'smartTv4k', label: 'Smart TV 4K' },
-    { value: 'tabletComCanetaStylus', label: 'Tablet com caneta stylus' },
-    { value: 'tecladoMecanico', label: 'Teclado mecânico' },
-    { value: 'ventiladorDeTeto', label: 'Ventilador de teto' }
-  ];
+  submitButtonProps: ButtonProps = {
+    text: 'Solicitar Serviço',
+    color: 'secondary-4',
+    hoverColor: 'secondary-6',
+    textColor: 'white',
+    size: 'medium',
+    onClick: () => {this.navigateToCustomer()},
+  }
 
+  cancelButtonProps: ButtonProps = {
+    text: 'Cancelar',
+    color: 'secondary-4',
+    hoverColor: 'secondary-6',
+    textColor: 'white',
+    size: 'medium',
+    onClick: () => {this.navigateToCustomer()},
+  }
+  navigateToCustomer() {
+    this.router.navigate(['/cliente']);
+  };
+
+  submitNewRequest(): void {
+    // Implementar a lógica de envio do formulário
+    this.router.navigate(['/cliente']);
+  }
 
   styles = {
-    navbar: 'app-navbar',
-    title: 'px-4 text-2xl font-bold text-primary-8 my-8 text-center md:text-left',
-    categoriaContainer: 'descricao-equipamento max-w-4xl mx-auto p-6 flex flex-col gap-4',
-    categoriaLabel: 'text-left ',
-    categoriaSelect: 'max-w-min p-2 border-2 border-black rounded bg-transparent',
-    descricaoEquipamentoContainer: 'descricao-equipamento max-w-4xl mx-auto p-6',
-    formContainer: 'form flex flex-col gap-4 justify-center',
-    descricaoEquipamentoLabel: '',
-    descricaoEquipamentoInput: 'border-2 border-black rounded p-2 col-span-2',
-    remainingCharactersText: 'mt-2',
-    descricaoDefeitoContainer: 'descricao-defeito max-w-4xl mx-auto p-6',
-    descricaoDefeitoLabel: '',
-    descricaoDefeitoTextarea: 'border-2 border-black rounded p-2 col-span-2 h-40 resize-none',
-    textRed: 'text-red-600'
+    main: 'flex items-center justify-center bg-gray-100 min-h-screen',
+    formContainer: 'bg-white p-8 rounded shadow-md w-full max-w-lg',
+    form: 'space-y-6',
+    formGroup: 'mb-4',
+    label: 'block text-gray-700 text-sm font-bold mb-2',
+    select: 'block w-full p-2 border border-gray-300 rounded',
+    input: 'block w-full p-2 border border-gray-300 rounded',
+    textarea: 'block w-full p-2 border border-gray-300 rounded h-44',
+    buttonContainer: 'flex justify-between',
+    button: 'bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700',
+    title: 'text-2xl font-bold mb-6 text-center',
+    remainingCharacters: 'text-sm mt-1 text-end',
+    textRed: 'text-red-500'
   };
 }
