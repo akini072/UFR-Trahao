@@ -30,7 +30,7 @@ export class NavbarComponent {
       switch (credentials.profile){
         case 'Customer':
           this.navItems = [
-            { name: 'Início', route: '/customer', login: true }
+            { name: 'Início', route: '/cliente', login: true }
           ]
           break;
         case 'Employee':
