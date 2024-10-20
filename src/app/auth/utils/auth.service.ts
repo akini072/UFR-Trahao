@@ -13,7 +13,7 @@ export class AuthService {
 
   employee = {
     'name': 'Alisson Gabriel Santos',
-    'email': 'alissongabrielsantos@gmail.com',
+    'email': 'alisson.gab.santos@gmail.com',
     'password': '1234'
   }
 

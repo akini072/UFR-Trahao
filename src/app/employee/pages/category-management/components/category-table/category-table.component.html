@@ -8,6 +8,6 @@
     [nextPage]="nextPage"
   ></app-global-table>
   <ng-template #actionTemplate let-item>
-    <app-button [props]="getButtonProps(item.id, 'edit')" />
-    <app-button [props]="getButtonProps(item.id, 'delete')" />
+    <app-button [props]="getButtonProps(item.equipCategoryId, 'edit')" />
+    <app-button [props]="getButtonProps(item.equipCategoryId, 'delete')" />
   </ng-template>
