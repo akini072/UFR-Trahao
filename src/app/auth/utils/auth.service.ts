@@ -29,7 +29,7 @@ export class AuthService {
 
   login(email: string, password: string): Credentials {
     if(email == this.user.email && password == this.user.password){
-      const credentials: Credentials = {'name': this.user.name, 'profile': 'Costumer'}
+      const credentials: Credentials = {'name': this.user.name, 'profile': 'Customer'}
       sessionStorage.setItem('credentials', JSON.stringify(credentials));
       return credentials;
     }

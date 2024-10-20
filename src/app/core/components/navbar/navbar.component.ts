@@ -28,7 +28,7 @@ export class NavbarComponent {
       this.isLogged = true;
       this.user = credentials.name;
       switch (credentials.profile){
-        case 'Costumer':
+        case 'Customer':
           this.navItems = [
             { name: 'Início', route: '/customer', login: true }
           ]
