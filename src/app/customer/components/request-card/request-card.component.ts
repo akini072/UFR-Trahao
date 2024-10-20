@@ -27,14 +27,7 @@ import { StatusColorPipe } from '../../../core/utils/pipes/statusColor/status-co
   providers: [StatusColorPipe],
 })
 export class RequestCardComponent {
-  @Input() request: RequestItem = {
-    id: 0,
-    title: 'Default Title',
-    description: 'Default Description',
-    status: 'open',
-    created_at: '2021-01-01',
-    image: 'https://via.placeholder.com/150',
-  };
+  @Input() request!: RequestItem;
 
   constructor(private statusColorPipe: StatusColorPipe) {}
 

@@ -12,6 +12,7 @@ import { EmployeeManagementComponent } from './employee/pages/employee-managemen
 import { EmployeeRegisterPageComponent } from './employee/pages/employee-register-page/employee-register-page.component';
 import { VisualizeServiceEmployeeComponent } from './employee/pages/visualize-service-employee/visualize-service-employee.component';
 import { ReportPageComponent } from './finance/pages/report-page/report-page.component';
+import { Page404Component } from './core/pages/page404/page404.component';
 import { AuthGuard } from './auth/utils/auth.guard';
 
 export const routes: Routes = [
@@ -40,6 +41,6 @@ export const routes: Routes = [
       { path: 'relatorio-mensal', component: ReportPageComponent },
     ],
   },
-
+  { path: '**', component: Page404Component }
 
 ];

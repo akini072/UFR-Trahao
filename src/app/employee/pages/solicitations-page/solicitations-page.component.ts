@@ -10,21 +10,12 @@ import {
   ButtonProps,
 } from '../../../core/components/button/button.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
-import { RequestCategory } from '../../../core/types/request-category';
+import { RequestItem } from '../../../core/types/request-item';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
 import { FilterSelectComponent } from '../../../customer/components/filter-section/components/filter-select/filter-select.component';
 import { FilterSectionComponent } from '../../../customer/components/filter-section/filter-section.component';
 import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/toggle-switch.component';
-
-export interface RequestItem {
-  id: number;
-  title: string;
-  description: string;
-  status: RequestCategory;
-  created_at: string;
-  image: string;
-}
 
 @Component({
   selector: 'app-solicitations-page',

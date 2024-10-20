@@ -2,7 +2,7 @@
 <div [ngClass]="style.main">
   <div [ngClass]="style.form">
     <h2 [ngClass]="style.title">Login</h2>
-    <form [formGroup]="formGroup">
+    <form (keypress)="enter($event)" [formGroup]="formGroup">
       <div>
         <label [ngClass]="style.label" for="email">
           E-mail<span class="{{style.requiredSpan}}">*</span>
@@ -29,7 +29,6 @@
     <span [ngClass]="style.signUpSpan">Não possui conta?
       <a [routerLink]="signUpRouterLink" [ngClass]="style.signUpRouter"> Cadastre-se </a>
     </span>
-
 
   </div>
 </div>

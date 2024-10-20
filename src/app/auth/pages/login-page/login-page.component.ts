@@ -31,7 +31,7 @@ export class LoginPageComponent {
   password: FormControl;
   error: boolean = false;
   signUpRouterLink: string = '/cadastro';
-
+  
   constructor(private router: Router, private auth: AuthService) {
     this.formGroup = new FormGroup({
       email: new FormControl(''),
@@ -40,7 +40,7 @@ export class LoginPageComponent {
     this.email = this.formGroup.get('email') as FormControl;
     this.password = this.formGroup.get('password') as FormControl;
   }
-
+  
   onLogin = () => {
     if (this.formGroup.valid) {
       try{
@@ -49,10 +49,10 @@ export class LoginPageComponent {
           case 'Employee':
             this.router.navigate(['/funcionario']);
             break;
-          case 'Customer':
-          default:
-            this.router.navigate(['/cliente']);
-            break;
+            case 'Customer':
+              default:
+                this.router.navigate(['/cliente']);
+                break;
         }
       } catch(error){
         this.formGroup.setErrors({credentials: true});
@@ -63,15 +63,23 @@ export class LoginPageComponent {
       this.error = true;
     }
   };
+  
+  enter(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      this.onLogin();
+    }
+  }
 
   getErrorMessage() {
     const controls = this.formGroup.controls;
     const hasRequiredError = Object.values(controls).some(
       (control) => control.errors?.['required']
     );
-
     if (hasRequiredError) {
       return 'Preencha todos os campos obrigatórios';
+    }
+    if (this.formGroup.errors?.['credentials']) {
+      return 'Usuário ou senha inválidos';
     }
     return 'Informações inválidas';
   }

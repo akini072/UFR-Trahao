@@ -1,6 +1,5 @@
 <app-navbar></app-navbar>
 <div class="bg-gray-100">
-
   <div [ngClass]="styles.main">
     <h1 [ngClass]="styles.title">Detalhes do Serviço</h1>
 
@@ -9,74 +8,92 @@
 
       <div [ngClass]="styles.basisHalf">
         <p [ngClass]="styles.semibold">Cliente</p>
-        <label for="" class="block">{{ customer.name }}</label>
+        <label>{{ customer.name }}</label>
       </div>
 
       <div [ngClass]="styles.basisHalf">
         <p [ngClass]="styles.semibold">CPF</p>
-        <label for="" class="block">{{ customer.cpf | cpfMask }}</label>
+        <label>{{ customer.cpf | cpfMask }}</label>
       </div>
 
       <div [ngClass]="styles.basisHalf">
         <p [ngClass]="styles.semibold">Email</p>
-        <label for="" class="block">{{ customer.email }}</label>
+        <label>{{ customer.email }}</label>
+      </div>
+
+      <div [ngClass]="styles.basisHalf">
+        <p [ngClass]="styles.semibold">Endereço</p>
+        <label>{{ customer.address | addressPipe }}</label>
+      </div>
+
     </div>
 
-    <div [ngClass]="styles.basisHalf">
-      <p [ngClass]="styles.semibold">Endereço</p>
-      <label for="" class="block">{{ customer.address | addressPipe }}</label>
+    <div [ngClass]="styles.submain"> <!-- requisition information -->
+
+      <h2 [ngClass]="styles.subtitle"> Informações do Pedido </h2>
+
+
+      <div [ngClass]="styles.basisHalf">
+        <div [ngClass]="styles.basisFull">
+          <p [ngClass]="styles.semibold">Descrição do equipamento</p>
+          <label>{{request.equipmentDesc}}</label>
+        </div>
+
+        <div [ngClass]="styles.basisFull">
+          <p [ngClass]="styles.semibold">Categoria do equipamento</p>
+          <label [ngClass]="styles.textWrap">{{equipCategory.categoryDesc}}</label>
+        </div>
+
+        <div [ngClass]="styles.basisFull">
+          <p [ngClass]="styles.semibold">Descrição da requisição</p>
+          <label [ngClass]="styles.textWrap">{{request.requestDesc}}</label>
+        </div>
+
+        <div [ngClass]="styles.basisFull">
+          <p [ngClass]="styles.semibold">Descrição do problema</p>
+          <label [ngClass]="styles.textWrap">{{request.defectDesc}}</label>
+        </div>
+
+        <div [ngClass]="styles.basisFull" *ngIf="request.repairDesc">
+          <p [ngClass]="styles.semibold">Descrição do reparo</p>
+          <label [ngClass]="styles.textWrap">{{request.repairDesc}}</label>
+        </div>
+
+        <div [ngClass]="styles.basisFull" *ngIf="request.customerOrientations">
+          <p [ngClass]="styles.semibold">Orientações ao cliente</p>
+          <label [ngClass]="styles.textWrap">{{request.customerOrientations}}</label>
+        </div>
+      </div>
+
+      <div [ngClass]="styles.basisHalf">
+        <app-status-stepper></app-status-stepper>
+      </div>
+
     </div>
 
-  </div>
-
-  <div [ngClass]="styles.submain"> <!-- requisition information -->
-    <h2 [ngClass]="styles.subtitle"> Informações do Pedido </h2>
-
-    <div [ngClass]="styles.basisHalf">
-      <p [ngClass]="styles.semibold">Tipo de equipamento</p>
-      <label for="" class="block">{{request.equipmentDesc}}</label>
+    <div *ngIf="open" [ngClass]="styles.submain2">
+      <h2 [ngClass]="styles.subtitle">Ações</h2>
+      <p [ngClass]="styles.semibold">Valor do orçamento:</p>
+      <input type="text" value="" class="border p-2 rounded mb-4 me-4 basis-1/3" />
+      <!-- TODO: DEIXAR MASCARAS DE DINHEIRO PARA AS GERAÇÕES FUTURAS TAMBÉM TROCAR O INPUT 👍 (Y)-->
+      <app-button
+        [props]="{text: 'Orçar', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onBudget,}"></app-button>
     </div>
 
-    <div [ngClass]="styles.basisHalf">
-
-      <p [ngClass]="styles.semibold">Descrição da requisição</p>
-      <label for="" class="block">{{request.requestDesc}}</label>
+    <div *ngIf="approved" [ngClass]="styles.submain2">
+      <h2 [ngClass]="styles.subtitle">Ações</h2>
+      <p [ngClass]="styles.semibold">Valor orçado:</p>
+      <label for="" class="block mb-4">{{request.budget | currency: 'BRL'}}</label>
+      <app-button class="me-4"
+        [props]="{text: 'Efetuar Manutenção', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onFix}"></app-button>
+      <app-button
+        [props]="{text: 'Redirecionar', icon: '',iconPosition: 'left', color: 'gray-400', size: 'medium', textColor: 'black', hoverColor: 'gray-300', onClick: onRedirect}"></app-button>
     </div>
-
-    <div [ngClass]="styles.basisFull">
-      <p [ngClass]="styles.semibold">Descrição do problema</p>
-      <label for="" class="block">{{request.defectDesc}}</label>
-    </div>
-
-    <div [ngClass]="styles.basisFull">
-      <app-status-stepper></app-status-stepper>
-    </div>
-  </div>
-
-  <div *ngIf="open" [ngClass]="styles.submain2">
-    <h2 [ngClass]="styles.subtitle">Ações</h2>
-    <p [ngClass]="styles.semibold">Valor do orçamento:</p>
-    <input type="text" value="" class="border p-2 rounded mb-4 me-4 basis-1/3"/>
-    <!-- TODO: DEIXAR MASCARAS DE DINHEIRO PARA AS GERAÇÕES FUTURAS TAMBÉM TROCAR O INPUT 👍 (Y)-->
-    <app-button
-    [props]="{text: 'Orçar', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onBudget,}"></app-button>
-  </div>
-
-  <div *ngIf="approved" [ngClass]="styles.submain2">
-    <h2 [ngClass]="styles.subtitle">Ações</h2>
-    <p [ngClass]="styles.semibold">Valor orçado:</p>
-    <label for="" class="block mb-4">{{request.budget | currency: 'BRL'}}</label>
-    <app-button class="me-4"
-    [props]="{text: 'Efetuar Manutenção', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onFix}"></app-button>
-    <app-button
-    [props]="{text: 'Redirecionar', icon: '',iconPosition: 'left', color: 'gray-400', size: 'medium', textColor: 'black', hoverColor: 'gray-300', onClick: onRedirect}"></app-button>
-  </div>
     <div *ngIf="paid" [ngClass]="styles.submain2">
       <h2 [ngClass]="styles.subtitle">Ações</h2>
       <app-button class="me-4"
-      [props]="{text: 'Finalizar', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onPaid}"></app-button>
+        [props]="{text: 'Finalizar', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onPaid}"></app-button>
     </div>
-</div>
+  </div>
 </div>
 <app-footer></app-footer>
-
