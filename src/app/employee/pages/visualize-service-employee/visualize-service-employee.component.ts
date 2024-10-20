@@ -98,8 +98,8 @@ export class VisualizeServiceEmployeeComponent {
               requestStatusId: '5',
               dateTime: new Date(),
               category: 'fixed',
-              senderEmployee: 'Alisson Gabriel',
-              inChargeEmployee: '',
+              senderEmployee: '',
+              inChargeEmployee: 'Alisson Gabriel',
               request: {} as Request
             });
             this.checkStatus();
