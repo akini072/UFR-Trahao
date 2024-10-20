@@ -3,16 +3,8 @@
     <div>
         <p [ngClass]="style.title">Relatorio Mensal</p>
     </div>
-    <div [ngClass]="style.innerContainer">
-        <div [ngClass]="style.searchContainer">
-          <app-form-input
-            (input)="searchKeyboard($event)"
-            placeholder="Pesquisar"
-          ></app-form-input>
-        </div>
-      </div>
     <div>
-        <app-global-table [currentPage]="currentPage" [totalPages]="totalPages" [nextPage]="nextPage" [previousPage]="previousPage" [columns]="columns" [data]="getPaginatedRequests().items" [reportData]="reportData.items" [enableReport]="true" />
+        <app-global-table [enablePagination]=false [currentPage]="currentPage" [totalPages]="totalPages" [nextPage]="nextPage" [previousPage]="previousPage" [columns]="columns" [data]="getPaginatedRequests().items" [reportData]="reportData.items" [enableReport]="true" />
     </div>
 </div>
 <app-footer></app-footer>
