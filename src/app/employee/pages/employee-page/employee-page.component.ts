@@ -5,24 +5,15 @@ import { NavbarComponent } from '../../../core/components/navbar/navbar.componen
 import { ServiceRequestTableComponent } from '../../components/service-request-table/service-request-table.component';
 import { RequestTableComponent } from '../../../customer/components/request-table/request-table.component';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
+import { RequestItem } from '../../../core/types/request-item';
 import {
   ButtonComponent,
   ButtonProps,
 } from '../../../core/components/button/button.component';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
-import { RequestCategory } from '../../../core/types/request-category';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
 import { PaginationControlComponent } from "../../../core/components/pagination-control/pagination-control.component";
-
-export interface RequestItem {
-  id: number;
-  title: string;
-  description: string;
-  status: RequestCategory;
-  created_at: string;
-  image: string;
-}
 
 @Component({
   selector: 'app-employee-page',

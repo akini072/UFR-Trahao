@@ -7,7 +7,7 @@ import {
 } from '../../../core/components/button/button.component';
 import { ButtonStatusComponent } from '../../../core/components/button-status/button-status.component';
 import { LimitedDescriptionPipe } from '../../../core/utils/limited-description.pipe';
-import { RequestItem } from '../../pages/employee-page/employee-page.component';
+import { RequestItem } from '../../../core/types/request-item';
 import { StatusTextPipe } from '../../../core/utils/pipes/statusText/status-text.pipe';
 import { StatusColorPipe } from '../../../core/utils/pipes/statusColor/status-color.pipe';
 @Component({
@@ -26,14 +26,7 @@ import { StatusColorPipe } from '../../../core/utils/pipes/statusColor/status-co
   providers: [StatusColorPipe],
 })
 export class RequestCardComponent {
-  @Input() request: RequestItem = {
-    id: 0,
-    title: 'Default Title',
-    description: 'Default Description',
-    status: 'open',
-    created_at: '2021-01-01',
-    image: 'https://via.placeholder.com/150',
-  };
+  @Input() request!: RequestItem;
 
   constructor(private statusColorPipe: StatusColorPipe) {}
 
