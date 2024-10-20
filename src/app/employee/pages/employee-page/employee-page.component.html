@@ -1,4 +1,4 @@
-<app-navbar-employee></app-navbar-employee>
+<app-navbar></app-navbar>
 <div [ngClass]="style.wrapper">
   <div [ngClass]="style.pageTopContainer">
     <p [ngClass]="style.title">Solicitações em Aberto</p>
@@ -9,7 +9,6 @@
           placeholder="Pesquisar solicitação"
         ></app-form-input>
       </div>
-        <app-button [props]="newRequestButtonProp"></app-button>
     </div>
   </div>
   <div [ngClass]="style.container"></div>

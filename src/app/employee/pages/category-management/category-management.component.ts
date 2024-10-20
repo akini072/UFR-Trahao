@@ -1,6 +1,6 @@
 import { Component, Renderer2, ViewContainerRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarEmployeeComponent } from '../../components/navbar-employee/navbar-employee.component';
+import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
 import {
   ButtonComponent,
@@ -24,7 +24,7 @@ export interface CategoryItem {
   standalone: true,
   imports: [
     CommonModule,
-    NavbarEmployeeComponent,
+    NavbarComponent,
     FooterComponent,
     ButtonComponent,
     CategoryTableComponent,
@@ -147,7 +147,7 @@ export class CategoryManagementComponent {
         if (value.assert) {
           this.activeCategoryList = [
             ...this.activeCategoryList,
-            { id: this.categoryList.length + 1, name: value.message || '' },
+            { id: this.activeCategoryList.length + 1, name: value.message || '' },
           ];
           this.updateTotalPages();
         }

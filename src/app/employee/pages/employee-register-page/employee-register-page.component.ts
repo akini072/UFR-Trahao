@@ -9,6 +9,9 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { DateInputComponent } from "../../../core/components/date-input/date-input.component";
 import { ModalService } from '../../../core/utils/modal.service';
 import { ModalType } from '../../../core/types/modal-type';
+import { EmployeeService } from '../../../core/utils/employee.service';
+import { Employee } from '../../../core/types/employee';
+
 @Component({
   selector: 'app-employee-register-page',
   standalone: true,
@@ -19,6 +22,7 @@ import { ModalType } from '../../../core/types/modal-type';
     ButtonComponent,
     RouterModule,
     ReactiveFormsModule, DateInputComponent],
+  providers: [EmployeeService],
   templateUrl: './employee-register-page.component.html',
   styleUrl: './employee-register-page.component.css'
 })
@@ -30,15 +34,22 @@ export class EmployeeRegisterPageComponent implements OnInit {
   birthDate: FormControl;
   password: FormControl;
   error: boolean = false;
-  employeeId: number | null = null;
+  private employeeId: number | null = null;
+  private employee: Employee = {} as Employee;
   isEditMode: boolean = false;
   modo: string = 'Registro';
-  constructor(private modal: ModalService, private view: ViewContainerRef, private router: Router, private route: ActivatedRoute) {
+
+  constructor(
+    private modal: ModalService,
+    private view: ViewContainerRef,
+    private router: Router,
+    private route: ActivatedRoute,
+    private employeeService: EmployeeService) {
     this.formGroup = new FormGroup({
       email: new FormControl(''),
       name: new FormControl(''),
       birthDate: new FormControl(''),
-      password: new FormControl(''),
+      password: new FormControl('')
     });
     this.email = this.formGroup.get('email') as FormControl;
     this.name = this.formGroup.get('name') as FormControl;
@@ -47,21 +58,19 @@ export class EmployeeRegisterPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.employeeId = params['id'] ? +params['id'] : null;
-      this.isEditMode = this.employeeId !== null;
-      if (this.isEditMode) {
+    this.route.paramMap.subscribe(params => {
+      this.employeeId = Number.parseInt(params.get("id") || '');
+      if (this.employeeId) {
+        this.modo = 'Atualização';
+        this.employeeService.getEmployee(this.employeeId).then((data) => {
+          this.employee = data;
+          this.email.setValue(this.employee.email);
+          this.name.setValue(this.employee.name);
+          this.birthDate.setValue(this.employee.birthDate);
+          this.password.setValue(this.employee.password);
+          this.isEditMode = true;
+        });
 
-        if (this.employeeId !== null) {
-          this.modo = 'Atualização';
-          const employeeData = this.getEmployeeData(this.employeeId);
-          this.formGroup.patchValue({
-            email: employeeData.email,
-            name: employeeData.name,
-            birthDate: employeeData.birthDate,
-            password: employeeData.password,
-          });
-        }
       }
     });
   }
@@ -77,8 +86,7 @@ export class EmployeeRegisterPageComponent implements OnInit {
 
   onRegister = () => {
     if (this.formGroup.valid) {
-      console.log({ email: this.email.value });
-      this.router.navigate(['/funcionarios']);
+      this.router.navigate(['/funcionario/funcionarios']);
     } else {
       this.error = true;
     }
@@ -86,8 +94,7 @@ export class EmployeeRegisterPageComponent implements OnInit {
 
   onUpdate = () => {
     if (this.formGroup.valid) {
-      console.log({ email: this.email.value });
-      this.router.navigate(['/funcionarios']);
+      this.router.navigate(['/funcionario/funcionarios']);
     } else {
       this.error = true;
     }
@@ -100,7 +107,7 @@ export class EmployeeRegisterPageComponent implements OnInit {
       label: 'Ok',
     };
     this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
-      this.router.navigate(['/funcionarios']);
+      this.router.navigate(['/funcionario/funcionarios']);
     });
   }
 
@@ -120,7 +127,8 @@ export class EmployeeRegisterPageComponent implements OnInit {
     main: 'flex items-center justify-center bg-gray-100 h-screen',
     form: 'bg-white p-12 flex flex-col rounded shadow-md w-1/3 my-8',
     label: 'block text-gray-700 text-sm font-bold mb-2',
-    button: 'flex items-center justify-between flex-row gap-2 mb-4 flex md:justify-center',
+    button: 'flex flex-row justify-between md:justify-between',
+    gap: 'flex flex-row gap-3',
     signUpSpan: 'block text-sm text-gray-500 dark:text-neutral-400 text-center cursor-default',
     signUpRouter: 'text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 cursor-pointer',
     title: 'text-2xl font-bold mb-6 text-center',
@@ -151,12 +159,22 @@ export class EmployeeRegisterPageComponent implements OnInit {
     extraClasses: 'font-bold focus:outline-none focus:shadow-outline'
   }
 
-  onDeleteButton: ButtonProps = {
-    text: 'Excluir',
+  onCancelButton: ButtonProps = {
+    text: 'Cancelar',
     color: 'secondary-4',
     size: 'medium',
     textColor: 'white',
     hoverColor: 'secondary-6',
+    onClick: () => this.router.navigate(['/funcionario/funcionarios']),
+    extraClasses: 'font-bold focus:outline-none focus:shadow-outline'
+  }
+
+  onDeleteButton: ButtonProps = {
+    text: 'Excluir',
+    color: 'red-500',
+    size: 'medium',
+    textColor: 'white',
+    hoverColor: 'red-700',
     onClick: this.onDelete,
     extraClasses: 'font-bold focus:outline-none focus:shadow-outline'
   }

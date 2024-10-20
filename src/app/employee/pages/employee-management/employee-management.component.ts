@@ -1,6 +1,6 @@
 import { Component, Renderer2, ViewContainerRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarEmployeeComponent } from '../../components/navbar-employee/navbar-employee.component';
+import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
 import { ButtonComponent, ButtonProps } from '../../../core/components/button/button.component';
 import { HttpClient } from '@angular/common/http';
@@ -10,26 +10,22 @@ import { EmployeeTableComponent } from './components/employee-table/employee-tab
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { ModalService } from '../../../core/utils/modal.service';
 import { ModalType } from '../../../core/types/modal-type';
-import { ModalResponse } from '../../../core/types/modal-response';
-import { Title } from '@angular/platform-browser';
+import { EmployeeService } from '../../../core/utils/employee.service'
+import { Employee } from '../../../core/types/employee';
 
-export interface EmployeeItem {
-  id: number;
-  name: string;
-  email: string;
-  date: string;
-}
+
 @Component({
   selector: 'app-employee-management',
   standalone: true,
   imports: [
     CommonModule,
-    NavbarEmployeeComponent,
+    NavbarComponent,
     FooterComponent,
     ButtonComponent,
     EmployeeTableComponent,
     FormInputComponent,
   ],
+  providers: [RequestsService, HttpClient, EmployeeService],
   templateUrl: './employee-management.component.html',
   styleUrl: './employee-management.component.css',
 })
@@ -43,46 +39,9 @@ export class EmployeeManagementComponent {
   displayTable: boolean = false;
 
 
-  employeeList: EmployeeItem[] = [
-    {
-      id: 1,
-      name: 'Alisson Santos',
-      email: 'alisson.santos@ufpr.br',
-      date: '10/08/2000',
-    },
-    {
-      id: 2,
-      name: 'Gabriel Troni',
-      email: 'gabriel.troni@ufpr.br',
-      date: '10/08/2000',
-    },
-    {
-      id: 3,
-      name: 'Leonardo Salgado',
-      email: 'leonardo.salgado@ufpr.br',
-      date: '10/08/2000',
-    },
-    {
-      id: 4,
-      name: 'Matheus Bazan',
-      email: 'matheus.bazan@ufpr.br',
-      date: '10/08/2000',
-    },
-    {
-      id: 5,
-      name: 'Pedro Souza',
-      email: 'pedro.souza@ufpr.br',
-      date: '10/08/2000',
-    },
-    {
-      id: 6,
-      name: 'Raul Bana',
-      email: 'raul.bana@ufpr.br',
-      date: '10/08/2000',
-    },
-  ];
+  employeeList: Employee[] = [];
 
-  activeEmployeeList: EmployeeItem[] = [];
+  activeEmployeeList: Employee[] = [];
 
   style = {
     navbar: '',
@@ -103,14 +62,19 @@ export class EmployeeManagementComponent {
     private modal: ModalService,
     private view: ViewContainerRef,
     private renderer: Renderer2,
-    private router: Router
+    private router: Router,
+    private employeeService: EmployeeService,
   ) {
     this.updateTotalPages();
     this.updateItemsPerPage(window.innerWidth);
   }
 
   ngOnInit(): void {
-    this.activeEmployeeList = this.employeeList;
+    this.employeeService.getEmployeeList().then((employees) => {
+      this.employeeList = employees;
+      this.activeEmployeeList = employees;
+      this.updateTotalPages();
+    });
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
       this.updateItemsPerPage(event.target.innerWidth);
       this.updateTotalPages();
@@ -143,7 +107,7 @@ export class EmployeeManagementComponent {
     const searchQuery = (event.target as HTMLInputElement).value.toLowerCase();
     const filteredList = this.employeeList.filter((item) => {
       return this.activeFilters.every(
-        (f) => item[f.filter as keyof EmployeeItem] === f.value
+        (f) => item[f.filter as keyof Employee] === f.value
       );
     });
 
@@ -177,7 +141,7 @@ export class EmployeeManagementComponent {
           this.updateTotalPages();
         }
       }); */
-    this.router.navigate(['/cadastro-funcionario']);
+    this.router.navigate(['/funcionario/cadastro']);
   };
 
   updateTotalPages() {
@@ -185,7 +149,7 @@ export class EmployeeManagementComponent {
       Math.ceil(this.activeEmployeeList.length / this.itemsPerPage) || 1;
   }
 
-  getPaginatedRequests(searchQuery?: string): EmployeeItem[] {
+  getPaginatedRequests(searchQuery?: string): Employee[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
 
@@ -243,14 +207,13 @@ export class EmployeeManagementComponent {
 
     this.activeEmployeeList = this.employeeList.filter((item) => {
       return this.activeFilters.every(
-        (f) => item[f.filter as keyof EmployeeItem] === f.value
+        (f) => item[f.filter as keyof Employee] === f.value
       );
     });
   };
 
   onEdit = (id: number) => {
-
-    this.router.navigate(['/cadastro-funcionario'], { queryParams: { id } });
+    this.router.navigate(['/funcionario/cadastro', id]);
   };
 
   onDelete = (id: number) => {
@@ -261,7 +224,7 @@ export class EmployeeManagementComponent {
         label: 'Ok',
       };
       this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
-        console.log(value);
+
       });
       return;
     }
@@ -276,7 +239,7 @@ export class EmployeeManagementComponent {
           const newActiveList = this.activeEmployeeList.filter(
             (item) => item.id !== id
           );
-          this.activeEmployeeList = newActiveList as EmployeeItem[];
+          this.activeEmployeeList = newActiveList as Employee[];
         }
       });
   };

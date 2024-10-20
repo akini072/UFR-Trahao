@@ -1,4 +1,4 @@
-import { Component,OnInit,ViewContainerRef } from '@angular/core';
+import { Component,ViewContainerRef,ViewChild } from '@angular/core';
 import { ButtonComponent } from '../../../core/components/button/button.component';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
@@ -6,85 +6,74 @@ import { Request } from '../../../core/types/request';
 import { CommonModule } from '@angular/common';
 import { ModalService } from '../../../core/utils/modal.service';
 import { ModalType } from '../../../core/types/modal-type';
-import { StatusStepperComponent } from "../../../costumer/components/status-stepper/status-stepper.component";
+import { RequestsService } from '../../../core/utils/requests.service';
+import { CustomerService } from '../../../core/utils/customer.service';
+import { ActivatedRoute } from '@angular/router';
+import { CpfMaskPipe } from '../../../core/utils/pipes/cpfMask/cpf-mask.pipe';
+import { AddressPipePipe } from '../../../core/utils/pipes/address-pipe.pipe';
+import { ModalResponse } from '../../../core/types/modal-response';
+import { StatusStepperComponent } from "../../../customer/components/status-stepper/status-stepper.component";
+import { Customer } from '../../../core/types/customer';
 
 @Component({
   selector: 'app-visualize-service-employee',
   standalone: true,
-  imports: [ButtonComponent, NavbarComponent, FooterComponent, CommonModule, StatusStepperComponent],
+  imports: [ButtonComponent, NavbarComponent, FooterComponent, CommonModule, StatusStepperComponent, CpfMaskPipe, AddressPipePipe],
+  providers: [RequestsService, CustomerService],
   templateUrl: './visualize-service-employee.component.html',
   styleUrl: './visualize-service-employee.component.css'
 })
 export class VisualizeServiceEmployeeComponent {
-
-  constructor(private modal: ModalService, private view: ViewContainerRef) {}
-
+  private serviceId!: number;
   open: boolean = false;
   approved: boolean = false;
   paid: boolean = false;
+  request: Request;
+  customer: Customer;
+  @ViewChild(StatusStepperComponent) statusStepper!: StatusStepperComponent;
 
-  ngOnInit(){
-    this.checkStatus();
+  constructor(private modal: ModalService,
+    private view: ViewContainerRef,
+    private route: ActivatedRoute,
+    private requestsService: RequestsService,
+    private customerService: CustomerService
+  ) {
+    try{
+      this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
+      this.requestsService.getRequestById(this.serviceId).then((data: Request) => {
+        this.request = data;
+        this.customerService.getCustomer(this.request.customerId).then((data) => {
+          this.customer = data;
+        });
+        this.checkStatus();
+      });
+    } catch(error){
+      console.error(error);
+    }
+    this.request = {} as Request;
+    this.customer = {} as Customer;
   }
 
   checkStatus(){
+    this.statusStepper.setStatusSteps(this.request.status);
     switch (this.request.status[this.request.status.length-1].category) {
       case 'open':
         this.open = true;
         break;
       case 'approved':
+      case 'redirected':
         this.approved = true;
         break;
       case 'paid':
         this.paid = true;
         break;
+      default:
+        this.open = false;
+        this.approved = false;
+        this.paid = false;
+        break;
     }
 
-  }
-
-  request: Request = {
-    requestId: 1,
-    requestDesc: 'Computador travando',
-    equipmentDesc: 'Notebook Lenovo velho',
-    defectDesc: 'A tela parou de funcionar do nada depois de dar tela azul e eu acidentalmente acertar um soco no computador. Eu não sei o que aconteceu, mas acho que o problema é na tela ou na placa mãe ou a placa de video porque travava toda hora.',
-    status: [
-      {
-        requestStatusId: '0',
-        dateTime: new Date(),
-        category: 'open', // Replace 'someCategory' with the actual category
-        senderEmployee: '',
-        inChargeEmployee: 'Alisson Gabriel',
-        request: {} as Request // Replace with actual request object if needed
-      },
-      {
-        requestStatusId: '1',
-        dateTime: new Date(),
-        category: 'budgeted', // Replace 'someCategory' with the actual category
-        senderEmployee: '',
-        inChargeEmployee: 'Alisson Gabriel',
-        request: {} as Request // Replace with actual request object if needed
-      },
-      {
-        requestStatusId: '2',
-        dateTime: new Date(),
-        category: 'budgeted', // Replace 'someCategory' with the actual category
-        senderEmployee: '',
-        inChargeEmployee: 'Alisson Gabriel',
-        request: {} as Request // Replace with actual request object if needed
-      },
-      {
-        requestStatusId: '3',
-        dateTime: new Date(),
-        category: 'approved', // Replace 'someCategory' with the actual category
-        senderEmployee: '',
-        inChargeEmployee: 'Alisson Gabriel',
-        request: {} as Request // Replace with actual request object if needed
-      }
-    ],
-    budget: 1500.00,
-    repairDesc: '',
-    customerOrientations: '',
-    image: ''
   }
 
   onFix=()=>{
@@ -93,10 +82,20 @@ export class VisualizeServiceEmployeeComponent {
       message: 'Confirma que o serviço foi realizado?',
       label: 'Realizar',
     };
-    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe(() => {
-      this.request.status[this.request.status.length-1].category = 'paid';
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
+      //TEST: Adicionar o status de consertado ao nosso serviço
+      if(value.assert){
+        this.request.status.push({
+          requestStatusId: '4',
+          dateTime: new Date(),
+          category: 'fixed',
+          senderEmployee: '',
+          inChargeEmployee: 'Alisson Gabriel',
+          request: {} as Request
+        });
+        this.checkStatus();
+      }
     });
-    //implementar a lógica para arrumar o componente. deve guardar o funcionario, data e hora
   };
 
   onRedirect=()=>{
@@ -106,7 +105,18 @@ export class VisualizeServiceEmployeeComponent {
       message: 'Por favor, informe o nome do funcionario a redirecionar',
       label: 'Redirecionar',
     };
-    this.modal.open(this.view, ModalType.INPUT, data).subscribe((value) => {
+    this.modal.open(this.view, ModalType.INPUT, data).subscribe((value: ModalResponse) => {
+      if(value.assert){
+        this.request.status.push({
+          requestStatusId: '4',
+          dateTime: new Date(),
+          category: 'redirected',
+          senderEmployee: 'Alisson Gabriel',
+          inChargeEmployee: value.message || '',
+          request: {} as Request
+        });
+        this.checkStatus();
+      }
     });
   };
 
@@ -117,7 +127,18 @@ export class VisualizeServiceEmployeeComponent {
       message: 'Por favor, confira o valor do orçamento',
       label: 'Orçar',
     };
-    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
+      if(value.assert){
+        this.request.status.push({
+          requestStatusId: '2',
+          dateTime: new Date(),
+          category: 'budgeted',
+          senderEmployee: '',
+          inChargeEmployee: 'Alisson Gabriel',
+          request: {} as Request
+        });
+        this.checkStatus();
+      }
     });
   };
 
@@ -128,7 +149,18 @@ export class VisualizeServiceEmployeeComponent {
       message: 'Você confirma a finalização do serviço? Tem certeza mesmo?',
       label: 'Finalizar'
     };
-    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
+    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
+      if(value.assert){
+        this.request.status.push({
+          requestStatusId: '6',
+          dateTime: new Date(),
+          category: 'finalized',
+          senderEmployee: '',
+          inChargeEmployee: 'Alisson Gabriel',
+          request: {} as Request
+        });
+        this.checkStatus();
+      }
     });
   };
 

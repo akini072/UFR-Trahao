@@ -1,5 +1,5 @@
-import { CommonModule, DatePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { RequestStatus } from '../../../core/types/request-status';
 import { Request } from '../../../core/types/request';
 import { statusMap } from '../../../core/types/status-map';
@@ -12,16 +12,12 @@ import { statusBGColor, statusBorderColor, statusTextColor } from '../../../core
   templateUrl: './status-stepper.component.html',
   styleUrls: ['./status-stepper.component.css'],
 })
-export class StatusStepperComponent implements OnInit {
-  @Input() statusList: RequestStatus[] = [];
-  private originalStatusList: RequestStatus[] = [];
+export class StatusStepperComponent {
+  public statusList: RequestStatus[] = [];
+  private completedSteps: number = 0;
   staticSteps: RequestStatus[] = this.getStaticSteps();
 
-
-  ngOnInit(): void {
-    this.originalStatusList = [...this.statusList];
-    this.statusList = this.getCombinedSteps();
-  }
+  constructor(private cdr: ChangeDetectorRef) { }
 
   // Retorna os passos estáticos padrão
   private getStaticSteps(): RequestStatus[] {
@@ -37,41 +33,43 @@ export class StatusStepperComponent implements OnInit {
   }
 
   // Combina os passos estáticos com os passos da lista de status
-  private getCombinedSteps(): RequestStatus[] {
-    const combinedSteps = [...this.statusList];
+  public setStatusSteps(steps: RequestStatus[]): void {
+    this.completedSteps = steps.length;
+    const combinedSteps = [...steps];
     this.staticSteps.forEach(staticStep => {
       if (!combinedSteps.some(step => step.category === staticStep.category)) {
         combinedSteps.push(staticStep);
       }
     });
-    return combinedSteps;
+    this.statusList = combinedSteps;
+    this.cdr.detectChanges();
   }
 
   // Retorna a classe CSS para o elemento <li> baseado no índice
   getLiClass(index: number): string {
     const isLastIndex = index === this.statusList.length - 1;
     const itemCategory = this.statusList[index].category;
-    const isComplete = index < this.originalStatusList.length;
+    const isComplete = index < this.completedSteps;
 
     if (isLastIndex) {
-      return `${this.liEnd}`; // ou uma nova classe específica para o último item
+      return `${this.style.liEnd}`; // ou uma nova classe específica para o último item
     }
-    return isComplete ? `${this.liComplete} ${statusTextColor[itemCategory]}` : `${this.liIncomplete} ${statusTextColor[itemCategory]}`;
+    return isComplete ? `${this.style.liComplete} ${statusTextColor[itemCategory]}` : `${this.style.liIncomplete} ${statusTextColor[itemCategory]}`;
   }
 
   // Retorna o valor do ícone para o elemento <span> baseado no índice
   getSpanValue(index: number): string {
-    const isIncomplete = index === this.originalStatusList.length;
-    return isIncomplete ? "hourglass_top" : index < this.originalStatusList.length ? "check" : "hourglass_empty";
+    const isIncomplete = index === this.completedSteps;
+    return isIncomplete ? "hourglass_top" : index < this.completedSteps ? "check" : "hourglass_empty";
   }
 
   // Retorna a classe CSS para o elemento <span> baseado na categoria e índice
   getSpanClass(category: string, index: number): string {
-    const isComplete = index < this.originalStatusList.length;
+    const isComplete = index < this.completedSteps;
     const incompleteClass = `${statusBGColor[category]} border-white text-white`;
     const completeClass = `bg-white ${statusBorderColor[category]} ${statusTextColor[category]}`;
 
-    return `${this.span} ${isComplete ? incompleteClass : completeClass}`;
+    return `${this.style.span} ${isComplete ? incompleteClass : completeClass}`;
   }
 
   // Retorna o rótulo do passo baseado na categoria
@@ -81,13 +79,13 @@ export class StatusStepperComponent implements OnInit {
 
   // Retorna a classe CSS para o cabeçalho do popover baseado na categoria
   getPopoverHeadClass(category: string): string {
-    return `${statusBGColor[category]} ${statusBorderColor[category]} ${this.popoverHead}`;
+    return `${statusBGColor[category]} ${statusBorderColor[category]} ${this.style.popoverHead}`;
   }
 
   // Retorna o texto do popover baseado no índice
   getPopoverText(index: number): string {
-    const isComplete = index < this.originalStatusList.length;
-    const inProgress = index === this.originalStatusList.length;
+    const isComplete = index < this.completedSteps;
+    const inProgress = index === this.completedSteps;
     const category = this.statusList[index].category;
     const dateTimeText = `${this.statusList[index].dateTime.toLocaleDateString('pt-BR')} às ${this.statusList[index].dateTime.toLocaleTimeString('pt-BR')}`;
 
@@ -117,14 +115,32 @@ export class StatusStepperComponent implements OnInit {
     return dateTimeText;
   }
 
+  showPopover(event: MouseEvent, index: number): void {
+    const currentTarget = event.currentTarget as HTMLElement | null;
+    if (!currentTarget) return;
+    const popover = document.querySelector(`#popover-${index}`) as HTMLElement;
+    popover.classList.remove('hidden');
+  }
+
+  hidePopover(event: MouseEvent, index: number): void {
+    const currentTarget = event.currentTarget as HTMLElement | null;
+    if (!currentTarget) return;
+    const popover = document.querySelector(`#popover-${index}`) as HTMLElement;
+    popover.classList.add('hidden');
+  }
+
   // CSS classes
-  ol: string = "flex items-center justify-center text-xs text-gray-900 font-medium sm:text-base";
-  liComplete: string = "z-0 flex w-full relative after:content-[''] after:w-full after:h-0.5 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-8 after:bg-green-600";
-  liIncomplete: string = "z-0 flex w-full relative after:content-[''] after:w-full after:h-0.5 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-8 after:bg-gray-200";
-  liEnd: string = "z-0 flex relative";
-  item: string = "block whitespace-nowrap z-20";
-  span: string = "w-6 h-6 border-2 rounded-full flex justify-center items-center mx-auto mb-3 text-sm lg:w-10 lg:h-10 material-icons-round";
-  pop: string = "absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800";
-  popoverHead: string = "px-3 py-2 border-b rounded-t-lg ";
-  popoverTitle: string = "font-bold text-white";
+  style = {
+    container: "mx-auto",
+    title: "text-2xl font-bold mb-6 text-gray-800 flex items-center justify-between",
+    ol: "flex flex-col gap-2 items-start justify-center w-full text-xs text-gray-900 font-medium sm:text-base",
+    liComplete: "z-0 flex w-full relative after:content-[''] after:w-0.5 after:h-6 after:inline-block after:absolute after:top-12 after:left-7 after:bg-green-600",
+    liIncomplete: "z-0 flex w-full relative  after:content-[''] after:w-0.5 after:h-6 after:inline-block after:absolute after:top-12 after:left-7 after:bg-gray-200",
+    liEnd: "z-0 flex relative",
+    item: "block whitespace-nowrap z-20 m-2 cursor-pointer flex items-center gap-2",
+    span: "w-6 h-6 border-2 rounded-full flex justify-center items-center mx-auto text-sm lg:w-10 lg:h-10 material-icons-round",
+    pop: "absolute translate-x-40 hidden z-10 inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800",
+    popoverHead: "px-3 py-2 border-b rounded-t-lg ",
+    popoverTitle: "font-bold text-white"
+  }
 }

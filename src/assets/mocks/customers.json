@@ -1,0 +1,200 @@
+[
+    {
+        "id": 1,
+        "email": "joao.silva@example.com",
+        "name": "João Silva",
+        "password": "senha123",
+        "cpf": "12345678901",
+        "phone": "11911112222",
+        "address": {
+            "street": "Rua C",
+            "number": "789",
+            "district": "Moema",
+            "city": "São Paulo",
+            "uf": "SP",
+            "cep": "03000-000"
+        },
+        "profile": "Customer",
+        "status": true
+    },
+    {
+        "id": 2,
+        "email": "lucas.farias@example.com",
+        "name": "Lucas Farias",
+        "password": "senha110",
+        "cpf": "87654321098",
+        "phone": "11555554444",
+        "address": {
+            "street": "Rua C",
+            "number": "789",
+            "district": "Moema",
+            "city": "São Paulo",
+            "uf": "SP",
+            "cep": "03000-000"
+        },
+        "profile": "Customer",
+        "status": true
+    },
+    {
+        "id": 3,
+        "email": "tatiane.oliveira@example.com",
+        "name": "Tatiane Oliveira",
+        "password": "senha111",
+        "cpf": "76543210987",
+        "phone": "11444443333",
+        "address": {
+            "street": "Rua C",
+            "number": "789",
+            "district": "Moema",
+            "city": "São Paulo",
+            "uf": "SP",
+            "cep": "03000-000"
+        },
+        "profile": "Customer",
+        "status": true
+    },
+    {
+        "id": 4,
+        "email": "sandro.souza@example.com",
+        "name": "Sandro Souza",
+        "password": "senha112",
+        "cpf": "65432109876",
+        "phone": "11333332222",
+        "address": {
+            "street": "Rua C",
+            "number": "789",
+            "district": "Moema",
+            "city": "São Paulo",
+            "uf": "SP",
+            "cep": "03000-000"
+        },
+        "profile": "Customer",
+        "status": true
+    },
+    {
+        "id": 5,
+        "email": "carlos.santos@example.com",
+        "name": "Carlos Santos",
+        "password": "senha789",
+        "cpf": "34567890123",
+        "phone": "11933334444",
+        "address": {
+            "street": "Rua C",
+            "number": "789",
+            "district": "Moema",
+            "city": "São Paulo",
+            "uf": "SP",
+            "cep": "03000-000"
+        },
+        "profile": "Customer",
+        "status": true
+    },
+    {
+        "id": 6,
+        "email": "fernanda.lima@example.com",
+        "name": "Fernanda Lima",
+        "password": "senha101",
+        "cpf": "45678901234",
+        "phone": "11944445555",
+        "address": {
+            "street": "Rua C",
+            "number": "789",
+            "district": "Moema",
+            "city": "São Paulo",
+            "uf": "SP",
+            "cep": "03000-000"
+        },
+        "profile": "Customer",
+        "status": true
+    },
+    {
+        "id": 7,
+        "email": "luana.silveira@example.com",
+        "name": "Luana Silveira",
+        "password": "senha103",
+        "cpf": "67890123456",
+        "phone": "11966667777",
+        "address": {
+            "street": "Rua C",
+            "number": "789",
+            "district": "Moema",
+            "city": "São Paulo",
+            "uf": "SP",
+            "cep": "03000-000"
+        },
+        "profile": "Customer",
+        "status": true
+    },
+    {
+        "id": 8,
+        "email": "roberto.almeida@example.com",
+        "name": "Roberto Almeida",
+        "password": "senha104",
+        "cpf": "78901234567",
+        "phone": "11977778888",
+        "address": {
+            "street": "Rua C",
+            "number": "789",
+            "district": "Moema",
+            "city": "São Paulo",
+            "uf": "SP",
+            "cep": "03000-000"
+        },
+        "profile": "Customer",
+        "status": true
+    },
+    {
+        "id": 9,
+        "email": "patricia.melo@example.com",
+        "name": "Patrícia Melo",
+        "password": "senha105",
+        "cpf": "89012345678",
+        "phone": "11988889999",
+        "address": {
+            "street": "Rua C",
+            "number": "789",
+            "district": "Moema",
+            "city": "São Paulo",
+            "uf": "SP",
+            "cep": "03000-000"
+        },
+        "profile": "Customer",
+        "status": false
+    },
+    {
+        "id": 10,
+        "email": "rafael.oliveira@example.com",
+        "name": "Rafael Oliveira",
+        "password": "senha106",
+        "cpf": "90123456789",
+        "phone": "11999990000",
+        "address": {
+            "street": "Rua C",
+            "number": "789",
+            "district": "Moema",
+            "city": "São Paulo",
+            "uf": "SP",
+            "cep": "03000-000"
+        },
+        "profile": "Customer",
+        "status": false
+    },
+    {
+        "id": 11,
+        "email": "julia.pereira@example.com",
+        "name": "Júlia Pereira",
+        "password": "senha107",
+        "cpf": "01234567890",
+        "phone": "11888887777",
+        "address": {
+            "street": "Rua C",
+            "number": "789",
+            "district": "Moema",
+            "city": "São Paulo",
+            "uf": "SP",
+            "cep": "03000-000"
+        },
+        "profile": "Customer",
+        "status": false
+    }
+]
