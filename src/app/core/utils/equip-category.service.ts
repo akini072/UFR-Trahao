@@ -12,7 +12,7 @@ export class EquipCategoryService {
   constructor(private http: HttpClient) { }
 
   private getEquipCategories(): Observable<EquipCategory[]> {
-    return this.http.get<EquipCategory[]>(this.baseUrl + 'equip-categories.json');
+    return this.http.get<EquipCategory[]>(this.baseUrl + 'equipCategories.json');
   }
 
   async getEquipCategory(id: number): Promise<EquipCategory> {
