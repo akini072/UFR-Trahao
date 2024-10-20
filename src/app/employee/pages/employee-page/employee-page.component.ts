@@ -163,8 +163,8 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
     }
   }
 
-  navigateToNewRequest = () => {
-    this.router.navigate(['nova-solicitacao']);
+  navigateToRequest = (id: number) => {
+    this.router.navigate(['/funcionario/visualizar-servico', id]);
   };
 
   rightButtonProp: ButtonProps = {
@@ -187,14 +187,5 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
     textColor: 'black',
     extraClasses: 'border items-center text-center',
     onClick: this.previousPage,
-  };
-
-  newRequestButtonProp: ButtonProps = {
-    text: 'Nova Solicitação',
-    color: 'primary-8',
-    size: 'medium',
-    textColor: 'white',
-    hoverColor: 'primary-7',
-    onClick: this.navigateToNewRequest,
   };
 }

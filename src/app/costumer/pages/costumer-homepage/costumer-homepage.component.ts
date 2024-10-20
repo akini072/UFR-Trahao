@@ -193,7 +193,7 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
         this.activeFilters.push({ filter: key, value });
       }
     }
-    
+
     this.activeRequestList = this.requestList.filter((item) => {
       return this.activeFilters.every(
         (f) => {
@@ -205,14 +205,14 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
         }
       );
     });
-    
+
     this.cdr.detectChanges();
 
     this.goToPage(1);
   };
 
   navigateToNewRequest = () => {
-    this.router.navigate(['nova-solicitacao']);
+    this.router.navigate(['/cliente/nova-solicitacao']);
   };
 
   rightButtonProp: ButtonProps = {
