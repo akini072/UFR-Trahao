@@ -45,11 +45,12 @@ export class GlobalTableComponent<T> implements OnInit, OnChanges {
   @Input() nextPage: () => void = () => {};
   @Input() previousPage: () => void = () => {};
   @Input() enableReportFilters: boolean = false;
+  @Input() enablePagination: boolean = true;
 
   filtersEnabled: boolean = false;
 
   style = {
-    table: "table-auto border min-w-full border-gray-400 rounded-lg divide-gray-400 shadow",
+    table: "table-auto border min-w-full border-gray-400 my-8 rounded-lg divide-gray-400 shadow",
     head: "bg-gray-50",
     col: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
     body: "bg-white divide-y divide-gray-200",
