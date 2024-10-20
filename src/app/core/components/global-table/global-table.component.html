@@ -31,6 +31,7 @@
   </tbody>
 </table>
 <app-pagination-control
+  *ngIf="enablePagination"
   [currentPage]="currentPage"
   [totalPages]="totalPages"
   [previousPage]="previousPage"
