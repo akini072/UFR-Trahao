@@ -1,3 +1,4 @@
+import { EquipCategory } from './equip-category';
 import { RequestStatus } from "./request-status";
 
 export interface Request {
@@ -11,4 +12,5 @@ export interface Request {
     repairDesc: string;
     customerOrientations: string;
     image: string;
+    equipCategoryId: number;
 }
