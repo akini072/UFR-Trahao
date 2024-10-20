@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Credentials } from '../types/credentials';
 
 export const AuthGuard: CanActivateFn = (route, state) => {
-  console.log('AuthGuard');
+
   const router = new Router();
   try {
     const user = sessionStorage.getItem('credentials');

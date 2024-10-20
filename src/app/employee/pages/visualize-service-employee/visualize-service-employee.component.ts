@@ -32,8 +32,8 @@ export class VisualizeServiceEmployeeComponent {
   customer: Customer;
   @ViewChild(StatusStepperComponent) statusStepper!: StatusStepperComponent;
 
-  constructor(private modal: ModalService, 
-    private view: ViewContainerRef,  
+  constructor(private modal: ModalService,
+    private view: ViewContainerRef,
     private route: ActivatedRoute,
     private requestsService: RequestsService,
     private customerService: CustomerService
@@ -44,7 +44,6 @@ export class VisualizeServiceEmployeeComponent {
         this.request = data;
         this.customerService.getCustomer(this.request.customerId).then((data) => {
           this.customer = data;
-          console.log(this.customer);
         });
         this.checkStatus();
       });
