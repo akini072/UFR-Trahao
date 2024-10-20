@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { CategoryItem } from '../../category-management.component';
 import { ButtonComponent, ButtonProps } from '../../../../../core/components/button/button.component';
 import { GlobalTableComponent } from '../../../../../core/components/global-table/global-table.component';
+import { EquipCategory } from './../../../../../core/types/equip-category';
 
 @Component({
   selector: 'app-category-table',
@@ -12,7 +12,7 @@ import { GlobalTableComponent } from '../../../../../core/components/global-tabl
   styleUrls: ['./category-table.component.css'],
 })
 export class CategoryTableComponent implements OnInit {
-  @Input() categoriesList: CategoryItem[] = [];
+  @Input() categoriesList: EquipCategory[] = [];
   @Input() onEdit: (id: number) => void = () => {};
   @Input() onDelete: (id: number) => void = () => {};
   @Input() currentPage: number = 1;
@@ -21,8 +21,8 @@ export class CategoryTableComponent implements OnInit {
   @Input() previousPage: () => void = () => {};
 
   columns = [
-    { key: 'id', label: 'ID' },
-    { key: 'name', label: 'CATEGORIA EQUIPAMENTO' }
+    { key: 'equipCategoryId', label: 'ID' },
+    { key: 'categoryDesc', label: 'CATEGORIA EQUIPAMENTO' }
   ];
 
   @ViewChild('actionTemplate', { static: true }) actionTemplate!: TemplateRef<any>;

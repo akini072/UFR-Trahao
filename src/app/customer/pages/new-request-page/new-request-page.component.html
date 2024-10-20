@@ -1,25 +1,36 @@
-<!-- new-request-page.component.html -->
-<app-navbar [ngClass]="styles.navbar"></app-navbar>
-<p [ngClass]="styles.title">Solicite um Serviço</p>
-
-<div [ngClass]="styles.categoriaContainer">
-  <label for="categoria" [ngClass]="styles.categoriaLabel">Categoria do equipamento:</label>
-  <select name="categoria" id="categoria" [ngClass]="styles.categoriaSelect">
-    <option *ngFor="let categorie of categories" [value]="categorie.value">{{ categorie.label }}</option>
-  </select>
-</div>
-
-<div [ngClass]="styles.descricaoEquipamentoContainer">
+<app-navbar></app-navbar>
+<div [ngClass]="styles.main">
   <div [ngClass]="styles.formContainer">
-      <label for="descricao-equipamento" [ngClass]="styles.descricaoEquipamentoLabel">Descrição do equipamento:</label>
-      <app-form-input [validations]="['maxLength']" [maxLength]="30" name="descricao-equipamento" [id]="'descricao-equipamento'"   placeholder="Descreva o equipamento..." (input)="getRemainingCharacters(30, 'descricao-equipamento')" maxlength="30" />
-      <p [ngClass]="[styles.remainingCharactersText, remainingCharactersColorText]">{{ remainingCharactersEquipamento }} caracteres restantes</p>
+    <h1 [ngClass]="styles.title">Solicitar Serviço</h1>
+    <form [ngClass]="styles.form">
+      <div [ngClass]="styles.formGroup">
+        <label for="categoria" [ngClass]="styles.label">Categoria do equipamento</label>
+        <select name="categoria" id="categoria" [ngClass]="styles.select">
+          <option *ngFor="let category of categoryList" [value]="category.equipCategoryId">{{ category.categoryDesc }}</option>
+        </select>
+      </div>
+
+      <div [ngClass]="styles.formGroup">
+        <label for="descEquip" [ngClass]="styles.label">Descrição do equipamento</label>
+        <app-form-input [validations]="['maxLength', 'required']" [maxLength]="30" name="descEquip"
+          [id]="'descEquip'" placeholder="Descreva o equipamento..."
+          (input)="getRemainingCharacters(30, 'descEquip')" maxlength="30" [ngClass]="styles.input" />
+        <p [ngClass]="[remainingCharactersColorText, styles.remainingCharacters]">{{ remainingCharactersEquipamento }} caracteres restantes</p>
+      </div>
+
+      <div [ngClass]="styles.formGroup">
+        <label for="descDefect" [ngClass]="styles.label">Descrição do defeito</label>
+        <textarea name="descDefect" id="descDefect"
+          (input)="getRemainingCharacters(255, 'descDefect')" [maxLength]="255"
+          placeholder="Insira os detalhes do problema..." [ngClass]="styles.textarea"></textarea>
+          <p [ngClass]="[remainingCharactersColorTextDefect, styles.remainingCharacters]">{{ remainingCharactersDefeito }} caracteres restantes</p>
+      </div>
+
+      <div [ngClass]="styles.buttonContainer">
+        <app-button [props]="cancelButtonProps"/>
+        <app-button [props]="submitButtonProps"/>
+      </div>
+    </form>
   </div>
 </div>
-
-<div [ngClass]="styles.descricaoDefeitoContainer">
-  <div [ngClass]="styles.formContainer">
-    <label for="descricao-defeito" [ngClass]="styles.descricaoDefeitoLabel">Descrição do defeito:</label>
-    <textarea name="descricao-defeito" id="descricao-defeito" (input)="getRemainingCharacters(255, 'descricao-defeito')" maxlength="255" placeholder="Insira os detalhes do problema..." [ngClass]="styles.descricaoDefeitoTextarea"></textarea>
-  </div>
-</div>
+<app-footer></app-footer>

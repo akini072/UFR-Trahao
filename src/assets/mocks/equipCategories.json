@@ -1,0 +1,52 @@
+[
+  {
+    "equipCategoryId": 1,
+    "categoryDesc": "Computador",
+    "active": true
+  },
+  {
+    "equipCategoryId": 2,
+    "categoryDesc": "Notebook",
+    "active": true
+  },
+  {
+    "equipCategoryId": 3,
+    "categoryDesc": "Tablet",
+    "active": true
+  },
+  {
+    "equipCategoryId": 4,
+    "categoryDesc": "Smartphone",
+    "active": true
+  },
+  {
+    "equipCategoryId": 5,
+    "categoryDesc": "Impressora",
+    "active": true
+  },
+  {
+    "equipCategoryId": 6,
+    "categoryDesc": "Monitor",
+    "active": true
+  },
+  {
+    "equipCategoryId": 7,
+    "categoryDesc": "Projetor",
+    "active": true
+  },
+  {
+    "equipCategoryId": 8,
+    "categoryDesc": "Câmera",
+    "active": true
+  },
+  {
+    "equipCategoryId": 9,
+    "categoryDesc": "Teclado",
+    "active": true
+  },
+  {
+    "equipCategoryId": 10,
+    "categoryDesc": "Mouse",
+    "active": true
+  }
+]

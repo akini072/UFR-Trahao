@@ -24,7 +24,7 @@
         </div>
         <div>
           <p class="{{ style.cardDate }}">
-            {{ request.created_at | date : "dd/MM/yyyy" }}
+            Última atualização: {{ request.created_at | date : "dd/MM/yyyy HH:mm" }}
           </p>
         </div>
       </div>
@@ -34,6 +34,7 @@
             [displayDisabled]="false"
             [status]="request.status"
             [color]="request.status | statusColor : 'background'"
+            [id]="request.id"
           ></app-button-status>
         </div>
         <div>
