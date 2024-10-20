@@ -1,6 +1,5 @@
 <app-navbar></app-navbar>
 <div class="bg-gray-100">
-
   <div [ngClass]="styles.main">
     <h1 [ngClass]="styles.title">Detalhes do Serviço</h1>
 
@@ -29,28 +28,37 @@
 
   </div>
 
-  <div [ngClass]="styles.submain"> <!-- requisition information -->
+   <div [ngClass]="styles.submain"> <!-- requisition information -->
+
     <h2 [ngClass]="styles.subtitle"> Informações do Pedido </h2>
 
-    <div [ngClass]="styles.basisHalf">
-      <p [ngClass]="styles.semibold">Tipo de equipamento</p>
-      <label for="" class="block">{{request.equipmentDesc}}</label>
-    </div>
 
     <div [ngClass]="styles.basisHalf">
+      <div [ngClass]="styles.basisFull">
+        <p [ngClass]="styles.semibold">Descrição do equipamento</p>
+        <label for="" class="block">{{request.equipmentDesc}}</label>
+      </div>
 
-      <p [ngClass]="styles.semibold">Descrição da requisição</p>
-      <label for="" class="block">{{request.requestDesc}}</label>
+      <div [ngClass]="styles.basisFull">
+        <p [ngClass]="styles.semibold">Categoria do equipamento</p>
+        <label for="" class="block">{{equipCategory.categoryDesc}}</label>
+      </div>
+
+      <div [ngClass]="styles.basisFull">
+        <p [ngClass]="styles.semibold">Descrição da requisição</p>
+        <label for="" class="block">{{request.requestDesc}}</label>
+      </div>
+
+      <div [ngClass]="styles.basisFull">
+        <p [ngClass]="styles.semibold">Descrição do problema</p>
+        <label for="" class="block {{styles.textWrap}}">{{request.defectDesc}}</label>
+      </div>
     </div>
 
-    <div [ngClass]="styles.basisFull">
-      <p [ngClass]="styles.semibold">Descrição do problema</p>
-      <label for="" class="block">{{request.defectDesc}}</label>
-    </div>
-
-    <div [ngClass]="styles.basisFull">
+    <div [ngClass]="styles.basisHalf">
       <app-status-stepper></app-status-stepper>
     </div>
+
   </div>
 
   <div *ngIf="open" [ngClass]="styles.submain2">

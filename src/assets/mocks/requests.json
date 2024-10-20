@@ -7,7 +7,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 1
+        "customerId": 1,
+        "equipCategoryId": 1
     },
     {
         "requestId": 2,
@@ -17,7 +18,8 @@
         "budget": 50.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 1
+        "customerId": 1,
+        "equipCategoryId": 9
     },
     {
         "requestId": 3,
@@ -27,7 +29,8 @@
         "budget": 200.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 1
+        "customerId": 1,
+        "equipCategoryId": 2
     },
     {
         "requestId": 4,
@@ -37,7 +40,8 @@
         "budget": 10.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 1
+        "customerId": 1,
+        "equipCategoryId": 5
     },
     {
         "requestId": 5,
@@ -47,17 +51,19 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 1
+        "customerId": 1,
+        "equipCategoryId": 6
     },
     {
         "requestId": 6,
-        "requestDesc": "O mouse não está funcionando.",
+        "requestDesc": "O mouse não está funcionando .",
         "equipmentDesc": "Mouse Razer",
-        "defectDesc": "O sensor do mouse está inoperante.",
+        "defectDesc": "O meu mouse está apresentando diversos problemas. A cor pisca constantemente, o cursor rgb colorido trava frequentemente e o desempenho está muito abaixo do esperado no cs:go, não mato em ninguém. Além disso, o sensor do mouse está claramente descalibrado",
         "budget": 40.00,
         "repairDesc": "Foi necessária a troca do sensor.",
         "customerOrientations": "Considerar a compra de um novo mouse.",
-        "customerId": 1
+        "customerId": 1,
+        "equipCategoryId": 10
     },
     {
         "requestId": 7,
@@ -67,7 +73,8 @@
         "budget": 100.00,
         "repairDesc": "O cabo estava rompido.",
         "customerOrientations": "Recomendo substituição.",
-        "customerId": 1
+        "customerId": 1,
+        "equipCategoryId": 2
     },
     {
         "requestId": 8,
@@ -77,7 +84,8 @@
         "budget": 75.00,
         "repairDesc": "Foi necessário lubrificar o ventilador.",
         "customerOrientations": "Realizamos a manutenção.",
-        "customerId": 1
+        "customerId": 1,
+        "equipCategoryId": 1
     },
     {
         "requestId": 9,
@@ -87,7 +95,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 2
+        "customerId": 2,
+        "equipCategoryId": 1
     },
     {
         "requestId": 10,
@@ -97,7 +106,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 2
+        "customerId": 2,
+        "equipCategoryId": 2
     },
     {
         "requestId": 11,
@@ -107,7 +117,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 3
+        "customerId": 3,
+        "equipCategoryId": 2
     },
     {
         "requestId": 12,
@@ -117,7 +128,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 3
+        "customerId": 3,
+        "equipCategoryId": 1
     },
     {
         "requestId": 13,
@@ -127,7 +139,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 4
+        "customerId": 4,
+        "equipCategoryId": 1
     },
     {
         "requestId": 14,
@@ -137,7 +150,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 4
+        "customerId": 4,
+        "equipCategoryId": 2
     },
     {
         "requestId": 15,
@@ -147,7 +161,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 5
+        "customerId": 5,
+        "equipCategoryId": 5
     },
     {
         "requestId": 16,
@@ -157,7 +172,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 5
+        "customerId": 5,
+        "equipCategoryId": 5
     },
     {
         "requestId": 17,
@@ -167,7 +183,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 6
+        "customerId": 6,
+        "equipCategoryId": 2
     },
     {
         "requestId": 18,
@@ -177,7 +194,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 6
+        "customerId": 6,
+        "equipCategoryId": 3
     },
     {
         "requestId": 19,
@@ -187,7 +205,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 7
+        "customerId": 7,
+        "equipCategoryId": 1
     },
     {
         "requestId": 20,
@@ -197,7 +216,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 7
+        "customerId": 7,
+        "equipCategoryId": 9
     },
     {
         "requestId": 22,
@@ -207,7 +227,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 8
+        "customerId": 8,
+        "equipCategoryId": 1
     },
     {
         "requestId": 23,
@@ -217,7 +238,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 8
+        "customerId": 8,
+        "equipCategoryId": 2
     },
     {
         "requestId": 24,
@@ -227,7 +249,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 9
+        "customerId": 9,
+        "equipCategoryId": 1
     },
     {
         "requestId": 25,
@@ -237,7 +260,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 9
+        "customerId": 9,
+        "equipCategoryId": 1
     },
     {
         "requestId": 26,
@@ -247,7 +271,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 10
+        "customerId": 10,
+        "equipCategoryId": 2
     },
     {
         "requestId": 27,
@@ -257,7 +282,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 10
+        "customerId": 10,
+        "equipCategoryId": 5
     },
     {
         "requestId": 28,
@@ -267,7 +293,8 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 11
+        "customerId": 11,
+        "equipCategoryId": 2
     },
     {
         "requestId": 29,
@@ -277,6 +304,7 @@
         "budget": 0.00,
         "repairDesc": "",
         "customerOrientations": "",
-        "customerId": 11
+        "customerId": 11,
+        "equipCategoryId": 6
     }
 ]

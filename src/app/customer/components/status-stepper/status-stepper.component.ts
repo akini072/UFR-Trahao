@@ -132,7 +132,7 @@ export class StatusStepperComponent {
   // CSS classes
   style = {
     container: "mx-auto",
-    title: "text-2xl font-bold mb-6 text-gray-800 flex items-center justify-between",
+    title: "text-xl font-bold mb-6 text-gray-800 flex items-center justify-between",
     ol: "flex flex-col gap-2 items-start justify-center w-full text-xs text-gray-900 font-medium sm:text-base",
     liComplete: "z-0 flex w-full relative after:content-[''] after:w-0.5 after:h-6 after:inline-block after:absolute after:top-12 after:left-7 after:bg-green-600",
     liIncomplete: "z-0 flex w-full relative  after:content-[''] after:w-0.5 after:h-6 after:inline-block after:absolute after:top-12 after:left-7 after:bg-gray-200",

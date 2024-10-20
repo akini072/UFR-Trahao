@@ -38,5 +38,15 @@
     "equipCategoryId": 8,
     "categoryDesc": "Câmera",
     "active": true
+  },
+  {
+    "equipCategoryId": 9,
+    "categoryDesc": "Teclado",
+    "active": true
+  },
+  {
+    "equipCategoryId": 10,
+    "categoryDesc": "Mouse",
+    "active": true
   }
 ]
