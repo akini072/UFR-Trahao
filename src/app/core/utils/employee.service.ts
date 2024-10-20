@@ -16,6 +16,10 @@ export class EmployeeService {
     return this.http.get<Employee[]>(this.baseUrl + 'employees.json');
   }
 
+  async getEmployeeList(): Promise<Employee[]> {
+    return await lastValueFrom(this.getEmployees());
+  }
+
   async getEmployee(id: number): Promise<Employee> {
     let employees = await lastValueFrom(this.getEmployees());
 

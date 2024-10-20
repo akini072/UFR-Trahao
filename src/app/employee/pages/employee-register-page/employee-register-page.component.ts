@@ -68,6 +68,7 @@ export class EmployeeRegisterPageComponent implements OnInit {
           this.name.setValue(this.employee.name);
           this.birthDate.setValue(this.employee.birthDate);
           this.password.setValue(this.employee.password);
+          this.isEditMode = true;
         });
 
       }
@@ -85,7 +86,7 @@ export class EmployeeRegisterPageComponent implements OnInit {
 
   onRegister = () => {
     if (this.formGroup.valid) {
-      this.router.navigate(['/funcionarios']);
+      this.router.navigate(['/funcionario/funcionarios']);
     } else {
       this.error = true;
     }
@@ -93,7 +94,7 @@ export class EmployeeRegisterPageComponent implements OnInit {
 
   onUpdate = () => {
     if (this.formGroup.valid) {
-      this.router.navigate(['/funcionarios']);
+      this.router.navigate(['/funcionario/funcionarios']);
     } else {
       this.error = true;
     }
@@ -106,7 +107,7 @@ export class EmployeeRegisterPageComponent implements OnInit {
       label: 'Ok',
     };
     this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
-      this.router.navigate(['/funcionarios']);
+      this.router.navigate(['/funcionario/funcionarios']);
     });
   }
 
@@ -126,7 +127,8 @@ export class EmployeeRegisterPageComponent implements OnInit {
     main: 'flex items-center justify-center bg-gray-100 h-screen',
     form: 'bg-white p-12 flex flex-col rounded shadow-md w-1/3 my-8',
     label: 'block text-gray-700 text-sm font-bold mb-2',
-    button: 'flex items-center justify-between flex-row gap-2 mb-4 flex md:justify-center',
+    button: 'flex flex-row justify-between md:justify-between',
+    gap: 'flex flex-row gap-3',
     signUpSpan: 'block text-sm text-gray-500 dark:text-neutral-400 text-center cursor-default',
     signUpRouter: 'text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 cursor-pointer',
     title: 'text-2xl font-bold mb-6 text-center',
@@ -157,12 +159,22 @@ export class EmployeeRegisterPageComponent implements OnInit {
     extraClasses: 'font-bold focus:outline-none focus:shadow-outline'
   }
 
-  onDeleteButton: ButtonProps = {
-    text: 'Excluir',
+  onCancelButton: ButtonProps = {
+    text: 'Cancelar',
     color: 'secondary-4',
     size: 'medium',
     textColor: 'white',
     hoverColor: 'secondary-6',
+    onClick: () => this.router.navigate(['/funcionario/funcionarios']),
+    extraClasses: 'font-bold focus:outline-none focus:shadow-outline'
+  }
+
+  onDeleteButton: ButtonProps = {
+    text: 'Excluir',
+    color: 'red-500',
+    size: 'medium',
+    textColor: 'white',
+    hoverColor: 'red-700',
     onClick: this.onDelete,
     extraClasses: 'font-bold focus:outline-none focus:shadow-outline'
   }

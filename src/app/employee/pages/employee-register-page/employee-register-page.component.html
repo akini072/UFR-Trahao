@@ -48,11 +48,14 @@
 
       </div>
 
+      <span *ngIf="error" [ngClass]="style.errorStyle">{{ getErrorMessage() }}</span>
       <div [ngClass]="style.button">
-        <span *ngIf="error" [ngClass]="style.errorStyle">{{ getErrorMessage() }}</span>
         <app-button *ngIf="!isEditMode" [props]="onRegisterButton"></app-button>
-        <app-button *ngIf="isEditMode" [props]="onUpdateButton"></app-button>
-        <app-button *ngIf="isEditMode" [props]="onDeleteButton"></app-button>
+        <app-button [props]="onCancelButton"></app-button>
+        <div [ngClass]="style.gap">
+          <app-button *ngIf="isEditMode" [props]="onDeleteButton"></app-button>
+          <app-button *ngIf="isEditMode" [props]="onUpdateButton"></app-button>
+        </div>
       </div>
 
     </form>
