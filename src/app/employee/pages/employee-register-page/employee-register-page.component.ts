@@ -9,6 +9,9 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { DateInputComponent } from "../../../core/components/date-input/date-input.component";
 import { ModalService } from '../../../core/utils/modal.service';
 import { ModalType } from '../../../core/types/modal-type';
+import { EmployeeService } from '../../../core/utils/employee.service';
+import { Employee } from '../../../core/types/employee';
+
 @Component({
   selector: 'app-employee-register-page',
   standalone: true,
@@ -19,6 +22,7 @@ import { ModalType } from '../../../core/types/modal-type';
     ButtonComponent,
     RouterModule,
     ReactiveFormsModule, DateInputComponent],
+  providers: [EmployeeService],
   templateUrl: './employee-register-page.component.html',
   styleUrl: './employee-register-page.component.css'
 })
@@ -30,15 +34,22 @@ export class EmployeeRegisterPageComponent implements OnInit {
   birthDate: FormControl;
   password: FormControl;
   error: boolean = false;
-  employeeId: number | null = null;
+  private employeeId: number | null = null;
+  private employee: Employee = {} as Employee;
   isEditMode: boolean = false;
   modo: string = 'Registro';
-  constructor(private modal: ModalService, private view: ViewContainerRef, private router: Router, private route: ActivatedRoute) {
+
+  constructor(
+    private modal: ModalService,
+    private view: ViewContainerRef,
+    private router: Router,
+    private route: ActivatedRoute,
+    private employeeService: EmployeeService) {
     this.formGroup = new FormGroup({
       email: new FormControl(''),
       name: new FormControl(''),
       birthDate: new FormControl(''),
-      password: new FormControl(''),
+      password: new FormControl('')
     });
     this.email = this.formGroup.get('email') as FormControl;
     this.name = this.formGroup.get('name') as FormControl;
@@ -47,21 +58,18 @@ export class EmployeeRegisterPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.employeeId = params['id'] ? +params['id'] : null;
-      this.isEditMode = this.employeeId !== null;
-      if (this.isEditMode) {
+    this.route.paramMap.subscribe(params => {
+      this.employeeId = Number.parseInt(params.get("id") || '');
+      if (this.employeeId) {
+        this.modo = 'Atualização';
+        this.employeeService.getEmployee(this.employeeId).then((data) => {
+          this.employee = data;
+          this.email.setValue(this.employee.email);
+          this.name.setValue(this.employee.name);
+          this.birthDate.setValue(this.employee.birthDate);
+          this.password.setValue(this.employee.password);
+        });
 
-        if (this.employeeId !== null) {
-          this.modo = 'Atualização';
-          const employeeData = this.getEmployeeData(this.employeeId);
-          this.formGroup.patchValue({
-            email: employeeData.email,
-            name: employeeData.name,
-            birthDate: employeeData.birthDate,
-            password: employeeData.password,
-          });
-        }
       }
     });
   }
