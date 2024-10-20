@@ -13,9 +13,9 @@ import { Router } from '@angular/router';
   selector: 'app-new-request-page',
   standalone: true,
   imports: [CommonModule, NavbarComponent, FooterComponent, FormInputComponent, HttpClientModule, ButtonComponent],
+  providers: [EquipCategoryService],
   templateUrl: './new-request-page.component.html',
   styleUrl: './new-request-page.component.css',
-  providers: [EquipCategoryService]
 })
 export class NewRequestPageComponent {
   remainingCharactersEquipamento = 30;
