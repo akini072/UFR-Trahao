@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomerHomepageComponent } from './costumer-homepage.component';
+import { CustomerHomepageComponent } from './customer-homepage.component';
 
 describe('CustomerHomepageComponent', () => {
   let component: CustomerHomepageComponent;
@@ -11,7 +11,7 @@ describe('CustomerHomepageComponent', () => {
       imports: [CustomerHomepageComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(CustomerHomepageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

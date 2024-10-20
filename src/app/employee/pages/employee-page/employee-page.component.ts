@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { ServiceRequestTableComponent } from '../../components/service-request-table/service-request-table.component';
-import { RequestTableComponent } from '../../../costumer/components/request-table/request-table.component';
+import { RequestTableComponent } from '../../../customer/components/request-table/request-table.component';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
 import {
   ButtonComponent,

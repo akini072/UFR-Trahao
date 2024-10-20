@@ -23,7 +23,7 @@ import { GlobalTableComponent } from '../../../core/components/global-table/glob
 import { PaginationControlComponent } from '../../../core/components/pagination-control/pagination-control.component';
 
 @Component({
-  selector: 'app-costumer-homepage',
+  selector: 'app-customer-homepage',
   standalone: true,
   imports: [
     CommonModule,
@@ -39,8 +39,8 @@ import { PaginationControlComponent } from '../../../core/components/pagination-
     PaginationControlComponent,
   ],
   providers: [RequestsService, DatePipe],
-  templateUrl: './costumer-homepage.component.html',
-  styleUrls: ['./costumer-homepage.component.css'],
+  templateUrl: './customer-homepage.component.html',
+  styleUrls: ['./customer-homepage.component.css'],
 })
 export class CustomerHomepageComponent implements OnInit, OnDestroy {
   requestList: RequestItem[] = [];

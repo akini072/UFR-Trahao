@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { ServiceRequestTableComponent } from '../../components/service-request-table/service-request-table.component';
-import { RequestTableComponent } from '../../../costumer/components/request-table/request-table.component';
+import { RequestTableComponent } from '../../../customer/components/request-table/request-table.component';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
 import {
   ButtonComponent,
@@ -13,8 +13,8 @@ import { FormInputComponent } from '../../../core/components/form-input/form-inp
 import { RequestCategory } from '../../../core/types/request-category';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
-import { FilterSelectComponent } from '../../../costumer/components/filter-section/components/filter-select/filter-select.component';
-import { FilterSectionComponent } from '../../../costumer/components/filter-section/filter-section.component';
+import { FilterSelectComponent } from '../../../customer/components/filter-section/components/filter-select/filter-select.component';
+import { FilterSectionComponent } from '../../../customer/components/filter-section/filter-section.component';
 import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/toggle-switch.component';
 
 export interface RequestItem {
