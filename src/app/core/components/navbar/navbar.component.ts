@@ -35,11 +35,11 @@ export class NavbarComponent {
           break;
         case 'Employee':
           this.navItems = [
-            { name: 'Início', route: '/pagina-funcionario', login: true },
-            { name: 'Solicitações', route: '/solicitacoes', login: true },
-            { name: 'Funcionários', route: '/funcionarios', login: true },
-            { name: 'Categorias', route: '/categorias', login: true },
-            { name: 'Relatório', route: '/relatorio-mensal', login: true }
+            { name: 'Início', route: '/funcionario', login: true },
+            { name: 'Solicitações', route: '/funcionario/solicitacoes', login: true },
+            { name: 'Funcionários', route: '/funcionario/funcionarios', login: true },
+            { name: 'Categorias', route: '/funcionario/categorias', login: true },
+            { name: 'Relatório', route: '/funcionario/relatorio-mensal', login: true }
           ];
           break;
       }
