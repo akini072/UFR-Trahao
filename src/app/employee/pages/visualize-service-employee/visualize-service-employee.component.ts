@@ -14,6 +14,8 @@ import { AddressPipePipe } from '../../../core/utils/pipes/address-pipe.pipe';
 import { ModalResponse } from '../../../core/types/modal-response';
 import { StatusStepperComponent } from "../../../customer/components/status-stepper/status-stepper.component";
 import { Customer } from '../../../core/types/customer';
+import { tick } from '@angular/core/testing';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-visualize-service-employee',
@@ -78,22 +80,31 @@ export class VisualizeServiceEmployeeComponent {
 
   onFix=()=>{
     const data = {
-      title: 'Serviço Realizado',
-      message: 'Confirma que o serviço foi realizado?',
-      label: 'Realizar',
+      title: 'Realizar manutenção',
+      message: 'Informe a descrição do serviço realizado',
+      label: 'Confirmar',
     };
-    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
+    this.modal.open(this.view, ModalType.INPUT, data).subscribe((value: ModalResponse) => {
       //TEST: Adicionar o status de consertado ao nosso serviço
       if(value.assert){
-        this.request.status.push({
-          requestStatusId: '4',
-          dateTime: new Date(),
-          category: 'fixed',
-          senderEmployee: '',
-          inChargeEmployee: 'Alisson Gabriel',
-          request: {} as Request
+        const newData = {
+          title: 'Orientações',
+          message: 'Informe as orientações para o cliente',
+          label: 'Enviar',
+        }
+        this.modal.open(this.view, ModalType.INPUT, newData).subscribe((value: ModalResponse) => {
+          if(value.assert){
+            this.request.status.push({
+              requestStatusId: '5',
+              dateTime: new Date(),
+              category: 'fixed',
+              senderEmployee: 'Alisson Gabriel',
+              inChargeEmployee: '',
+              request: {} as Request
+            });
+            this.checkStatus();
+          }
         });
-        this.checkStatus();
       }
     });
   };
