@@ -47,11 +47,11 @@ export class LoginPageComponent {
         let credentials: Credentials = this.auth.login(this.email.value, this.password.value);
         switch(credentials.profile){
           case 'Employee':
-            this.router.navigate(['/pagina-funcionario']);
+            this.router.navigate(['/funcionario']);
             break;
-          case 'Costumer':
+          case 'Customer':
           default:
-            this.router.navigate(['/customer']);
+            this.router.navigate(['/cliente']);
             break;
         }
       } catch(error){

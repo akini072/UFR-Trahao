@@ -177,7 +177,7 @@ export class EmployeeManagementComponent {
           this.updateTotalPages();
         }
       }); */
-    this.router.navigate(['/cadastro-funcionario']);
+    this.router.navigate(['/funcionario/cadastro-funcionario']);
   };
 
   updateTotalPages() {
@@ -249,8 +249,7 @@ export class EmployeeManagementComponent {
   };
 
   onEdit = (id: number) => {
-
-    this.router.navigate(['/cadastro-funcionario'], { queryParams: { id } });
+    this.router.navigate(['/funcionario/cadastro-funcionario'], { queryParams: { id } });
   };
 
   onDelete = (id: number) => {

@@ -175,7 +175,7 @@ export class SolicitationsPageComponent implements OnInit, OnDestroy {
   }
 
   navigateToNewRequest = () => {
-    this.router.navigate(['nova-solicitacao']);
+    this.router.navigate(['/cliente/nova-solicitacao']);
   };
 
   applyFilter = (filter: string, value?: string) => {
