@@ -176,7 +176,7 @@ export class VisualizeServiceEmployeeComponent {
   };
 
   styles = {
-    main: 'container mx-auto p-4 max-w-4xl', // Adiciona max-width
+    main: 'container mx-auto p-4 max-w-4xl h-screen', // Adiciona max-width
     submain: 'mb-4 px-8 p-4 border rounded-lg shadow-sm flex flex-wrap bg-white',
     submain2: 'mb-4 p-4 border rounded-lg shadow-sm bg-white',
     title: 'text-2xl font-bold mb-4 text-center',

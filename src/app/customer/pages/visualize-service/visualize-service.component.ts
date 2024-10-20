@@ -10,6 +10,10 @@ import { ModalType } from '../../../core/types/modal-type';
 import { ModalResponse } from '../../../core/types/modal-response';
 import { ActivatedRoute } from '@angular/router';
 import { RequestsService } from '../../../core/utils/requests.service';
+import { CustomerService } from '../../../core/utils/customer.service';
+import { EquipCategoryService } from '../../../core/utils/equip-category.service';
+import { Customer } from '../../../core/types/customer';
+import { EquipCategory } from '../../../core/types/equip-category';
 
 @Component({
   selector: 'app-visualize-service',
@@ -21,7 +25,7 @@ import { RequestsService } from '../../../core/utils/requests.service';
     CommonModule,
     StatusStepperComponent,
   ],
-  providers: [RequestsService],
+  providers: [RequestsService, CustomerService, EquipCategoryService],
   templateUrl: './visualize-service.component.html',
   styleUrl: './visualize-service.component.css',
 })
@@ -32,49 +36,35 @@ export class VisualizeServiceComponent {
   rejected: boolean = false;
   pageTitle: string = '';
   request: Request;
+  customer: Customer;
+  equipCategory: EquipCategory;
   @ViewChild(StatusStepperComponent) statusStepper!: StatusStepperComponent;
 
   constructor(
-    private modal: ModalService, 
-    private view: ViewContainerRef, 
+    private modal: ModalService,
+    private view: ViewContainerRef,
     private route: ActivatedRoute,
-    private requestsService: RequestsService) {
-      try{
-        this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
-        this.requestsService.getRequestById(this.serviceId).then((data: Request) => {
-          this.request = data;
-          this.checkStatus();
-        });
-      } catch(error){
-        console.error(error);
-      }
-      this.request = {} as Request;
+    private requestsService: RequestsService,
+    private customerService: CustomerService,
+    private equipCategoryService: EquipCategoryService,
+  ) {
+    this.request = {} as Request;
+    this.customer = {} as Customer;
+    this.equipCategory = {} as EquipCategory;
+    this.initializeData();
   }
 
-  styles = {
-    container: "bg-gray-100 text-center py-10 min-h-screen",
-    card: "max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8",
-    title: "text-3xl font-bold mb-6 text-gray-800",
-    contentSection: "space-y-6",
-    labelText: "font-semibold text-gray-700 text-left",
-    valueText: "text-gray-600 text-right",
-    rowFlex: "flex justify-between items-center",
-    gridSection: "grid grid-cols-1 gap-4",
-    descriptionText: "break-words max-w-md",
-    defectSection: "flex flex-col items-start",
-    finalSection: "mt-6",
-    budgetText: "font-bold text-2xl text-green-600",
-    buttonContainer: "mt-6 flex justify-around",
-    button: "secondary-4",
-    tableContainer: "relative overflow-x-auto mt-10",
-    table: "w-full text-sm text-left text-gray-700",
-    tableHeader: "text-xs text-gray-700 uppercase bg-gray-200",
-    tableRow: "bg-white border-b",
-    tableCell: "px-6 py-4",
-    footer: "mt-10",
-    stepperContainer: "pt-10 max-w-3xl mx-auto"
-  };
-  
+  async initializeData() {
+    try {
+      this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
+      this.request = await this.requestsService.getRequestById(this.serviceId);
+      this.customer = await this.customerService.getCustomer(this.request.customerId);
+      this.equipCategory = await this.equipCategoryService.getEquipCategory(this.request.equipCategoryId);
+      this.checkStatus();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   onReject = () => {
     const data = {
@@ -83,8 +73,7 @@ export class VisualizeServiceComponent {
       label: 'Recusar',
     };
     this.modal.open(this.view, ModalType.INPUT, data).subscribe((value: ModalResponse) => {
-      //TEST: Adicionar o status de rejeitado ao nosso serviço
-      if(value.assert) {
+      if (value.assert) {
         this.request.status.push({
           requestStatusId: '2',
           dateTime: new Date(),
@@ -99,15 +88,13 @@ export class VisualizeServiceComponent {
   }
 
   onApprove = () => {
-    //Adicionar o Modal que aprova o nosso orçamento.
     const data = {
       title: 'Serviço Aprovado',
       message: 'Serviço aprovado no valor de R$ ' + this.request.budget + '.',
       label: 'Aprovar',
     };
     this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
-      //TEST: Adicionar o status de aprovado ao nosso serviço.
-      if(value.assert) {
+      if (value.assert) {
         this.request.status.push({
           requestStatusId: '3',
           dateTime: new Date(),
@@ -122,15 +109,13 @@ export class VisualizeServiceComponent {
   }
 
   onPay = () => {
-    //Adicioanr o Modal que paga.
     const data = {
       title: 'Pagar serviço',
       message: 'Confirmar pagamento?',
       label: 'Pagar',
     };
     this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
-      //TEST: Adicionar o status de pago ao nosso serviço.
-      if(value.assert) {
+      if (value.assert) {
         this.request.status.push({
           requestStatusId: '6',
           dateTime: new Date(),
@@ -145,15 +130,13 @@ export class VisualizeServiceComponent {
   };
 
   onRescue = () => {
-    //Adicionar o Modal que resgata
     const data = {
       title: 'Resgatar Serviço',
       message: 'Deseja resgatar e aprovar esse serviço?',
       label: 'Resgatar',
     };
     this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
-      //TEST: Adicionar o status de resgatado ao nosso serviço.
-      if(value.assert) {
+      if (value.assert) {
         this.request.status.push({
           requestStatusId: '4',
           dateTime: new Date(),
@@ -197,4 +180,17 @@ export class VisualizeServiceComponent {
         break;
     }
   }
+
+  styles = {
+    main: 'flex flex-col items-center justify-center bg-gray-100 h-screen', // Adiciona max-width
+    submain: 'mb-4 px-8 p-4 border rounded-lg shadow-sm flex flex-wrap bg-white w-full max-w-4xl',
+    submain2: 'mb-4 px-8 p-4 border rounded-lg shadow-sm bg-white w-full max-w-4xl',
+    title: 'text-2xl font-bold mb-4 text-center',
+    subtitle: 'text-2xl font-bold mb-4 basis-full',
+    basisHalf: 'basis-1/2 mb-4',
+    basisFull: 'basis-full mb-4',
+    semibold: 'font-semibold mb-2',
+    textWrap: 'break-words overflow-hidden', // Adiciona quebra de texto e oculta o excesso
+    textContainer: 'max-w-full', // Define a largura máxima do contêiner de texto
+  };
 }

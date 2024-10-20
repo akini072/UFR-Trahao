@@ -1,67 +1,63 @@
 <app-navbar></app-navbar>
-<div [ngClass]="styles.container">
-  <div [ngClass]="styles.card">
-    <h1 [ngClass]="styles.title">{{ pageTitle }}</h1>
-    <div [ngClass]="styles.contentSection">
+<div [ngClass]="styles.main">
+  <h1 [ngClass]="styles.title">{{ pageTitle }}</h1>
 
-      <div [ngClass]="styles.rowFlex">
-        <p [ngClass]="styles.labelText">Cliente:</p>
-        <p [ngClass]="styles.valueText">Nome do cliente</p>
+  <div [ngClass]="styles.submain"> <!-- requisition information -->
+    <h2 [ngClass]="styles.subtitle"> Informações do Pedido </h2>
+
+    <div [ngClass]="styles.basisHalf">
+      <div [ngClass]="styles.basisFull">
+        <p [ngClass]="styles.semibold">Descrição do equipamento</p>
+        <label>{{ request.equipmentDesc }}</label>
       </div>
 
-      <div [ngClass]="styles.rowFlex">
-        <label [ngClass]="styles.labelText">Categoria do equipamento:</label>
-        <p [ngClass]="styles.valueText">Computador</p>
+      <div [ngClass]="styles.basisHalf">
+        <p [ngClass]="styles.semibold">Categoria do equipamento</p>
+        <label>{{ equipCategory.categoryDesc }}</label>
       </div>
 
-      <div [ngClass]="styles.gridSection">
-        <div [ngClass]="styles.rowFlex">
-          <label [ngClass]="styles.labelText">Descrição do equipamento:</label>
-          <p [ngClass]="styles.descriptionText">{{request.equipmentDesc}}</p>
-        </div>
-
-        <div [ngClass]="styles.defectSection">
-          <label [ngClass]="styles.labelText" style="padding-bottom: 3px;">Descrição do defeito:</label>
-          <p [ngClass]="styles.valueText">{{ request.defectDesc }}</p>
-        </div>
+      <div [ngClass]="styles.basisFull">
+        <p [ngClass]="styles.semibold">Descrição do defeito</p>
+        <label [ngClass]="styles.textWrap">{{ request.defectDesc }}</label>
       </div>
+
+      <div [ngClass]="styles.basisFull" *ngIf="request.repairDesc">
+        <p [ngClass]="styles.semibold">Descrição do reparo</p>
+        <label [ngClass]="styles.textWrap">{{ request.repairDesc }}</label>
+      </div>
+
+      <div [ngClass]="styles.basisFull" *ngIf="request.customerOrientations">
+        <p [ngClass]="styles.semibold">Orientações ao cliente</p>
+        <label [ngClass]="styles.textWrap">{{request.customerOrientations}}</label>
+      </div>
+
     </div>
 
-    <div *ngIf="finalized || budgeted" [ngClass]="styles.finalSection">
-      <label [ngClass]="styles.budgetText">{{ request.budget | currency: 'R$' : 'symbol-narrow' : '4.2-2' }}</label>
-    </div>
-
-    <div [ngClass]="styles.buttonContainer" *ngIf="budgeted">
-      <div>
-        <app-button
-          [props]="{text: 'Aprovar Serviço', color: styles.button, size: 'large', textColor: 'white', hoverColor: 'secondary-6', onClick: onApprove}">
-        </app-button>
-      </div>
-      <div>
-        <app-button
-          [props]="{text: 'Rejeitar Serviço', color: styles.button, size: 'large', textColor: 'white', hoverColor: 'secondary-6', onClick: onReject}">
-        </app-button>
-      </div>
-    </div>
-
-    <div *ngIf="finalized" [ngClass]="styles.finalSection">
-      <div>
-        <app-button
-          [props]="{text: 'Pagar', color: styles.button, size: 'large', textColor: 'white', hoverColor: 'secondary-6', onClick: onPay}">
-        </app-button>
-      </div>
-    </div>
-
-    <div *ngIf="rejected" [ngClass]="styles.finalSection">
-      <div>
-        <app-button
-          [props]="{text: 'Resgatar Serviço', color: styles.button, size: 'large', textColor: 'white', hoverColor: 'secondary-6', onClick: onRescue}">
-        </app-button>
-      </div>
+    <div [ngClass]="styles.basisHalf">
+      <app-status-stepper></app-status-stepper>
     </div>
   </div>
-  <div [ngClass]="styles.stepperContainer">
-    <app-status-stepper statusStepper class="mt-10"></app-status-stepper>
+
+  <div *ngIf="budgeted" [ngClass]="styles.submain2">
+    <h2 [ngClass]="styles.subtitle">Ações</h2>
+    <p [ngClass]="styles.semibold">Valor do orçamento:</p>
+    <label class="block mb-4">{{ request.budget | currency: 'BRL' }}</label>
+    <app-button class="me-4"
+      [props]="{text: 'Aprovar Serviço', icon: '', iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onApprove}"></app-button>
+    <app-button
+      [props]="{text: 'Rejeitar Serviço', icon: '', iconPosition: 'left', color: 'gray-400', size: 'medium', textColor: 'black', hoverColor: 'gray-300', onClick: onReject}"></app-button>
+  </div>
+
+  <div *ngIf="finalized" [ngClass]="styles.submain2">
+    <h2 [ngClass]="styles.subtitle">Ações</h2>
+    <app-button class="me-4"
+      [props]="{text: 'Pagar', icon: '', iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onPay}"></app-button>
+  </div>
+
+  <div *ngIf="rejected" [ngClass]="styles.submain2">
+    <h2 [ngClass]="styles.subtitle">Ações</h2>
+    <app-button class="me-4"
+      [props]="{text: 'Resgatar Serviço', icon: '', iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onRescue}"></app-button>
   </div>
 </div>
-<app-footer [ngClass]="styles.footer"></app-footer>
+<app-footer></app-footer>
