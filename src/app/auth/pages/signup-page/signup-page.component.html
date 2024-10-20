@@ -53,6 +53,20 @@
           />
         </div>
 
+        <div [ngClass]="style.sectionT3">
+          <label [ngClass]="style.lable" for="phone"
+            >Telefone<span class="{{ style.requiredSpan }}">*</span></label
+          >
+          <app-form-input
+            id="phone"
+            type="text"
+            placeholder="Seu número com DDD"
+            [control]="telefone"
+            [validations]="['required']"
+            mask="phone"
+          />
+        </div>
+
         <hr />
 
         <div [ngClass]="style.sectionT3">
@@ -64,7 +78,6 @@
             placeholder="Digite seu CEP"
             [control]="cep"
             [validations]="['required', 'cep']"
-            class="w-full md:w-2/3 lg:w-1/2"
             mask="cep"
           />
         </div>

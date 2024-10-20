@@ -33,6 +33,7 @@ export class SignupPageComponent {
   nome: FormControl;
   sobrenome: FormControl;
   email: FormControl;
+  telefone: FormControl;
   cpf: FormControl;
   cep: FormControl;
   logradouro: FormControl;
@@ -52,6 +53,7 @@ export class SignupPageComponent {
       sobrenome: new FormControl(''),
       email: new FormControl(''),
       cpf: new FormControl(''),
+      telefone: new FormControl(''),
       cep: new FormControl(''),
       logradouro: new FormControl(''),
       cidade: new FormControl(''),
@@ -62,6 +64,7 @@ export class SignupPageComponent {
     this.sobrenome = this.formGroup.get('sobrenome') as FormControl;
     this.email = this.formGroup.get('email') as FormControl;
     this.cpf = this.formGroup.get('cpf') as FormControl;
+    this.telefone = this.formGroup.get('telefone') as FormControl;
     this.cep = this.formGroup.get('cep') as FormControl;
     this.logradouro = this.formGroup.get('logradouro') as FormControl;
     this.cidade = this.formGroup.get('cidade') as FormControl;
@@ -132,7 +135,7 @@ export class SignupPageComponent {
     signInBox: 'bg-white p-6 md:p-6 lg:p-10 xl:p-12 my-8 rounded shadow-md w-full max-w-sm md:max-w-lg lg:max-w-2xl xl:max-w-3xl relative',
     title: 'text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center',
     lable: 'text-gray-700 text-sm md:text-base text-center p-1 m-2 font-bold mb-2',
-    input: 'shadow appearance-none border rounded w-full md:w-2/3 lg:w-1/2 my-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+    input: 'shadow appearance-none border rounded md:w-2/3 lg:w-1/2 my-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
     inputBlocked: 'shadow appearance-none border border-gray-300 rounded w-full md:w-2/3 lg:w-1/2 my-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100',
     button: 'bg-secondary-4 hover:bg-secondary-6 text-white font-bold mt-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline',
     sectionT1: 'flex flex-col md:flex-row md:justify-between w-full',
