@@ -6,5 +6,6 @@ export interface RequestItem {
   description: string;
   status: RequestCategory;
   created_at: string;
+  client: string;
   image: string;
 }
