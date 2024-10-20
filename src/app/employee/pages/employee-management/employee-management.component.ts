@@ -260,7 +260,7 @@ export class EmployeeManagementComponent {
         label: 'Ok',
       };
       this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
-        console.log(value);
+
       });
       return;
     }

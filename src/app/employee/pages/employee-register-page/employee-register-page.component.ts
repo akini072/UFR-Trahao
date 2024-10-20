@@ -85,7 +85,6 @@ export class EmployeeRegisterPageComponent implements OnInit {
 
   onRegister = () => {
     if (this.formGroup.valid) {
-      console.log({ email: this.email.value });
       this.router.navigate(['/funcionarios']);
     } else {
       this.error = true;
@@ -94,7 +93,6 @@ export class EmployeeRegisterPageComponent implements OnInit {
 
   onUpdate = () => {
     if (this.formGroup.valid) {
-      console.log({ email: this.email.value });
       this.router.navigate(['/funcionarios']);
     } else {
       this.error = true;
