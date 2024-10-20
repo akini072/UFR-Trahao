@@ -1,24 +1,16 @@
+import { EquipCategoryService } from './../../../core/utils/equip-category.service';
 import { Component, Renderer2, ViewContainerRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
-import {
-  ButtonComponent,
-  ButtonProps,
-} from '../../../core/components/button/button.component';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { RequestsService } from '../../../core/utils/requests.service';
+import { ButtonComponent, ButtonProps } from '../../../core/components/button/button.component';
 import { CategoryTableComponent } from './components/category-table/category-table.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { ModalService } from '../../../core/utils/modal.service';
 import { ModalType } from '../../../core/types/modal-type';
 import { ModalResponse } from '../../../core/types/modal-response';
+import { EquipCategory } from '../../../core/types/equip-category';
 
-export interface CategoryItem {
-  id: number;
-  name: string;
-}
 @Component({
   selector: 'app-category-management',
   standalone: true,
@@ -30,6 +22,7 @@ export interface CategoryItem {
     CategoryTableComponent,
     FormInputComponent,
   ],
+  providers: [EquipCategoryService],
   templateUrl: './category-management.component.html',
   styleUrl: './category-management.component.css',
 })
@@ -42,53 +35,25 @@ export class CategoryManagementComponent {
   activeFilters: { filter: string; value?: string }[] = [];
   displayTable: boolean = false;
 
-  categoryList: CategoryItem[] = [
-    { id: 1, name: 'Placa-Mãe' },
-    { id: 2, name: 'Processador' },
-    { id: 3, name: 'Memória RAM' },
-    { id: 4, name: 'Disco Rígido' },
-    { id: 5, name: 'SSD' },
-    { id: 6, name: 'Placa de Vídeo' },
-    { id: 7, name: 'Fonte de Alimentação' },
-    { id: 8, name: 'Gabinete' },
-    { id: 9, name: 'Monitor' },
-    { id: 10, name: 'Teclado' },
-    { id: 11, name: 'Mouse' },
-    { id: 12, name: 'Impressora' },
-    { id: 13, name: 'Scanner' },
-    { id: 14, name: 'Roteador' },
-    { id: 15, name: 'Switch' },
-  ];
+  equipCategoryList: EquipCategory[] = [];
+  activeEquipCategoryList: EquipCategory[] = [];
 
-  activeCategoryList: CategoryItem[] = [];
-
-  style = {
-    navbar: '',
-    titleContainer: 'flex justify-between px-16 items-center',
-    title: 'px-4 text-2xl font-bold text-primary-8 my-8',
-    container: 'flex w-full px-4 my-8 mx-auto',
-    innerContainer: 'flex justify-end  gap-4',
-    searchContainer: 'flex flex-1 justify-end px-16 mb-8 gap-2',
-    paginationControl:
-      'w-10/12 m-auto flex justify-end my-4 items-center text-center',
-    pageText: 'border p-2 text-sm',
-    pageTopContainer: 'flex justify-between w-full items-center px-16',
-    tableDisplay: 'flex justify-center m-auto rounded-lg w-3/4',
-    filterContainer: 'flex place-items-end',
-    switchContainer: 'h-8',
-    wrapper: 'min-h-screen py-4',
-  };
   constructor(
     private modal: ModalService,
     private view: ViewContainerRef,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private equipCategoryService: EquipCategoryService,
   ) {
     this.updateTotalPages();
     this.updateItemsPerPage(window.innerWidth);
   }
 
   ngOnInit(): void {
-    this.activeCategoryList = this.categoryList;
+    this.equipCategoryService.getEquipCategoryList().then((categories) => {
+      this.equipCategoryList = categories;
+      this.activeEquipCategoryList = this.equipCategoryList;
+      this.updateTotalPages();
+    });
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
       this.updateItemsPerPage(event.target.innerWidth);
       this.updateTotalPages();
@@ -119,13 +84,13 @@ export class CategoryManagementComponent {
 
   searchKeyboard(event: Event): void {
     const searchQuery = (event.target as HTMLInputElement).value.toLowerCase();
-    const filteredList = this.categoryList.filter((item) => {
+    const filteredList = this.equipCategoryList.filter((item) => {
       return this.activeFilters.every(
-        (f) => item[f.filter as keyof CategoryItem] === f.value
+        (f) => item[f.filter as keyof EquipCategory] === f.value
       );
     });
 
-    this.activeCategoryList = filteredList.filter((item) => {
+    this.activeEquipCategoryList = filteredList.filter((item) => {
       return Object.values(item).some((val) =>
         val.toString().toLowerCase().includes(searchQuery)
       );
@@ -136,7 +101,6 @@ export class CategoryManagementComponent {
   }
 
   onAddCategory = () => {
-
     this.modal
       .open(this.view, ModalType.INPUT, {
         title: 'Adicionar categoria',
@@ -145,9 +109,9 @@ export class CategoryManagementComponent {
       })
       .subscribe((value) => {
         if (value.assert) {
-          this.activeCategoryList = [
-            ...this.activeCategoryList,
-            { id: this.activeCategoryList.length + 1, name: value.message || '' },
+          this.activeEquipCategoryList = [
+            ...this.activeEquipCategoryList,
+            { equipCategoryId: this.activeEquipCategoryList.length + 1, categoryDesc: value.message || '', active: true },
           ];
           this.updateTotalPages();
         }
@@ -156,26 +120,13 @@ export class CategoryManagementComponent {
 
   updateTotalPages() {
     this.totalPages =
-      Math.ceil(this.activeCategoryList.length / this.itemsPerPage) || 1;
+      Math.ceil(this.activeEquipCategoryList.length / this.itemsPerPage) || 1;
   }
 
-  getPaginatedRequests(searchQuery?: string): CategoryItem[] {
+  getPaginatedRequests(): EquipCategory[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-
-    let list = this.activeCategoryList;
-
-    if (searchQuery) {
-      list = list.filter((item) =>
-        item.name.toLocaleLowerCase().includes(searchQuery)
-      );
-    }
-
-    this.activeCategoryList = list;
-
-    this.updateTotalPages();
-
-    return list.slice(startIndex, endIndex);
+    return this.activeEquipCategoryList.slice(startIndex, endIndex);
   }
 
   nextPage = () => {
@@ -215,9 +166,9 @@ export class CategoryManagementComponent {
       }
     }
 
-    this.activeCategoryList = this.categoryList.filter((item) => {
+    this.activeEquipCategoryList = this.equipCategoryList.filter((item) => {
       return this.activeFilters.every(
-        (f) => item[f.filter as keyof CategoryItem] === f.value
+        (f) => item[f.filter as keyof EquipCategory] === f.value
       );
     });
   };
@@ -231,14 +182,14 @@ export class CategoryManagementComponent {
       })
       .subscribe((value: ModalResponse) => {
         if (value.assert) {
-          const newActiveList = this.activeCategoryList.map((item) => {
-            if (item.id === id) {
-              return { ...item, name: value.message || '' };
+          const newActiveList = this.activeEquipCategoryList.map((item) => {
+            if (item.equipCategoryId === id) {
+              return { ...item, categoryDesc: value.message || '' };
             }
             return item;
           });
 
-          this.activeCategoryList = newActiveList as CategoryItem[];
+          this.activeEquipCategoryList = newActiveList as EquipCategory[];
         }
       });
   };
@@ -252,10 +203,11 @@ export class CategoryManagementComponent {
       })
       .subscribe((value) => {
         if (value.assert) {
-          const newActiveList = this.activeCategoryList.filter(
-            (item) => item.id !== id
+          const newActiveList = this.activeEquipCategoryList.filter(
+            (item) => item.equipCategoryId !== id
           );
-          this.activeCategoryList = newActiveList as CategoryItem[];
+          this.activeEquipCategoryList = newActiveList as EquipCategory[];
+          this.updateTotalPages();
         }
       });
   };
@@ -289,5 +241,20 @@ export class CategoryManagementComponent {
     textColor: 'white',
     hoverColor: 'primary-6',
     onClick: this.onAddCategory,
-  };  
+  };
+
+  style = {
+    titleContainer: 'flex justify-between px-16 items-center',
+    title: 'px-4 text-2xl font-bold text-primary-8 my-8',
+    container: 'flex w-full px-4 my-8 mx-auto',
+    innerContainer: 'flex justify-end  gap-4',
+    searchContainer: 'flex flex-1 justify-end px-16 mb-8 gap-2',
+    paginationControl: 'w-10/12 m-auto flex justify-end my-4 items-center text-center',
+    pageText: 'border p-2 text-sm',
+    pageTopContainer: 'flex justify-between w-full items-center px-16',
+    tableDisplay: 'flex justify-center m-auto rounded-lg w-3/4',
+    filterContainer: 'flex place-items-end',
+    switchContainer: 'h-8',
+    wrapper: 'min-h-screen py-4',
+  };
 }
