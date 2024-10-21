@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { RequestCategory } from '../../types/request-category';
+import { AuthService } from '../../../auth/utils/auth.service';
 interface ButtonStatus {
   type: RequestCategory;
   name: string;
@@ -13,6 +14,7 @@ interface ButtonStatus {
   selector: 'app-button-status',
   standalone: true,
   imports: [CommonModule, RouterModule],
+  providers: [AuthService],
   templateUrl: './button-status.component.html',
   styleUrl: './button-status.component.css',
 })
@@ -26,39 +28,43 @@ export class ButtonStatusComponent implements OnInit {
     cardButton: `text-xs p-2 cursor-pointer text-default-white font-semibold rounded`
   }
 
+  constructor(private authService: AuthService) {}
+  
+  
+  clientURI = this.authService.getCurrentUser().profile === 'Customer' ? '/cliente' : '/funcionario';
   ngOnInit() {
      this.buttonOptions = [
       {
         type: 'open',
         name: 'ABERTA',
-        route: '',
+        route: `${this.clientURI}/visualizar-servico/${this.id}`,
         isDisabled: true,
       },
-      { type: 'budgeted', name: 'APROVAR/REJEITAR', route: 'visualizar-servico/'+this.id },
-      { type: 'rejected', name: 'RESGATAR', route: 'visualizar-servico/'+this.id },
+      { type: 'budgeted', name: 'APROVAR/REJEITAR', route: `${this.clientURI}/visualizar-servico/${this.id}`},
+      { type: 'rejected', name: 'RESGATAR', route: `${this.clientURI}/visualizar-servico/${this.id}` },
       {
         type: 'approved',
         name: 'APROVADA',
-        route: '',
+        route: `${this.clientURI}/visualizar-servico/${this.id}`,
         isDisabled: true,
       },
       {
         type: 'redirected',
         name: 'REDIRECIONADA',
-        route: '',
+        route: `${this.clientURI}/visualizar-servico/${this.id}`,
         isDisabled: true,
       },
-      { type: 'fixed', name: 'PAGAR', route: 'visualizar-servico/'+this.id },
+      { type: 'fixed', name: 'PAGAR', route: `${this.clientURI}/visualizar-servico/${this.id}`},
       {
         type: 'paid',
         name: 'PAGO',
-        route: '',
+        route: `${this.clientURI}/visualizar-servico/${this.id}`,
         isDisabled: true,
       },
       {
         type: 'finalized',
         name: 'FINALIZADA',
-        route: '',
+        route: `${this.clientURI}/visualizar-servico/${this.id}`,
         isDisabled: true,
       },
     ];
