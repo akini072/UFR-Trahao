@@ -182,7 +182,7 @@ export class VisualizeServiceComponent {
   }
 
   styles = {
-    main: 'flex flex-col items-center justify-center bg-gray-100 h-screen', // Adiciona max-width
+    main: 'flex flex-col items-center justify-center bg-gray-100 min-h-screen', // Adiciona max-width
     submain: 'mb-4 px-8 p-4 border rounded-lg shadow-sm flex flex-wrap bg-white w-full max-w-4xl',
     submain2: 'mb-4 px-8 p-4 border rounded-lg shadow-sm bg-white w-full max-w-4xl',
     title: 'text-2xl font-bold mb-4 text-center',
