@@ -65,6 +65,7 @@ export class ButtonStatusComponent implements OnInit {
   }
 
   selectButton(status: RequestCategory) {
+    console.log(status);
     return this.buttonOptions.find((button) => button.type === status);
   }
 }
