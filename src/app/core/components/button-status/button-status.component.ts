@@ -37,7 +37,7 @@ export class ButtonStatusComponent implements OnInit {
       {
         type: 'open',
         name: 'ABERTA',
-        route: '',
+        route: `${this.clientURI}/visualizar-servico/${this.id}`,
         isDisabled: true,
       },
       { type: 'budgeted', name: 'APROVAR/REJEITAR', route: `${this.clientURI}/visualizar-servico/${this.id}`},
@@ -45,26 +45,26 @@ export class ButtonStatusComponent implements OnInit {
       {
         type: 'approved',
         name: 'APROVADA',
-        route: '',
+        route: `${this.clientURI}/visualizar-servico/${this.id}`,
         isDisabled: true,
       },
       {
         type: 'redirected',
         name: 'REDIRECIONADA',
-        route: '',
+        route: `${this.clientURI}/visualizar-servico/${this.id}`,
         isDisabled: true,
       },
       { type: 'fixed', name: 'PAGAR', route: `${this.clientURI}/visualizar-servico/${this.id}`},
       {
         type: 'paid',
         name: 'PAGO',
-        route: '',
+        route: `${this.clientURI}/visualizar-servico/${this.id}`,
         isDisabled: true,
       },
       {
         type: 'finalized',
         name: 'FINALIZADA',
-        route: '',
+        route: `${this.clientURI}/visualizar-servico/${this.id}`,
         isDisabled: true,
       },
     ];
