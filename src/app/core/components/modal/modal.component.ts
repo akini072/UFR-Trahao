@@ -4,11 +4,14 @@ import { Observable, Subscriber } from 'rxjs';
 import { FormInputComponent } from '../form-input/form-input.component';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ModalResponse } from '../../types/modal-response';
+import { EmployeeService } from '../../utils/employee.service';
+import { Employee } from '../../types/employee';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [CommonModule, FormInputComponent],
+  imports: [CommonModule, FormInputComponent, HttpClientModule],
   templateUrl: './modal.component.html',
 })
 export abstract class ModalComponent {
@@ -17,10 +20,14 @@ export abstract class ModalComponent {
   label: string;
   showInput: boolean = false;
   showCancel: boolean = false;
+  showSelectEmployee: boolean = false;
   error: boolean = false;
   lifeCycle!: Subscriber<ModalResponse>;
   formGroup!: FormGroup;
   inputControl!: FormControl;
+  employeeList!: Employee[];
+  employeeService!: EmployeeService;
+  http: HttpClient;
 
   style = {
     screen: 'flex items-center justify-center bg-gray-700/40 z-10 fixed top-0 left-0 w-full h-full',
@@ -32,12 +39,15 @@ export abstract class ModalComponent {
     input: 'w-full p-0',
     error: 'text-red-500 text-sm italic',
     title: 'text-lg font-bold',
+    select: 'border-2 border-primary-6 p-2 rounded text-primary-6',
+
   }
 
-  constructor(@Inject('data') data: { [key: string]: string }) {
+  constructor(@Inject('data') data: { [key: string]: string }, http: HttpClient) {
     this.title = data['title'];
     this.message = data['message'];
     this.label = data['label'];
+    this.http = http;
   }
 
   /**
