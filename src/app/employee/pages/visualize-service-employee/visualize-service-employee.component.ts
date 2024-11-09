@@ -118,7 +118,7 @@ export class VisualizeServiceEmployeeComponent {
       message: 'Por favor, informe o nome do funcionario a redirecionar',
       label: 'Redirecionar',
     };
-    this.modal.open(this.view, ModalType.INPUT, data).subscribe((value: ModalResponse) => {
+    this.modal.open(this.view, ModalType.SELECT_EMPLOYEE, data).subscribe((value: ModalResponse) => {
       if (value.assert) {
         this.request.status.push({
           requestStatusId: '4',
