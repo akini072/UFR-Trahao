@@ -9,15 +9,15 @@
       <app-form-input id="input" type="text" placeholder="Informe" [ngClass]="style.input" [control]="inputControl" [validations]="['required']"></app-form-input>
       <span *ngIf="error" [ngClass]="style.error">O campo não deve estar vazio</span>
     }
-    @if(showSelectEmployee){
+    <div *ngIf="showSelectEmployee">
       <div>
-        <select name="employee" id="employee" [ngClass]="style.select">
+        <select name="employee" id="employee" [ngClass]="style.select" (change)="onChangeSelect($event)" formControlName="employee">
           <option value="" disabled selected>Selecione um funcionário</option>
-          <option *ngFor="let employee of employeeList" [value]="employee.id">{{ employee.name }}</option>
+          <ng-container *ngFor="let employee of employeeList">
+            <option [value]="employee.id" *ngIf="employee.name !== userName">{{ employee.name }}</option>
+          </ng-container>
         </select>
       </div>
-      <span *ngIf="error" [ngClass]="style.error">O campo não deve estar vazio</span>
-    }
     <div [ngClass]="style.footer">
       @if(showCancel){
       <button type="button" [ngClass]="style.button" (click)="cancel()">Cancelar</button>

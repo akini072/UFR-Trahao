@@ -16,7 +16,7 @@ export class ModalSelectEmployee extends ModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
-      input: new FormControl(''),
+      employee: new FormControl(''),
     });
     this.inputControl = this.formGroup.get('employee') as FormControl;
     this.showSelectEmployee = true;
