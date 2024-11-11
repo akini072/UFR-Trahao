@@ -2,16 +2,18 @@ import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable, Subscriber } from 'rxjs';
 import { FormInputComponent } from '../form-input/form-input.component';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ModalResponse } from '../../types/modal-response';
 import { EmployeeService } from '../../utils/employee.service';
 import { Employee } from '../../types/employee';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../../../auth/utils/auth.service';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [CommonModule, FormInputComponent, HttpClientModule],
+  imports: [CommonModule, FormInputComponent, HttpClientModule, ReactiveFormsModule],
+  providers: [EmployeeService, AuthService],
   templateUrl: './modal.component.html',
 })
 export abstract class ModalComponent {
@@ -28,6 +30,8 @@ export abstract class ModalComponent {
   employeeList!: Employee[];
   employeeService!: EmployeeService;
   http: HttpClient;
+  auth: AuthService;
+  userName: string = "";
 
   style = {
     screen: 'flex items-center justify-center bg-gray-700/40 z-10 fixed top-0 left-0 w-full h-full',
@@ -43,11 +47,13 @@ export abstract class ModalComponent {
 
   }
 
-  constructor(@Inject('data') data: { [key: string]: string }, http: HttpClient) {
+  constructor(@Inject('data') data: { [key: string]: string }, http: HttpClient, auth: AuthService) {
     this.title = data['title'];
     this.message = data['message'];
     this.label = data['label'];
     this.http = http;
+    this.auth = auth;
+    this.userName = this.auth.getCurrentUser().name;
   }
 
   /**
@@ -78,6 +84,13 @@ export abstract class ModalComponent {
   cancel(): void {
     this.lifeCycle.next({ assert: false });
     this.lifeCycle.complete();
+  }
+
+  onChangeSelect(event: Event): void {
+    if (event.target) {
+      console.log((event.target as HTMLInputElement).value)
+      this.inputControl.setValue((event.target as HTMLInputElement).value);
+    }
   }
   
   abstract checkModal(): { [key: string]: boolean };
