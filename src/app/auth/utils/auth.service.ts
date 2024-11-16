@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Credentials } from '../types/credentials';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  user = {
+  /*user = {
     'name': 'Leonardo Salgado',
     'email': 'leosalgado2004@gmail.com',
     'password': '1234'
@@ -15,9 +17,11 @@ export class AuthService {
     'name': 'Alisson Gabriel Santos',
     'email': 'alisson.gab.santos@gmail.com',
     'password': '1234'
-  }
+  }*/
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
+
+  private baseUrl = 'http://localhost:8080/service/v1/auth'
 
   public getCurrentUser(): Credentials {
     const user = sessionStorage.getItem('credentials');
@@ -27,7 +31,7 @@ export class AuthService {
     return JSON.parse(user);
   }
 
-  login(email: string, password: string): Credentials {
+  /*login(email: string, password: string): Credentials {
     if(email == this.user.email && password == this.user.password){
       const credentials: Credentials = {'name': this.user.name, 'profile': 'Customer'}
       sessionStorage.setItem('credentials', JSON.stringify(credentials));
@@ -39,6 +43,11 @@ export class AuthService {
       return credentials;
     }
     throw Error("Usuário ou senha inválidos");
+  }*/
+
+  login(email: string,password: string): Observable<Credentials>{
+    const params= { email, password };
+    return this.http.post<Credentials>(`${this.baseUrl}/login`,null, {params});
   }
 
   logout() {
