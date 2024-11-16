@@ -8,6 +8,7 @@ import { Router, RouterModule } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../utils/auth.service';
 import { Credentials } from '../../types/credentials';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-page',
@@ -20,6 +21,7 @@ import { Credentials } from '../../types/credentials';
     ButtonComponent,
     RouterModule,
     ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [ AuthService ],
   templateUrl: './login-page.component.html',
@@ -31,7 +33,7 @@ export class LoginPageComponent {
   password: FormControl;
   error: boolean = false;
   signUpRouterLink: string = '/cadastro';
-  
+
   constructor(private router: Router, private auth: AuthService) {
     this.formGroup = new FormGroup({
       email: new FormControl(''),
@@ -40,10 +42,28 @@ export class LoginPageComponent {
     this.email = this.formGroup.get('email') as FormControl;
     this.password = this.formGroup.get('password') as FormControl;
   }
-  
+
   onLogin = () => {
     if (this.formGroup.valid) {
-      try{
+      this.auth.login(this.email.value, this.password.value).subscribe({
+        next: (credentials: Credentials) =>{
+          switch (credentials.profile){
+            case 'Employee':
+              this.router.navigate(['/funcionario']);
+              break;
+            case 'Customer':
+            default:
+              this.router.navigate(['/cliente']);
+              break;
+          }
+        },
+        error: (err) => {
+          console.error('Erro de login: ',err);
+          this.formGroup.setErrors({credentials: true});
+          this.error = true;
+        },
+      });
+      /*try{
         let credentials: Credentials = this.auth.login(this.email.value, this.password.value);
         switch(credentials.profile){
           case 'Employee':
@@ -58,12 +78,12 @@ export class LoginPageComponent {
         this.formGroup.setErrors({credentials: true});
         this.formGroup.updateValueAndValidity;
         this.error = true;
-      }
+      }*/
     } else {
       this.error = true;
     }
   };
-  
+
   enter(event: KeyboardEvent) {
     if (event.key === 'Enter') {
       this.onLogin();
