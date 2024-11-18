@@ -56,13 +56,14 @@ export class AuthService {
         map((response) => {
           // Salvar o token na sessão
           const token = (response as any).token; // Supondo que o token seja retornado no campo 'token'
-          sessionStorage.setItem('credentials', JSON.stringify(response));
+          sessionStorage.setItem('token', JSON.stringify(response));
 
           // Decodificar o token JWT
           const decodedToken = this.decodeToken(token);
           console.log('Token decodificado:', decodedToken);
 
-          return response;
+          sessionStorage.setItem('credentials',JSON.stringify(decodedToken));
+          return decodedToken;
         })
       );
   }
