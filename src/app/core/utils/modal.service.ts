@@ -6,6 +6,7 @@ import { ModalType } from '../types/modal-type';
 import { ModalInputComponent } from '../components/modal/modal-input/modal-input.component';
 import { ModalConfirmComponent } from '../components/modal/modal-confirm/modal-confirm.component';
 import { ModalResponse } from '../types/modal-response';
+import { ModalSelectEmployee } from '../components/modal/modal-select-employee/modal-select-employee.component';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,8 @@ export class ModalService {
    */
   private modalFactory(): Type<ModalComponent> {
     switch(this.type){
+      case ModalType.SELECT_EMPLOYEE:
+        return ModalSelectEmployee;
       case ModalType.INPUT:
         return ModalInputComponent;
       case ModalType.CONFIRM:

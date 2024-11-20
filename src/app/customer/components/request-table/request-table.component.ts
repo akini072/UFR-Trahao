@@ -1,8 +1,6 @@
 import {
-  ChangeDetectorRef,
   Component,
   Input,
-  input,
   OnChanges,
   OnInit,
   SimpleChanges,
@@ -28,7 +26,7 @@ import { ButtonComponent } from '../../../core/components/button/button.componen
     GlobalTableComponent,
     ButtonComponent,
   ],
-  providers: [StatusTextPipe, DatePipe],
+  providers: [StatusTextPipe, DatePipe, LimitedDescriptionPipe],
   templateUrl: './request-table.component.html',
   styleUrl: './request-table.component.css',
 })
@@ -42,7 +40,8 @@ export class RequestTableComponent implements OnInit, OnChanges {
 
   constructor(
     private statusTextPipe: StatusTextPipe,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private limitedDescriptionPipe: LimitedDescriptionPipe
   ) {}
 
   formattedRequests: {
@@ -69,6 +68,7 @@ export class RequestTableComponent implements OnInit, OnChanges {
     this.formattedRequests = this.requests.map((req) => {
       return {
         ...req,
+        description: this.limitedDescriptionPipe.transform(req.description, 30),
         created_at: this.datePipe.transform(req.created_at, 'dd/MM/yyyy') || '',
         formattedStatus: this.statusTextPipe.transform(req.status),
       };
@@ -77,6 +77,7 @@ export class RequestTableComponent implements OnInit, OnChanges {
     this.formattedReportData = this.reportData.map((req) => {
       return {
         ...req,
+        description: this.limitedDescriptionPipe.transform(req.description, 30),
         created_at: this.datePipe.transform(req.created_at, 'dd/MM/yyyy') || '',
         formattedStatus: this.statusTextPipe.transform(req.status),
       };
