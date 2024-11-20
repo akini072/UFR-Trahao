@@ -118,7 +118,7 @@ export class VisualizeServiceEmployeeComponent {
       message: 'Por favor, informe o nome do funcionario a redirecionar',
       label: 'Redirecionar',
     };
-    this.modal.open(this.view, ModalType.INPUT, data).subscribe((value: ModalResponse) => {
+    this.modal.open(this.view, ModalType.SELECT_EMPLOYEE, data).subscribe((value: ModalResponse) => {
       if (value.assert) {
         this.request.status.push({
           requestStatusId: '4',
@@ -176,7 +176,7 @@ export class VisualizeServiceEmployeeComponent {
   };
 
   styles = {
-    main: 'container mx-auto p-4 max-w-4xl h-screen', // Adiciona max-width
+    main: 'container mx-auto p-4 max-w-4xl min-h-screen', // Adiciona max-width
     submain: 'mb-4 px-8 p-4 border rounded-lg shadow-sm flex flex-wrap bg-white',
     submain2: 'mb-4 p-4 border rounded-lg shadow-sm bg-white',
     title: 'text-2xl font-bold mb-4 text-center',
