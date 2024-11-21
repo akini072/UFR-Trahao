@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    baseUrl: 'assets/mocks/'
+    baseUrl: 'http://localhost:8080/service/v1/'
   };

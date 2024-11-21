@@ -10,7 +10,8 @@ import { RequestItem } from '../types/request-item';
   providedIn: 'root',
 })
 export class RequestsService {
-  private baseUrl: string = environment.baseUrl;
+  //private baseUrl: string = environment.baseUrl;
+  private baseUrl: string = "assets/mocks/";
 
   constructor(private http: HttpClient) {}
   
