@@ -1,23 +1,27 @@
 <div id="screen" [ngClass]="style.screen" (click)="close($event)">
   <div id="modal" [ngClass]="checkModal()">
     <div [ngClass]="style.header">
-      <button [ngClass]="style.close" (click)="close($event)"><span id="close" class="material-icons">close</span></button>
+      <button [ngClass]="style.close" (click)="close($event)"><span id="close"
+          class="material-icons">close</span></button>
       <h1 [ngClass]="style.title">{{ title }}</h1>
     </div>
     <p>{{ message }}</p>
     @if(showInput) {
-      <app-form-input id="input" type="text" placeholder="Informe" [ngClass]="style.input" [control]="inputControl" [validations]="['required']"></app-form-input>
-      <span *ngIf="error" [ngClass]="style.error">O campo não deve estar vazio</span>
+    <app-form-input id="input" type="text" placeholder="Informe" [ngClass]="style.input" [control]="inputControl"
+      [validations]="['required']"></app-form-input>
+    <span *ngIf="error" [ngClass]="style.error">O campo não deve estar vazio</span>
     }
     <div *ngIf="showSelectEmployee">
       <div>
-        <select name="employee" id="employee" [ngClass]="style.select" (change)="onChangeSelect($event)" formControlName="employee">
+        <select name="employee" id="employee" [ngClass]="style.select" (change)="onChangeSelect($event)"
+          formControlName="employee">
           <option value="" disabled selected>Selecione um funcionário</option>
           <ng-container *ngFor="let employee of employeeList">
             <option [value]="employee.id" *ngIf="employee.name !== userName">{{ employee.name }}</option>
           </ng-container>
         </select>
       </div>
+    </div>
     <div [ngClass]="style.footer">
       @if(showCancel){
       <button type="button" [ngClass]="style.button" (click)="cancel()">Cancelar</button>
