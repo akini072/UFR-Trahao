@@ -1,5 +1,5 @@
 export interface EquipCategory {
   equipCategoryId: number;
-  categoryDesc: string;
+  description: string;
   active: boolean;
 }

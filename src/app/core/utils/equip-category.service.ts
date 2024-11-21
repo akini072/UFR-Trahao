@@ -34,7 +34,7 @@ export class EquipCategoryService {
   public createEquipCategory(description: string): Observable<EquipCategory> {
     let token = this.authService.getAuthorizationToken();
     const headers = { Authorization: `Bearer ${token}` };
-    const equipCategory = { categoryDesc: description };
+    const equipCategory = { description: description };
     return this.http.post<EquipCategory>(this.baseUrl + 'equipment-category', equipCategory, { headers });
   }
 

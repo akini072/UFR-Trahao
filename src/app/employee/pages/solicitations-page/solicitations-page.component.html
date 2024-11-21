@@ -22,21 +22,28 @@
 </div>
 
 <div [ngClass]="style.container"></div>
-<div *ngIf="!displayTable" [ngClass]="style.requestGrid">
-  <app-request-card
+<div *ngIf="!displayTable">
+  <div [ngClass]="style.requestGrid">
+    <app-request-card
     *ngFor="let request of getPaginatedRequests(searchQuery)"
     [request]="request"
-  ></app-request-card>
+    ></app-request-card>
+  </div>
+  <app-pagination-control
+    [currentPage]="currentPage"
+    [nextPage]="nextPage"
+    [previousPage]="previousPage"
+    [totalPages]="totalPages"
+  />
 </div>
 <div *ngIf="displayTable" [ngClass]="style.tableDisplay">
-  <app-request-table [requests]="getPaginatedRequests()" />
-</div>
-
-<div [ngClass]="style.paginationControl">
-  <app-button [props]="leftButtonProp"></app-button>
-  <span [ngClass]="style.pageText"
-    >Página {{ currentPage }} de {{ totalPages }}</span
-  >
-  <app-button [props]="rightButtonProp"></app-button>
+  <app-request-table
+  [requests]="getPaginatedRequests()"
+  [totalPages]="totalPages"
+  [currentPage]="currentPage"
+  [nextPage]="nextPage"
+  [previousPage]="previousPage"
+  [reportData]="requestList"
+/>
 </div>
 <app-footer></app-footer>

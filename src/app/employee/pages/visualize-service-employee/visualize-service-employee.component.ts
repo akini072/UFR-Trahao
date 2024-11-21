@@ -43,7 +43,6 @@ export class VisualizeServiceEmployeeComponent {
     private route: ActivatedRoute,
     private requestsService: RequestsService,
     private customerService: CustomerService,
-    private equipCategoryService: EquipCategoryService,
     private employeeService: EmployeeService,
     private authService: AuthService
   ) {
@@ -58,7 +57,7 @@ export class VisualizeServiceEmployeeComponent {
       this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
       this.request = await this.requestsService.getRequestById(this.serviceId);
       this.customer = await this.customerService.getCustomer(this.request.customerId);
-      this.equipCategory = await this.equipCategoryService.getEquipCategory(this.request.equipCategoryId);
+      this.equipCategory = this.request.equipmentCategory || {} as EquipCategory;
       this.checkStatus();
     } catch (error) {
       console.error(error);

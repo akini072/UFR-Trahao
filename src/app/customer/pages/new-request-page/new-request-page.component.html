@@ -6,7 +6,7 @@
       <div [ngClass]="styles.formGroup">
         <label for="categoria" [ngClass]="styles.label">Categoria do equipamento</label>
         <select name="categoria" id="categoria" [ngClass]="styles.select">
-          <option *ngFor="let category of categoryList" [value]="category.equipCategoryId">{{ category.categoryDesc }}</option>
+          <option *ngFor="let category of categoryList" [value]="category.equipCategoryId">{{ category.description }}</option>
         </select>
       </div>
 
