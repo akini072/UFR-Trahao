@@ -6,6 +6,11 @@
     <h2 [ngClass]="styles.subtitle"> Informações do Pedido </h2>
 
     <div [ngClass]="styles.basisHalf">
+      <div *ngIf="!open" [ngClass]="styles.basisFull">
+        <p [ngClass]="styles.semibold">Valor do orçamento</p>
+        <label [ngClass]="styles.budget">{{ request.budget | currency }}</label>
+      </div>
+
       <div [ngClass]="styles.basisFull">
         <p [ngClass]="styles.semibold">Descrição do equipamento</p>
         <label>{{ request.equipmentDesc }}</label>

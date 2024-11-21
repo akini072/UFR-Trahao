@@ -34,6 +34,7 @@ export class VisualizeServiceComponent {
   budgeted: boolean = false;
   finalized: boolean = false;
   rejected: boolean = false;
+  open: boolean = false;
   pageTitle: string = '';
   request: Request;
   customer: Customer;
@@ -59,8 +60,10 @@ export class VisualizeServiceComponent {
       this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
       this.request = await this.requestsService.getRequestById(this.serviceId);
       this.customer = await this.customerService.getCustomer(this.request.customerId);
-      this.equipCategory = await this.equipCategoryService.getEquipCategory(this.request.equipCategoryId);
+      this.equipCategory = await this.equipCategoryService.getEquipCategory(this.request.equipCategoryId) || "Não identificado";
       this.checkStatus();
+      console.log("Depois do checkStatus");
+      console.log(this.finalized);
     } catch (error) {
       console.error(error);
     }
@@ -154,28 +157,40 @@ export class VisualizeServiceComponent {
     this.statusStepper.setStatusSteps(this.request.status);
     let status = this.request.status[this.request.status.length - 1].category;
     switch (status) {
+      case 'open':
+        this.rejected = false;
+        this.finalized = false;
+        this.budgeted = false;
+        this.open = true;
+        this.pageTitle = 'Serviço aberto';
+        break;
       case 'fixed':
         this.finalized = true;
         this.budgeted = false;
         this.rejected = false;
+        this.open = false;
         this.pageTitle = 'Pagar Serviço';
+        console.log(this.finalized);
         break;
       case 'budgeted':
         this.budgeted = true;
         this.finalized = false;
         this.rejected = false;
+        this.open = false;
         this.pageTitle = 'Serviço orçado';
         break;
       case 'rejected':
         this.rejected = true;
         this.finalized = false;
         this.budgeted = false;
+        this.open = false;
         this.pageTitle = 'Orçamento rejeitado';
         break;
       default:
         this.rejected = false;
         this.finalized = false;
         this.budgeted = false;
+        this.open = false;
         this.pageTitle = 'Visualizar Serviço';
         break;
     }
@@ -190,6 +205,7 @@ export class VisualizeServiceComponent {
     basisHalf: 'basis-1/2 mb-4',
     basisFull: 'basis-full mb-4',
     semibold: 'font-semibold mb-2',
+    budget: 'font-semibold text-2xl text-primary-7',
     textWrap: 'break-words overflow-hidden', // Adiciona quebra de texto e oculta o excesso
     textContainer: 'max-w-full', // Define a largura máxima do contêiner de texto
   };
