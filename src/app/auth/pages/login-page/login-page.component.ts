@@ -63,22 +63,6 @@ export class LoginPageComponent {
           this.error = true;
         },
       });
-      /*try{
-        let credentials: Credentials = this.auth.login(this.email.value, this.password.value);
-        switch(credentials.profile){
-          case 'Employee':
-            this.router.navigate(['/funcionario']);
-            break;
-            case 'Customer':
-              default:
-                this.router.navigate(['/cliente']);
-                break;
-        }
-      } catch(error){
-        this.formGroup.setErrors({credentials: true});
-        this.formGroup.updateValueAndValidity;
-        this.error = true;
-      }*/
     } else {
       this.error = true;
     }

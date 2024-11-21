@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Credentials } from '../types/credentials';
 import { Observable, map } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
 
@@ -8,59 +9,45 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root',
 })
 export class AuthService {
-  /*user = {
-    'name': 'Leonardo Salgado',
-    'email': 'leosalgado2004@gmail.com',
-    'password': '1234'
-  }
-
-  employee = {
-    'name': 'Alisson Gabriel Santos',
-    'email': 'alisson.gab.santos@gmail.com',
-    'password': '1234'
-  }*/
 
   constructor(private http: HttpClient) {}
 
-  private baseUrl = 'http://localhost:8080/service/v1/auth';
+  private baseUrl: string = environment.baseUrl;
 
   public getCurrentUser(): Credentials {
-    const user = sessionStorage.getItem('credentials');
-    if (user == null) {
+    const storedString = sessionStorage.getItem('credentials');
+    if (storedString == null) {
       throw Error('Nenhuma sessão ativa');
     }
-    return JSON.parse(user);
+    const user = JSON.parse(storedString) as Credentials;
+    if (user.exp < Date.now() / 1000) {
+      throw Error('Sessão expirada');
+    }
+    return user;
   }
 
-  /*login(email: string, password: string): Credentials {
-    if(email == this.user.email && password == this.user.password){
-      const credentials: Credentials = {'name': this.user.name, 'profile': 'Customer'}
-      sessionStorage.setItem('credentials', JSON.stringify(credentials));
-      return credentials;
+  public getAuthorizationToken(): string {
+    const token = sessionStorage.getItem('token');
+    if (token == null) {
+      throw Error('Nenhuma sessão ativa');
     }
-    if(email == this.employee.email && password == this.employee.password){
-      const credentials: Credentials = {'name': this.employee.name, 'profile': "Employee"}
-      sessionStorage.setItem('credentials', JSON.stringify(credentials));
-      return credentials;
-    }
-    throw Error("Usuário ou senha inválidos");
-  }*/
+    return token;
+  }
 
   login(email: string, password: string): Observable<Credentials> {
     const params = { email, password };
     return this.http
-      .post<Credentials>(`${this.baseUrl}/login`, null, {
+      .post<Credentials>(`${this.baseUrl}auth/login`, null, {
         params,
       })
       .pipe(
         map((response) => {
           // Salvar o token na sessão
           const token = (response as any).token; // Supondo que o token seja retornado no campo 'token'
-          sessionStorage.setItem('token', JSON.stringify(response));
+          sessionStorage.setItem('token', token);
 
           // Decodificar o token JWT
           const decodedToken = this.decodeToken(token);
-          console.log('Token decodificado:', decodedToken);
 
           sessionStorage.setItem('credentials',JSON.stringify(decodedToken));
           return decodedToken;
@@ -68,16 +55,17 @@ export class AuthService {
       );
   }
 
-  private decodeToken(token: string): any {
+  private decodeToken(token: string): Credentials {
     try {
-      return jwtDecode(token); // Decodifica o token JWT
+      let credentials = jwtDecode(token) as Credentials;
+      return credentials; // Decodifica o token JWT
     } catch (error) {
       console.error('Erro ao decodificar o token:', error);
-      return null;
+      throw error;
     }
   }
 
   logout() {
-    sessionStorage.removeItem('credentials');
+    sessionStorage.clear();
   }
 }
