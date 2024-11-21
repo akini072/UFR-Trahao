@@ -47,7 +47,7 @@ export class EmployeeRegisterPageComponent implements OnInit {
     private employeeService: EmployeeService) {
     this.formGroup = new FormGroup({
       email: new FormControl(''),
-      name: new FormControl(''),
+      name: new FormControl<string>(''),
       birthDate: new FormControl(''),
       password: new FormControl('')
     });
@@ -65,7 +65,7 @@ export class EmployeeRegisterPageComponent implements OnInit {
         this.employeeService.getEmployee(this.employeeId).then((data) => {
           this.employee = data;
           this.email.setValue(this.employee.email);
-          this.name.setValue(this.employee.name);
+          this.name.setValue(this.employee.name + " " + this.employee.surname);
           this.birthDate.setValue(this.employee.birthDate);
           this.password.setValue(this.employee.password);
           this.isEditMode = true;
@@ -75,18 +75,24 @@ export class EmployeeRegisterPageComponent implements OnInit {
     });
   }
 
-  getEmployeeData(employeeId: number) {
-    return {
-      email: 'employee@examplo.com',
-      name: 'John Doe',
-      birthDate: '1990-01-01',
-      password: 'password123',
-    };
-  }
-
   onRegister = () => {
     if (this.formGroup.valid) {
-      this.router.navigate(['/funcionario/funcionarios']);
+      let nomes = this.name.value.split(" "); 
+      const employee = {
+        id: this.employee.id,
+        email: this.email.value,
+        name: nomes.shift(),
+        surname: nomes.join(" "),
+        birthDate: this.birthDate.value,
+        password: this.password.value
+      };
+      this.employeeService.createEmployee(employee).subscribe((response)=>{
+        this.modal.open(this.view, ModalType.MESSAGE, {
+          title: 'Sucesso', message: 'Empregado criado', label: 'Ok'
+        }).subscribe(ok => {
+          this.router.navigate(['/funcionario/funcionarios']);
+        });
+      });
     } else {
       this.error = true;
     }
@@ -94,7 +100,22 @@ export class EmployeeRegisterPageComponent implements OnInit {
 
   onUpdate = () => {
     if (this.formGroup.valid) {
-      this.router.navigate(['/funcionario/funcionarios']);
+      let nomes = this.name.value.split(" "); 
+      const employee = {
+        id: this.employee.id,
+        email: this.email.value,
+        name: nomes.shift(),
+        surname: nomes.join(" "),
+        birthDate: this.birthDate.value,
+        password: this.password.value
+      };
+      this.employeeService.updateEmployee(employee).subscribe((response)=>{
+        this.modal.open(this.view, ModalType.MESSAGE, {
+          title: 'Sucesso', message: 'Empregado atualizado', label: 'Ok'
+        }).subscribe(ok => {
+          this.router.navigate(['/funcionario/funcionarios']);
+        });
+      });
     } else {
       this.error = true;
     }

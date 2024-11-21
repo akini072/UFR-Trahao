@@ -82,6 +82,14 @@ export class EmployeeManagementComponent {
     });
   }
 
+  updateActiveEmployeeList() {
+    this.employeeService.getEmployeeList().then((employees) => {
+      this.employeeList = employees;
+      this.activeEmployeeList = employees;
+      this.updateTotalPages();
+    });
+  }
+
   ngOnDestroy(): void {
     if (this.resizeListener) {
       this.resizeListener();
@@ -121,26 +129,6 @@ export class EmployeeManagementComponent {
   }
 
   onAddEmployee = () => {
-    /* this.modal
-      .open(this.view, ModalType.INPUT, {
-        title: 'Adicionar categoria',
-        message: 'Digite o nome da nova categoria',
-        label: 'Salvar',
-      })
-      .subscribe((value) => {
-        if (value.assert) {
-          this.activeEmployeeList = [
-            ...this.activeEmployeeList,
-            {
-              id: this.employeeList.length + 1,
-              name: value.message || '',
-              email: value.message || '',
-              date: value.message || '',
-            },
-          ];
-          this.updateTotalPages();
-        }
-      }); */
     this.router.navigate(['/funcionario/cadastro']);
   };
 
@@ -223,10 +211,9 @@ export class EmployeeManagementComponent {
         message: 'Não é permitido deletar o último funcionário',
         label: 'Ok',
       };
-      this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
-
+      this.modal.open(this.view, ModalType.MESSAGE, data).subscribe((value) => {
+        return;
       });
-      return;
     }
     this.modal
       .open(this.view, ModalType.CONFIRM, {
@@ -236,10 +223,10 @@ export class EmployeeManagementComponent {
       })
       .subscribe((value) => {
         if (value.assert) {
-          const newActiveList = this.activeEmployeeList.filter(
-            (item) => item.id !== id
-          );
-          this.activeEmployeeList = newActiveList as Employee[];
+          this.employeeService.deleteEmployee(id).subscribe((response) => {
+            this.modal.open(this.view, ModalType.MESSAGE,
+              { title: 'Sucesso', message: 'Empregado desligado do banco de dados', label: 'Ok' }).subscribe();
+          })
         }
       });
   };
