@@ -42,7 +42,7 @@ export class RequestsService {
         status: status,
         client: 'João Maria', // Cliente fixo
         created_at: `${statusList[0]?.dateTime}`,
-        image: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==', // Imagem placeholder
+        image: `assets/images/status/img-${status}.svg`, // Imagem placeholder
       } as RequestItem;
     });
     
