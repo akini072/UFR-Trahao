@@ -10,6 +10,7 @@ import { ModalService } from '../../../core/utils/modal.service';
 import { ModalType } from '../../../core/types/modal-type';
 import { ModalResponse } from '../../../core/types/modal-response';
 import { EquipCategory } from '../../../core/types/equip-category';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-category-management',
@@ -21,8 +22,9 @@ import { EquipCategory } from '../../../core/types/equip-category';
     ButtonComponent,
     CategoryTableComponent,
     FormInputComponent,
+    HttpClientModule,
   ],
-  providers: [EquipCategoryService],
+  providers: [EquipCategoryService, HttpClientModule],
   templateUrl: './category-management.component.html',
   styleUrl: './category-management.component.css',
 })
@@ -67,6 +69,14 @@ export class CategoryManagementComponent {
     }
   }
 
+  updateActiveEquipCategoryList = () => {
+    this.equipCategoryService.getEquipCategoryList().then((categories) => {
+      this.equipCategoryList = categories;
+      this.activeEquipCategoryList = this.equipCategoryList;
+      this.updateTotalPages();
+    });
+  }
+
   updateItemsPerPage(width: number) {
     if (width >= 1200) {
       this.itemsPerPage = 9;
@@ -109,14 +119,17 @@ export class CategoryManagementComponent {
       })
       .subscribe((value) => {
         if (value.assert) {
-          this.activeEquipCategoryList = [
-            ...this.activeEquipCategoryList,
-            { equipCategoryId: this.activeEquipCategoryList.length + 1, categoryDesc: value.message || '', active: true },
-          ];
-          this.updateTotalPages();
+          this.addCategory(value.message || '');
         }
       });
   };
+
+  addCategory(value: string){
+    if (!value) return;
+    this.equipCategoryService.createEquipCategory(value).subscribe((category) => {
+      this.updateActiveEquipCategoryList();
+    });
+  }
 
   updateTotalPages() {
     this.totalPages =
