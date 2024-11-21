@@ -16,6 +16,7 @@ import { FooterComponent } from '../../../core/components/footer/footer.componen
 import { FilterSelectComponent } from '../../../customer/components/filter-section/components/filter-select/filter-select.component';
 import { FilterSectionComponent } from '../../../customer/components/filter-section/filter-section.component';
 import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/toggle-switch.component';
+import { PaginationControlComponent } from "../../../core/components/pagination-control/pagination-control.component";
 
 @Component({
   selector: 'app-solicitations-page',
@@ -33,7 +34,8 @@ import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/to
     FilterSelectComponent,
     FilterSectionComponent,
     ToggleSwitchComponent,
-  ],
+    PaginationControlComponent
+],
   providers: [RequestsService],
   templateUrl: './solicitations-page.component.html',
   styleUrls: ['./solicitations-page.component.css'], // Corrigido para styleUrls

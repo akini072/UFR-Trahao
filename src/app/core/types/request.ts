@@ -8,9 +8,11 @@ export interface Request {
     equipmentDesc: string;
     defectDesc: string;
     status: RequestStatus[];
+    requestStatus: RequestStatus[];
     budget: number;
     repairDesc: string;
     customerOrientations: string;
     image: string;
-    equipCategoryId: number;
+    equipCategory: EquipCategory;
+    equipmentCategory?: EquipCategory;
 }

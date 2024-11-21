@@ -22,7 +22,7 @@ export class CategoryTableComponent implements OnInit {
 
   columns = [
     { key: 'equipCategoryId', label: 'ID' },
-    { key: 'categoryDesc', label: 'CATEGORIA EQUIPAMENTO' }
+    { key: 'description', label: 'CATEGORIA EQUIPAMENTO' }
   ];
 
   @ViewChild('actionTemplate', { static: true }) actionTemplate!: TemplateRef<any>;

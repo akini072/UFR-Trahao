@@ -11,7 +11,6 @@ import { ModalResponse } from '../../../core/types/modal-response';
 import { ActivatedRoute } from '@angular/router';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { CustomerService } from '../../../core/utils/customer.service';
-import { EquipCategoryService } from '../../../core/utils/equip-category.service';
 import { Customer } from '../../../core/types/customer';
 import { EquipCategory } from '../../../core/types/equip-category';
 
@@ -25,7 +24,7 @@ import { EquipCategory } from '../../../core/types/equip-category';
     CommonModule,
     StatusStepperComponent,
   ],
-  providers: [RequestsService, CustomerService, EquipCategoryService],
+  providers: [RequestsService, CustomerService],
   templateUrl: './visualize-service.component.html',
   styleUrl: './visualize-service.component.css',
 })
@@ -47,7 +46,6 @@ export class VisualizeServiceComponent {
     private route: ActivatedRoute,
     private requestsService: RequestsService,
     private customerService: CustomerService,
-    private equipCategoryService: EquipCategoryService,
   ) {
     this.request = {} as Request;
     this.customer = {} as Customer;
@@ -60,10 +58,8 @@ export class VisualizeServiceComponent {
       this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
       this.request = await this.requestsService.getRequestById(this.serviceId);
       this.customer = await this.customerService.getCustomer(this.request.customerId);
-      this.equipCategory = await this.equipCategoryService.getEquipCategory(this.request.equipCategoryId) || "Não identificado";
+      this.equipCategory = this.request.equipmentCategory || {} as EquipCategory;
       this.checkStatus();
-      console.log("Depois do checkStatus");
-      console.log(this.finalized);
     } catch (error) {
       console.error(error);
     }
