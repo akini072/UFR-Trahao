@@ -128,6 +128,11 @@ export class CategoryManagementComponent {
     if (!value) return;
     this.equipCategoryService.createEquipCategory(value).subscribe((category) => {
       this.updateActiveEquipCategoryList();
+      this.modal.open(this.view, ModalType.MESSAGE, {
+        title: 'Sucesso',
+        message: 'Categoria criada',
+        label: 'Ok',
+      }).subscribe();
     });
   }
 
@@ -195,17 +200,23 @@ export class CategoryManagementComponent {
       })
       .subscribe((value: ModalResponse) => {
         if (value.assert) {
-          const newActiveList = this.activeEquipCategoryList.map((item) => {
-            if (item.equipCategoryId === id) {
-              return { ...item, categoryDesc: value.message || '' };
-            }
-            return item;
-          });
-
-          this.activeEquipCategoryList = newActiveList as EquipCategory[];
+          this.editCategory(id, value.message || "");
         }
       });
   };
+
+  editCategory(id: number, value: string){
+    if (!value) return;
+    const equipCategory = {equipCategoryId: id, categoryDesc: value, active: true}
+    this.equipCategoryService.updateEquipCategory(equipCategory).subscribe((category) =>{
+      this.updateActiveEquipCategoryList();
+      this.modal.open(this.view, ModalType.MESSAGE, {
+        title: 'Sucesso',
+        message: 'Categoria editada',
+        label: 'Ok',
+      }).subscribe();
+    })
+  }
 
   onDelete = (id: number) => {
     this.modal
@@ -216,11 +227,14 @@ export class CategoryManagementComponent {
       })
       .subscribe((value) => {
         if (value.assert) {
-          const newActiveList = this.activeEquipCategoryList.filter(
-            (item) => item.equipCategoryId !== id
-          );
-          this.activeEquipCategoryList = newActiveList as EquipCategory[];
-          this.updateTotalPages();
+          this.equipCategoryService.deleteEquipCategory(id).subscribe((category) => {
+            this.updateActiveEquipCategoryList();
+            this.modal.open(this.view, ModalType.MESSAGE, {
+              title: 'Sucesso',
+              message: 'Categoria removida',
+              label: 'Ok',
+            }).subscribe();
+          });
         }
       });
   };
