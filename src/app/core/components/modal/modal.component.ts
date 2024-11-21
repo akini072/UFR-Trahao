@@ -4,16 +4,12 @@ import { Observable, Subscriber } from 'rxjs';
 import { FormInputComponent } from '../form-input/form-input.component';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ModalResponse } from '../../types/modal-response';
-import { EmployeeService } from '../../utils/employee.service';
 import { Employee } from '../../types/employee';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { AuthService } from '../../../auth/utils/auth.service';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [CommonModule, FormInputComponent, HttpClientModule, ReactiveFormsModule],
-  providers: [EmployeeService, AuthService],
+  imports: [CommonModule, FormInputComponent, ReactiveFormsModule],
   templateUrl: './modal.component.html',
 })
 export abstract class ModalComponent {
@@ -28,9 +24,6 @@ export abstract class ModalComponent {
   formGroup!: FormGroup;
   inputControl!: FormControl;
   employeeList!: Employee[];
-  employeeService!: EmployeeService;
-  http: HttpClient;
-  auth: AuthService;
   userName: string = "";
 
   style = {
@@ -47,13 +40,16 @@ export abstract class ModalComponent {
 
   }
 
-  constructor(@Inject('data') data: { [key: string]: string }, http: HttpClient, auth: AuthService) {
+  constructor(@Inject('data') data: { [key: string]: any }) {
     this.title = data['title'];
     this.message = data['message'];
     this.label = data['label'];
-    this.http = http;
-    this.auth = auth;
-    this.userName = this.auth.getCurrentUser().name;
+    try {
+      this.employeeList = data['employeeList'];
+      this.userName = data['user'];
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   /**
@@ -77,7 +73,7 @@ export abstract class ModalComponent {
       this.lifeCycle.complete();
     }
   }
-  
+
   /**
    * Cancela o modal e notifica o observador que a ação foi cancelada.
    */
@@ -92,7 +88,7 @@ export abstract class ModalComponent {
       this.inputControl.setValue((event.target as HTMLInputElement).value);
     }
   }
-  
+
   abstract checkModal(): { [key: string]: boolean };
   abstract resolve(): void;
 }
