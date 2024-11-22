@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, lastValueFrom } from 'rxjs';
+import { Observable, lastValueFrom, catchError } from 'rxjs';
 import { Employee } from '../types/employee';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../auth/utils/auth.service';
+import { ErrorHandlingService } from './error-handling.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,12 @@ export class EmployeeService {
   private getEmployees(): Observable<Employee[]> {
     let token = this.authService.getAuthorizationToken();
     const headers = { Authorization: `Bearer ${token}` };
-    return this.http.get<Employee[]>(this.baseUrl + 'employee', { headers });
+    return this.http.get<Employee[]>(this.baseUrl + 'employee', { headers }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        ErrorHandlingService.handleErrorResponse(error);
+        return new Observable<never>((observer) => observer.error(error));
+      })
+    );
   }
 
   async getEmployeeList(): Promise<Employee[]> {
@@ -35,18 +41,33 @@ export class EmployeeService {
   public createEmployee(employee: Employee): Observable<Employee> {
     let token = this.authService.getAuthorizationToken();
     const headers = { Authorization: `Bearer ${token}` };
-    return this.http.post<Employee>(this.baseUrl + 'employee', employee, { headers });
+    return this.http.post<Employee>(this.baseUrl + 'employee', employee, { headers }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        ErrorHandlingService.handleErrorResponse(error);
+        return new Observable<never>((observer) => observer.error(error));
+      })
+    );
   }
 
   public updateEmployee(employee: Employee): Observable<Employee> {
     let token = this.authService.getAuthorizationToken();
     const headers = { Authorization: `Bearer ${token}` };
-    return this.http.put<Employee>(this.baseUrl + 'employee/'+ employee.id, employee, { headers });
+    return this.http.put<Employee>(this.baseUrl + 'employee/'+ employee.id, employee, { headers }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        ErrorHandlingService.handleErrorResponse(error);
+        return new Observable<never>((observer) => observer.error(error));
+      })
+    );
   }
 
   public deleteEmployee(id: number): Observable<any> {
     let token = this.authService.getAuthorizationToken();
     const headers = { Authorization: `Bearer ${token}` };
-    return this.http.delete(this.baseUrl + 'employee/' + id, { headers });
+    return this.http.delete(this.baseUrl + 'employee/' + id, { headers }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        ErrorHandlingService.handleErrorResponse(error);
+        return new Observable<never>((observer) => observer.error(error));
+      })
+    );
   }
 }
