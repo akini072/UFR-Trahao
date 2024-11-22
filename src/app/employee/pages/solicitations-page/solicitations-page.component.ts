@@ -77,7 +77,7 @@ export class SolicitationsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.requestsService.listRequests().then((data: RequestItem[]) => {
+    this.requestsService.listRequests().subscribe((data: RequestItem[]) => {
       this.requestList = data;
       this.activeRequestList = this.requestList;
     });

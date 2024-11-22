@@ -18,6 +18,8 @@ import { EquipCategory } from './../../../core/types/equip-category';
 import { EquipCategoryService } from '../../../core/utils/equip-category.service';
 import { EmployeeService } from '../../../core/utils/employee.service';
 import { AuthService } from '../../../auth/utils/auth.service';
+import { Employee } from '../../../core/types/employee';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-visualize-service-employee',
@@ -46,18 +48,18 @@ export class VisualizeServiceEmployeeComponent {
     private employeeService: EmployeeService,
     private authService: AuthService
   ) {
-    this.initializeData();
     this.request = {} as Request;
     this.customer = {} as Customer;
     this.equipCategory = {} as EquipCategory;
+    this.initializeData();
   }
 
   async initializeData() {
     try {
       this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
-      this.request = await this.requestsService.getRequestById(this.serviceId);
+      this.request = await lastValueFrom(this.requestsService.getRequestById(this.serviceId));
       this.customer = await this.customerService.getCustomer(this.request.customerId);
-      this.equipCategory = this.request.equipmentCategory || {} as EquipCategory;
+      this.equipCategory = this.request.equipCategory;
       this.checkStatus();
     } catch (error) {
       console.error(error);
@@ -104,8 +106,8 @@ export class VisualizeServiceEmployeeComponent {
               requestStatusId: '5',
               dateTime: new Date(),
               category: 'fixed',
-              senderEmployee: '',
-              inChargeEmployee: 'Alisson Gabriel',
+              senderEmployee: null,
+              inChargeEmployee: {id: 1, name: "Alisson Gabriel Santos"} as Employee,
               request: {} as Request
             });
             this.checkStatus();
@@ -130,8 +132,8 @@ export class VisualizeServiceEmployeeComponent {
             requestStatusId: '4',
             dateTime: new Date(),
             category: 'redirected',
-            senderEmployee: 'Alisson Gabriel',
-            inChargeEmployee: value.message || '',
+            senderEmployee: {id: 1, name: "Alisson Gabriel Santos"} as Employee,
+            inChargeEmployee: {id: Number.parseInt(value.message || '0')} as Employee,
             request: {} as Request
           });
           this.checkStatus();
@@ -153,8 +155,8 @@ export class VisualizeServiceEmployeeComponent {
           requestStatusId: '2',
           dateTime: new Date(),
           category: 'budgeted',
-          senderEmployee: '',
-          inChargeEmployee: 'Alisson Gabriel',
+          senderEmployee: null,
+          inChargeEmployee: {id: 1, name: "Alisson Gabriel Santos"} as Employee,
           request: {} as Request
         });
         this.checkStatus();
@@ -174,8 +176,8 @@ export class VisualizeServiceEmployeeComponent {
           requestStatusId: '6',
           dateTime: new Date(),
           category: 'finalized',
-          senderEmployee: '',
-          inChargeEmployee: 'Alisson Gabriel',
+          senderEmployee: null,
+          inChargeEmployee: {id: 1, name: "Alisson Gabriel Santos"} as Employee,
           request: {} as Request
         });
         this.checkStatus();
