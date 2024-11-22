@@ -13,6 +13,9 @@ import { RequestsService } from '../../../core/utils/requests.service';
 import { CustomerService } from '../../../core/utils/customer.service';
 import { Customer } from '../../../core/types/customer';
 import { EquipCategory } from '../../../core/types/equip-category';
+import { Employee } from '../../../core/types/employee';
+import { BrCurrencyPipe } from '../../../core/utils/pipes/br-currency/br-currency.pipe';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-visualize-service',
@@ -23,6 +26,7 @@ import { EquipCategory } from '../../../core/types/equip-category';
     ButtonComponent,
     CommonModule,
     StatusStepperComponent,
+    BrCurrencyPipe
   ],
   providers: [RequestsService, CustomerService],
   templateUrl: './visualize-service.component.html',
