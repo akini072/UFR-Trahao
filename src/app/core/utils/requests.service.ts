@@ -1,11 +1,12 @@
-import { Observable, lastValueFrom } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Request } from '../types/request';
 import { RequestItem } from '../types/request-item';
 import { AuthService } from '../../auth/utils/auth.service';
-import { EmployeeService } from './employee.service';
+import { CustomerService } from './customer.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,47 +14,39 @@ import { EmployeeService } from './employee.service';
 export class RequestsService {
   private baseUrl: string = environment.baseUrl;
   private authService: AuthService;
-  private employeeService: EmployeeService;
+  private customerService: CustomerService;
 
   constructor(private http: HttpClient) {
     this.authService = new AuthService(this.http);
-    this.employeeService = new EmployeeService(this.http);
-  }
-
-  // Método privado para obter a lista de requisições
-  private getRequests(): Observable<Request[]> {
-    let token = this.authService.getAuthorizationToken();
-    const headers = { Authorization: `Bearer ${token}` };
-    return this.http.get<Request[]>(this.baseUrl + 'requests', { headers });
+    this.customerService = new CustomerService(this.http);
   }
 
   // Método assíncrono para listar as requisições com seus detalhes
-  async listRequests(): Promise<RequestItem[]> {
-
+  listRequests(): Observable<RequestItem[]> {
     let token = this.authService.getAuthorizationToken();
     const headers = { Authorization: `Bearer ${token}` };
-    const requests: RequestItem[] = await lastValueFrom(
-      this.http.get<RequestItem[]>(this.baseUrl + 'requests', { headers })
-    );
-
+      return this.http.get<RequestItem[]>(this.baseUrl + 'requests', { headers })
+      .pipe(
+        map((requests: RequestItem[]) => {
     for (let request of requests){
       request.status = request.status.toLowerCase() as any;
       request.image = `assets/images/status/img-${request.status}.svg`;
-      request.client = "João Maria"
+            this.customerService.getCustomer(request.client.id).then((customer) => {
+              request.client = customer;
+            });
     }
 
     return requests;
+        })
+      );
   }
 
-  async getRequestById(requestId: number) {
+  getRequestById(requestId: number) {
     let token = this.authService.getAuthorizationToken();
     const headers = { Authorization: `Bearer ${token}` };
-    const request: Request = await lastValueFrom(
-      this.http.get<Request>(this.baseUrl + "requests/" + requestId, { headers })
-    );
-
-    request.status = request.requestStatus;
-
+    return this.http.get<Request>(this.baseUrl + "requests/" + requestId, { headers })
+    .pipe(
+      map((request) => {
     console.log(request);
 
     for (let status of request.status) {
@@ -62,5 +55,8 @@ export class RequestsService {
     }
 
     return request;
+      })
+    );
+
   }
 }

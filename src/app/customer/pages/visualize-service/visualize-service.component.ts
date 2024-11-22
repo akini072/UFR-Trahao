@@ -56,9 +56,9 @@ export class VisualizeServiceComponent {
   async initializeData() {
     try {
       this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
-      this.request = await this.requestsService.getRequestById(this.serviceId);
+      this.request = await lastValueFrom(this.requestsService.getRequestById(this.serviceId));
       this.customer = await this.customerService.getCustomer(this.request.customerId);
-      this.equipCategory = this.request.equipmentCategory || {} as EquipCategory;
+      this.equipCategory = this.request.equipCategory;
       this.checkStatus();
     } catch (error) {
       console.error(error);
@@ -77,8 +77,8 @@ export class VisualizeServiceComponent {
           requestStatusId: '2',
           dateTime: new Date(),
           category: 'rejected',
-          senderEmployee: '',
-          inChargeEmployee: 'Alisson Gabriel',
+          senderEmployee: null,
+          inChargeEmployee: {id: 1, name: "Alisson Gabriel Santos"} as Employee,
           request: {} as Request
         });
         this.checkStatus();
@@ -98,8 +98,8 @@ export class VisualizeServiceComponent {
           requestStatusId: '3',
           dateTime: new Date(),
           category: 'approved',
-          senderEmployee: '',
-          inChargeEmployee: 'Alisson Gabriel',
+          senderEmployee: null,
+          inChargeEmployee: {id: 1, name: "Alisson Gabriel Santos"} as Employee,
           request: {} as Request
         });
         this.checkStatus();
@@ -119,8 +119,8 @@ export class VisualizeServiceComponent {
           requestStatusId: '6',
           dateTime: new Date(),
           category: 'paid',
-          senderEmployee: '',
-          inChargeEmployee: 'Mateus Bazan',
+          senderEmployee: null,
+          inChargeEmployee: {id: 1, name: "Alisson Gabriel Santos"} as Employee,
           request: {} as Request
         });
         this.checkStatus();
@@ -140,8 +140,8 @@ export class VisualizeServiceComponent {
           requestStatusId: '4',
           dateTime: new Date(),
           category: 'approved',
-          senderEmployee: 'Alisson Gabriel',
-          inChargeEmployee: 'Mateus Bazan',
+          senderEmployee: null,
+          inChargeEmployee: {id: 1, name: "Alisson Gabriel Santos"} as Employee,
           request: {} as Request
         });
         this.checkStatus();
@@ -166,7 +166,6 @@ export class VisualizeServiceComponent {
         this.rejected = false;
         this.open = false;
         this.pageTitle = 'Pagar Serviço';
-        console.log(this.finalized);
         break;
       case 'budgeted':
         this.budgeted = true;
@@ -193,7 +192,7 @@ export class VisualizeServiceComponent {
   }
 
   styles = {
-    main: 'flex flex-col items-center justify-center bg-gray-100 min-h-screen', // Adiciona max-width
+    main: 'container mx-auto p-4 max-w-4xl min-h-screen', // Adiciona max-width
     submain: 'mb-4 px-8 p-4 border rounded-lg shadow-sm flex flex-wrap bg-white w-full max-w-4xl',
     submain2: 'mb-4 px-8 p-4 border rounded-lg shadow-sm bg-white w-full max-w-4xl',
     title: 'text-2xl font-bold mb-4 text-center',

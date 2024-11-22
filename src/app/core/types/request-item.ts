@@ -1,3 +1,4 @@
+import { Customer } from "./customer";
 import { RequestCategory } from "./request-category";
 
 export interface RequestItem {
@@ -6,6 +7,6 @@ export interface RequestItem {
   description: string;
   status: RequestCategory;
   created_at: string;
-  client: string;
+  client: Customer;
   image: string;
 }
