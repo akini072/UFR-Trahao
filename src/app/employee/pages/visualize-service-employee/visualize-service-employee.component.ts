@@ -10,7 +10,7 @@ import { RequestsService } from '../../../core/utils/requests.service';
 import { CustomerService } from '../../../core/utils/customer.service';
 import { ActivatedRoute } from '@angular/router';
 import { CpfMaskPipe } from '../../../core/utils/pipes/cpfMask/cpf-mask.pipe';
-import { AddressPipePipe } from '../../../core/utils/pipes/address-pipe.pipe';
+import { AddressPipePipe } from '../../../core/utils/pipes/address-pipe/address-pipe.pipe';
 import { ModalResponse } from '../../../core/types/modal-response';
 import { StatusStepperComponent } from "../../../customer/components/status-stepper/status-stepper.component";
 import { Customer } from '../../../core/types/customer';

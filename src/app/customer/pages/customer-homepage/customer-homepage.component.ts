@@ -19,7 +19,6 @@ import { FilterSectionComponent } from '../../components/filter-section/filter-s
 import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/toggle-switch.component';
 import { RequestItem } from '../../../core/types/request-item';
 import { RequestsService } from '../../../core/utils/requests.service';
-import { GlobalTableComponent } from '../../../core/components/global-table/global-table.component';
 import { PaginationControlComponent } from '../../../core/components/pagination-control/pagination-control.component';
 import { FooterComponent } from "../../../core/components/footer/footer.component";
 
@@ -36,9 +35,9 @@ import { FooterComponent } from "../../../core/components/footer/footer.componen
     RequestTableComponent,
     FilterSectionComponent,
     ToggleSwitchComponent,
-    GlobalTableComponent,
     PaginationControlComponent,
-  ],
+    FooterComponent
+],
   providers: [RequestsService, DatePipe],
   templateUrl: './customer-homepage.component.html',
   styleUrls: ['./customer-homepage.component.css'],
