@@ -7,6 +7,7 @@ import { Request } from '../types/request';
 import { RequestItem } from '../types/request-item';
 import { AuthService } from '../../auth/utils/auth.service';
 import { CustomerService } from './customer.service';
+import { ErrorHandlingService } from './error-handling.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,18 +26,21 @@ export class RequestsService {
   listRequests(): Observable<RequestItem[]> {
     let token = this.authService.getAuthorizationToken();
     const headers = { Authorization: `Bearer ${token}` };
-      return this.http.get<RequestItem[]>(this.baseUrl + 'requests', { headers })
+    return this.http.get<RequestItem[]>(this.baseUrl + 'requests', { headers })
       .pipe(
         map((requests: RequestItem[]) => {
-    for (let request of requests){
-      request.status = request.status.toLowerCase() as any;
-      request.image = `assets/images/status/img-${request.status}.svg`;
+          for (let request of requests) {
+            request.status = request.status.toLowerCase() as any;
+            request.image = `assets/images/status/img-${request.status}.svg`;
             this.customerService.getCustomer(request.client.id).then((customer) => {
               request.client = customer;
             });
-    }
-
-    return requests;
+          }
+          return requests;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          ErrorHandlingService.handleErrorResponse(error);
+          return new Observable<never>((observer) => observer.error(error));
         })
       );
   }
@@ -45,18 +49,21 @@ export class RequestsService {
     let token = this.authService.getAuthorizationToken();
     const headers = { Authorization: `Bearer ${token}` };
     return this.http.get<Request>(this.baseUrl + "requests/" + requestId, { headers })
-    .pipe(
-      map((request) => {
-    console.log(request);
+      .pipe(
+        map((request) => {
+          console.log(request);
 
-    for (let status of request.status) {
-      status.dateTime = new Date(status.dateTime);
-      status.inChargeEmployee = (await this.employeeService.getEmployee(status.inChargeEmployeeId || 0)).name;
-    }
+          for (let status of request.status) {
+            status.dateTime = new Date(status.dateTime);
+          }
 
-    return request;
-      })
-    );
+          return request;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          ErrorHandlingService.handleErrorResponse(error);
+          return new Observable<never>((observer) => observer.error(error));
+        })
+      );
 
   }
 }
