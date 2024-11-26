@@ -23,7 +23,7 @@ export class ModalService {
    * @param data - Os dados a serem injetados no modal.
    * @returns Um Observable que emite a resposta do modal.
    */
-  open(host: ViewContainerRef, type: ModalType, data: { [key: string]: string }): Observable<ModalResponse> {
+  open(host: ViewContainerRef, type: ModalType, data: { [key: string]: any }): Observable<ModalResponse> {
     this.type = type;
     const injector = Injector.create({
       providers: [{ provide: 'data', useValue: data }]

@@ -16,12 +16,14 @@ import { StatusStepperComponent } from "../../../customer/components/status-step
 import { Customer } from '../../../core/types/customer';
 import { EquipCategory } from './../../../core/types/equip-category';
 import { EquipCategoryService } from '../../../core/utils/equip-category.service';
+import { EmployeeService } from '../../../core/utils/employee.service';
+import { AuthService } from '../../../auth/utils/auth.service';
 
 @Component({
   selector: 'app-visualize-service-employee',
   standalone: true,
   imports: [ButtonComponent, NavbarComponent, FooterComponent, CommonModule, StatusStepperComponent, CpfMaskPipe, AddressPipePipe],
-  providers: [RequestsService, CustomerService, EquipCategoryService],
+  providers: [RequestsService, CustomerService, EquipCategoryService, EmployeeService, AuthService],
   templateUrl: './visualize-service-employee.component.html',
   styleUrl: './visualize-service-employee.component.css'
 })
@@ -42,6 +44,8 @@ export class VisualizeServiceEmployeeComponent {
     private requestsService: RequestsService,
     private customerService: CustomerService,
     private equipCategoryService: EquipCategoryService,
+    private employeeService: EmployeeService,
+    private authService: AuthService
   ) {
     this.initializeData();
     this.request = {} as Request;
@@ -113,24 +117,29 @@ export class VisualizeServiceEmployeeComponent {
   };
 
   onRedirect = () => {
-    const data = {
-      title: 'Serviço Redirecionado',
-      message: 'Por favor, informe o nome do funcionario a redirecionar',
-      label: 'Redirecionar',
-    };
-    this.modal.open(this.view, ModalType.SELECT_EMPLOYEE, data).subscribe((value: ModalResponse) => {
-      if (value.assert) {
-        this.request.status.push({
-          requestStatusId: '4',
-          dateTime: new Date(),
-          category: 'redirected',
-          senderEmployee: 'Alisson Gabriel',
-          inChargeEmployee: value.message || '',
-          request: {} as Request
-        });
-        this.checkStatus();
-      }
-    });
+    this.employeeService.getEmployeeList().then((employeeList) => {
+      const data = {
+        title: 'Serviço Redirecionado',
+        message: 'Por favor, informe o nome do funcionario a redirecionar',
+        label: 'Redirecionar',
+        employeeList: employeeList,
+        user: this.authService.getCurrentUser().name
+      };
+      this.modal.open(this.view, ModalType.SELECT_EMPLOYEE, data).subscribe((value: ModalResponse) => {
+        if (value.assert) {
+          this.request.status.push({
+            requestStatusId: '4',
+            dateTime: new Date(),
+            category: 'redirected',
+            senderEmployee: 'Alisson Gabriel',
+            inChargeEmployee: value.message || '',
+            request: {} as Request
+          });
+          this.checkStatus();
+        }
+      });
+    }
+    )
   };
 
   onBudget = () => {

@@ -10,6 +10,7 @@ import { ModalService } from '../../../core/utils/modal.service';
 import { ModalType } from '../../../core/types/modal-type';
 import { ModalResponse } from '../../../core/types/modal-response';
 import { EquipCategory } from '../../../core/types/equip-category';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-category-management',
@@ -21,8 +22,9 @@ import { EquipCategory } from '../../../core/types/equip-category';
     ButtonComponent,
     CategoryTableComponent,
     FormInputComponent,
+    HttpClientModule,
   ],
-  providers: [EquipCategoryService],
+  providers: [EquipCategoryService, HttpClientModule],
   templateUrl: './category-management.component.html',
   styleUrl: './category-management.component.css',
 })
@@ -67,6 +69,14 @@ export class CategoryManagementComponent {
     }
   }
 
+  updateActiveEquipCategoryList = () => {
+    this.equipCategoryService.getEquipCategoryList().then((categories) => {
+      this.equipCategoryList = categories;
+      this.activeEquipCategoryList = this.equipCategoryList;
+      this.updateTotalPages();
+    });
+  }
+
   updateItemsPerPage(width: number) {
     if (width >= 1200) {
       this.itemsPerPage = 9;
@@ -109,14 +119,22 @@ export class CategoryManagementComponent {
       })
       .subscribe((value) => {
         if (value.assert) {
-          this.activeEquipCategoryList = [
-            ...this.activeEquipCategoryList,
-            { equipCategoryId: this.activeEquipCategoryList.length + 1, categoryDesc: value.message || '', active: true },
-          ];
-          this.updateTotalPages();
+          this.addCategory(value.message || '');
         }
       });
   };
+
+  addCategory(value: string){
+    if (!value) return;
+    this.equipCategoryService.createEquipCategory(value).subscribe((category) => {
+      this.updateActiveEquipCategoryList();
+      this.modal.open(this.view, ModalType.MESSAGE, {
+        title: 'Sucesso',
+        message: 'Categoria criada',
+        label: 'Ok',
+      }).subscribe();
+    });
+  }
 
   updateTotalPages() {
     this.totalPages =
@@ -182,17 +200,23 @@ export class CategoryManagementComponent {
       })
       .subscribe((value: ModalResponse) => {
         if (value.assert) {
-          const newActiveList = this.activeEquipCategoryList.map((item) => {
-            if (item.equipCategoryId === id) {
-              return { ...item, categoryDesc: value.message || '' };
-            }
-            return item;
-          });
-
-          this.activeEquipCategoryList = newActiveList as EquipCategory[];
+          this.editCategory(id, value.message || "");
         }
       });
   };
+
+  editCategory(id: number, value: string){
+    if (!value) return;
+    const equipCategory = {equipCategoryId: id, categoryDesc: value, active: true}
+    this.equipCategoryService.updateEquipCategory(equipCategory).subscribe((category) =>{
+      this.updateActiveEquipCategoryList();
+      this.modal.open(this.view, ModalType.MESSAGE, {
+        title: 'Sucesso',
+        message: 'Categoria editada',
+        label: 'Ok',
+      }).subscribe();
+    })
+  }
 
   onDelete = (id: number) => {
     this.modal
@@ -203,11 +227,14 @@ export class CategoryManagementComponent {
       })
       .subscribe((value) => {
         if (value.assert) {
-          const newActiveList = this.activeEquipCategoryList.filter(
-            (item) => item.equipCategoryId !== id
-          );
-          this.activeEquipCategoryList = newActiveList as EquipCategory[];
-          this.updateTotalPages();
+          this.equipCategoryService.deleteEquipCategory(id).subscribe((category) => {
+            this.updateActiveEquipCategoryList();
+            this.modal.open(this.view, ModalType.MESSAGE, {
+              title: 'Sucesso',
+              message: 'Categoria removida',
+              label: 'Ok',
+            }).subscribe();
+          });
         }
       });
   };
