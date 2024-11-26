@@ -30,7 +30,8 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: "O que deve ser feito (use o formato de lista do markdown iniciando cada linha com -)"
+      label: "O que deve ser feito"
+      description: "(use o formato de lista do markdown iniciando cada linha com -)"
     validations:
       required: true
   - type: textarea
