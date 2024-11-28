@@ -8,6 +8,7 @@ import { RequestItem } from '../types/request-item';
 import { AuthService } from '../../auth/utils/auth.service';
 import { CustomerService } from './customer.service';
 import { ErrorHandlingService } from './error-handling.service';
+import { requestUpdate } from '../types/request-update';
 
 @Injectable({
   providedIn: 'root',
@@ -51,7 +52,6 @@ export class RequestsService {
     return this.http.get<Request>(this.baseUrl + "requests/" + requestId, { headers })
       .pipe(
         map((request) => {
-          console.log(request);
 
           for (let status of request.status) {
             status.dateTime = new Date(status.dateTime);
@@ -64,6 +64,16 @@ export class RequestsService {
           return new Observable<never>((observer) => observer.error(error));
         })
       );
+  }
 
+  updateRequestStatus(update: requestUpdate){
+    console.log(update);
+    let token = this.authService.getAuthorizationToken();
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.put<{ message: string }>(this.baseUrl+"requests/"+update.requestId, update, { headers }).pipe(
+      map((response) => {
+        console.log(response.message);
+      })
+    );
   }
 }
