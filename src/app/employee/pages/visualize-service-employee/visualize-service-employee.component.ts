@@ -20,11 +20,14 @@ import { EmployeeService } from '../../../core/utils/employee.service';
 import { AuthService } from '../../../auth/utils/auth.service';
 import { Employee } from '../../../core/types/employee';
 import { lastValueFrom } from 'rxjs';
+import { requestUpdate } from '../../../core/types/request-update';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 
 @Component({
   selector: 'app-visualize-service-employee',
   standalone: true,
-  imports: [ButtonComponent, NavbarComponent, FooterComponent, CommonModule, StatusStepperComponent, CpfMaskPipe, AddressPipePipe],
+  imports: [ButtonComponent, NavbarComponent, FooterComponent, CommonModule, FormInputComponent, StatusStepperComponent, CpfMaskPipe, ReactiveFormsModule, AddressPipePipe],
   providers: [RequestsService, CustomerService, EquipCategoryService, EmployeeService, AuthService],
   templateUrl: './visualize-service-employee.component.html',
   styleUrl: './visualize-service-employee.component.css'
@@ -34,6 +37,8 @@ export class VisualizeServiceEmployeeComponent {
   open: boolean = false;
   approved: boolean = false;
   paid: boolean = false;
+  orcamento: FormGroup;
+  value: FormControl;
   request: Request;
   customer: Customer;
   equipCategory: EquipCategory;
@@ -51,10 +56,15 @@ export class VisualizeServiceEmployeeComponent {
     this.request = {} as Request;
     this.customer = {} as Customer;
     this.equipCategory = {} as EquipCategory;
-    this.initializeData();
+    this.loadData();
+
+    this.orcamento = new FormGroup({
+      value: new FormControl('')
+    });
+    this.value = this.orcamento.get('value') as FormControl;
   }
 
-  async initializeData() {
+  async loadData() {
     try {
       this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
       this.request = await lastValueFrom(this.requestsService.getRequestById(this.serviceId));
@@ -107,7 +117,7 @@ export class VisualizeServiceEmployeeComponent {
               dateTime: new Date(),
               category: 'fixed',
               senderEmployee: null,
-              inChargeEmployee: {id: 1, name: "Alisson Gabriel Santos"} as Employee,
+              inChargeEmployee: { id: 1, name: "Alisson Gabriel Santos" } as Employee,
               request: {} as Request
             });
             this.checkStatus();
@@ -132,8 +142,8 @@ export class VisualizeServiceEmployeeComponent {
             requestStatusId: '4',
             dateTime: new Date(),
             category: 'redirected',
-            senderEmployee: {id: 1, name: "Alisson Gabriel Santos"} as Employee,
-            inChargeEmployee: {id: Number.parseInt(value.message || '0')} as Employee,
+            senderEmployee: { id: 1, name: "Alisson Gabriel Santos" } as Employee,
+            inChargeEmployee: { id: Number.parseInt(value.message || '0') } as Employee,
             request: {} as Request
           });
           this.checkStatus();
@@ -144,24 +154,24 @@ export class VisualizeServiceEmployeeComponent {
   };
 
   onBudget = () => {
-    const data = {
-      title: 'Orçamento',
-      message: 'Por favor, confira o valor do orçamento',
-      label: 'Orçar',
-    };
-    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
-      if (value.assert) {
-        this.request.status.push({
-          requestStatusId: '2',
-          dateTime: new Date(),
-          category: 'budgeted',
-          senderEmployee: null,
-          inChargeEmployee: {id: 1, name: "Alisson Gabriel Santos"} as Employee,
-          request: {} as Request
-        });
-        this.checkStatus();
-      }
-    });
+    if (this.orcamento.valid) {
+      const data = {
+        title: 'Orçamento',
+        message: 'Por favor, confira o valor do orçamento',
+        label: 'Orçar',
+      };
+      this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
+        if (value.assert) {
+          const update = new requestUpdate(this.request.requestId, "open", "budgeted", Date.now());
+          update.budget = this.value.value;
+          update.userType = this.authService.getCurrentUser().profile;
+          update.inChargeEmployeeId = Number.parseInt(this.authService.getCurrentUser().sub);
+          this.requestsService.updateRequestStatus(update).subscribe(() => {
+            this.loadData();
+          });
+        }
+      });
+    }
   };
 
   onPaid = () => {
@@ -177,7 +187,7 @@ export class VisualizeServiceEmployeeComponent {
           dateTime: new Date(),
           category: 'finalized',
           senderEmployee: null,
-          inChargeEmployee: {id: 1, name: "Alisson Gabriel Santos"} as Employee,
+          inChargeEmployee: { id: 1, name: "Alisson Gabriel Santos" } as Employee,
           request: {} as Request
         });
         this.checkStatus();
