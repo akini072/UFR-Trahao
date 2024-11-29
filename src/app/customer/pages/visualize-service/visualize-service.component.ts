@@ -13,9 +13,9 @@ import { RequestsService } from '../../../core/utils/requests.service';
 import { CustomerService } from '../../../core/utils/customer.service';
 import { Customer } from '../../../core/types/customer';
 import { EquipCategory } from '../../../core/types/equip-category';
-import { Employee } from '../../../core/types/employee';
 import { BrCurrencyPipe } from '../../../core/utils/pipes/br-currency/br-currency.pipe';
 import { lastValueFrom } from 'rxjs';
+import { requestUpdate } from '../../../core/types/request-update';
 
 @Component({
   selector: 'app-visualize-service',
@@ -54,10 +54,10 @@ export class VisualizeServiceComponent {
     this.request = {} as Request;
     this.customer = {} as Customer;
     this.equipCategory = {} as EquipCategory;
-    this.initializeData();
+    this.loadData();
   }
 
-  async initializeData() {
+  async loadData() {
     try {
       this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
       this.request = await lastValueFrom(this.requestsService.getRequestById(this.serviceId));
@@ -77,15 +77,11 @@ export class VisualizeServiceComponent {
     };
     this.modal.open(this.view, ModalType.INPUT, data).subscribe((value: ModalResponse) => {
       if (value.assert) {
-        this.request.status.push({
-          requestStatusId: '2',
-          dateTime: new Date(),
-          category: 'rejected',
-          senderEmployee: null,
-          inChargeEmployee: {id: 1, name: "Alisson Gabriel Santos"} as Employee,
-          request: {} as Request
+        const update = new requestUpdate(this.request.requestId, "budgeted", "rejected", Date.now());
+        update.rejectionReason = value.message as string;
+        this.requestsService.updateRequestStatus(update).subscribe(() => {
+          this.loadData();
         });
-        this.checkStatus();
       }
     });
   }
@@ -98,15 +94,10 @@ export class VisualizeServiceComponent {
     };
     this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
       if (value.assert) {
-        this.request.status.push({
-          requestStatusId: '3',
-          dateTime: new Date(),
-          category: 'approved',
-          senderEmployee: null,
-          inChargeEmployee: {id: 1, name: "Alisson Gabriel Santos"} as Employee,
-          request: {} as Request
+        const update = new requestUpdate(this.request.requestId, "budgeted", "approved", Date.now());
+        this.requestsService.updateRequestStatus(update).subscribe(() => {
+          this.loadData();
         });
-        this.checkStatus();
       }
     });
   }
@@ -119,15 +110,10 @@ export class VisualizeServiceComponent {
     };
     this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
       if (value.assert) {
-        this.request.status.push({
-          requestStatusId: '6',
-          dateTime: new Date(),
-          category: 'paid',
-          senderEmployee: null,
-          inChargeEmployee: {id: 1, name: "Alisson Gabriel Santos"} as Employee,
-          request: {} as Request
+        const update = new requestUpdate(this.request.requestId, "fixed", "paid", Date.now());
+        this.requestsService.updateRequestStatus(update).subscribe(() => {
+          this.loadData();
         });
-        this.checkStatus();
       }
     });
   };
@@ -140,15 +126,10 @@ export class VisualizeServiceComponent {
     };
     this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
       if (value.assert) {
-        this.request.status.push({
-          requestStatusId: '4',
-          dateTime: new Date(),
-          category: 'approved',
-          senderEmployee: null,
-          inChargeEmployee: {id: 1, name: "Alisson Gabriel Santos"} as Employee,
-          request: {} as Request
+        const update = new requestUpdate(this.request.requestId, "rejected", "approved", Date.now());
+        this.requestsService.updateRequestStatus(update).subscribe(() => {
+          this.loadData();
         });
-        this.checkStatus();
       }
     });
   }
