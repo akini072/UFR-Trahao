@@ -9,6 +9,7 @@ import { AuthService } from '../../auth/utils/auth.service';
 import { CustomerService } from './customer.service';
 import { ErrorHandlingService } from './error-handling.service';
 import { requestUpdate } from '../types/request-update';
+import { RequestCreate } from '../types/request-create';
 
 @Injectable({
   providedIn: 'root',
@@ -64,6 +65,17 @@ export class RequestsService {
           return new Observable<never>((observer) => observer.error(error));
         })
       );
+  }
+
+  createRequest(request: RequestCreate): Observable<string> {
+    let token = this.authService.getAuthorizationToken();
+    const headers = { Authorization: `Bearer ${token}` };
+    request.customerId = Number.parseInt(this.authService.getCurrentUser().sub);
+    return this.http.post<{ message: string }>(this.baseUrl + "requests", request, { headers }).pipe(
+      map((response) => {
+        return response.message;
+      })
+    );
   }
 
   updateRequestStatus(update: requestUpdate){
