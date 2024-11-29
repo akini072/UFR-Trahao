@@ -218,14 +218,17 @@ export class EmployeeManagementComponent {
     this.modal
       .open(this.view, ModalType.CONFIRM, {
         title: 'Remover categoria',
-        message: 'Tem certeza que deseja remover a categoria?',
+        message: 'Tem certeza que deseja remover esse funcionário?',
         label: 'Remover',
       })
       .subscribe((value) => {
         if (value.assert) {
           this.employeeService.deleteEmployee(id).subscribe((response) => {
             this.modal.open(this.view, ModalType.MESSAGE,
-              { title: 'Sucesso', message: 'Empregado desligado do banco de dados', label: 'Ok' }).subscribe();
+              { title: 'Sucesso', message: 'Empregado desligado do banco de dados', label: 'Ok' }).subscribe((value => {
+                this.updateActiveEmployeeList();
+              })
+              );
           })
         }
       });
