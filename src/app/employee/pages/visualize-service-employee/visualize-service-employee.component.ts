@@ -105,6 +105,7 @@ export class VisualizeServiceEmployeeComponent {
     };
     this.modal.open(this.view, ModalType.INPUT, data).subscribe((value: ModalResponse) => {
       if (value.assert) {
+        const repairDesc = value.message as string;
         const newData = {
           title: 'Orientações',
           message: 'Informe as orientações para o cliente',
@@ -112,15 +113,14 @@ export class VisualizeServiceEmployeeComponent {
         }
         this.modal.open(this.view, ModalType.INPUT, newData).subscribe((value: ModalResponse) => {
           if (value.assert) {
-            this.request.status.push({
-              requestStatusId: '5',
-              dateTime: new Date(),
-              category: 'fixed',
-              senderEmployee: null,
-              inChargeEmployee: { id: 1, name: "Alisson Gabriel Santos" } as Employee,
-              request: {} as Request
+            const currentStatus = this.request.status[this.request.status.length - 1].category;
+            const update = new requestUpdate(this.request.requestId, currentStatus, "fixed", Date.now());
+            update.repairDesc = repairDesc;
+            update.customerOrientations = value.message as string;
+            update.inChargeEmployeeId = Number.parseInt(this.authService.getCurrentUser().sub);
+            this.requestsService.updateRequestStatus(update).subscribe(() => {
+              this.loadData();
             });
-            this.checkStatus();
           }
         });
       }
@@ -138,15 +138,12 @@ export class VisualizeServiceEmployeeComponent {
       };
       this.modal.open(this.view, ModalType.SELECT_EMPLOYEE, data).subscribe((value: ModalResponse) => {
         if (value.assert) {
-          this.request.status.push({
-            requestStatusId: '4',
-            dateTime: new Date(),
-            category: 'redirected',
-            senderEmployee: { id: 1, name: "Alisson Gabriel Santos" } as Employee,
-            inChargeEmployee: { id: Number.parseInt(value.message || '0') } as Employee,
-            request: {} as Request
+          const update = new requestUpdate(this.request.requestId, "approved", "redirected", Date.now());
+          update.senderEmployeeId = Number.parseInt(this.authService.getCurrentUser().sub);
+          update.inChargeEmployeeId = Number.parseInt(value.message || '');
+          this.requestsService.updateRequestStatus(update).subscribe(() => {
+            this.loadData();
           });
-          this.checkStatus();
         }
       });
     }
@@ -164,7 +161,6 @@ export class VisualizeServiceEmployeeComponent {
         if (value.assert) {
           const update = new requestUpdate(this.request.requestId, "open", "budgeted", Date.now());
           update.budget = this.value.value;
-          update.userType = this.authService.getCurrentUser().profile;
           update.inChargeEmployeeId = Number.parseInt(this.authService.getCurrentUser().sub);
           this.requestsService.updateRequestStatus(update).subscribe(() => {
             this.loadData();
@@ -182,15 +178,11 @@ export class VisualizeServiceEmployeeComponent {
     };
     this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
       if (value.assert) {
-        this.request.status.push({
-          requestStatusId: '6',
-          dateTime: new Date(),
-          category: 'finalized',
-          senderEmployee: null,
-          inChargeEmployee: { id: 1, name: "Alisson Gabriel Santos" } as Employee,
-          request: {} as Request
+        const update = new requestUpdate(this.request.requestId, "paid", "finalized", Date.now());
+        update.inChargeEmployeeId = Number.parseInt(this.authService.getCurrentUser().sub);
+        this.requestsService.updateRequestStatus(update).subscribe(() => {
+          this.loadData();
         });
-        this.checkStatus();
       }
     });
   };

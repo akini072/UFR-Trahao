@@ -79,7 +79,7 @@ export class RequestsService {
   }
 
   updateRequestStatus(update: requestUpdate){
-    console.log(update);
+    update.userType = this.authService.getCurrentUser().profile;
     let token = this.authService.getAuthorizationToken();
     const headers = { Authorization: `Bearer ${token}` };
     return this.http.put<{ message: string }>(this.baseUrl+"requests/"+update.requestId, update, { headers }).pipe(
