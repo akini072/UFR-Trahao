@@ -84,7 +84,7 @@ export class RequestsService {
     const headers = { Authorization: `Bearer ${token}` };
     return this.http.put<{ message: string }>(this.baseUrl+"requests/"+update.requestId, update, { headers }).pipe(
       map((response) => {
-        console.log(response.message);
+        return response.message;
       })
     );
   }

@@ -5,13 +5,12 @@ import { FormInputComponent } from '../../form-input/form-input.component';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-modal-input',
+  selector: 'app-modal-select',
   standalone: true,
   imports: [CommonModule, FormInputComponent, ReactiveFormsModule],
   templateUrl: '../modal.component.html',
 })
 export class ModalSelectEmployee extends ModalComponent implements OnInit {
-
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({

@@ -84,7 +84,6 @@ export abstract class ModalComponent {
 
   onChangeSelect(event: Event): void {
     if (event.target) {
-      console.log((event.target as HTMLInputElement).value)
       this.inputControl.setValue((event.target as HTMLInputElement).value);
     }
   }
