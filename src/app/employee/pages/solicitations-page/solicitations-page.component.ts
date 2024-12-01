@@ -72,7 +72,7 @@ export class SolicitationsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.requestsService.listRequests().subscribe((data: RequestItem[]) => {
-      this.requestList = data;
+      this.requestList = data.filter((item) => item.status !== 'open');
       this.activeRequestList = this.requestList;
     });
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {

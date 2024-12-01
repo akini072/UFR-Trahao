@@ -13,13 +13,15 @@
     }
     <div *ngIf="showSelectEmployee">
       <div>
-        <select name="employee" id="employee" [ngClass]="style.select" (change)="onChangeSelect($event)"
-          formControlName="employee">
-          <option value="" disabled selected>Selecione um funcionário</option>
-          <ng-container *ngFor="let employee of employeeList">
-            <option [value]="employee.id" *ngIf="employee.name !== userName">{{ employee.name }}</option>
-          </ng-container>
-        </select>
+        <form [formGroup]="formGroup">
+          <select name="employee" id="employee" [ngClass]="style.select" (change)="onChangeSelect($event)"
+            formControlName="employee">
+            <option value="" disabled selected>Selecione um funcionário</option>
+            <ng-container *ngFor="let employee of employeeList">
+              <option [value]="employee.id" *ngIf="employee.name !== userName">{{ employee.name }}</option>
+            </ng-container>
+          </select>
+        </form>
       </div>
     </div>
     <div [ngClass]="style.footer">

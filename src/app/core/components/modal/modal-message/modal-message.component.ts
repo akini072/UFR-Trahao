@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../modal.component';
 import { FormInputComponent } from '../../form-input/form-input.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-modal-message',
   standalone: true,
-  imports: [CommonModule, FormInputComponent],
+  imports: [CommonModule, FormInputComponent, ReactiveFormsModule],
   templateUrl: '../modal.component.html',
 })
 export class ModalMessageComponent extends ModalComponent {
