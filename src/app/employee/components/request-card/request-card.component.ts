@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { RequestCategory } from '../../../core/types/request-category';
+import { RequestCategory, RequestItem } from '../../../core/types';
 import { CommonModule } from '@angular/common';
 import { ButtonProps } from '../../../core/components/button/button.component';
 import { LimitedDescriptionPipe, StatusTextPipe, StatusColorPipe } from '../../../core/utils/pipes';
-import { RequestItem } from '../../../core/types/request-item';
+
 @Component({
   selector: 'app-request-card',
   standalone: true,

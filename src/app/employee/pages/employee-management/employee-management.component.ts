@@ -10,7 +10,7 @@ import { EmployeeTableComponent } from './components/employee-table/employee-tab
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { ModalService, ModalType } from '../../../core/components/modal';
 import { EmployeeService } from '../../../core/utils/employee.service'
-import { Employee } from '../../../core/types/employee';
+import { Employee } from '../../../core/types';
 
 
 @Component({

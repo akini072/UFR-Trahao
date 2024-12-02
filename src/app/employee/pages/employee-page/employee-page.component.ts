@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
-import { RequestItem } from '../../../core/types/request-item';
+import { RequestItem } from '../../../core/types';
 import {
   ButtonProps,
 } from '../../../core/components/button/button.component';

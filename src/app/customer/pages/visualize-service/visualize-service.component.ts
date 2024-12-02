@@ -1,19 +1,16 @@
 import { Component, ViewContainerRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
 import { ButtonComponent } from '../../../core/components/button/button.component';
 import { StatusStepperComponent } from '../../components/status-stepper/status-stepper.component';
-import { Request } from '../../../core/types/request';
+import { Request, Customer, EquipCategory, requestUpdate } from '../../../core/types';
 import { ModalService, ModalType, ModalResponse } from '../../../core/components/modal';
-import { ActivatedRoute } from '@angular/router';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { CustomerService } from '../../../core/utils/customer.service';
-import { Customer } from '../../../core/types/customer';
-import { EquipCategory } from '../../../core/types/equip-category';
 import { BrCurrencyPipe } from '../../../core/utils/pipes';
 import { lastValueFrom } from 'rxjs';
-import { requestUpdate } from '../../../core/types/request-update';
 
 @Component({
   selector: 'app-visualize-service',

@@ -4,12 +4,11 @@ import { NavbarComponent } from "../../../core/components/navbar/navbar.componen
 import { FooterComponent } from "../../../core/components/footer/footer.component";
 import { EquipCategoryService } from './../../../core/utils/equip-category.service';
 import { FormInputComponent } from "../../../core/components/form-input/form-input.component";
-import { EquipCategory } from '../../../core/types/equip-category';
+import { EquipCategory, RequestCreate } from '../../../core/types';
 import { ButtonComponent, ButtonProps } from '../../../core/components/button/button.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RequestCreate } from '../../../core/types/request-create';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { ModalService, ModalType } from '../../../core/components/modal';
 

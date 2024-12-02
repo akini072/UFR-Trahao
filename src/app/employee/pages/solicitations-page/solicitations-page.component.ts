@@ -8,7 +8,7 @@ import {
   ButtonProps,
 } from '../../../core/components/button/button.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
-import { RequestItem } from '../../../core/types/request-item';
+import { RequestItem } from '../../../core/types';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
 import { FilterSectionComponent } from '../../../customer/components/filter-section/filter-section.component';

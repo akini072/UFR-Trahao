@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ButtonStatusComponent } from '../../../core/components/button-status/button-status.component';
-import { RequestItem } from '../../../core/types/request-item';
+import { RequestItem } from '../../../core/types';
 import { LimitedDescriptionPipe, StatusTextPipe, StatusColorPipe } from '../../../core/utils/pipes';
 import { GlobalTableComponent } from '../../../core/components/global-table/global-table.component';
 
