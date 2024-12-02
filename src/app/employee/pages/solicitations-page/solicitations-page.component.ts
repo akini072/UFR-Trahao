@@ -2,20 +2,18 @@ import { Component, Renderer2, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
-import { ServiceRequestTableComponent } from '../../components/service-request-table/service-request-table.component';
 import { RequestTableComponent } from '../../../customer/components/request-table/request-table.component';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
 import {
-  ButtonComponent,
   ButtonProps,
 } from '../../../core/components/button/button.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { RequestItem } from '../../../core/types/request-item';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
-import { FilterSelectComponent } from '../../../customer/components/filter-section/components/filter-select/filter-select.component';
 import { FilterSectionComponent } from '../../../customer/components/filter-section/filter-section.component';
 import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/toggle-switch.component';
+import { PaginationControlComponent } from "../../../core/components/pagination-control/pagination-control.component";
 
 @Component({
   selector: 'app-solicitations-page',
@@ -23,17 +21,15 @@ import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/to
   imports: [
     CommonModule,
     NavbarComponent,
-    ServiceRequestTableComponent,
     RouterModule,
     RequestTableComponent,
     RequestCardComponent,
-    ButtonComponent,
     FormInputComponent,
     FooterComponent,
-    FilterSelectComponent,
     FilterSectionComponent,
     ToggleSwitchComponent,
-  ],
+    PaginationControlComponent
+],
   providers: [RequestsService],
   templateUrl: './solicitations-page.component.html',
   styleUrls: ['./solicitations-page.component.css'], // Corrigido para styleUrls
@@ -75,8 +71,8 @@ export class SolicitationsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.requestsService.listRequests().then((data: RequestItem[]) => {
-      this.requestList = data;
+    this.requestsService.listRequests().subscribe((data: RequestItem[]) => {
+      this.requestList = data.filter((item) => item.status !== 'open');
       this.activeRequestList = this.requestList;
     });
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {

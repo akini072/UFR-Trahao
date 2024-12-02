@@ -1,52 +1,52 @@
 [
   {
     "equipCategoryId": 1,
-    "categoryDesc": "Computador",
+    "description": "Computador",
     "active": true
   },
   {
     "equipCategoryId": 2,
-    "categoryDesc": "Notebook",
+    "description": "Notebook",
     "active": true
   },
   {
     "equipCategoryId": 3,
-    "categoryDesc": "Tablet",
+    "description": "Tablet",
     "active": true
   },
   {
     "equipCategoryId": 4,
-    "categoryDesc": "Smartphone",
+    "description": "Smartphone",
     "active": true
   },
   {
     "equipCategoryId": 5,
-    "categoryDesc": "Impressora",
+    "description": "Impressora",
     "active": true
   },
   {
     "equipCategoryId": 6,
-    "categoryDesc": "Monitor",
+    "description": "Monitor",
     "active": true
   },
   {
     "equipCategoryId": 7,
-    "categoryDesc": "Projetor",
+    "description": "Projetor",
     "active": true
   },
   {
     "equipCategoryId": 8,
-    "categoryDesc": "Câmera",
+    "description": "Câmera",
     "active": true
   },
   {
     "equipCategoryId": 9,
-    "categoryDesc": "Teclado",
+    "description": "Teclado",
     "active": true
   },
   {
     "equipCategoryId": 10,
-    "categoryDesc": "Mouse",
+    "description": "Mouse",
     "active": true
   }
 ]

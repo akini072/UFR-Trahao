@@ -6,6 +6,11 @@
     <h2 [ngClass]="styles.subtitle"> Informações do Pedido </h2>
 
     <div [ngClass]="styles.basisHalf">
+      <div *ngIf="!open" [ngClass]="styles.basisFull">
+        <p [ngClass]="styles.semibold">Valor do orçamento</p>
+        <label [ngClass]="styles.budget">{{ request.budget | brCurrency }}</label>
+      </div>
+
       <div [ngClass]="styles.basisFull">
         <p [ngClass]="styles.semibold">Descrição do equipamento</p>
         <label>{{ request.equipmentDesc }}</label>
@@ -13,7 +18,7 @@
 
       <div [ngClass]="styles.basisHalf">
         <p [ngClass]="styles.semibold">Categoria do equipamento</p>
-        <label>{{ equipCategory.categoryDesc }}</label>
+        <label>{{ equipCategory.description }}</label>
       </div>
 
       <div [ngClass]="styles.basisFull">
@@ -41,7 +46,7 @@
   <div *ngIf="budgeted" [ngClass]="styles.submain2">
     <h2 [ngClass]="styles.subtitle">Ações</h2>
     <p [ngClass]="styles.semibold">Valor do orçamento:</p>
-    <label class="block mb-4">{{ request.budget | currency: 'BRL' }}</label>
+    <label class="block mb-4">{{ request.budget | brCurrency }}</label>
     <app-button class="me-4"
       [props]="{text: 'Aprovar Serviço', icon: '', iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onApprove}"></app-button>
     <app-button
