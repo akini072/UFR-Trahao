@@ -1,9 +1,7 @@
-import { Component, ViewContainerRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
-import { FooterComponent } from '../../../core/components/footer/footer.component';
-import { ButtonComponent } from '../../../core/components/button/button.component';
+import { Component, ViewContainerRef, ViewChild } from '@angular/core';
+import { NavbarComponent, FooterComponent, ButtonComponent } from '../../../core/components';
 import { StatusStepperComponent } from '../../components/status-stepper/status-stepper.component';
 import { Request, Customer, EquipCategory, requestUpdate } from '../../../core/types';
 import { ModalService, ModalType, ModalResponse } from '../../../core/components/modal';

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { RequestCategory, RequestItem } from '../../../core/types';
 import { CommonModule } from '@angular/common';
-import { ButtonProps } from '../../../core/components/button/button.component';
+import { ButtonProps } from '../../../core/components';
 import { LimitedDescriptionPipe, StatusTextPipe, StatusColorPipe } from '../../../core/utils/pipes';
 
 @Component({

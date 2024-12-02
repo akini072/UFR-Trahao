@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ButtonComponent, ButtonProps } from '../../../../../core/components/button/button.component';
-import { GlobalTableComponent } from '../../../../../core/components/global-table/global-table.component';
+
 import { EquipCategory } from './../../../../../core/types';
+import { ButtonComponent, ButtonProps } from '../../../../../core/components';
+import { GlobalTableComponent } from '../../../../../core/components/global-table/global-table.component';
 
 @Component({
   selector: 'app-category-table',

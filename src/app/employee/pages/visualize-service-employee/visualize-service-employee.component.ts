@@ -2,20 +2,19 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Component, ViewContainerRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ButtonComponent } from '../../../core/components/button/button.component';
-import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
-import { FooterComponent } from '../../../core/components/footer/footer.component';
-import { Request, Customer, EquipCategory, requestUpdate } from '../../../core/types';
-import { ModalService, ModalType, ModalResponse } from '../../../core/components/modal';
+import { lastValueFrom } from 'rxjs';
+
+import { AuthService } from '../../../auth/utils/auth.service';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { CustomerService } from '../../../core/utils/customer.service';
-import { CpfMaskPipe, AddressPipePipe } from '../../../core/utils/pipes';
-import { StatusStepperComponent } from "../../../customer/components/status-stepper/status-stepper.component";
-import { EquipCategoryService } from '../../../core/utils/equip-category.service';
 import { EmployeeService } from '../../../core/utils/employee.service';
-import { AuthService } from '../../../auth/utils/auth.service';
+import { CpfMaskPipe, AddressPipePipe } from '../../../core/utils/pipes';
+import { EquipCategoryService } from '../../../core/utils/equip-category.service';
+import { Request, Customer, EquipCategory, requestUpdate } from '../../../core/types';
+import { ModalService, ModalType, ModalResponse } from '../../../core/components/modal';
+import { ButtonComponent, NavbarComponent, FooterComponent } from '../../../core/components';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
-import { lastValueFrom } from 'rxjs';
+import { StatusStepperComponent } from "../../../customer/components/status-stepper/status-stepper.component";
 
 @Component({
   selector: 'app-visualize-service-employee',
