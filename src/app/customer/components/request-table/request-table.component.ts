@@ -10,7 +10,6 @@ import { ButtonStatusComponent } from '../../../core/components/button-status/bu
 import { RequestItem } from '../../../core/types/request-item';
 import { LimitedDescriptionPipe, StatusTextPipe, StatusColorPipe } from '../../../core/utils/pipes';
 import { GlobalTableComponent } from '../../../core/components/global-table/global-table.component';
-import { ButtonComponent } from '../../../core/components/button/button.component';
 
 @Component({
   selector: 'app-request-table',
@@ -18,11 +17,8 @@ import { ButtonComponent } from '../../../core/components/button/button.componen
   imports: [
     CommonModule,
     ButtonStatusComponent,
-    LimitedDescriptionPipe,
-    StatusTextPipe,
     StatusColorPipe,
     GlobalTableComponent,
-    ButtonComponent,
   ],
   providers: [StatusTextPipe, DatePipe, LimitedDescriptionPipe],
   templateUrl: './request-table.component.html',

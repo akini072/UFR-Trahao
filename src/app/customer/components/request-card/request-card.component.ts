@@ -1,10 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import {
-  ButtonComponent,
-  ButtonProps
-} from '../../../core/components/button/button.component';
+import { ButtonProps } from '../../../core/components/button/button.component';
 import { ButtonStatusComponent } from '../../../core/components/button-status/button-status.component';
 import { LimitedDescriptionPipe, StatusTextPipe, StatusColorPipe } from '../../../core/utils/pipes';
 import { RequestItem } from '../../../core/types/request-item';
@@ -13,7 +10,6 @@ import { RequestItem } from '../../../core/types/request-item';
   standalone: true,
   imports: [
     CommonModule,
-    ButtonComponent,
     ButtonStatusComponent,
     LimitedDescriptionPipe,
     StatusTextPipe,
