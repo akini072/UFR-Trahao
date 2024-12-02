@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { GlobalTableComponent } from '../../../core/components/global-table/global-table.component';
-import { ButtonComponent } from '../../../core/components/button/button.component';
 
 interface RequestData {
   id: number;
@@ -15,7 +14,7 @@ interface RequestData {
 @Component({
   selector: 'app-service-request-table',
   standalone: true,
-  imports: [CommonModule, GlobalTableComponent, ButtonComponent],
+  imports: [CommonModule, GlobalTableComponent],
   templateUrl: './service-request-table.component.html',
   styleUrls: ['./service-request-table.component.css']
 })

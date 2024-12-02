@@ -1,15 +1,14 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
-import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { CommonModule } from '@angular/common';
-import { FooterComponent } from '../../../core/components/footer/footer.component';
-import { ButtonComponent, ButtonProps } from '../../../core/components/button/button.component';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { DateInputComponent } from "../../../core/components/date-input/date-input.component";
-import { ModalService, ModalType } from '../../../core/components/modal';
-import { EmployeeService } from '../../../core/utils/employee.service';
+
 import { Employee } from '../../../core/types';
+import { EmployeeService } from '../../../core/utils/employee.service';
+import { ModalService, ModalType } from '../../../core/components/modal';
+import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
+import { DateInputComponent } from "../../../core/components/date-input/date-input.component";
+import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps } from '../../../core/components';
 
 @Component({
   selector: 'app-employee-register-page',

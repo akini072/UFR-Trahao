@@ -1,16 +1,15 @@
-import { Component, ViewContainerRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NavbarComponent } from "../../../core/components/navbar/navbar.component";
-import { FooterComponent } from "../../../core/components/footer/footer.component";
-import { EquipCategoryService } from './../../../core/utils/equip-category.service';
-import { FormInputComponent } from "../../../core/components/form-input/form-input.component";
-import { EquipCategory, RequestCreate } from '../../../core/types';
-import { ButtonComponent, ButtonProps } from '../../../core/components/button/button.component';
-import { HttpClientModule } from '@angular/common/http';
-import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { Component, ViewContainerRef } from '@angular/core';
+import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+
+import { EquipCategory, RequestCreate } from '../../../core/types';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { ModalService, ModalType } from '../../../core/components/modal';
+import { EquipCategoryService } from './../../../core/utils/equip-category.service';
+import { FormInputComponent } from "../../../core/components/form-input/form-input.component";
+import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps } from "../../../core/components";
 
 @Component({
   selector: 'app-new-request-page',

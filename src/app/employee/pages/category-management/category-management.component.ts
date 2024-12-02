@@ -1,14 +1,13 @@
-import { EquipCategoryService } from './../../../core/utils/equip-category.service';
-import { Component, Renderer2, ViewContainerRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
-import { FooterComponent } from '../../../core/components/footer/footer.component';
-import { ButtonComponent, ButtonProps } from '../../../core/components/button/button.component';
+import { HttpClientModule } from '@angular/common/http';
+import { Component, Renderer2, ViewContainerRef } from '@angular/core';
+
+import { EquipCategory } from '../../../core/types';
+import { EquipCategoryService } from './../../../core/utils/equip-category.service';
+import { ModalService, ModalType, ModalResponse } from '../../../core/components/modal';
 import { CategoryTableComponent } from './components/category-table/category-table.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
-import { ModalService, ModalType, ModalResponse } from '../../../core/components/modal';
-import { EquipCategory } from '../../../core/types';
-import { HttpClientModule } from '@angular/common/http';
+import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps } from '../../../core/components';
 
 @Component({
   selector: 'app-category-management',
