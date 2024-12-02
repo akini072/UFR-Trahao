@@ -2,10 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, ChangeDetectionStrategy, Pipe } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators, ValidatorFn } from '@angular/forms';
 import { CustomValidator } from '../../utils/custom-validators';
-import { CepMaskPipe } from '../../utils/pipes/cepMask/cep-mask.pipe';
-import { CpfMaskPipe } from '../../utils/pipes/cpfMask/cpf-mask.pipe';
-import { PhonePipePipe } from '../../utils/pipes/phone-pipe.pipe';
-import { BrCurrencyPipe } from '../../utils/pipes/br-currency/br-currency.pipe';
+import { CepMaskPipe, CpfMaskPipe, PhonePipePipe, BrCurrencyPipe } from '../../utils/pipes';
 
 type FormTextInputType = 'text' | 'password' | 'email' | 'number';
 

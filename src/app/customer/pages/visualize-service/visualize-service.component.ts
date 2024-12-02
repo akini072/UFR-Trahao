@@ -13,7 +13,7 @@ import { RequestsService } from '../../../core/utils/requests.service';
 import { CustomerService } from '../../../core/utils/customer.service';
 import { Customer } from '../../../core/types/customer';
 import { EquipCategory } from '../../../core/types/equip-category';
-import { BrCurrencyPipe } from '../../../core/utils/pipes/br-currency/br-currency.pipe';
+import { BrCurrencyPipe } from '../../../core/utils/pipes';
 import { lastValueFrom } from 'rxjs';
 import { requestUpdate } from '../../../core/types/request-update';
 
