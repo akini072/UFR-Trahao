@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Credentials } from '../types/credentials';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
+import { CommonResponse } from '../types/commonResponse';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -53,6 +55,49 @@ export class AuthService {
           return decodedToken;
         })
       );
+  }
+
+  signup(
+    nome: string,
+    sobrenome: string,
+    email: string,
+    cpf: string,
+    telefone: string,
+    cep: string,
+    logradouro: string,
+    cidade: string,
+    estado: string,
+    numero: number
+  ): Observable<CommonResponse> {
+    const body = {
+      "name": nome, 
+      "surname": sobrenome, 
+      "email": email, 
+      "cpf": cpf, 
+      "phone": telefone, 
+      "address": {
+          "cep": cep, 
+          "uf": estado, 
+          "city": cidade, 
+          "district": '',
+          "street": logradouro,
+          "number": numero
+      }
+    };
+  
+    return this.http.post<CommonResponse>(`${this.baseUrl}auth/register`, body, {observe : 'response'}).pipe(
+      map((response) => {
+        if(response.status === 201){
+          return { message: 'Cadastro realizado com sucesso.', status: 201 };
+        } else {
+          return { message: 'Erro ao realizar o cadastro.', status: 400 };
+        }
+      }),
+      catchError((error) => {
+        console.log('Erro ao realizar o cadastro:', error);
+        return of({ message: 'Erro ao realizar o cadastro.', status: 400 });
+      })
+    );
   }
 
   private decodeToken(token: string): Credentials {
