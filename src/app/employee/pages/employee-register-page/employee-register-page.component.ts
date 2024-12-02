@@ -9,7 +9,7 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { DateInputComponent } from "../../../core/components/date-input/date-input.component";
 import { ModalService, ModalType } from '../../../core/components/modal';
 import { EmployeeService } from '../../../core/utils/employee.service';
-import { Employee } from '../../../core/types/employee';
+import { Employee } from '../../../core/types';
 
 @Component({
   selector: 'app-employee-register-page',

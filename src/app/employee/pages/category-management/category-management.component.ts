@@ -7,7 +7,7 @@ import { ButtonComponent, ButtonProps } from '../../../core/components/button/bu
 import { CategoryTableComponent } from './components/category-table/category-table.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { ModalService, ModalType, ModalResponse } from '../../../core/components/modal';
-import { EquipCategory } from '../../../core/types/equip-category';
+import { EquipCategory } from '../../../core/types';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({

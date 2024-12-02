@@ -17,7 +17,7 @@ import { FormInputComponent } from '../../../core/components/form-input/form-inp
 import { RequestTableComponent } from '../../components/request-table/request-table.component';
 import { FilterSectionComponent } from '../../components/filter-section/filter-section.component';
 import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/toggle-switch.component';
-import { RequestItem } from '../../../core/types/request-item';
+import { RequestItem } from '../../../core/types';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { PaginationControlComponent } from '../../../core/components/pagination-control/pagination-control.component';
 import { FooterComponent } from "../../../core/components/footer/footer.component";
