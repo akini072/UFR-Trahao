@@ -5,9 +5,7 @@ import { FooterComponent } from '../../../core/components/footer/footer.componen
 import { ButtonComponent } from '../../../core/components/button/button.component';
 import { StatusStepperComponent } from '../../components/status-stepper/status-stepper.component';
 import { Request } from '../../../core/types/request';
-import { ModalService } from '../../../core/utils/modal.service';
-import { ModalType } from '../../../core/types/modal-type';
-import { ModalResponse } from '../../../core/types/modal-response';
+import { ModalService, ModalType, ModalResponse } from '../../../core/components/modal';
 import { ActivatedRoute } from '@angular/router';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { CustomerService } from '../../../core/utils/customer.service';
