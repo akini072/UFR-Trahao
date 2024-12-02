@@ -125,9 +125,7 @@
     </div>
 
     <div [ngClass]="style.sectionT2">
-      <span *ngIf="error" [ngClass]="style.errorStyle">{{
-        getErrorMessage()
-      }}</span>
+      <span *ngIf="error" [ngClass]="style.errorStyle">{{getErrorMessage()}}</span>
       <app-button
         [props]="{
           text: 'Cadastrar-se',
