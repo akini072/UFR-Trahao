@@ -11,6 +11,8 @@ import { FormInputComponent } from '../../../core/components/form-input/form-inp
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ModalService } from '../../../core/utils/modal.service';
 import { ModalType } from '../../../core/types/modal-type';
+import { AuthService } from '../../utils/auth.service';
+import { CommonResponse } from '../../types/commonResponse';
 
 @Component({
   selector: 'app-signup-page',
@@ -24,7 +26,7 @@ import { ModalType } from '../../../core/types/modal-type';
     FormInputComponent,
     ReactiveFormsModule,
   ],
-  providers: [ViaCepApiService],
+  providers: [ViaCepApiService, AuthService],
   templateUrl: './signup-page.component.html',
   styleUrls: ['./signup-page.component.css'],
 })
@@ -46,7 +48,8 @@ export class SignupPageComponent {
   constructor(
     private serviceAPI: ViaCepApiService,
     private modal: ModalService,
-    private view: ViewContainerRef
+    private view: ViewContainerRef,
+    private auth: AuthService
   ) {
     this.formGroup = new FormGroup({
       nome: new FormControl(''),
@@ -105,13 +108,38 @@ export class SignupPageComponent {
 
   onSignUp = () => {
     if (this.formGroup.valid) {
-      this.error = false;
-      const data = {
-        title: 'Cadastro bem-sucedido',
-        message: 'Sua senha de 4 dígitos foi enviada por e-email',
-        label: 'Ok',
-      };
-      this.modal.open(this.view, ModalType.MESSAGE, data).subscribe((value) => {
+      this.auth.signup(
+        this.nome.value,
+        this.sobrenome.value,
+        this.email.value,
+        this.cpf.value.replace(/\D/g, ''),
+        this.telefone.value,
+        this.cep.value.replace(/\D/g, ''),
+        this.logradouro.value,
+        this.cidade.value,
+        this.estado.value,
+        parseInt(this.numero.value)
+      ).subscribe({
+        next: (response: CommonResponse) => {
+          console.log('Response: ' + response.status + ' ' + response);
+          if (response.status === 201) {
+            // Exibe mensagem de sucesso se status for CREATED
+            this.error = false;
+            const data = {
+              title: 'Cadastro bem-sucedido',
+              message: 'Sua senha de 4 dígitos foi enviada por e-email',
+              label: 'Ok',
+            };
+            this.modal.open(this.view, ModalType.MESSAGE, data).subscribe((value) => {});
+          } else {
+            // Caso o status não seja 201
+            this.error = true;
+          }
+        },
+        error: (err) => {
+          console.error('Erro ao realizar cadastro: ', err);
+          this.error = true;
+        },
       });
     } else {
       this.error = true;
