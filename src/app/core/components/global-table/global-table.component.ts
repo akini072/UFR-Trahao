@@ -1,8 +1,6 @@
-import { StatusTextPipe } from '../../../core/utils/pipes/statusText/status-text.pipe';
-import { StatusColorPipe } from "../../../core/utils/pipes/statusColor/status-color.pipe";
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnChanges, SimpleChanges, Input, TemplateRef } from '@angular/core';
-import { LimitedDescriptionPipe } from '../../utils/limited-description.pipe';
+import { LimitedDescriptionPipe, StatusColorPipe, StatusTextPipe } from '../../utils/pipes';
 import { ButtonStatusComponent } from '../button-status/button-status.component';
 import { ButtonComponent, ButtonProps } from '../button/button.component';
 import { PaginationControlComponent } from "../pagination-control/pagination-control.component";
