@@ -6,9 +6,7 @@ import { FooterComponent } from '../../../core/components/footer/footer.componen
 import { ButtonComponent, ButtonProps } from '../../../core/components/button/button.component';
 import { CategoryTableComponent } from './components/category-table/category-table.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
-import { ModalService } from '../../../core/utils/modal.service';
-import { ModalType } from '../../../core/types/modal-type';
-import { ModalResponse } from '../../../core/types/modal-response';
+import { ModalService, ModalType, ModalResponse } from '../../../core/components/modal';
 import { EquipCategory } from '../../../core/types/equip-category';
 import { HttpClientModule } from '@angular/common/http';
 

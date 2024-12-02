@@ -7,8 +7,7 @@ import { ButtonComponent, ButtonProps } from '../../../core/components/button/bu
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { DateInputComponent } from "../../../core/components/date-input/date-input.component";
-import { ModalService } from '../../../core/utils/modal.service';
-import { ModalType } from '../../../core/types/modal-type';
+import { ModalService, ModalType } from '../../../core/components/modal';
 import { EmployeeService } from '../../../core/utils/employee.service';
 import { Employee } from '../../../core/types/employee';
 

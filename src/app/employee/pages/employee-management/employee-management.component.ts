@@ -8,8 +8,7 @@ import { Router } from '@angular/router';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { EmployeeTableComponent } from './components/employee-table/employee-table.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
-import { ModalService } from '../../../core/utils/modal.service';
-import { ModalType } from '../../../core/types/modal-type';
+import { ModalService, ModalType } from '../../../core/components/modal';
 import { EmployeeService } from '../../../core/utils/employee.service'
 import { Employee } from '../../../core/types/employee';
 

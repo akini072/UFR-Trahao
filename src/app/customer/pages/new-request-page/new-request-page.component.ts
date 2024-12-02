@@ -11,8 +11,7 @@ import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { RequestCreate } from '../../../core/types/request-create';
 import { RequestsService } from '../../../core/utils/requests.service';
-import { ModalService } from '../../../core/utils/modal.service';
-import { ModalType } from '../../../core/types/modal-type';
+import { ModalService, ModalType } from '../../../core/components/modal';
 
 @Component({
   selector: 'app-new-request-page',

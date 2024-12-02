@@ -9,8 +9,7 @@ import { ButtonComponent } from '../../../core/components/button/button.componen
 import { ViaCepApiService } from '../../utils/via-cep-api.service';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ModalService } from '../../../core/utils/modal.service';
-import { ModalType } from '../../../core/types/modal-type';
+import { ModalService, ModalType } from '../../../core/components/modal';
 
 @Component({
   selector: 'app-signup-page',

@@ -4,13 +4,11 @@ import { NavbarComponent } from '../../../core/components/navbar/navbar.componen
 import { FooterComponent } from '../../../core/components/footer/footer.component';
 import { Request } from '../../../core/types/request';
 import { CommonModule } from '@angular/common';
-import { ModalService } from '../../../core/utils/modal.service';
-import { ModalType } from '../../../core/types/modal-type';
+import { ModalService, ModalType, ModalResponse } from '../../../core/components/modal';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { CustomerService } from '../../../core/utils/customer.service';
 import { ActivatedRoute } from '@angular/router';
 import { CpfMaskPipe, AddressPipePipe } from '../../../core/utils/pipes';
-import { ModalResponse } from '../../../core/types/modal-response';
 import { StatusStepperComponent } from "../../../customer/components/status-stepper/status-stepper.component";
 import { Customer } from '../../../core/types/customer';
 import { EquipCategory } from './../../../core/types/equip-category';
