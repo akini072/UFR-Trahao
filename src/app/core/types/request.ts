@@ -4,7 +4,6 @@ import { RequestStatus } from "./request-status";
 export interface Request {
     requestId: number;
     customerId: number;
-    requestDesc: string;
     equipmentDesc: string;
     defectDesc: string;
     status: RequestStatus[];
@@ -12,5 +11,5 @@ export interface Request {
     repairDesc: string;
     customerOrientations: string;
     image: string;
-    equipCategoryId: number;
+    equipCategory: EquipCategory;
 }

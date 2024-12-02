@@ -207,7 +207,7 @@ export class CategoryManagementComponent {
 
   editCategory(id: number, value: string){
     if (!value) return;
-    const equipCategory = {equipCategoryId: id, categoryDesc: value, active: true}
+    const equipCategory = {equipCategoryId: id, description: value, active: true}
     this.equipCategoryService.updateEquipCategory(equipCategory).subscribe((category) =>{
       this.updateActiveEquipCategoryList();
       this.modal.open(this.view, ModalType.MESSAGE, {

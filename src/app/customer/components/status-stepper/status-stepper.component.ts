@@ -4,6 +4,7 @@ import { RequestStatus } from '../../../core/types/request-status';
 import { Request } from '../../../core/types/request';
 import { statusMap } from '../../../core/types/status-map';
 import { statusBGColor, statusBorderColor, statusTextColor } from '../../../core/types/status-color';
+import { Employee } from '../../../core/types/employee';
 
 @Component({
   selector: 'app-status-stepper',
@@ -24,11 +25,11 @@ export class StatusStepperComponent {
     const defaultRequest: Request = {} as Request;
     const currentDate = new Date();
     return [
-      { requestStatusId: '', dateTime: currentDate, category: 'budgeted', senderEmployee: '', inChargeEmployee: '', request: defaultRequest },
-      { requestStatusId: '', dateTime: currentDate, category: 'approved', senderEmployee: '', inChargeEmployee: '', request: defaultRequest },
-      { requestStatusId: '', dateTime: currentDate, category: 'fixed', senderEmployee: '', inChargeEmployee: '', request: defaultRequest },
-      { requestStatusId: '', dateTime: currentDate, category: 'paid', senderEmployee: '', inChargeEmployee: '', request: defaultRequest },
-      { requestStatusId: '', dateTime: currentDate, category: 'finalized', senderEmployee: '', inChargeEmployee: '', request: defaultRequest }
+      { requestStatusId: '', dateTime: currentDate, category: 'budgeted', senderEmployee: {} as Employee, inChargeEmployee: {} as Employee, request: defaultRequest },
+      { requestStatusId: '', dateTime: currentDate, category: 'approved', senderEmployee: {} as Employee, inChargeEmployee: {} as Employee, request: defaultRequest },
+      { requestStatusId: '', dateTime: currentDate, category: 'fixed', senderEmployee: {} as Employee, inChargeEmployee: {} as Employee, request: defaultRequest },
+      { requestStatusId: '', dateTime: currentDate, category: 'paid', senderEmployee: {} as Employee, inChargeEmployee: {} as Employee, request: defaultRequest },
+      { requestStatusId: '', dateTime: currentDate, category: 'finalized', senderEmployee: {} as Employee, inChargeEmployee: {} as Employee, request: defaultRequest }
     ];
   }
 
@@ -105,11 +106,11 @@ export class StatusStepperComponent {
     const inChargeEmployee = this.statusList[index].inChargeEmployee;
 
     if (category === 'redirected') {
-      return `${statusText} por ${senderEmployee} para ${inChargeEmployee} em ${dateTimeText}`;
+      return `${statusText} por ${senderEmployee?.name} para ${inChargeEmployee?.name} em ${dateTimeText}`;
     }
 
     if (category !== 'open' && category !== 'paid' && category !== 'rejected' && category !== 'approved') {
-      return `${statusText} por ${inChargeEmployee} em ${dateTimeText}`;
+      return `${statusText} por ${inChargeEmployee?.name} em ${dateTimeText}`;
     }
 
     return dateTimeText;

@@ -10,7 +10,7 @@ import { RequestsService } from '../../../core/utils/requests.service';
 import { CustomerService } from '../../../core/utils/customer.service';
 import { ActivatedRoute } from '@angular/router';
 import { CpfMaskPipe } from '../../../core/utils/pipes/cpfMask/cpf-mask.pipe';
-import { AddressPipePipe } from '../../../core/utils/pipes/address-pipe.pipe';
+import { AddressPipePipe } from '../../../core/utils/pipes/address-pipe/address-pipe.pipe';
 import { ModalResponse } from '../../../core/types/modal-response';
 import { StatusStepperComponent } from "../../../customer/components/status-stepper/status-stepper.component";
 import { Customer } from '../../../core/types/customer';
@@ -18,11 +18,16 @@ import { EquipCategory } from './../../../core/types/equip-category';
 import { EquipCategoryService } from '../../../core/utils/equip-category.service';
 import { EmployeeService } from '../../../core/utils/employee.service';
 import { AuthService } from '../../../auth/utils/auth.service';
+import { Employee } from '../../../core/types/employee';
+import { lastValueFrom } from 'rxjs';
+import { requestUpdate } from '../../../core/types/request-update';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 
 @Component({
   selector: 'app-visualize-service-employee',
   standalone: true,
-  imports: [ButtonComponent, NavbarComponent, FooterComponent, CommonModule, StatusStepperComponent, CpfMaskPipe, AddressPipePipe],
+  imports: [ButtonComponent, NavbarComponent, FooterComponent, CommonModule, FormInputComponent, StatusStepperComponent, CpfMaskPipe, ReactiveFormsModule, AddressPipePipe],
   providers: [RequestsService, CustomerService, EquipCategoryService, EmployeeService, AuthService],
   templateUrl: './visualize-service-employee.component.html',
   styleUrl: './visualize-service-employee.component.css'
@@ -32,6 +37,8 @@ export class VisualizeServiceEmployeeComponent {
   open: boolean = false;
   approved: boolean = false;
   paid: boolean = false;
+  orcamento: FormGroup;
+  value: FormControl;
   request: Request;
   customer: Customer;
   equipCategory: EquipCategory;
@@ -43,22 +50,26 @@ export class VisualizeServiceEmployeeComponent {
     private route: ActivatedRoute,
     private requestsService: RequestsService,
     private customerService: CustomerService,
-    private equipCategoryService: EquipCategoryService,
     private employeeService: EmployeeService,
     private authService: AuthService
   ) {
-    this.initializeData();
     this.request = {} as Request;
     this.customer = {} as Customer;
     this.equipCategory = {} as EquipCategory;
+    this.loadData();
+
+    this.orcamento = new FormGroup({
+      value: new FormControl('')
+    });
+    this.value = this.orcamento.get('value') as FormControl;
   }
 
-  async initializeData() {
+  async loadData() {
     try {
       this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
-      this.request = await this.requestsService.getRequestById(this.serviceId);
+      this.request = await lastValueFrom(this.requestsService.getRequestById(this.serviceId));
       this.customer = await this.customerService.getCustomer(this.request.customerId);
-      this.equipCategory = await this.equipCategoryService.getEquipCategory(this.request.equipCategoryId);
+      this.equipCategory = this.request.equipCategory;
       this.checkStatus();
     } catch (error) {
       console.error(error);
@@ -94,6 +105,7 @@ export class VisualizeServiceEmployeeComponent {
     };
     this.modal.open(this.view, ModalType.INPUT, data).subscribe((value: ModalResponse) => {
       if (value.assert) {
+        const repairDesc = value.message as string;
         const newData = {
           title: 'Orientações',
           message: 'Informe as orientações para o cliente',
@@ -101,15 +113,14 @@ export class VisualizeServiceEmployeeComponent {
         }
         this.modal.open(this.view, ModalType.INPUT, newData).subscribe((value: ModalResponse) => {
           if (value.assert) {
-            this.request.status.push({
-              requestStatusId: '5',
-              dateTime: new Date(),
-              category: 'fixed',
-              senderEmployee: '',
-              inChargeEmployee: 'Alisson Gabriel',
-              request: {} as Request
+            const currentStatus = this.request.status[this.request.status.length - 1].category;
+            const update = new requestUpdate(this.request.requestId, currentStatus, "fixed", Date.now());
+            update.repairDesc = repairDesc;
+            update.customerOrientations = value.message as string;
+            update.inChargeEmployeeId = Number.parseInt(this.authService.getCurrentUser().sub);
+            this.requestsService.updateRequestStatus(update).subscribe(() => {
+              this.loadData();
             });
-            this.checkStatus();
           }
         });
       }
@@ -127,15 +138,12 @@ export class VisualizeServiceEmployeeComponent {
       };
       this.modal.open(this.view, ModalType.SELECT_EMPLOYEE, data).subscribe((value: ModalResponse) => {
         if (value.assert) {
-          this.request.status.push({
-            requestStatusId: '4',
-            dateTime: new Date(),
-            category: 'redirected',
-            senderEmployee: 'Alisson Gabriel',
-            inChargeEmployee: value.message || '',
-            request: {} as Request
+          const update = new requestUpdate(this.request.requestId, "approved", "redirected", Date.now());
+          update.senderEmployeeId = Number.parseInt(this.authService.getCurrentUser().sub);
+          update.inChargeEmployeeId = Number.parseInt(value.message || '');
+          this.requestsService.updateRequestStatus(update).subscribe(() => {
+            this.loadData();
           });
-          this.checkStatus();
         }
       });
     }
@@ -143,24 +151,23 @@ export class VisualizeServiceEmployeeComponent {
   };
 
   onBudget = () => {
-    const data = {
-      title: 'Orçamento',
-      message: 'Por favor, confira o valor do orçamento',
-      label: 'Orçar',
-    };
-    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
-      if (value.assert) {
-        this.request.status.push({
-          requestStatusId: '2',
-          dateTime: new Date(),
-          category: 'budgeted',
-          senderEmployee: '',
-          inChargeEmployee: 'Alisson Gabriel',
-          request: {} as Request
-        });
-        this.checkStatus();
-      }
-    });
+    if (this.orcamento.valid) {
+      const data = {
+        title: 'Orçamento',
+        message: 'Por favor, confira o valor do orçamento',
+        label: 'Orçar',
+      };
+      this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
+        if (value.assert) {
+          const update = new requestUpdate(this.request.requestId, "open", "budgeted", Date.now());
+          update.budget = this.value.value;
+          update.inChargeEmployeeId = Number.parseInt(this.authService.getCurrentUser().sub);
+          this.requestsService.updateRequestStatus(update).subscribe(() => {
+            this.loadData();
+          });
+        }
+      });
+    }
   };
 
   onPaid = () => {
@@ -171,15 +178,11 @@ export class VisualizeServiceEmployeeComponent {
     };
     this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value: ModalResponse) => {
       if (value.assert) {
-        this.request.status.push({
-          requestStatusId: '6',
-          dateTime: new Date(),
-          category: 'finalized',
-          senderEmployee: '',
-          inChargeEmployee: 'Alisson Gabriel',
-          request: {} as Request
+        const update = new requestUpdate(this.request.requestId, "paid", "finalized", Date.now());
+        update.inChargeEmployeeId = Number.parseInt(this.authService.getCurrentUser().sub);
+        this.requestsService.updateRequestStatus(update).subscribe(() => {
+          this.loadData();
         });
-        this.checkStatus();
       }
     });
   };

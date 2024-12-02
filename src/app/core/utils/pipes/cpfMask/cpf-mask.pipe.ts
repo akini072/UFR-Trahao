@@ -8,6 +8,8 @@ export class CpfMaskPipe implements PipeTransform {
 
   transform(value: string): string {
 
+    if (value == undefined) return value;
+
     const cpf = value.replace(/\D/g, '');
 
     if (cpf.length <= 3) {

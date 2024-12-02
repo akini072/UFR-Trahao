@@ -14,6 +14,7 @@ import { VisualizeServiceEmployeeComponent } from './employee/pages/visualize-se
 import { ReportPageComponent } from './finance/pages/report-page/report-page.component';
 import { Page404Component } from './core/pages/page404/page404.component';
 import { AuthGuard } from './auth/utils/auth.guard';
+import { Page403Component } from './core/pages/page403/page403.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/index', pathMatch: 'full' },
@@ -41,6 +42,7 @@ export const routes: Routes = [
       { path: 'relatorio-mensal', component: ReportPageComponent },
     ],
   },
+  { path: 'forbidden', component: Page403Component },
   { path: '**', component: Page404Component }
 
 ];

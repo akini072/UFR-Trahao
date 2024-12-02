@@ -1,64 +1,91 @@
-import { Observable, lastValueFrom } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { RequestStatus } from '../types/request-status';
 import { Request } from '../types/request';
 import { RequestItem } from '../types/request-item';
+import { AuthService } from '../../auth/utils/auth.service';
+import { CustomerService } from './customer.service';
+import { ErrorHandlingService } from './error-handling.service';
+import { requestUpdate } from '../types/request-update';
+import { RequestCreate } from '../types/request-create';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RequestsService {
-  //private baseUrl: string = environment.baseUrl;
-  private baseUrl: string = "assets/mocks/";
+  private baseUrl: string = environment.baseUrl;
+  private authService: AuthService;
+  private customerService: CustomerService;
 
-  constructor(private http: HttpClient) {}
-  
-  // Método privado para obter a lista de requisições
-  private getRequests(): Observable<Request[]> {
-    return this.http.get<Request[]>(this.baseUrl + 'requests.json');
-  }
-  
-  // Método privado para obter os status das requisições
-  private getRequestStatuses(): Observable<RequestStatus[]> {
-    return this.http.get<RequestStatus[]>(this.baseUrl + 'requestStatuses.json');
+  constructor(private http: HttpClient) {
+    this.authService = new AuthService(this.http);
+    this.customerService = new CustomerService(this.http);
   }
 
   // Método assíncrono para listar as requisições com seus detalhes
-  async listRequests(): Promise<RequestItem[]> {
-    const requests: Request[] = await lastValueFrom(this.getRequests());
-    const statuses: RequestStatus[] = await lastValueFrom(this.getRequestStatuses());
-    
-    // Mapeia cada requisição para um objeto RequestItem
-    const requestItems = requests.map((request: Request) => {
-      // Filtra os status que correspondem ao ID da requisição atual
-      const statusList = statuses.filter((status) => status.requestId === request.requestId);
-      const status = statusList[statusList.length - 1]?.category;
-      return {
-        id: request.requestId,
-        title: request.equipmentDesc,
-        description: request.defectDesc,
-        status: status,
-        client: 'João Maria', // Cliente fixo
-        created_at: `${statusList[0]?.dateTime}`,
-        image: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAB0lEQVR42mP8/wcAAgAB/AmztHAAAAABJRU5ErkJggg==', // Imagem placeholder
-      } as RequestItem;
-    });
-    
-    return requestItems;
+  listRequests(): Observable<RequestItem[]> {
+    let token = this.authService.getAuthorizationToken();
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.get<RequestItem[]>(this.baseUrl + 'requests', { headers })
+      .pipe(
+        map((requests: RequestItem[]) => {
+          for (let request of requests) {
+            request.status = request.status.toLowerCase() as any;
+            request.image = `assets/images/status/img-${request.status}.svg`;
+            this.customerService.getCustomer(request.client.id).then((customer) => {
+              request.client = customer;
+            });
+          }
+          return requests;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          ErrorHandlingService.handleErrorResponse(error);
+          return new Observable<never>((observer) => observer.error(error));
+        })
+      );
   }
 
-  async getRequestById(requestId: number){
-    const requests: Request[] = await lastValueFrom(this.getRequests());
-    const statuses: RequestStatus[] = await lastValueFrom(this.getRequestStatuses());
+  getRequestById(requestId: number) {
+    let token = this.authService.getAuthorizationToken();
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.get<Request>(this.baseUrl + "requests/" + requestId, { headers })
+      .pipe(
+        map((request) => {
 
-    const request = requests.filter((req) => req.requestId == requestId)[0];
-    request.status = statuses.filter((status) => status.requestId == request.requestId);
-    for(let status of request.status){
-      status.dateTime = new Date(status.dateTime);
-    }
+          for (let status of request.status) {
+            status.dateTime = new Date(status.dateTime);
+          }
 
-    return request;
+          return request;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          ErrorHandlingService.handleErrorResponse(error);
+          return new Observable<never>((observer) => observer.error(error));
+        })
+      );
+  }
+
+  createRequest(request: RequestCreate): Observable<string> {
+    let token = this.authService.getAuthorizationToken();
+    const headers = { Authorization: `Bearer ${token}` };
+    request.customerId = Number.parseInt(this.authService.getCurrentUser().sub);
+    return this.http.post<{ message: string }>(this.baseUrl + "requests", request, { headers }).pipe(
+      map((response) => {
+        return response.message;
+      })
+    );
+  }
+
+  updateRequestStatus(update: requestUpdate){
+    update.userType = this.authService.getCurrentUser().profile;
+    let token = this.authService.getAuthorizationToken();
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.put<{ message: string }>(this.baseUrl+"requests/"+update.requestId, update, { headers }).pipe(
+      map((response) => {
+        return response.message;
+      })
+    );
   }
 }

@@ -12,7 +12,7 @@
       <img
         class=""
         alt="Imagem da solicitação"
-        src="{{ 'https://via.placeholder.com/150' }}"
+        src="{{ request.image }}"
       />
     </div>
     <div class="{{ style.cardDataContainer }}">
@@ -24,7 +24,7 @@
         </div>
         <div>
           <p class="{{ style.cardDate }}">
-            Cliente: {{ request.client }}
+            Cliente: {{ request.client.name }}
           </p>
           <p class="{{ style.cardDate }}">
             Última atualização: {{ request.created_at | date : "dd/MM/yyyy HH:mm" }}
