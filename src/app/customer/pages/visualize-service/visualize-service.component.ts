@@ -3,10 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, ViewContainerRef, ViewChild } from '@angular/core';
 import { NavbarComponent, FooterComponent, ButtonComponent } from '../../../core/components';
 import { StatusStepperComponent } from '../../components/status-stepper/status-stepper.component';
-import { Request, Customer, EquipCategory, requestUpdate } from '../../../core/types';
+import { Request, EquipCategory, requestUpdate } from '../../../core/types';
 import { ModalService, ModalType, ModalResponse } from '../../../core/components/modal';
 import { RequestsService } from '../../../core/utils/requests.service';
-import { CustomerService } from '../../../core/utils/customer.service';
 import { BrCurrencyPipe } from '../../../core/utils/pipes';
 import { lastValueFrom } from 'rxjs';
 
@@ -21,7 +20,7 @@ import { lastValueFrom } from 'rxjs';
     StatusStepperComponent,
     BrCurrencyPipe
   ],
-  providers: [RequestsService, CustomerService],
+  providers: [RequestsService],
   templateUrl: './visualize-service.component.html',
   styleUrl: './visualize-service.component.css',
 })
@@ -33,7 +32,6 @@ export class VisualizeServiceComponent {
   open: boolean = false;
   pageTitle: string = '';
   request: Request;
-  customer: Customer;
   equipCategory: EquipCategory;
   @ViewChild(StatusStepperComponent) statusStepper!: StatusStepperComponent;
 
@@ -42,10 +40,8 @@ export class VisualizeServiceComponent {
     private view: ViewContainerRef,
     private route: ActivatedRoute,
     private requestsService: RequestsService,
-    private customerService: CustomerService,
   ) {
     this.request = {} as Request;
-    this.customer = {} as Customer;
     this.equipCategory = {} as EquipCategory;
     this.loadData();
   }
@@ -54,7 +50,6 @@ export class VisualizeServiceComponent {
     try {
       this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
       this.request = await lastValueFrom(this.requestsService.getRequestById(this.serviceId));
-      this.customer = await this.customerService.getCustomer(this.request.customerId);
       this.equipCategory = this.request.equipCategory;
       this.checkStatus();
     } catch (error) {

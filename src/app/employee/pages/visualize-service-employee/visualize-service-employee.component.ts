@@ -6,7 +6,6 @@ import { lastValueFrom } from 'rxjs';
 
 import { AuthService } from '../../../auth/utils/auth.service';
 import { RequestsService } from '../../../core/utils/requests.service';
-import { CustomerService } from '../../../core/utils/customer.service';
 import { EmployeeService } from '../../../core/utils/employee.service';
 import { CpfMaskPipe, AddressPipePipe } from '../../../core/utils/pipes';
 import { EquipCategoryService } from '../../../core/utils/equip-category.service';
@@ -20,7 +19,7 @@ import { StatusStepperComponent } from "../../../customer/components/status-step
   selector: 'app-visualize-service-employee',
   standalone: true,
   imports: [ButtonComponent, NavbarComponent, FooterComponent, CommonModule, FormInputComponent, StatusStepperComponent, CpfMaskPipe, ReactiveFormsModule, AddressPipePipe],
-  providers: [RequestsService, CustomerService, EquipCategoryService, EmployeeService, AuthService],
+  providers: [RequestsService, EquipCategoryService, EmployeeService, AuthService],
   templateUrl: './visualize-service-employee.component.html',
   styleUrl: './visualize-service-employee.component.css'
 })
@@ -41,7 +40,6 @@ export class VisualizeServiceEmployeeComponent {
     private view: ViewContainerRef,
     private route: ActivatedRoute,
     private requestsService: RequestsService,
-    private customerService: CustomerService,
     private employeeService: EmployeeService,
     private authService: AuthService
   ) {
@@ -60,7 +58,7 @@ export class VisualizeServiceEmployeeComponent {
     try {
       this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
       this.request = await lastValueFrom(this.requestsService.getRequestById(this.serviceId));
-      this.customer = await this.customerService.getCustomer(this.request.customerId);
+      this.customer = this.request.customer;
       this.equipCategory = this.request.equipCategory;
       this.checkStatus();
     } catch (error) {
