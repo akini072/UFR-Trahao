@@ -33,6 +33,7 @@ export class VisualizeServiceComponent {
   pageTitle: string = '';
   request: Request;
   equipCategory: EquipCategory;
+
   @ViewChild(StatusStepperComponent) statusStepper!: StatusStepperComponent;
 
   constructor(
@@ -124,8 +125,7 @@ export class VisualizeServiceComponent {
 
   checkStatus() {
     this.statusStepper.setStatusSteps(this.request.status);
-    let status = this.request.status[this.request.status.length - 1].category;
-    switch (status) {
+    switch (this.request.status[this.request.status.length - 1].category) {
       case 'open':
         this.rejected = false;
         this.finalized = false;
