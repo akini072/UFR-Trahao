@@ -1,10 +1,20 @@
 <app-navbar></app-navbar>
 <div [ngClass]="style.wrapper">
-    <div>
-        <p [ngClass]="style.title">Relatorio Mensal</p>
-    </div>
-    <div>
-        <app-global-table [enablePagination]=false [currentPage]="currentPage" [totalPages]="totalPages" [nextPage]="nextPage" [previousPage]="previousPage" [columns]="columns" [data]="getPaginatedRequests().items" [reportData]="reportData.items" [enableReport]="true" />
-    </div>
+  <div>
+    <p [ngClass]="style.title">Relatorio Mensal</p>
+  </div>
+  <div>
+    <app-global-table
+      [enablePagination]="false"
+      [currentPage]="currentPage"
+      [totalPages]="totalPages"
+      [nextPage]="nextPage"
+      [previousPage]="previousPage"
+      [columns]="columns"
+      [data]="getPaginatedRequests().items"
+      [reportData]="reportData.items"
+      [enableReport]="true"
+    />
+  </div>
 </div>
 <app-footer></app-footer>
