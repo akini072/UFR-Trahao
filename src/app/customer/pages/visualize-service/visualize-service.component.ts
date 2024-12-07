@@ -1,21 +1,13 @@
-import { Component, ViewContainerRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
-import { FooterComponent } from '../../../core/components/footer/footer.component';
-import { ButtonComponent } from '../../../core/components/button/button.component';
-import { StatusStepperComponent } from '../../components/status-stepper/status-stepper.component';
-import { Request } from '../../../core/types/request';
-import { ModalService } from '../../../core/utils/modal.service';
-import { ModalType } from '../../../core/types/modal-type';
-import { ModalResponse } from '../../../core/types/modal-response';
 import { ActivatedRoute } from '@angular/router';
+import { Component, ViewContainerRef, ViewChild } from '@angular/core';
+import { NavbarComponent, FooterComponent, ButtonComponent } from '../../../core/components';
+import { StatusStepperComponent } from '../../components/status-stepper/status-stepper.component';
+import { Request, EquipCategory, requestUpdate } from '../../../core/types';
+import { ModalService, ModalType, ModalResponse } from '../../../core/components/modal';
 import { RequestsService } from '../../../core/utils/requests.service';
-import { CustomerService } from '../../../core/utils/customer.service';
-import { Customer } from '../../../core/types/customer';
-import { EquipCategory } from '../../../core/types/equip-category';
-import { BrCurrencyPipe } from '../../../core/utils/pipes/br-currency/br-currency.pipe';
+import { BrCurrencyPipe } from '../../../core/utils/pipes';
 import { lastValueFrom } from 'rxjs';
-import { requestUpdate } from '../../../core/types/request-update';
 
 @Component({
   selector: 'app-visualize-service',
@@ -28,7 +20,7 @@ import { requestUpdate } from '../../../core/types/request-update';
     StatusStepperComponent,
     BrCurrencyPipe
   ],
-  providers: [RequestsService, CustomerService],
+  providers: [RequestsService],
   templateUrl: './visualize-service.component.html',
   styleUrl: './visualize-service.component.css',
 })
@@ -40,8 +32,8 @@ export class VisualizeServiceComponent {
   open: boolean = false;
   pageTitle: string = '';
   request: Request;
-  customer: Customer;
   equipCategory: EquipCategory;
+
   @ViewChild(StatusStepperComponent) statusStepper!: StatusStepperComponent;
 
   constructor(
@@ -49,10 +41,8 @@ export class VisualizeServiceComponent {
     private view: ViewContainerRef,
     private route: ActivatedRoute,
     private requestsService: RequestsService,
-    private customerService: CustomerService,
   ) {
     this.request = {} as Request;
-    this.customer = {} as Customer;
     this.equipCategory = {} as EquipCategory;
     this.loadData();
   }
@@ -61,7 +51,6 @@ export class VisualizeServiceComponent {
     try {
       this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
       this.request = await lastValueFrom(this.requestsService.getRequestById(this.serviceId));
-      this.customer = await this.customerService.getCustomer(this.request.customerId);
       this.equipCategory = this.request.equipCategory;
       this.checkStatus();
     } catch (error) {
@@ -136,8 +125,7 @@ export class VisualizeServiceComponent {
 
   checkStatus() {
     this.statusStepper.setStatusSteps(this.request.status);
-    let status = this.request.status[this.request.status.length - 1].category;
-    switch (status) {
+    switch (this.request.status[this.request.status.length - 1].category) {
       case 'open':
         this.rejected = false;
         this.finalized = false;

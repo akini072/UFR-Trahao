@@ -1,18 +1,15 @@
-import { Component, Renderer2, ViewContainerRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
-import { FooterComponent } from '../../../core/components/footer/footer.component';
-import { ButtonComponent, ButtonProps } from '../../../core/components/button/button.component';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component, Renderer2, ViewContainerRef } from '@angular/core';
+
+import { Employee } from '../../../core/types';
+import { EmployeeService } from '../../../core/utils/employee.service'
 import { RequestsService } from '../../../core/utils/requests.service';
+import { ModalService, ModalType } from '../../../core/components/modal';
 import { EmployeeTableComponent } from './components/employee-table/employee-table.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
-import { ModalService } from '../../../core/utils/modal.service';
-import { ModalType } from '../../../core/types/modal-type';
-import { EmployeeService } from '../../../core/utils/employee.service'
-import { Employee } from '../../../core/types/employee';
-
+import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps } from '../../../core/components';
 
 @Component({
   selector: 'app-employee-management',

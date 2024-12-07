@@ -1,15 +1,14 @@
-import { ChangeDetectorRef, Component, Renderer2 } from '@angular/core';
-import { NavbarComponent } from "../../../core/components/navbar/navbar.component";
-import { FooterComponent } from "../../../core/components/footer/footer.component";
 import { CommonModule } from '@angular/common';
-import { Column, GlobalTableComponent } from "../../../core/components/global-table/global-table.component";
+import { ChangeDetectorRef, Component, Renderer2 } from '@angular/core';
+
+import { NavbarComponent, FooterComponent } from "../../../core/components";
 import { MonthlyReport, MonthlyReportItem } from '../../types/monthlyReport';
-import { FormInputComponent } from "../../../core/components/form-input/form-input.component";
+import { Column, GlobalTableComponent } from "../../../core/components/global-table/global-table.component";
 
 @Component({
   selector: 'app-report-page',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, CommonModule, GlobalTableComponent, FormInputComponent],
+  imports: [NavbarComponent, FooterComponent, CommonModule, GlobalTableComponent],
   templateUrl: './report-page.component.html',
   styleUrl: './report-page.component.css'
 })
