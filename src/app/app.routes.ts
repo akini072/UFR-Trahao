@@ -15,6 +15,7 @@ import { ReportPageComponent } from './finance/pages/report-page/report-page.com
 import { Page404Component } from './core/pages/page404/page404.component';
 import { AuthGuard } from './auth/utils/auth.guard';
 import { Page403Component } from './core/pages/page403/page403.component';
+import { Page500Component } from './core/pages/page500/page500.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/index', pathMatch: 'full' },
@@ -43,6 +44,7 @@ export const routes: Routes = [
     ],
   },
   { path: 'forbidden', component: Page403Component },
+  { path: 'internal-error', component: Page500Component },
   { path: '**', component: Page404Component }
 
 ];

@@ -23,7 +23,7 @@ export class ModalInputComponent extends ModalComponent implements OnInit {
   }
 
   override checkModal(): { [key: string]: boolean } {
-    return { [this.style.modal]: true, 'border-red-300': true };
+    return { [this.style.modal]: true, 'border-blue-400': true };
   }
 
   override resolve(): void {

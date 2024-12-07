@@ -3,4 +3,5 @@ export enum ModalType {
     CONFIRM = 1,
     INPUT = 2,
     SELECT_EMPLOYEE = 3,
+    ERROR = 4
 }
