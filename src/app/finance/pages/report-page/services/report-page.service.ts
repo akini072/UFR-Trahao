@@ -9,30 +9,30 @@ import { AuthService } from '../../../../auth/utils/auth.service';
   providedIn: 'root',
 })
 export class ReportPageService {
-  private baseUrl: string = 'http://localhost:8080/';
+  private baseUrl: string = environment.baseUrl;
   private authService: AuthService;
   constructor(private http: HttpClient) {
     this.authService = new AuthService(http);
   }
 
-  private getReport(
-    startDate?: string,
-    endDate?: string
-  ): Observable<DefaultReport[]> {
+  private getReport(startDate?: string, endDate?: string): Observable<DefaultReport[]> {
     let token = this.authService.getAuthorizationToken();
     const headers = { Authorization: `Bearer ${token}` };
 
-    if (endDate === undefined) {
-      return this.http.get<DefaultReport[]>(
-        `${this.baseUrl}requests/report?startDate=${startDate}`,
-        { headers }
-      );
-    } else {
-      return this.http.get<DefaultReport[]>(
-        `${this.baseUrl}requests/report?startDate=${startDate}&endDate=${endDate}`,
-        { headers }
-      );
+    let url = `${this.baseUrl}requests/report`;
+
+    const params: string[] = [];
+    if (startDate) {
+      params.push(`startDate=${startDate}`);
     }
+    if (endDate) {
+      params.push(`endDate=${endDate}`);
+    }
+    if (params.length > 0) {
+      url += `?${params.join('&')}`;
+    }
+
+    return this.http.get<DefaultReport[]>(url, { headers });
   }
 
   private getCategoryReport(): Observable<CategoryReport[]> {
@@ -40,19 +40,19 @@ export class ReportPageService {
     const headers = { Authorization: `Bearer ${token}` };
     return this.http.get<CategoryReport[]>(
       `${this.baseUrl}requests/report/category`,
-      { headers: {...headers, },  }
+      { headers: { ...headers } }
     );
   }
 
   async getReportList(
-    type: 'default' | 'report',
+    type: 'default' | 'category',
     startDate?: string,
     endDate?: string
   ): Promise<DefaultReport[] | CategoryReport[]> {
     switch (type) {
       case 'default':
         return await lastValueFrom(this.getReport(startDate, endDate));
-      case 'report':
+      case 'category':
         return await lastValueFrom(this.getCategoryReport());
     }
   }

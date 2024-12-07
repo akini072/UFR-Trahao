@@ -1,9 +1,9 @@
 export interface DefaultReport {
   date: string;
-  budget: number;
+  budget: number | string;
 }
 
 export interface CategoryReport {
     category: string;
-    budget: number;
+    budget: number | string;
 }

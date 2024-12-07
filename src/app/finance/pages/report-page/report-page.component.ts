@@ -2,41 +2,65 @@ import { Component, Inject, NgModule, OnInit } from '@angular/core';
 import { ReportPageService } from './services/report-page.service';
 import { DefaultReport, CategoryReport } from './services/report-page.service';
 import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
-import { GlobalTableComponent } from '../../../core/components/global-table/global-table.component';
+import {
+  GlobalTableComponent,
+  Column,
+} from '../../../core/components/global-table/global-table.component';
 import { FooterComponent } from '../../../core/components/footer/footer.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { BrCurrencyPipe } from '../../../core/utils/pipes/br-currency/br-currency.pipe';
+import { FilterSelectComponent } from "../../../customer/components/filter-section/components/filter-select/filter-select.component";
+import { DateInputComponent } from "../../../core/components/date-input/date-input.component";
+import { ButtonComponent, ButtonProps } from "../../../core/components/button/button.component";
 
 @Component({
   selector: 'app-report-page',
   standalone: true,
   templateUrl: './report-page.component.html',
   styleUrls: ['./report-page.component.css'],
-  providers: [ReportPageService],
+  providers: [ReportPageService, DatePipe, BrCurrencyPipe],
   imports: [
     NavbarComponent,
     GlobalTableComponent,
     FooterComponent,
     CommonModule,
     HttpClientModule,
-  ],
+    DateInputComponent,
+    ButtonComponent
+],
 })
 export class ReportPageComponent implements OnInit {
   currentPage: number = 1;
   totalPages: number = 1;
-  columns: any[] = [];
+  columns: Column[] = [];
   reportData: { items: DefaultReport[] | CategoryReport[] } = { items: [] };
   totalRequests: number = 0;
   reportPageService: ReportPageService;
-  type: 'default' | 'report' = 'default';
-
+  type: 'default' | 'category' = 'default';
+  formattedData: DefaultReport[] | CategoryReport[] = [];
+  datePipe: DatePipe;
   style = {
-    wrapper: 'wrapper-class',
-    title: 'title-class',
+    wrapper: 'h-screen',
+    title: 'px-4 text-2xl font-bold text-primary-8 my-8',
+    tableContainer: 'w-10/12 mx-auto',
+    select: 'border-2 border-primary-6 p-2 rounded text-primary-6',
+    filterSection: 'flex flex-wrap gap-4 items-end w-10/12 mx-auto my-8',
+    inputContainer: 'flex flex-col flex-wrap gap-1 items-start',
+    buttonContainer: 'flex',
   };
+  brCurrencyPipe: BrCurrencyPipe;
+  startDate!: string  
+  endDate!: string 
 
-  constructor(@Inject(ReportPageService) reportPageService: ReportPageService) {
+  constructor(
+    @Inject(ReportPageService) reportPageService: ReportPageService,
+    @Inject(DatePipe) datePipe: DatePipe,
+    @Inject(BrCurrencyPipe) brCurrencyPipe: BrCurrencyPipe
+  ) {
     this.reportPageService = reportPageService;
+    this.datePipe = datePipe;
+    this.brCurrencyPipe = brCurrencyPipe;
   }
 
   ngOnInit(): void {
@@ -44,17 +68,61 @@ export class ReportPageComponent implements OnInit {
   }
 
   async fetchReportData(
-    type: 'default' | 'report',
+    type: 'default' | 'category',
     startDate?: string,
     endDate?: string
   ) {
     try {
       const data = await this.reportPageService.getReportList(
         type,
-        "2024-10-22T00:00:00",
+        startDate,
         endDate
       );
-      this.reportData.items = data;
+
+      if (type === 'default') {
+        this.columns = [
+          {
+            key: 'date',
+            label: 'Dia',
+          },
+          {
+            key: 'budget',
+            label: 'Valor',
+          },
+        ];
+
+        this.formattedData = (data as DefaultReport[]).map(
+          (item: DefaultReport) => {
+            return {
+              date:
+               item.date === null ? "TOTAL" : this.datePipe.transform(new Date(item.date), 'dd/MM/yyyy') || '',
+              budget: this.brCurrencyPipe.transform(Number(item.budget)),
+            };
+          }
+        );
+      } else {
+        this.columns = [
+          {
+            key: 'category',
+            label: 'Categoria',
+          },
+          {
+            key: 'value',
+            label: 'Valor',
+          },
+        ];
+
+        this.formattedData = (data as CategoryReport[]).map(
+          (item: CategoryReport) => {
+            return {
+              ...item,
+              value: this.brCurrencyPipe.transform(Number(item.budget)),
+            };
+          }
+        ) as CategoryReport[];
+      }
+
+      this.reportData.items = this.formattedData;
       this.totalRequests = data.length;
       this.updateTotalPages();
     } catch (error) {
@@ -85,4 +153,53 @@ export class ReportPageComponent implements OnInit {
       items: this.reportData.items.slice(startIndex, endIndex),
     };
   }
+
+  handleFilterChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const value = selectElement?.value || ''
+    this.setFilterType(value as 'default' | 'category');
+    if(value === 'category'){
+      this.startDate = '';
+      this.endDate = '';
+    }
+  }
+
+  setFilterType(type: 'default' | 'category') {
+    this.type = type;
+    this.fetchReportData(this.type);
+  }
+  
+  formatDateToISOString(date: string): string {
+    const d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+    return d.toISOString().split('.')[0];
+  }
+
+  handleStartDateChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const value = inputElement?.value || '';
+    this.startDate = this.formatDateToISOString(value);
+  }
+
+
+
+  handleEndDateChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const value = inputElement?.value || '';
+    this.endDate = this.formatDateToISOString(value);
+  }
+
+  applyFilter(){
+    this.fetchReportData(this.type, this.startDate, this.endDate);
+  }
+
+  applyFilterButtonProps: ButtonProps = {
+    text: 'Aplicar',
+    color: 'primary-8',
+    size: 'medium',
+    textColor: 'white',
+    hoverColor: 'primary-7',
+    onClick: ()=>{this.applyFilter()},
+    extraClasses: 'align-self-end justify-self-end'
+  };
 }
