@@ -37,7 +37,7 @@ export class ReportPageComponent implements OnInit {
   formattedData: DefaultReport[] | CategoryReport[] = [];
   datePipe: DatePipe;
   style = {
-    wrapper: 'h-screen',
+    wrapper: 'h-min-screen',
     title: 'px-4 text-2xl font-bold text-primary-8 my-8',
     tableContainer: 'w-10/12 mx-auto',
     select: 'border-2 border-primary-6 p-2 rounded text-primary-6',
