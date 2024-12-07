@@ -4,6 +4,7 @@ import { DefaultReport, CategoryReport } from '../../../../core/types/report';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { AuthService } from '../../../../auth/utils/auth.service';
+import { ErrorHandlingService } from '../../../../core/utils/error-handling.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +12,8 @@ import { AuthService } from '../../../../auth/utils/auth.service';
 export class ReportPageService {
   private baseUrl: string = environment.baseUrl;
   private authService: AuthService;
-  constructor(private http: HttpClient) {
-    this.authService = new AuthService(http);
+  constructor(private http: HttpClient, private errorHandlingService: ErrorHandlingService) {
+    this.authService = new AuthService(http, errorHandlingService);
   }
 
   private getReport(startDate?: string, endDate?: string): Observable<DefaultReport[]> {

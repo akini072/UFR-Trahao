@@ -2,17 +2,18 @@ import { Injectable } from '@angular/core';
 import { Credentials } from '../types/credentials';
 import { Observable, map, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
 import { CommonResponse } from '../types/commonResponse';
 import { catchError } from 'rxjs/operators';
+import { ErrorHandlingService } from '../../core/utils/error-handling.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private errorHandlingService: ErrorHandlingService) {}
 
   private baseUrl: string = environment.baseUrl;
 
@@ -53,6 +54,10 @@ export class AuthService {
 
           sessionStorage.setItem('credentials',JSON.stringify(decodedToken));
           return decodedToken;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          this.errorHandlingService.handleErrorResponse(error);
+          return new Observable<never>((observer) => observer.error(error));
         })
       );
   }
