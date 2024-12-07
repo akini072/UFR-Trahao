@@ -1,10 +1,53 @@
 <app-navbar></app-navbar>
 <div [ngClass]="style.wrapper">
-    <div>
-        <p [ngClass]="style.title">Relatorio Mensal</p>
+  <div>
+    <p [ngClass]="style.title">Relatório Financeiro</p>
+  </div>
+  <div [ngClass]="style.filterSection">
+    <div [ngClass]="style.inputContainer">
+      <label for="type">Tipo de relatório</label>
+      <select
+        [ngClass]="style.select"
+        id="type"
+        (change)="handleFilterChange($event)"
+      >
+        <option value="" selected disabled>
+          Selecione o tipo de relatório
+        </option>
+        <option value="default">Relatório por Data</option>
+        <option value="category">Relatório por Categoria</option>
+      </select>
     </div>
-    <div>
-        <app-global-table [enablePagination]=false [currentPage]="currentPage" [totalPages]="totalPages" [nextPage]="nextPage" [previousPage]="previousPage" [columns]="columns" [data]="getPaginatedRequests().items" [reportData]="reportData.items" [enableReport]="true" />
+    <div [ngClass]="style.inputContainer" *ngIf="type === 'default'">
+      <label for="start-date">Data de início</label>
+      <app-date-input
+        (change)="handleStartDateChange($event)"
+        id="start-date"
+      ></app-date-input>
     </div>
+    <div [ngClass]="style.inputContainer" *ngIf="type === 'default'">
+      <label for="end-date">Data de término</label>
+      <app-date-input
+        (change)="handleEndDateChange($event)"
+        id="end-date"
+      ></app-date-input>
+    </div>
+    <div [ngClass]="style.buttonContainer" *ngIf="type === 'default'">
+      <app-button [props]="applyFilterButtonProps" />
+    </div>
+  </div>
+  <div [ngClass]="style.tableContainer">
+    <app-global-table
+      [enablePagination]="true"
+      [currentPage]="currentPage"
+      [totalPages]="totalPages"
+      [nextPage]="nextPage"
+      [previousPage]="previousPage"
+      [columns]="columns"
+      [data]="getPaginatedRequests().items"
+      [reportData]="reportData.items"
+      [enableReport]="true"
+    />
+  </div>
 </div>
 <app-footer></app-footer>
