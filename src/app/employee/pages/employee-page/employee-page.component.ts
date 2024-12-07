@@ -1,15 +1,12 @@
-import { Component, Renderer2, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
-import { RequestCardComponent } from '../../components/request-card/request-card.component';
-import { RequestItem } from '../../../core/types/request-item';
-import {
-  ButtonProps,
-} from '../../../core/components/button/button.component';
+import { Component, Renderer2, OnInit, OnDestroy } from '@angular/core';
+
+import { RequestItem } from '../../../core/types';
 import { RequestsService } from '../../../core/utils/requests.service';
+import { NavbarComponent, FooterComponent, ButtonProps } from '../../../core/components';
+import { RequestCardComponent } from '../../components/request-card/request-card.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
-import { FooterComponent } from '../../../core/components/footer/footer.component';
 import { PaginationControlComponent } from "../../../core/components/pagination-control/pagination-control.component";
 
 @Component({

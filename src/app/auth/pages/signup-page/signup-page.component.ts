@@ -1,16 +1,13 @@
-import { Component, ViewContainerRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { debounceTime, switchMap } from 'rxjs/operators';
+import { Component, ViewContainerRef } from '@angular/core';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
-import { FooterComponent } from '../../../core/components/footer/footer.component';
-import { ButtonComponent } from '../../../core/components/button/button.component';
+import { NavbarComponent, FooterComponent, ButtonComponent } from '../../../core/components';
 import { ViaCepApiService } from '../../utils/via-cep-api.service';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ModalService } from '../../../core/utils/modal.service';
-import { ModalType } from '../../../core/types/modal-type';
+import { ModalService, ModalType } from '../../../core/components/modal';
 import { AuthService } from '../../utils/auth.service';
 import { CommonResponse } from '../../types/commonResponse';
 

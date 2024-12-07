@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StatusTextPipe } from '../../../../../core/utils/pipes/statusText/status-text.pipe';
-import { requestCategories } from '../../../../../core/types/request-category';
+import { StatusTextPipe } from '../../../../../core/utils/pipes';
+import { requestCategories } from '../../../../../core/types';
 export type FilterType = 'status' | 'date' | 'customer' //TODO adicionar outras opções de filtro;
 
 export interface FilterOption {

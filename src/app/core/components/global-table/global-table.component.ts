@@ -1,14 +1,10 @@
-import { StatusTextPipe } from '../../../core/utils/pipes/statusText/status-text.pipe';
-import { StatusColorPipe } from "../../../core/utils/pipes/statusColor/status-color.pipe";
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnChanges, SimpleChanges, Input, TemplateRef } from '@angular/core';
-import { LimitedDescriptionPipe } from '../../utils/limited-description.pipe';
-import { ButtonStatusComponent } from '../button-status/button-status.component';
 import { ButtonComponent, ButtonProps } from '../button/button.component';
+import { ToggleSwitchComponent } from "../toggle-switch/toggle-switch.component";
+import { Component, OnInit, OnChanges, SimpleChanges, Input, TemplateRef } from '@angular/core';
 import { PaginationControlComponent } from "../pagination-control/pagination-control.component";
-import jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { ToggleSwitchComponent } from "../toggle-switch/toggle-switch.component"; 
 
 export interface Column {
   key: string;
@@ -22,10 +18,6 @@ export interface Column {
   imports: [
     CommonModule,
     ButtonComponent,
-    ButtonStatusComponent,
-    LimitedDescriptionPipe,
-    StatusTextPipe,
-    StatusColorPipe,
     PaginationControlComponent,
     ToggleSwitchComponent
   ],
@@ -42,8 +34,8 @@ export class GlobalTableComponent<T> implements OnInit, OnChanges {
   @Input() actionTemplate?: TemplateRef<any>;
   @Input() currentPage: number = 1;
   @Input() totalPages: number = 1;
-  @Input() nextPage: () => void = () => {};
-  @Input() previousPage: () => void = () => {};
+  @Input() nextPage: () => void = () => { };
+  @Input() previousPage: () => void = () => { };
   @Input() enableReportFilters: boolean = false;
   @Input() enablePagination: boolean = true;
 
@@ -66,7 +58,7 @@ export class GlobalTableComponent<T> implements OnInit, OnChanges {
     size: 'medium',
     textColor: 'white',
     hoverColor: 'primary-6',
-    onClick: ()=>{},	
+    onClick: () => { },
     extraClasses: 'mb-4',
   };
 
@@ -100,7 +92,7 @@ export class GlobalTableComponent<T> implements OnInit, OnChanges {
     this.filtersEnabled = !this.filtersEnabled;
     this.updateReportFunction(this.filtersEnabled ? this.data : this.reportData);
   };
-  
+
 
   ngOnInit(): void {
     this.updateReportFunction(this.reportData ? this.reportData : this.data);

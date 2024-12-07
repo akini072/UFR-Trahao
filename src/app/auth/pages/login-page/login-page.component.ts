@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
-import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { CommonModule } from '@angular/common';
-import { FooterComponent } from '../../../core/components/footer/footer.component';
-import { ButtonComponent } from '../../../core/components/button/button.component';
 import { Router, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { NavbarComponent, FooterComponent, ButtonComponent } from '../../../core/components';
+import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { AuthService } from '../../utils/auth.service';
 import { Credentials } from '../../types/credentials';
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-page',

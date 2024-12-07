@@ -1,0 +1,8 @@
+export { StatusTextPipe } from "./statusText/status-text.pipe"
+export { StatusColorPipe } from "./statusColor/status-color.pipe"
+export { PhonePipePipe } from "./phone/phone-pipe.pipe"
+export { LimitedDescriptionPipe } from "./limited-description/limited-description.pipe"
+export { CpfMaskPipe } from "./cpfMask/cpf-mask.pipe"
+export { CepMaskPipe } from "./cepMask/cep-mask.pipe"
+export { BrCurrencyPipe } from "./br-currency/br-currency.pipe"
+export { AddressPipePipe } from "./address-pipe/address-pipe.pipe"
