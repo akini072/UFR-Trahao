@@ -17,8 +17,8 @@ export class RequestsService {
   private baseUrl: string = environment.baseUrl;
   private authService: AuthService;
 
-  constructor(private http: HttpClient) {
-    this.authService = new AuthService(this.http);
+  constructor(private http: HttpClient, private errorHandlingService: ErrorHandlingService) {
+    this.authService = new AuthService(this.http, this.errorHandlingService);
   }
 
   // Método assíncrono para listar as requisições com seus detalhes
@@ -35,7 +35,7 @@ export class RequestsService {
           return requests;
         }),
         catchError((error: HttpErrorResponse) => {
-          ErrorHandlingService.handleErrorResponse(error);
+          this.errorHandlingService.handleErrorResponse(error);
           return new Observable<never>((observer) => observer.error(error));
         })
       );
@@ -55,7 +55,7 @@ export class RequestsService {
           return request;
         }),
         catchError((error: HttpErrorResponse) => {
-          ErrorHandlingService.handleErrorResponse(error);
+          this.errorHandlingService.handleErrorResponse(error);
           return new Observable<never>((observer) => observer.error(error));
         })
       );
@@ -68,6 +68,10 @@ export class RequestsService {
     return this.http.post<{ message: string }>(this.baseUrl + "requests", request, { headers }).pipe(
       map((response) => {
         return response.message;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        this.errorHandlingService.handleErrorResponse(error);
+        return new Observable<never>((observer) => observer.error(error));
       })
     );
   }
@@ -79,6 +83,10 @@ export class RequestsService {
     return this.http.put<{ message: string }>(this.baseUrl+"requests/"+update.requestId, update, { headers }).pipe(
       map((response) => {
         return response.message;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        this.errorHandlingService.handleErrorResponse(error);
+        return new Observable<never>((observer) => observer.error(error));
       })
     );
   }
