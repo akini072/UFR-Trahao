@@ -7,12 +7,9 @@ import {
 } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ButtonStatusComponent } from '../../../core/components/button-status/button-status.component';
-import { RequestItem } from '../../../core/types/request-item';
-import { LimitedDescriptionPipe } from '../../../core/utils/limited-description.pipe';
-import { StatusTextPipe } from '../../../core/utils/pipes/statusText/status-text.pipe';
-import { StatusColorPipe } from '../../../core/utils/pipes/statusColor/status-color.pipe';
+import { RequestItem } from '../../../core/types';
+import { LimitedDescriptionPipe, StatusTextPipe, StatusColorPipe } from '../../../core/utils/pipes';
 import { GlobalTableComponent } from '../../../core/components/global-table/global-table.component';
-import { ButtonComponent } from '../../../core/components/button/button.component';
 
 @Component({
   selector: 'app-request-table',
@@ -20,11 +17,8 @@ import { ButtonComponent } from '../../../core/components/button/button.componen
   imports: [
     CommonModule,
     ButtonStatusComponent,
-    LimitedDescriptionPipe,
-    StatusTextPipe,
     StatusColorPipe,
     GlobalTableComponent,
-    ButtonComponent,
   ],
   providers: [StatusTextPipe, DatePipe, LimitedDescriptionPipe],
   templateUrl: './request-table.component.html',

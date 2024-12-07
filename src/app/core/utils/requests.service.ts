@@ -1,15 +1,14 @@
 import { Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { map, catchError } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { Request } from '../types/request';
-import { RequestItem } from '../types/request-item';
-import { AuthService } from '../../auth/utils/auth.service';
-import { CustomerService } from './customer.service';
-import { ErrorHandlingService } from './error-handling.service';
-import { requestUpdate } from '../types/request-update';
+
+import { Request, RequestItem } from '../types';
 import { RequestCreate } from '../types/request-create';
+import { requestUpdate } from '../types/request-update';
+import { AuthService } from '../../auth/utils/auth.service';
+import { ErrorHandlingService } from './error-handling.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -17,11 +16,9 @@ import { RequestCreate } from '../types/request-create';
 export class RequestsService {
   private baseUrl: string = environment.baseUrl;
   private authService: AuthService;
-  private customerService: CustomerService;
 
   constructor(private http: HttpClient) {
     this.authService = new AuthService(this.http);
-    this.customerService = new CustomerService(this.http);
   }
 
   // Método assíncrono para listar as requisições com seus detalhes
@@ -34,9 +31,6 @@ export class RequestsService {
           for (let request of requests) {
             request.status = request.status.toLowerCase() as any;
             request.image = `assets/images/status/img-${request.status}.svg`;
-            this.customerService.getCustomer(request.client.id).then((customer) => {
-              request.client = customer;
-            });
           }
           return requests;
         }),

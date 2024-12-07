@@ -1,8 +1,0 @@
-<ol [ngClass]="ol">
-  <li *ngFor="let status of statusList; let i = index" [ngClass]="getLiClass(i)">
-    <div [ngClass]="item">
-      <span [ngClass]="getSpanClass(status.category, i)" [innerHTML]="getSpanValue(i)"></span>
-      {{ getStepLabel(status.category) }}
-    </div>
-  </li>
-</ol>
