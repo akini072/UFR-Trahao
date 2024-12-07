@@ -7,20 +7,15 @@ import {
 } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
+import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps } from '../../../core/components';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
-import {
-  ButtonComponent,
-  ButtonProps,
-} from '../../../core/components/button/button.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { RequestTableComponent } from '../../components/request-table/request-table.component';
 import { FilterSectionComponent } from '../../components/filter-section/filter-section.component';
 import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/toggle-switch.component';
-import { RequestItem } from '../../../core/types/request-item';
+import { RequestItem } from '../../../core/types';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { PaginationControlComponent } from '../../../core/components/pagination-control/pagination-control.component';
-import { FooterComponent } from "../../../core/components/footer/footer.component";
 
 @Component({
   selector: 'app-customer-homepage',

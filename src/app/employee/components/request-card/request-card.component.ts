@@ -1,22 +1,14 @@
 import { Component, Input } from '@angular/core';
-import { RequestCategory } from '../../../core/types/request-category';
+import { RequestCategory, RequestItem } from '../../../core/types';
 import { CommonModule } from '@angular/common';
-import {
-  ButtonComponent,
-  ButtonProps,
-} from '../../../core/components/button/button.component';
-import { ButtonStatusComponent } from '../../../core/components/button-status/button-status.component';
-import { LimitedDescriptionPipe } from '../../../core/utils/limited-description.pipe';
-import { RequestItem } from '../../../core/types/request-item';
-import { StatusTextPipe } from '../../../core/utils/pipes/statusText/status-text.pipe';
-import { StatusColorPipe } from '../../../core/utils/pipes/statusColor/status-color.pipe';
+import { ButtonProps } from '../../../core/components';
+import { LimitedDescriptionPipe, StatusTextPipe, StatusColorPipe } from '../../../core/utils/pipes';
+
 @Component({
   selector: 'app-request-card',
   standalone: true,
   imports: [
     CommonModule,
-    ButtonComponent,
-    ButtonStatusComponent,
     LimitedDescriptionPipe,
     StatusTextPipe,
     StatusColorPipe,

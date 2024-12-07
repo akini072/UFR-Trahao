@@ -1,18 +1,14 @@
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, Inject, NgModule, OnInit } from '@angular/core';
+
+import { BrCurrencyPipe } from '../../../core/utils/pipes';
 import { ReportPageService } from './services/report-page.service';
 import { DefaultReport, CategoryReport } from './services/report-page.service';
-import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
-import {
-  GlobalTableComponent,
-  Column,
-} from '../../../core/components/global-table/global-table.component';
-import { FooterComponent } from '../../../core/components/footer/footer.component';
-import { CommonModule, DatePipe } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { BrCurrencyPipe } from '../../../core/utils/pipes/br-currency/br-currency.pipe';
-import { FilterSelectComponent } from "../../../customer/components/filter-section/components/filter-select/filter-select.component";
 import { DateInputComponent } from "../../../core/components/date-input/date-input.component";
-import { ButtonComponent, ButtonProps } from "../../../core/components/button/button.component";
+import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps } from '../../../core/components';
+import { GlobalTableComponent, Column, } from '../../../core/components/global-table/global-table.component';
+import { FilterSelectComponent } from "../../../customer/components/filter-section/components/filter-select/filter-select.component";
 
 @Component({
   selector: 'app-report-page',

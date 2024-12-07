@@ -1,10 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { RequestStatus } from '../../../core/types/request-status';
-import { Request } from '../../../core/types/request';
-import { statusMap } from '../../../core/types/status-map';
-import { statusBGColor, statusBorderColor, statusTextColor } from '../../../core/types/status-color';
-import { Employee } from '../../../core/types/employee';
+import { RequestStatus, Request, statusMap, statusBGColor, statusBorderColor, statusTextColor, Employee } from '../../../core/types';
 
 @Component({
   selector: 'app-status-stepper',

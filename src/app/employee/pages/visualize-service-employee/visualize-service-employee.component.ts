@@ -1,34 +1,25 @@
-import { Component, ViewContainerRef, ViewChild } from '@angular/core';
-import { ButtonComponent } from '../../../core/components/button/button.component';
-import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
-import { FooterComponent } from '../../../core/components/footer/footer.component';
-import { Request } from '../../../core/types/request';
 import { CommonModule } from '@angular/common';
-import { ModalService } from '../../../core/utils/modal.service';
-import { ModalType } from '../../../core/types/modal-type';
-import { RequestsService } from '../../../core/utils/requests.service';
-import { CustomerService } from '../../../core/utils/customer.service';
 import { ActivatedRoute } from '@angular/router';
-import { CpfMaskPipe } from '../../../core/utils/pipes/cpfMask/cpf-mask.pipe';
-import { AddressPipePipe } from '../../../core/utils/pipes/address-pipe/address-pipe.pipe';
-import { ModalResponse } from '../../../core/types/modal-response';
-import { StatusStepperComponent } from "../../../customer/components/status-stepper/status-stepper.component";
-import { Customer } from '../../../core/types/customer';
-import { EquipCategory } from './../../../core/types/equip-category';
-import { EquipCategoryService } from '../../../core/utils/equip-category.service';
-import { EmployeeService } from '../../../core/utils/employee.service';
-import { AuthService } from '../../../auth/utils/auth.service';
-import { Employee } from '../../../core/types/employee';
-import { lastValueFrom } from 'rxjs';
-import { requestUpdate } from '../../../core/types/request-update';
+import { Component, ViewContainerRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { lastValueFrom } from 'rxjs';
+
+import { AuthService } from '../../../auth/utils/auth.service';
+import { RequestsService } from '../../../core/utils/requests.service';
+import { EmployeeService } from '../../../core/utils/employee.service';
+import { CpfMaskPipe, AddressPipePipe } from '../../../core/utils/pipes';
+import { EquipCategoryService } from '../../../core/utils/equip-category.service';
+import { Request, Customer, EquipCategory, requestUpdate } from '../../../core/types';
+import { ModalService, ModalType, ModalResponse } from '../../../core/components/modal';
+import { ButtonComponent, NavbarComponent, FooterComponent } from '../../../core/components';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
+import { StatusStepperComponent } from "../../../customer/components/status-stepper/status-stepper.component";
 
 @Component({
   selector: 'app-visualize-service-employee',
   standalone: true,
   imports: [ButtonComponent, NavbarComponent, FooterComponent, CommonModule, FormInputComponent, StatusStepperComponent, CpfMaskPipe, ReactiveFormsModule, AddressPipePipe],
-  providers: [RequestsService, CustomerService, EquipCategoryService, EmployeeService, AuthService],
+  providers: [RequestsService, EquipCategoryService, EmployeeService, AuthService],
   templateUrl: './visualize-service-employee.component.html',
   styleUrl: './visualize-service-employee.component.css'
 })
@@ -49,7 +40,6 @@ export class VisualizeServiceEmployeeComponent {
     private view: ViewContainerRef,
     private route: ActivatedRoute,
     private requestsService: RequestsService,
-    private customerService: CustomerService,
     private employeeService: EmployeeService,
     private authService: AuthService
   ) {
@@ -68,7 +58,7 @@ export class VisualizeServiceEmployeeComponent {
     try {
       this.serviceId = Number.parseInt(this.route.snapshot.paramMap.get("id") || '');
       this.request = await lastValueFrom(this.requestsService.getRequestById(this.serviceId));
-      this.customer = await this.customerService.getCustomer(this.request.customerId);
+      this.customer = this.request.customer;
       this.equipCategory = this.request.equipCategory;
       this.checkStatus();
     } catch (error) {
