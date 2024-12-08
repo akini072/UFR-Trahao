@@ -10,7 +10,6 @@ import { ModalService, ModalType } from '../../../core/components/modal';
 import { EmployeeTableComponent } from './components/employee-table/employee-table.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps, LoaderComponent } from '../../../core/components';
-import { AuthService } from '../../../auth/utils/auth.service';
 
 @Component({
   selector: 'app-employee-management',
