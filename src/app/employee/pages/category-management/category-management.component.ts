@@ -281,7 +281,7 @@ export class CategoryManagementComponent {
     paginationControl: 'w-10/12 m-auto flex justify-end my-4 items-center text-center',
     pageText: 'border p-2 text-sm',
     pageTopContainer: 'flex justify-between w-full items-center px-16',
-    tableDisplay: 'flex justify-center m-auto rounded-lg w-3/4',
+    tableDisplay: 'flex justify-center m-auto rounded-lg w-3/4 h-48 md:h-64 lg:h-100',
     filterContainer: 'flex place-items-end',
     switchContainer: 'h-8',
     wrapper: 'min-h-screen py-4 bg-gray-100',

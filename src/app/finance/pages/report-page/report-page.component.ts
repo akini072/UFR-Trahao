@@ -38,9 +38,9 @@ export class ReportPageComponent implements OnInit {
   formattedData: DefaultReport[] | CategoryReport[] = [];
   datePipe: DatePipe;
   style = {
-    wrapper: 'h-min-screen bg-gray-100 py-4',
+    wrapper: 'min-h-screen bg-gray-100 py-4 md:h-64 lg:h-100',
     title: 'px-4 text-2xl font-bold text-primary-8 mb-8',
-    tableContainer: 'w-10/12 mx-auto',
+    tableContainer: 'w-10/12 mx-auto ',
     select: 'border-2 border-primary-6 p-2 rounded text-primary-6',
     filterSection: 'flex flex-wrap gap-4 items-end w-10/12 mx-auto my-8',
     inputContainer: 'flex flex-col flex-wrap gap-1 items-start',

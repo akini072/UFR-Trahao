@@ -52,7 +52,7 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     requestGrid:'grid grid-cols-1 w-10/12 m-auto justify-items-center md:grid-cols-2 lg:grid-cols-3 gap-4 p-4',
     pageText: 'border p-2 text-sm',
     pageTopContainer: 'flex justify-between w-full items-center px-16',
-    tableDisplay: 'flex justify-center m-auto rounded-lg w-3/4',
+    tableDisplay: 'flex justify-center m-auto rounded-lg w-3/4 h-48 md:h-64 lg:h-100',
     filterContainer: 'flex place-items-end',
     switchContainer: 'h-8',
     emptyText: 'text-center text-lg text-gray-400',
