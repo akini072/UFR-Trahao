@@ -2,14 +2,14 @@ import 'swiper/css';
 import { Swiper } from 'swiper';
 import { Autoplay } from 'swiper/modules';
 import { Component, ViewContainerRef } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { TestimonyCardComponent } from '../../components/testimony-card/testimony-card.component';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { ModalService, ModalType } from '../../components/modal';
 import { ButtonComponent } from "../../components/button/button.component";
 import { CommonModule } from '@angular/common';
 import { ButtonProps } from '../../components/button/button.component';
+import { AuthService } from '../../../auth/utils/auth.service';
 @Component({
   selector: 'app-landing-page',
   standalone: true,
@@ -20,12 +20,13 @@ import { ButtonProps } from '../../components/button/button.component';
     FooterComponent,
     ButtonComponent,
     CommonModule
-],
+  ],
+  providers: [AuthService],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
 })
 export class LandingPageComponent {
-  constructor(private modal: ModalService, private view: ViewContainerRef) {}
+  constructor(private view: ViewContainerRef, private router: Router, private auth: AuthService) {}
 
   styles = {
     sectionGradient: 'bg-gradient-to-b from-primary-8 from-20% to-primary-4',
@@ -56,7 +57,19 @@ export class LandingPageComponent {
     hoverColor: 'secondary-4',
     textColor: 'white',
     size: 'large',
-    onClick: () => {this.openModal()},
+    onClick: () => {
+      try {
+        if(this.auth.getCurrentUser().profile == 'Customer'){
+          this.router.navigate(['/cliente']);
+        } else if(this.auth.getCurrentUser().profile == 'Employee'){
+          this.router.navigate(['/funcionario']);
+        }
+      } catch (error) {
+        this.router.navigate(['/login']);
+      }
+
+
+    },
   }
 
   ngOnInit() {
@@ -69,17 +82,6 @@ export class LandingPageComponent {
         disableOnInteraction: false,
       },
       modules: [Autoplay],
-    });
-  }
-
-  
-  openModal() {
-    const data = {
-      title: 'Título do modal',
-      message: 'Mensagem do modal',
-      label: 'Ok',
-    };
-    this.modal.open(this.view, ModalType.CONFIRM, data).subscribe((value) => {
     });
   }
 }
