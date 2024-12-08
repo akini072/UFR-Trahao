@@ -23,7 +23,7 @@ import { CommonResponse } from '../../types/commonResponse';
     FormInputComponent,
     ReactiveFormsModule,
     LoaderComponent
-],
+  ],
   providers: [ViaCepApiService, AuthService],
   templateUrl: './signup-page.component.html',
   styleUrls: ['./signup-page.component.css'],
@@ -130,7 +130,9 @@ export class SignupPageComponent {
               message: 'Sua senha de 4 dígitos foi enviada por e-email',
               label: 'Ok',
             };
-            this.modal.open(this.view, ModalType.MESSAGE, data).subscribe((value) => {});
+            this.modal.open(this.view, ModalType.MESSAGE, data).subscribe((value) => {
+              window.location.href = '/login';
+            });
           } else {
             // Caso o status não seja 201
             this.error = true;
