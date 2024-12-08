@@ -46,7 +46,7 @@ export class ReportPageComponent implements OnInit {
     inputContainer: 'flex flex-col flex-wrap gap-1 items-start',
     buttonContainer: 'flex',
     emptyText: 'text-center text-lg text-gray-400',
-    emptyContainer: 'flex justify-center items-center h-48',
+    emptyContainer: 'flex justify-center items-center h-48 md:h-64 lg:h-100',
   };
   brCurrencyPipe: BrCurrencyPipe;
   startDate!: string;
@@ -172,7 +172,7 @@ export class ReportPageComponent implements OnInit {
     this.type = type;
     this.fetchReportData(this.type);
   }
-  
+
   formatDateToISOString(date: string): string {
     const d = new Date(date);
     d.setHours(0, 0, 0, 0);

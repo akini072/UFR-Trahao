@@ -52,7 +52,7 @@ export class SolicitationsPageComponent implements OnInit, OnDestroy {
     filterContainer: 'flex place-items-end',
     switchContainer: 'h-8',
     emptyText: 'text-center text-lg text-gray-400',
-    emptyContainer: 'flex justify-center items-center h-48',
+    emptyContainer: 'flex justify-center items-center h-48 md:h-64 lg:h-100',
   };
 
   activeRequestList: RequestItem[] = this.requestList;
