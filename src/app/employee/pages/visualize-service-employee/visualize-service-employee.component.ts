@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, ViewContainerRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { lastValueFrom } from 'rxjs';
@@ -41,7 +41,8 @@ export class VisualizeServiceEmployeeComponent {
     private route: ActivatedRoute,
     private requestsService: RequestsService,
     private employeeService: EmployeeService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.request = {} as Request;
     this.customer = {} as Customer;
@@ -133,6 +134,7 @@ export class VisualizeServiceEmployeeComponent {
           update.inChargeEmployeeId = Number.parseInt(value.message || '');
           this.requestsService.updateRequestStatus(update).subscribe(() => {
             this.loadData();
+            this.router.navigate(['/funcionario/solicitacoes']);
           });
         }
       });
