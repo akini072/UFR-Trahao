@@ -5,6 +5,7 @@ import { Component, OnInit, OnChanges, SimpleChanges, Input, TemplateRef } from 
 import { PaginationControlComponent } from "../pagination-control/pagination-control.component";
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { AuthService } from '../../../auth/utils/auth.service';
 
 export interface Column {
   key: string;
@@ -21,6 +22,7 @@ export interface Column {
     PaginationControlComponent,
     ToggleSwitchComponent
   ],
+  providers: [AuthService],
   templateUrl: './global-table.component.html',
   styleUrls: ['./global-table.component.css'],
 })
@@ -38,6 +40,8 @@ export class GlobalTableComponent<T> implements OnInit, OnChanges {
   @Input() previousPage: () => void = () => { };
   @Input() enableReportFilters: boolean = false;
   @Input() enablePagination: boolean = true;
+
+  constructor(private authService: AuthService) { }
 
   filtersEnabled: boolean = false;
 
@@ -101,6 +105,14 @@ export class GlobalTableComponent<T> implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data'] || changes['reportData'] || changes['filtersEnabled']) {
       this.updateReportFunction(this.filtersEnabled ? this.data : this.reportData);
+    }
+  }
+
+  get isEmployee(): boolean {
+    try {
+      return this.authService.getCurrentUser().profile == "Employee";
+    } catch (error) {
+      return false;
     }
   }
 }
