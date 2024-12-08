@@ -1,0 +1,44 @@
+.loader span:not(:last-child) {
+    animation: animate 0.8s linear infinite;
+}
+
+.loader span:last-child {
+    animation: jump 0.8s ease-in-out infinite;
+}
+
+@keyframes animate {
+    0% {
+      transform: translateX(0);
+    }
+  
+    100% {
+      transform: translateX(30px);
+    }
+}
+
+@keyframes jump {
+    0% {
+      transform: translate(0, 0);
+    }
+    10% {
+      transform: translate(10px, -10px);
+    }
+    20% {
+      transform: translate(20px, 10px);
+    }
+    30% {
+      transform: translate(30px, -50px);
+    }
+    70% {
+      transform: translate(-150px, -50px);
+    }
+    80% {
+      transform: translate(-140px, 10px);
+    }
+    90% {
+      transform: translate(-130px, -10px);
+    }
+    100% {
+      transform: translate(-120px, 0);
+    }
+}

@@ -9,9 +9,7 @@ import { ModalType, ModalService } from '../components/modal';
 export class ErrorHandlingService {
   private view!: ViewContainerRef;
 
-  constructor(private modal: ModalService) {
-    console.log('ErrorHandlingService initialized');
-  }
+  constructor(private modal: ModalService) {}
 
   public setView(view: ViewContainerRef): void {
     this.view = view;

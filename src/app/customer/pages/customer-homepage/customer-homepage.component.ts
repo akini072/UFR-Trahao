@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps } from '../../../core/components';
+import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps, LoaderComponent } from '../../../core/components';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { RequestTableComponent } from '../../components/request-table/request-table.component';
@@ -16,6 +16,7 @@ import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/to
 import { RequestItem } from '../../../core/types';
 import { RequestsService } from '../../../core/utils/requests.service';
 import { PaginationControlComponent } from '../../../core/components/pagination-control/pagination-control.component';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-customer-homepage',
@@ -31,8 +32,9 @@ import { PaginationControlComponent } from '../../../core/components/pagination-
     FilterSectionComponent,
     ToggleSwitchComponent,
     PaginationControlComponent,
-    FooterComponent
-],
+    FooterComponent,
+    LoaderComponent,
+  ],
   providers: [RequestsService, DatePipe],
   templateUrl: './customer-homepage.component.html',
   styleUrls: ['./customer-homepage.component.css'],
@@ -41,6 +43,7 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
   requestList: RequestItem[] = [];
 
   style = {
+    wrapper: 'bg-gray-100 py-4',
     navbar: '',
     title: 'px-4 text-2xl font-bold text-primary-8 my-8',
     container: 'flex w-full px-4 my-8 mx-auto',
@@ -53,6 +56,8 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     tableDisplay: 'flex justify-center m-auto rounded-lg w-3/4',
     filterContainer: 'flex place-items-end',
     switchContainer: 'h-8',
+    emptyText: 'text-center text-lg text-gray-400',
+    emptyContainer: 'flex justify-center items-center h-48',
   };
 
   activeRequestList: RequestItem[] = this.requestList;
@@ -64,6 +69,8 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
   searchQuery: string | undefined;
   activeFilters: { filter: string; value?: string }[] = [];
   displayTable: boolean = false;
+  isLoading: boolean = true;
+  isEmpty: boolean = true;
 
   constructor(
     private router: Router,
@@ -77,9 +84,16 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.requestsService.listRequests().subscribe((data: RequestItem[]) => {
-      this.requestList = data;
-      this.activeRequestList = this.requestList;
+    this.requestsService.listRequests().subscribe({
+      next: ((data: RequestItem[]) => {
+        this.requestList = data;
+        this.activeRequestList = this.requestList;
+        this.isLoading = false;
+        this.isEmpty = this.requestList.length === 0;
+      }),
+      error: (err) => {
+        this.isLoading = false;
+      }
     });
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
       this.updateItemsPerPage(event.target.innerWidth);
@@ -192,9 +206,9 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     this.activeRequestList = this.requestList.filter((item) => {
       return this.activeFilters.every(
         (f) => {
-          if(key === 'created_at'){
+          if (key === 'created_at') {
             return this.datePipe.transform(item.created_at, 'yyyy-MM-dd') === f.value;
-          }else{
+          } else {
             return item[f.filter as keyof RequestItem] === f.value
           }
         }

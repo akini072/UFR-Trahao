@@ -1,51 +1,41 @@
 <app-navbar [ngClass]="style.navbar"></app-navbar>
-<div [ngClass]="style.pageTopContainer">
-  <p [ngClass]="style.title">Solicitações de Serviço</p>
-  <div [ngClass]="style.innerContainer">
-    <div [ngClass]="style.searchContainer">
-      <app-form-input
-        (input)="searchKeyboard($event)"
-        placeholder="Pesquisar solicitação"
-      ></app-form-input>
+<div [ngClass]="style.wrapper">
+  <div [ngClass]="style.pageTopContainer">
+    <p [ngClass]="style.title">Solicitações de Serviço</p>
+    <div [ngClass]="style.innerContainer">
+      <div [ngClass]="style.searchContainer">
+        <app-form-input (input)="searchKeyboard($event)" placeholder="Pesquisar solicitação"></app-form-input>
+      </div>
+      <app-button [props]="newRequestButtonProp"></app-button>
     </div>
-    <app-button [props]="newRequestButtonProp"></app-button>
-  </div>
-</div>
-<div [ngClass]="style.filterContainer">
-  <app-filter-section [filterAction]="applyFilter" />
-  <div [ngClass]="style.switchContainer">
-    <app-toggle-switch
-      [onToggle]="toggleDisplayTable"
-      [label]="'Tabela:'"
-    ></app-toggle-switch>
-  </div>
-</div>
-
-<div [ngClass]="style.container"></div>
-<div *ngIf="!displayTable">
-  <div [ngClass]="style.requestGrid">
-    <app-request-card
-      *ngFor="let request of getPaginatedRequests(searchQuery)"
-      [request]="request"
-    ></app-request-card>
   </div>
 
-  <app-pagination-control
-    [currentPage]="currentPage"
-    [nextPage]="nextPage"
-    [previousPage]="previousPage"
-    [totalPages]="totalPages"
-  />
-</div>
+  <div *ngIf="isEmpty" [ngClass]="style.emptyContainer">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <p [ngClass]="style.emptyText" *ngIf="!isLoading">Nenhuma solicitação encontrada</p>
+  </div>
 
-<div *ngIf="displayTable" [ngClass]="style.tableDisplay">
-  <app-request-table
-    [requests]="getPaginatedRequests()"
-    [totalPages]="totalPages"
-    [currentPage]="currentPage"
-    [nextPage]="nextPage"
-    [previousPage]="previousPage"
-    [reportData]="requestList"
-  />
+  <div *ngIf="!isLoading && !isEmpty" [ngClass]="style.filterContainer">
+    <app-filter-section [filterAction]="applyFilter" />
+    <div [ngClass]="style.switchContainer">
+      <app-toggle-switch [onToggle]="toggleDisplayTable" [label]="'Tabela:'"></app-toggle-switch>
+    </div>
+  </div>
+
+  <div [ngClass]="style.container"></div>
+  <div *ngIf="!displayTable">
+    <div [ngClass]="style.requestGrid">
+      <app-request-card *ngFor="let request of getPaginatedRequests(searchQuery)"
+        [request]="request"></app-request-card>
+    </div>
+
+    <app-pagination-control [currentPage]="currentPage" [nextPage]="nextPage" [previousPage]="previousPage"
+      [totalPages]="totalPages" />
+  </div>
+
+  <div *ngIf="displayTable" [ngClass]="style.tableDisplay">
+    <app-request-table [requests]="getPaginatedRequests()" [totalPages]="totalPages" [currentPage]="currentPage"
+      [nextPage]="nextPage" [previousPage]="previousPage" [reportData]="requestList" />
+  </div>
 </div>
 <app-footer></app-footer>

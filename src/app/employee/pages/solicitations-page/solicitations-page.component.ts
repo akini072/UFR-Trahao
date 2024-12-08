@@ -4,7 +4,7 @@ import { Component, Renderer2, OnInit, OnDestroy } from '@angular/core';
 
 import { RequestItem } from '../../../core/types';
 import { RequestsService } from '../../../core/utils/requests.service';
-import { NavbarComponent, FooterComponent, ButtonProps } from '../../../core/components';
+import { NavbarComponent, FooterComponent, ButtonProps, LoaderComponent } from '../../../core/components';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { ToggleSwitchComponent } from '../../../core/components/toggle-switch/toggle-switch.component';
@@ -25,7 +25,8 @@ import { PaginationControlComponent } from "../../../core/components/pagination-
     FooterComponent,
     FilterSectionComponent,
     ToggleSwitchComponent,
-    PaginationControlComponent
+    PaginationControlComponent,
+    LoaderComponent
 ],
   providers: [RequestsService],
   templateUrl: './solicitations-page.component.html',
@@ -35,6 +36,7 @@ export class SolicitationsPageComponent implements OnInit, OnDestroy {
   requestList: RequestItem[] = [];
 
   style = {
+    wrapper: "bg-gray-100",
     navbar: '',
     title: 'px-4 text-2xl font-bold text-primary-8 my-8',
     container: 'flex w-full px-4 my-8 mx-auto',
@@ -49,6 +51,8 @@ export class SolicitationsPageComponent implements OnInit, OnDestroy {
     tableDisplay: 'flex justify-center m-auto rounded-lg w-3/4',
     filterContainer: 'flex place-items-end',
     switchContainer: 'h-8',
+    emptyText: 'text-center text-lg text-gray-400',
+    emptyContainer: 'flex justify-center items-center h-48',
   };
 
   activeRequestList: RequestItem[] = this.requestList;
@@ -61,6 +65,8 @@ export class SolicitationsPageComponent implements OnInit, OnDestroy {
   searchQuery: string | undefined;
 
   displayTable: boolean = false;
+  isLoading: boolean = true;
+  isEmpty: boolean = true;
 
   constructor(private router: Router, private renderer: Renderer2, private requestsService: RequestsService) {
     this.updateTotalPages();
@@ -71,6 +77,8 @@ export class SolicitationsPageComponent implements OnInit, OnDestroy {
     this.requestsService.listRequests().subscribe((data: RequestItem[]) => {
       this.requestList = data.filter((item) => item.status !== 'open');
       this.activeRequestList = this.requestList;
+      this.isLoading = false;
+      this.isEmpty = this.requestList.length === 0;
     });
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
       this.updateItemsPerPage(event.target.innerWidth);

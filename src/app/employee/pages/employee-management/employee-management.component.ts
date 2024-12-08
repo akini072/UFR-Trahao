@@ -9,7 +9,7 @@ import { RequestsService } from '../../../core/utils/requests.service';
 import { ModalService, ModalType } from '../../../core/components/modal';
 import { EmployeeTableComponent } from './components/employee-table/employee-table.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
-import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps } from '../../../core/components';
+import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps, LoaderComponent } from '../../../core/components';
 
 @Component({
   selector: 'app-employee-management',
@@ -21,6 +21,7 @@ import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps } from '
     ButtonComponent,
     EmployeeTableComponent,
     FormInputComponent,
+    LoaderComponent
   ],
   providers: [RequestsService, HttpClient, EmployeeService],
   templateUrl: './employee-management.component.html',
@@ -34,7 +35,8 @@ export class EmployeeManagementComponent {
   searchQuery: string | undefined;
   activeFilters: { filter: string; value?: string }[] = [];
   displayTable: boolean = false;
-
+  isLoading: boolean = true;
+  isEmpty: boolean = true;
 
   employeeList: Employee[] = [];
 
@@ -54,6 +56,8 @@ export class EmployeeManagementComponent {
     filterContainer: 'flex place-items-end',
     switchContainer: 'h-8',
     wrapper: 'min-h-screen py-4 bg-gray-100',
+    emptyText: 'text-center text-lg text-gray-400',
+    emptyContainer: 'flex justify-center items-center h-48',
   };
   constructor(
     private modal: ModalService,
@@ -71,6 +75,8 @@ export class EmployeeManagementComponent {
       this.employeeList = employees;
       this.activeEmployeeList = employees;
       this.updateTotalPages();
+      this.isLoading = false;
+      this.isEmpty = this.employeeList.length === 0;
     });
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
       this.updateItemsPerPage(event.target.innerWidth);
