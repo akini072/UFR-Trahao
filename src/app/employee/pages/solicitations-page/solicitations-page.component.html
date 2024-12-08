@@ -8,19 +8,19 @@
       </div>
     </div>
   </div>
-
-  <div *ngIf="isEmpty" [ngClass]="style.emptyContainer">
-    <app-loader [isLoading]="isLoading"></app-loader>
-    <p [ngClass]="style.emptyText" *ngIf="!isLoading">Nenhuma solicitação encontrada</p>
-  </div>
-
-  <div *ngIf="!isLoading && !isEmpty" [ngClass]="style.filterContainer">
+  
+  <div *ngIf="!isLoading" [ngClass]="style.filterContainer">
     <app-filter-section [filterAction]="applyFilter" />
     <div [ngClass]="style.switchContainer">
       <app-toggle-switch [onToggle]="toggleDisplayTable" [label]="'Tabela:'"></app-toggle-switch>
     </div>
   </div>
-
+  
+    <div *ngIf="isEmpty" [ngClass]="style.emptyContainer">
+      <app-loader [isLoading]="isLoading"></app-loader>
+      <p [ngClass]="style.emptyText" *ngIf="!isLoading">Nenhuma solicitação encontrada</p>
+    </div>
+  
   <div [ngClass]="style.container"></div>
   <div *ngIf="!displayTable">
     <div [ngClass]="style.requestGrid">
