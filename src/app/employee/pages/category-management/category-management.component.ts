@@ -74,6 +74,7 @@ export class CategoryManagementComponent {
     this.equipCategoryService.getEquipCategoryList().then((categories) => {
       this.equipCategoryList = categories;
       this.activeEquipCategoryList = this.equipCategoryList;
+      this.isEmpty = this.equipCategoryList.length === 0;
       this.updateTotalPages();
     });
   }

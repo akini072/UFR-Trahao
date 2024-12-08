@@ -10,6 +10,7 @@ import { ModalService, ModalType } from '../../../core/components/modal';
 import { EmployeeTableComponent } from './components/employee-table/employee-table.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps, LoaderComponent } from '../../../core/components';
+import { AuthService } from '../../../auth/utils/auth.service';
 
 @Component({
   selector: 'app-employee-management',
@@ -64,7 +65,7 @@ export class EmployeeManagementComponent {
     private view: ViewContainerRef,
     private renderer: Renderer2,
     private router: Router,
-    private employeeService: EmployeeService,
+    private employeeService: EmployeeService
   ) {
     this.updateTotalPages();
     this.updateItemsPerPage(window.innerWidth);
@@ -89,6 +90,7 @@ export class EmployeeManagementComponent {
     this.employeeService.getEmployeeList().then((employees) => {
       this.employeeList = employees;
       this.activeEmployeeList = employees;
+      this.isEmpty = this.employeeList.length === 0;
       this.updateTotalPages();
     });
   }
@@ -208,33 +210,39 @@ export class EmployeeManagementComponent {
   };
 
   onDelete = (id: number) => {
-    if (this.activeEmployeeList.length == 1) {
+    if (this.activeEmployeeList.length === 1) {
       const data = {
         title: 'Ação Impossível',
         message: 'Não é permitido deletar o último funcionário',
         label: 'Ok',
       };
-      this.modal.open(this.view, ModalType.MESSAGE, data).subscribe((value) => {
+      this.modal.open(this.view, ModalType.ERROR, data).subscribe((value) => {
         return;
       });
-    }
-    this.modal
-      .open(this.view, ModalType.CONFIRM, {
-        title: 'Remover categoria',
-        message: 'Tem certeza que deseja remover esse funcionário?',
-        label: 'Remover',
-      })
-      .subscribe((value) => {
-        if (value.assert) {
-          this.employeeService.deleteEmployee(id).subscribe((response) => {
-            this.modal.open(this.view, ModalType.MESSAGE,
-              { title: 'Sucesso', message: 'Empregado desligado do banco de dados', label: 'Ok' }).subscribe((value => {
+    } else {
+      this.modal
+        .open(this.view, ModalType.CONFIRM, {
+          title: 'Remover categoria',
+          message: 'Tem certeza que deseja remover esse funcionário?',
+          label: 'Remover',
+        })
+        .subscribe((value) => {
+          if (value.assert) {
+            this.employeeService.deleteEmployee(id).subscribe({
+              next: ((response) => {
+                this.modal.open(this.view, ModalType.MESSAGE,
+                  { title: 'Sucesso', message: 'Empregado desligado do banco de dados', label: 'Ok' }).subscribe((value => {
+                    this.updateActiveEmployeeList();
+                  })
+                  );
+              }),
+              error: ((error) => {
                 this.updateActiveEmployeeList();
               })
-              );
-          })
-        }
-      });
+            })
+          }
+        });
+    }
   };
 
   rightButtonProp: ButtonProps = {
