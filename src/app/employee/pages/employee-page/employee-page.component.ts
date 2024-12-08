@@ -173,6 +173,6 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
     pageTopContainer: 'flex justify-between w-full items-center px-16',
     wrapper: 'flex flex-col min-h-screen bg-gray-100',
     emptyText: 'text-center text-lg text-gray-400',
-    emptyContainer: 'flex justify-center items-center h-48',
+    emptyContainer: 'flex justify-center items-center h-48 md:h-64 lg:h-100',
   };
 }
