@@ -69,9 +69,11 @@
     <div *ngIf="open" [ngClass]="styles.submain2">
       <h2 [ngClass]="styles.subtitle">Ações</h2>
       <p [ngClass]="styles.semibold">Valor do orçamento:</p>
-      <app-form-input id="valor" type="text" placeholder="100,00" [control]="value" [validations]="['required', 'number']" mask="money"></app-form-input>
-      <app-button
-        [props]="{text: 'Orçar', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onBudget, extraClasses: 'mt-2'}"></app-button>
+      <div [ngClass]="styles.form">
+        <app-form-input id="valor" type="text" placeholder="100,00" [control]="value" [validations]="['required', 'number']" mask="money"></app-form-input>
+        <app-button [props]="{text: 'Orçar', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onBudget, extraClasses: 'mt-2'}">
+        </app-button>
+      </div>
     </div>
 
     <div *ngIf="approved" [ngClass]="styles.submain2">
