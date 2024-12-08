@@ -99,7 +99,7 @@ export class AuthService {
         }
       }),
       catchError((error) => {
-        console.log('Erro ao realizar o cadastro:', error);
+        this.errorHandlingService.handleErrorResponse(error);
         return of({ message: 'Erro ao realizar o cadastro.', status: 400 });
       })
     );

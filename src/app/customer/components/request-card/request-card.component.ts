@@ -27,7 +27,7 @@ export class RequestCardComponent {
 
   style = {
     cardContainer:
-      'w-80 h-96 border rounded-lg overflow-hidden shadow-md flex flex-col align-middle justify-center items-center',
+      'w-80 h-96 border rounded-lg overflow-hidden shadow-md bg-white flex flex-col align-middle justify-center items-center',
     cardHeader: `flex w-full items-center justify-between p-3 w-full`,
     title: 'text-md text-white font-bold',
     statusText: 'text-xs text-white',

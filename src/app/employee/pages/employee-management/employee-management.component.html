@@ -5,17 +5,16 @@
     <app-button [props]="newEmployeeButtonProp" />
   </div>
   <div [ngClass]="style.searchContainer">
-    <app-form-input
-      (input)="searchKeyboard($event)"
-      placeholder="Pesquisar funcionário"
-    ></app-form-input>
+    <app-form-input (input)="searchKeyboard($event)" placeholder="Pesquisar funcionário"></app-form-input>
   </div>
-  <div [ngClass]="style.tableDisplay">
-    <app-employee-table
-      [onDelete]="onDelete"
-      [onEdit]="onEdit"
-      [employeesList]="getPaginatedRequests()"
-    />
+
+  <div *ngIf="isEmpty" [ngClass]="style.emptyContainer">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <p [ngClass]="style.emptyText" *ngIf="!isLoading">Nenhum funcionário encontrado</p>
+  </div>
+
+  <div *ngIf="!isEmpty && !isLoading" [ngClass]="style.tableDisplay">
+    <app-employee-table [onDelete]="onDelete" [onEdit]="onEdit" [employeesList]="getPaginatedRequests()" />
   </div>
 </div>
 <app-footer></app-footer>
