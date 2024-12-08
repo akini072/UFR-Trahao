@@ -67,7 +67,7 @@ export class VisualizeServiceComponent {
     this.modal.open(this.view, ModalType.INPUT, data).subscribe((value: ModalResponse) => {
       if (value.assert) {
         const update = new requestUpdate(this.request.requestId, "budgeted", "rejected", Date.now());
-        update.rejectionReason = value.message as string;
+        update.rejectReason = value.message as string;
         this.requestsService.updateRequestStatus(update).subscribe(() => {
           this.loadData();
         });
