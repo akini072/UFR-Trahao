@@ -285,6 +285,6 @@ export class CategoryManagementComponent {
     switchContainer: 'h-8',
     wrapper: 'min-h-screen py-4 bg-gray-100',
     emptyText: 'text-center text-lg text-gray-400',
-    emptyContainer: 'flex justify-center items-center h-48',
+    emptyContainer: 'flex justify-center items-center h-48 md:h-64 lg:h-100',
   };
 }
