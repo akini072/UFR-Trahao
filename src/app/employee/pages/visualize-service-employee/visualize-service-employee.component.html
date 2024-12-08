@@ -49,6 +49,11 @@
           <label [ngClass]="styles.textWrap">{{request.defectDesc}}</label>
         </div>
 
+        <div [ngClass]="styles.basisFull" *ngIf="request.rejectReason">
+          <p [ngClass]="styles.semibold">Motivo da Rejeição</p>
+          <label [ngClass]="styles.textWrap">{{request.rejectReason}}</label>
+        </div>
+
         <div [ngClass]="styles.basisFull" *ngIf="request.repairDesc">
           <p [ngClass]="styles.semibold">Descrição do reparo</p>
           <label [ngClass]="styles.textWrap">{{request.repairDesc}}</label>
