@@ -126,7 +126,7 @@
 
     <div [ngClass]="style.sectionT2">
       <span *ngIf="error" [ngClass]="style.errorStyle">{{getErrorMessage()}}</span>
-      <app-button
+      <app-button *ngIf="!isLoading"
         [props]="{
           text: 'Cadastrar-se',
           color: 'secondary-4',
@@ -137,6 +137,7 @@
           extraClasses: 'font-bold focus:outline-none focus:shadow-outline'
         }"
       ></app-button>
+      <app-loader [isLoading]="isLoading"></app-loader>
     </div>
   </div>
 </div>

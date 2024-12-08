@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, ViewContainerRef, ViewChild } from '@angular/core';
 import { NavbarComponent, FooterComponent, ButtonComponent } from '../../../core/components';
 import { StatusStepperComponent } from '../../components/status-stepper/status-stepper.component';
@@ -41,6 +41,7 @@ export class VisualizeServiceComponent {
     private view: ViewContainerRef,
     private route: ActivatedRoute,
     private requestsService: RequestsService,
+    private router: Router
   ) {
     this.request = {} as Request;
     this.equipCategory = {} as EquipCategory;
@@ -67,7 +68,7 @@ export class VisualizeServiceComponent {
     this.modal.open(this.view, ModalType.INPUT, data).subscribe((value: ModalResponse) => {
       if (value.assert) {
         const update = new requestUpdate(this.request.requestId, "budgeted", "rejected", Date.now());
-        update.rejectionReason = value.message as string;
+        update.rejectReason = value.message as string;
         this.requestsService.updateRequestStatus(update).subscribe(() => {
           this.loadData();
         });
@@ -86,6 +87,7 @@ export class VisualizeServiceComponent {
         const update = new requestUpdate(this.request.requestId, "budgeted", "approved", Date.now());
         this.requestsService.updateRequestStatus(update).subscribe(() => {
           this.loadData();
+          this.router.navigate(['/cliente']);
         });
       }
     });
@@ -165,9 +167,9 @@ export class VisualizeServiceComponent {
   }
 
   styles = {
-    main: 'container mx-auto p-4 max-w-4xl min-h-screen', // Adiciona max-width
-    submain: 'mb-4 px-8 p-4 border rounded-lg shadow-sm flex flex-wrap bg-white w-full max-w-4xl',
-    submain2: 'mb-4 px-8 p-4 border rounded-lg shadow-sm bg-white w-full max-w-4xl',
+    main: 'container mx-auto p-4 max-w-4xl min-h-screen flex flex-col items-center bg-gray-100 min-w-full', // fazer backgorund cinza em toda a tela
+    submain: 'mb-4 px-8 p-4 border rounded-lg shadow-sm flex flex-wrap bg-white w-full max-w-4xl', // Adiciona flex-wrap
+    submain2: 'mb-4 p-4 border rounded-lg shadow-sm bg-white w-full max-w-4xl',
     title: 'text-2xl font-bold mb-4 text-center',
     subtitle: 'text-2xl font-bold mb-4 basis-full',
     basisHalf: 'basis-1/2 mb-4',
@@ -176,5 +178,6 @@ export class VisualizeServiceComponent {
     budget: 'font-semibold text-2xl text-primary-7',
     textWrap: 'break-words overflow-hidden', // Adiciona quebra de texto e oculta o excesso
     textContainer: 'max-w-full', // Define a largura máxima do contêiner de texto
+    form: 'flex flex-col gap-2',
   };
 }

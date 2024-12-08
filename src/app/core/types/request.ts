@@ -9,6 +9,7 @@ export interface Request {
     defectDesc: string;
     status: RequestStatus[];
     budget: number;
+    rejectReason?: string;
     repairDesc: string;
     customerOrientations: string;
     image: string;

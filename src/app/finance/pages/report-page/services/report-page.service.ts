@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, lastValueFrom } from 'rxjs';
+import { Observable, catchError, lastValueFrom } from 'rxjs';
 import { DefaultReport, CategoryReport } from '../../../../core/types/report';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { AuthService } from '../../../../auth/utils/auth.service';
+import { ErrorHandlingService } from '../../../../core/utils/error-handling.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +12,8 @@ import { AuthService } from '../../../../auth/utils/auth.service';
 export class ReportPageService {
   private baseUrl: string = environment.baseUrl;
   private authService: AuthService;
-  constructor(private http: HttpClient) {
-    this.authService = new AuthService(http);
+  constructor(private http: HttpClient, private errorHandlingService: ErrorHandlingService) {
+    this.authService = new AuthService(http, errorHandlingService);
   }
 
   private getReport(startDate?: string, endDate?: string): Observable<DefaultReport[]> {
@@ -41,7 +42,12 @@ export class ReportPageService {
     return this.http.get<CategoryReport[]>(
       `${this.baseUrl}requests/report/category`,
       { headers: { ...headers } }
-    );
+    ).pipe(
+      catchError((error) => {
+        this.errorHandlingService.handleErrorResponse(error);
+        return new Observable<never>((observer) => observer.error(error));
+      }
+    ));
   }
 
   async getReportList(

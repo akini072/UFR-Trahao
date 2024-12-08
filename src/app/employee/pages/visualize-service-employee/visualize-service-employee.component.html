@@ -8,7 +8,7 @@
 
       <div [ngClass]="styles.basisHalf">
         <p [ngClass]="styles.semibold">Cliente</p>
-        <label>{{ customer.name }}</label>
+        <label>{{ customer.name + " " + customer.surname }}</label>
       </div>
 
       <div [ngClass]="styles.basisHalf">
@@ -49,6 +49,11 @@
           <label [ngClass]="styles.textWrap">{{request.defectDesc}}</label>
         </div>
 
+        <div [ngClass]="styles.basisFull" *ngIf="request.rejectReason">
+          <p [ngClass]="styles.semibold">Motivo da Rejeição</p>
+          <label [ngClass]="styles.textWrap">{{request.rejectReason}}</label>
+        </div>
+
         <div [ngClass]="styles.basisFull" *ngIf="request.repairDesc">
           <p [ngClass]="styles.semibold">Descrição do reparo</p>
           <label [ngClass]="styles.textWrap">{{request.repairDesc}}</label>
@@ -69,9 +74,11 @@
     <div *ngIf="open" [ngClass]="styles.submain2">
       <h2 [ngClass]="styles.subtitle">Ações</h2>
       <p [ngClass]="styles.semibold">Valor do orçamento:</p>
-      <app-form-input id="valor" type="text" placeholder="100,00" [control]="value" [validations]="['required', 'number']" mask="money"></app-form-input>
-      <app-button
-        [props]="{text: 'Orçar', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onBudget, extraClasses: 'mt-2'}"></app-button>
+      <div [ngClass]="styles.form">
+        <app-form-input id="valor" type="text" placeholder="100,00" [control]="value" [validations]="['required', 'number']" mask="money"></app-form-input>
+        <app-button [props]="{text: 'Orçar', icon: '',iconPosition: 'left', color: 'primary-8', size: 'medium', textColor: 'white', hoverColor: 'primary-7', onClick: onBudget, extraClasses: 'mt-2'}">
+        </app-button>
+      </div>
     </div>
 
     <div *ngIf="approved" [ngClass]="styles.submain2">

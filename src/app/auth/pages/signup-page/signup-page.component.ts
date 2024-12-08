@@ -4,7 +4,7 @@ import { debounceTime, switchMap } from 'rxjs/operators';
 import { Component, ViewContainerRef } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { NavbarComponent, FooterComponent, ButtonComponent } from '../../../core/components';
+import { NavbarComponent, FooterComponent, ButtonComponent, LoaderComponent } from '../../../core/components';
 import { ViaCepApiService } from '../../utils/via-cep-api.service';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
 import { ModalService, ModalType } from '../../../core/components/modal';
@@ -22,6 +22,7 @@ import { CommonResponse } from '../../types/commonResponse';
     CommonModule,
     FormInputComponent,
     ReactiveFormsModule,
+    LoaderComponent
   ],
   providers: [ViaCepApiService, AuthService],
   templateUrl: './signup-page.component.html',
@@ -41,6 +42,7 @@ export class SignupPageComponent {
   numero: FormControl;
   error: boolean = false;
   private cepSubject = new Subject<string>();
+  isLoading: boolean = false;
 
   constructor(
     private serviceAPI: ViaCepApiService,
@@ -105,6 +107,7 @@ export class SignupPageComponent {
 
   onSignUp = () => {
     if (this.formGroup.valid) {
+      this.isLoading = true;
       this.auth.signup(
         this.nome.value,
         this.sobrenome.value,
@@ -118,7 +121,7 @@ export class SignupPageComponent {
         parseInt(this.numero.value)
       ).subscribe({
         next: (response: CommonResponse) => {
-          console.log('Response: ' + response.status + ' ' + response);
+          this.isLoading = false;
           if (response.status === 201) {
             // Exibe mensagem de sucesso se status for CREATED
             this.error = false;
@@ -127,14 +130,16 @@ export class SignupPageComponent {
               message: 'Sua senha de 4 dígitos foi enviada por e-email',
               label: 'Ok',
             };
-            this.modal.open(this.view, ModalType.MESSAGE, data).subscribe((value) => {});
+            this.modal.open(this.view, ModalType.MESSAGE, data).subscribe((value) => {
+              window.location.href = '/login';
+            });
           } else {
             // Caso o status não seja 201
             this.error = true;
           }
         },
         error: (err) => {
-          console.error('Erro ao realizar cadastro: ', err);
+          this.isLoading = false;
           this.error = true;
         },
       });
@@ -164,7 +169,7 @@ export class SignupPageComponent {
     inputBlocked: 'shadow appearance-none border border-gray-300 rounded w-full md:w-2/3 lg:w-1/2 my-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100',
     button: 'bg-secondary-4 hover:bg-secondary-6 text-white font-bold mt-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline',
     sectionT1: 'flex flex-col md:flex-row md:justify-between w-full',
-    sectionT2: 'flex flex-col items-center gap-2 md:justify-center w-full',
+    sectionT2: 'flex flex-col items-center gap-2 mt-2 md:justify-center w-full',
     sectionT3: 'flex flex-row items-center gap-2 md:justify-center w-full',
     errorStyle: 'text-red-500 text-sm italic',
     requiredSpan: 'text-red-500 text-sm'

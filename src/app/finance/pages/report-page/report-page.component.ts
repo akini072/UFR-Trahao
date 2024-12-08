@@ -6,9 +6,9 @@ import { BrCurrencyPipe } from '../../../core/utils/pipes';
 import { ReportPageService } from './services/report-page.service';
 import { DefaultReport, CategoryReport } from './services/report-page.service';
 import { DateInputComponent } from "../../../core/components/date-input/date-input.component";
-import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps } from '../../../core/components';
 import { GlobalTableComponent, Column, } from '../../../core/components/global-table/global-table.component';
 import { FilterSelectComponent } from "../../../customer/components/filter-section/components/filter-select/filter-select.component";
+import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps, LoaderComponent } from '../../../core/components';
 
 @Component({
   selector: 'app-report-page',
@@ -23,7 +23,8 @@ import { FilterSelectComponent } from "../../../customer/components/filter-secti
     CommonModule,
     HttpClientModule,
     DateInputComponent,
-    ButtonComponent
+    ButtonComponent,
+    LoaderComponent
 ],
 })
 export class ReportPageComponent implements OnInit {
@@ -37,17 +38,21 @@ export class ReportPageComponent implements OnInit {
   formattedData: DefaultReport[] | CategoryReport[] = [];
   datePipe: DatePipe;
   style = {
-    wrapper: 'h-min-screen',
-    title: 'px-4 text-2xl font-bold text-primary-8 my-8',
-    tableContainer: 'w-10/12 mx-auto',
+    wrapper: 'min-h-screen bg-gray-100 py-4 md:h-64 lg:h-100',
+    title: 'px-4 text-2xl font-bold text-primary-8 mb-8',
+    tableContainer: 'w-10/12 mx-auto ',
     select: 'border-2 border-primary-6 p-2 rounded text-primary-6',
     filterSection: 'flex flex-wrap gap-4 items-end w-10/12 mx-auto my-8',
     inputContainer: 'flex flex-col flex-wrap gap-1 items-start',
     buttonContainer: 'flex',
+    emptyText: 'text-center text-lg text-gray-400',
+    emptyContainer: 'flex justify-center items-center h-48 md:h-64 lg:h-100',
   };
   brCurrencyPipe: BrCurrencyPipe;
-  startDate!: string  
-  endDate!: string 
+  startDate!: string;
+  endDate!: string;
+  isLoading: boolean = true;
+  isEmpty: boolean = true;
 
   constructor(
     @Inject(ReportPageService) reportPageService: ReportPageService,
@@ -121,8 +126,11 @@ export class ReportPageComponent implements OnInit {
       this.reportData.items = this.formattedData;
       this.totalRequests = data.length;
       this.updateTotalPages();
+      this.isLoading = false;
+      this.isEmpty = this.totalRequests === 0;
     } catch (error) {
       console.error('Error fetching report data:', error);
+      this.isLoading = false;
     }
   }
 
@@ -164,7 +172,7 @@ export class ReportPageComponent implements OnInit {
     this.type = type;
     this.fetchReportData(this.type);
   }
-  
+
   formatDateToISOString(date: string): string {
     const d = new Date(date);
     d.setHours(0, 0, 0, 0);

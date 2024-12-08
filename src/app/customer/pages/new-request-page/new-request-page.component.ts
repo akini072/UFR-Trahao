@@ -9,12 +9,12 @@ import { RequestsService } from '../../../core/utils/requests.service';
 import { ModalService, ModalType } from '../../../core/components/modal';
 import { EquipCategoryService } from './../../../core/utils/equip-category.service';
 import { FormInputComponent } from "../../../core/components/form-input/form-input.component";
-import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps } from "../../../core/components";
+import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps, LoaderComponent } from "../../../core/components";
 
 @Component({
   selector: 'app-new-request-page',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, ReactiveFormsModule, FooterComponent, FormInputComponent, HttpClientModule, ButtonComponent],
+  imports: [CommonModule, NavbarComponent, ReactiveFormsModule, FooterComponent,LoaderComponent, FormInputComponent, HttpClientModule, ButtonComponent],
   providers: [EquipCategoryService, RequestsService],
   templateUrl: './new-request-page.component.html',
   styleUrl: './new-request-page.component.css',
@@ -30,6 +30,7 @@ export class NewRequestPageComponent {
   remainingCharactersColorText = "";
   remainingCharactersColorTextDefect = "";
   categoryList: EquipCategory[] = [];
+  isLoading: boolean = false;
 
   constructor(private modal: ModalService, private view: ViewContainerRef, private equipCategoryService: EquipCategoryService, private router: Router, private requestsService: RequestsService) {
     this.equipCategoryService.getEquipCategoryList().then((categoryList) => {
@@ -85,6 +86,7 @@ export class NewRequestPageComponent {
 
   submitNewRequest(): void {
     if (this.formGroup.valid) {
+      this.isLoading = true;
         const brTimezoneOffset = -3 * 60;
         const localDatetime = new Date();
         localDatetime.setMinutes(localDatetime.getMinutes() + brTimezoneOffset);
@@ -99,17 +101,19 @@ export class NewRequestPageComponent {
       }
 
       this.requestsService.createRequest(newRequest).subscribe((response) => {
+        this.isLoading = false;
         this.modal.open(this.view, ModalType.MESSAGE, { title: 'Sucesso', message: response, label: 'OK' }).subscribe(() => {
           this.router.navigate(['/cliente']);
         });
       });
+    } else{
+      this.showError = true;
     }
-    this.showError = true;
   }
 
   styles = {
-    main: 'flex items-center justify-center bg-gray-100 min-h-screen',
-    formContainer: 'bg-white p-8 rounded shadow-md w-full max-w-lg',
+    main: 'flex items-center justify-center bg-gray-100 min-h-screen py-4',
+    formContainer: 'bg-white p-6 rounded shadow-md w-full max-w-lg',
     form: 'space-y-6',
     formGroup: 'mb-4',
     label: 'block text-gray-700 text-sm font-bold mb-2',

@@ -5,21 +5,17 @@
     <app-button [props]="newCategoryButtonProp" />
   </div>
   <div [ngClass]="style.searchContainer">
-    <app-form-input
-      (input)="searchKeyboard($event)"
-      placeholder="Pesquisar categoria"
-    ></app-form-input>
+    <app-form-input (input)="searchKeyboard($event)" placeholder="Pesquisar categoria"></app-form-input>
   </div>
-  <div [ngClass]="style.tableDisplay">
-    <app-category-table
-      [onDelete]="onDelete"
-      [onEdit]="onEdit"
-      [categoriesList]="getPaginatedRequests()"
-      [currentPage]="currentPage"
-      [totalPages]="totalPages"
-      [previousPage]="previousPage"
-      [nextPage]="nextPage"
-    />
+
+  <div *ngIf="isEmpty" [ngClass]="style.emptyContainer">
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <p [ngClass]="style.emptyText" *ngIf="!isLoading">Nenhuma categoria de equipamento encontrada</p>
+  </div>
+
+  <div  *ngIf="!isLoading && !isEmpty" [ngClass]="style.tableDisplay">
+    <app-category-table [onDelete]="onDelete" [onEdit]="onEdit" [categoriesList]="getPaginatedRequests()"
+      [currentPage]="currentPage" [totalPages]="totalPages" [previousPage]="previousPage" [nextPage]="nextPage" />
   </div>
 </div>
 <app-footer></app-footer>
