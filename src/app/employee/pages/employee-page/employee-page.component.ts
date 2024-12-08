@@ -4,9 +4,9 @@ import { Component, Renderer2, OnInit, OnDestroy } from '@angular/core';
 
 import { RequestItem } from '../../../core/types';
 import { RequestsService } from '../../../core/utils/requests.service';
-import { NavbarComponent, FooterComponent, ButtonProps } from '../../../core/components';
 import { RequestCardComponent } from '../../components/request-card/request-card.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
+import { NavbarComponent, FooterComponent, ButtonProps, LoaderComponent } from '../../../core/components';
 import { PaginationControlComponent } from "../../../core/components/pagination-control/pagination-control.component";
 
 @Component({
@@ -19,7 +19,8 @@ import { PaginationControlComponent } from "../../../core/components/pagination-
     RequestCardComponent,
     FormInputComponent,
     FooterComponent,
-    PaginationControlComponent
+    PaginationControlComponent,
+    LoaderComponent
   ],
   providers: [RequestsService],
   templateUrl: './employee-page.component.html',
@@ -35,6 +36,8 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
   totalPages: number = 1;
   resizeListener!: () => void;
   searchQuery: string | undefined;
+  isLoading: boolean = true;
+  isEmpty: boolean = true;
 
   constructor(private router: Router, private renderer: Renderer2, private requestsService: RequestsService) {
     this.updateTotalPages();
@@ -45,6 +48,8 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
     this.requestsService.listRequests().subscribe((data: RequestItem[]) => {
       this.requestList = data.filter((item) => item.status === 'open');
       this.activeRequestList = this.requestList;
+      this.isLoading = false;
+      this.isEmpty = this.requestList.length === 0;
     });
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
       this.updateItemsPerPage(event.target.innerWidth);
@@ -81,6 +86,7 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
       this.updateTotalPages();
       this.goToPage(1);
     }
+    this.isEmpty = this.activeRequestList.length === 0;
   };
 
   updateTotalPages() {
@@ -166,6 +172,8 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
       'w-10/12 m-auto flex justify-end my-4 items-center text-center',
     pageText: 'border p-2 text-sm',
     pageTopContainer: 'flex justify-between w-full items-center px-16',
-    wrapper: 'flex flex-col min-h-screen',
+    wrapper: 'flex flex-col min-h-screen bg-gray-100',
+    emptyText: 'text-center text-lg text-gray-400',
+    emptyContainer: 'flex justify-center items-center h-48 md:h-64 lg:h-100',
   };
 }

@@ -12,8 +12,8 @@ import { ErrorHandlingService } from './error-handling.service';
 export class EquipCategoryService {
   private baseUrl: string = environment.baseUrl;
   private authService: AuthService
-  constructor(private http: HttpClient) {
-    this.authService = new AuthService(http);
+  constructor(private http: HttpClient, private errorHandlingService: ErrorHandlingService) {
+    this.authService = new AuthService(http, errorHandlingService);
   }
 
   private getEquipCategories(): Observable<EquipCategory[]> {
@@ -21,7 +21,7 @@ export class EquipCategoryService {
     const headers = { Authorization: `Bearer ${token}` };
     return this.http.get<EquipCategory[]>(this.baseUrl + 'equipment-category', { headers }).pipe(
       catchError((error: HttpErrorResponse) => {
-        ErrorHandlingService.handleErrorResponse(error);
+        this.errorHandlingService.handleErrorResponse(error);
         return new Observable<never>((observer) => observer.error(error));
       })
     );
@@ -43,7 +43,7 @@ export class EquipCategoryService {
     const equipCategory = { description: description };
     return this.http.post<EquipCategory>(this.baseUrl + 'equipment-category', equipCategory, { headers }).pipe(
       catchError((error: HttpErrorResponse) => {
-        ErrorHandlingService.handleErrorResponse(error);
+        this.errorHandlingService.handleErrorResponse(error);
         return new Observable<never>((observer) => observer.error(error));
       })
     );
@@ -54,7 +54,7 @@ export class EquipCategoryService {
     const headers = { Authorization: `Bearer ${token}` };
     return this.http.put<EquipCategory>(this.baseUrl + 'equipment-category', equipCategory, { headers }).pipe(
       catchError((error: HttpErrorResponse) => {
-        ErrorHandlingService.handleErrorResponse(error);
+        this.errorHandlingService.handleErrorResponse(error);
         return new Observable<never>((observer) => observer.error(error));
       })
     );
@@ -65,7 +65,7 @@ export class EquipCategoryService {
     const headers = { Authorization: `Bearer ${token}` };
     return this.http.delete(this.baseUrl + 'equipment-category/' + id, { headers }).pipe(
       catchError((error: HttpErrorResponse) => {
-        ErrorHandlingService.handleErrorResponse(error);
+        this.errorHandlingService.handleErrorResponse(error);
         return new Observable<never>((observer) => observer.error(error));
       })
     );

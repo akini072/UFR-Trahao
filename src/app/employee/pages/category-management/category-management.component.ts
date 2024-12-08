@@ -7,7 +7,7 @@ import { EquipCategoryService } from './../../../core/utils/equip-category.servi
 import { ModalService, ModalType, ModalResponse } from '../../../core/components/modal';
 import { CategoryTableComponent } from './components/category-table/category-table.component';
 import { FormInputComponent } from '../../../core/components/form-input/form-input.component';
-import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps } from '../../../core/components';
+import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps, LoaderComponent } from '../../../core/components';
 
 @Component({
   selector: 'app-category-management',
@@ -20,6 +20,7 @@ import { NavbarComponent, FooterComponent, ButtonComponent, ButtonProps } from '
     CategoryTableComponent,
     FormInputComponent,
     HttpClientModule,
+    LoaderComponent
   ],
   providers: [EquipCategoryService, HttpClientModule],
   templateUrl: './category-management.component.html',
@@ -33,7 +34,8 @@ export class CategoryManagementComponent {
   searchQuery: string | undefined;
   activeFilters: { filter: string; value?: string }[] = [];
   displayTable: boolean = false;
-
+  isLoading: boolean = true;
+  isEmpty: boolean = true;
   equipCategoryList: EquipCategory[] = [];
   activeEquipCategoryList: EquipCategory[] = [];
 
@@ -52,6 +54,8 @@ export class CategoryManagementComponent {
       this.equipCategoryList = categories;
       this.activeEquipCategoryList = this.equipCategoryList;
       this.updateTotalPages();
+      this.isLoading = false;
+      this.isEmpty = this.equipCategoryList.length === 0;
     });
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
       this.updateItemsPerPage(event.target.innerWidth);
@@ -70,6 +74,7 @@ export class CategoryManagementComponent {
     this.equipCategoryService.getEquipCategoryList().then((categories) => {
       this.equipCategoryList = categories;
       this.activeEquipCategoryList = this.equipCategoryList;
+      this.isEmpty = this.equipCategoryList.length === 0;
       this.updateTotalPages();
     });
   }
@@ -276,9 +281,11 @@ export class CategoryManagementComponent {
     paginationControl: 'w-10/12 m-auto flex justify-end my-4 items-center text-center',
     pageText: 'border p-2 text-sm',
     pageTopContainer: 'flex justify-between w-full items-center px-16',
-    tableDisplay: 'flex justify-center m-auto rounded-lg w-3/4',
+    tableDisplay: 'flex justify-center m-auto rounded-lg w-3/4 h-48 md:h-64 lg:h-100',
     filterContainer: 'flex place-items-end',
     switchContainer: 'h-8',
-    wrapper: 'min-h-screen py-4',
+    wrapper: 'min-h-screen py-4 bg-gray-100',
+    emptyText: 'text-center text-lg text-gray-400',
+    emptyContainer: 'flex justify-center items-center h-48 md:h-64 lg:h-100',
   };
 }

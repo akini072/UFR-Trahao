@@ -7,7 +7,7 @@ export class requestUpdate{
     nextStatus: RequestCategory;
     inChargeEmployeeId!: number;
     senderEmployeeId!: number;
-    rejectionReason!: string;
+    rejectReason!: string;
     budget!: number;
     repairDesc!: string;
     customerOrientations!: string;
