@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, ViewContainerRef, ViewChild } from '@angular/core';
 import { NavbarComponent, FooterComponent, ButtonComponent } from '../../../core/components';
 import { StatusStepperComponent } from '../../components/status-stepper/status-stepper.component';
@@ -41,6 +41,7 @@ export class VisualizeServiceComponent {
     private view: ViewContainerRef,
     private route: ActivatedRoute,
     private requestsService: RequestsService,
+    private router: Router
   ) {
     this.request = {} as Request;
     this.equipCategory = {} as EquipCategory;
@@ -86,6 +87,7 @@ export class VisualizeServiceComponent {
         const update = new requestUpdate(this.request.requestId, "budgeted", "approved", Date.now());
         this.requestsService.updateRequestStatus(update).subscribe(() => {
           this.loadData();
+          this.router.navigate(['/cliente']);
         });
       }
     });

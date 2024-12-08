@@ -36,7 +36,7 @@ export class SolicitationsPageComponent implements OnInit, OnDestroy {
   requestList: RequestItem[] = [];
 
   style = {
-    wrapper: "bg-gray-100",
+    wrapper: "bg-gray-100 py-4",
     navbar: '',
     title: 'px-4 text-2xl font-bold text-primary-8 my-8',
     container: 'flex w-full px-4 my-8 mx-auto',
