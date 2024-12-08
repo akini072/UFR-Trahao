@@ -86,6 +86,7 @@ export class EmployeePageComponent implements OnInit, OnDestroy {
       this.updateTotalPages();
       this.goToPage(1);
     }
+    this.isEmpty = this.activeRequestList.length === 0;
   };
 
   updateTotalPages() {

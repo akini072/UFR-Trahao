@@ -120,6 +120,7 @@ export class SolicitationsPageComponent implements OnInit, OnDestroy {
       this.updateTotalPages();
       this.goToPage(1);
     }
+    this.isEmpty = this.activeRequestList.length === 0;
   };
 
   updateTotalPages() {
@@ -194,6 +195,7 @@ export class SolicitationsPageComponent implements OnInit, OnDestroy {
         (f) => item[f.filter as keyof RequestItem] === f.value
       );
     });
+    this.isEmpty = this.activeRequestList.length === 0;
   };
 
   rightButtonProp: ButtonProps = {

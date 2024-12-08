@@ -135,6 +135,7 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
         val.toString().toLowerCase().includes(searchQuery)
       );
     });
+    this.isEmpty = this.activeRequestList.length === 0;
   }
 
   updateTotalPages() {
@@ -215,6 +216,7 @@ export class CustomerHomepageComponent implements OnInit, OnDestroy {
     });
 
     this.cdr.detectChanges();
+    this.isEmpty = this.activeRequestList.length === 0;
 
     this.goToPage(1);
   };
