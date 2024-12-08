@@ -1,5 +1,5 @@
 
-<div *ngIf="enableReport" [ngClass]="style.reportRow">
+<div *ngIf="enableReport && isEmployee" [ngClass]="style.reportRow">
   <app-button [props]="generateReportButton"/>
   <app-toggle-switch *ngIf="enableReportFilters" [onToggle]="toggleFilters" [label]="'Aplicar filtros no relatório:'"></app-toggle-switch>
 </div>
@@ -35,5 +35,5 @@
   [currentPage]="currentPage"
   [totalPages]="totalPages"
   [previousPage]="previousPage"
-  [nextPage]="nextPage" 
+  [nextPage]="nextPage"
   />
