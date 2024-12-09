@@ -164,14 +164,15 @@ export class SignupPageComponent {
     screen: 'flex flex-col items-center justify-center bg-gray-100 px-4 md:px-8 lg:px-16 h-screen',
     signInBox: 'bg-white p-6 md:p-6 lg:p-10 xl:p-12 my-8 rounded shadow-md w-full max-w-sm md:max-w-lg lg:max-w-2xl xl:max-w-3xl relative',
     title: 'text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center',
-    lable: 'text-gray-700 text-sm md:text-base text-center p-1 m-2 font-bold mb-2',
+    label: 'text-gray-700 text-sm md:text-base text-center p-1 m-2 font-bold mb-2',
     input: 'shadow appearance-none border rounded md:w-2/3 lg:w-1/2 my-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
-    inputBlocked: 'shadow appearance-none border border-gray-300 rounded w-full md:w-2/3 lg:w-1/2 my-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100',
+    inputBlocked: 'shadow appearance-none border border-gray-300 rounded w-full my-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100',
     button: 'bg-secondary-4 hover:bg-secondary-6 text-white font-bold mt-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline',
-    sectionT1: 'flex flex-col md:flex-row md:justify-between w-full',
-    sectionT2: 'flex flex-col items-center gap-2 mt-2 md:justify-center w-full',
+    sectionT1: 'flex md:flex-row justify-stretch w-full',
+    sectionT2: 'flex flex-col items-center gap-2 mt-2 w-full',
     sectionT3: 'flex flex-row items-center gap-2 md:justify-center w-full',
     errorStyle: 'text-red-500 text-sm italic',
-    requiredSpan: 'text-red-500 text-sm'
+    requiredSpan: 'text-red-500 text-sm',
+    half:"w-1/2 flex flex-row"
   };
 }
