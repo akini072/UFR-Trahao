@@ -1,5 +1,3 @@
-<img src="src/assets/images/UFPR.png" width="100vw">
-
 <h1 align="center" style="font-weight: bold;">
   Project ManuTADS
   <img src="src/assets/images/logo.svg" width="50">
