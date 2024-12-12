@@ -13,8 +13,8 @@
 </div>
 
 <p align="center">
- <a href="#started">Getting Started</a> • 
-  <a href="#colab">Collaborators</a>
+ <a href="#screenshots">Screenshots</a> • 
+  <a href="#collaborators">Collaborators</a>
 </p>
 
 <p align="center">
@@ -25,13 +25,13 @@
      <a href="https://github.com/Salgado2004/SRV-WEB2-UFPR-Trabalho-Final">Visit the backend repository</a>
 </p>
 
-<h2 id="layout">📷 Screenshots</h2>
+<h2 id="screenshots">📷 Screenshots</h2>
 
 <p align="center">
     <img src="src/assets/images/landingPage.png" alt="Website Landing Page" width="400px">
 </p>
 
-<h2 id="colab">🤝 Collaborators</h2>
+<h2 id="collaborators">🤝 Collaborators</h2>
 <table>
   <tr>
     <td align="center">
