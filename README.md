@@ -1,4 +1,4 @@
-<img src="src/assets/images/UFPR.svg" width="100vw">
+<img src="src/assets/images/UFPR.png" width="100vw">
 
 <h1 align="center" style="font-weight: bold;">
   Project ManuTADS
@@ -30,7 +30,7 @@
 <h2 id="layout">📷 Screenshots</h2>
 
 <p align="center">
-    <img src="src/assets/images/landingPage.svg" alt="Website Landing Page" width="400px">
+    <img src="src/assets/images/landingPage.png" alt="Website Landing Page" width="400px">
 </p>
 
 <h2 id="colab">🤝 Collaborators</h2>
