@@ -1,24 +1,20 @@
-<h1 align="center" style="font-weight: bold;">
+<h1 style="display: flex;">
   Project ManuTADS
-  <img src="src/assets/images/logo.svg" width="50">
+  <img src="src/assets/images/logo.svg" width="40">
 </h1>
 
-<div align="center">
-  <img src="https://img.shields.io/badge/Angular-red?style=for-the-badge&logo=angular">
-  <img src="https://img.shields.io/badge/typescript-b3d9ff?style=for-the-badge&logo=typescript">
-  <img src="https://img.shields.io/badge/Spring-ccffcc?style=for-the-badge&logo=spring">
-  <img src="https://img.shields.io/badge/Java-ff944d?style=for-the-badge&logo=coffeescript">
-  <img src="https://img.shields.io/badge/Postman-ffffff?style=for-the-badge&logo=postman">
-  <img src="https://img.shields.io/badge/PostgreSQL-b3d9ff?style=for-the-badge&logo=postgresql">
-</div>
+<div align="center"">
+  <img src="https://img.shields.io/badge/Angular-e43139?style=for-the-badge&logo=angular&logoColor=ffffff">
+  <img src="https://img.shields.io/badge/Typescript-007bcc?style=for-the-badge&logo=typescript&logoColor=ffffff">
+  <img src="https://img.shields.io/badge/Tailwind-39bcf9?style=for-the-badge&logo=tailwindcss&logoColor=ffffff">
+  <img src="https://img.shields.io/badge/Spring-60b831?style=for-the-badge&logo=spring&logoColor=ffffff">
+  <img src="https://img.shields.io/badge/Java-e76f00?style=for-the-badge&logo=coffeescript&logoColor=ffffff">
+  <!--<img src="https://img.shields.io/badge/Postman-ffffff?style=for-the-badge&logo=postman&logoColor=ffffff">-->
+  <img src="https://img.shields.io/badge/Postgre_sql-346892?style=for-the-badge&logo=postgresql&logoColor=ffffff">
+</div></br>
 
 <p align="center">
- <a href="#screenshots">Screenshots</a> • 
-  <a href="#collaborators">Collaborators</a>
-</p>
-
-<p align="center">
-<b>ManuTADS</b> is a web system developed as the final project for the <b>Web Development II</b> course in the undergraduate program in Systems Analysis and Development at UFPR. It is a website for a fictitious equipment maintenance company, <b>ManuTADS</b>. Through this site, customers can register and request their mechanical repairs, while professionals can view the demands and follow the complete workflow provided by the system.
+<b>ManuTADS</b> is a web system developed as the final project for the <b>Web Development II</b> course in the undergraduate program in Systems Analysis and Development at UFPR. It is a website for a fictitious equipment maintenance company, <b>ManuTADS</b>. Through this site, customers can request their mechanical repairs, while professionals can view the demands and follow the complete workflow provided by the system.
 </p>
 
 <p align="center">
@@ -37,51 +33,39 @@
     <td align="center">
       <a href="https://github.com/AlissonGSantos">
         <img src="https://avatars.githubusercontent.com/u/180354000?v=4" width="100px;" alt="Alisson Gabriel Santos"/><br>
-        <sub>
-          <b>Alisson Gabriel</b>
-        </sub>
+          Alisson Gabriel
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/Gabriel-Troni">
         <img src="https://avatars.githubusercontent.com/u/104802740?s=96&v=4" width="100px;" alt="Gabriel Troni"/><br>
-        <sub>
-          <b>Gabriel Troni</b>
-        </sub>
+          Gabriel Troni
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/Salgado2004">
         <img src="https://avatars.githubusercontent.com/u/53799801?v=4" width="100px;" alt="Leonardo Felipe Salgado"/><br>
-        <sub>
-          <b>Leonardo Salgado</b>
-        </sub>
+          Leo Salgado
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/matbaaz">
         <img src="https://avatars.githubusercontent.com/u/28157917?v=4" width="100px;" alt="Mateus Bazan Bespalhok"/><br>
-        <sub>
-          <b>Mateus Bazan</b>
-        </sub>
+          Mateus Bazan
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/Pedro-H108">
         <img src="https://avatars.githubusercontent.com/u/124636773?v=4" width="100px;" alt="Pedro Henrique de Souza"/><br>
-        <sub>
-          <b>Pedro Henrique</b>
-        </sub>
+        Pedro Henrique
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/raulbana">
         <img src="https://avatars.githubusercontent.com/u/99099003?v=4" width="100px;" alt="Raul Ferreira Costa Bana"/><br>
-        <sub>
-          <b>Raul Bana</b>
-        </sub>
+         Raul Bana 
       </a>
-    </td>
+   </td>
   </tr>
 </table>
 
