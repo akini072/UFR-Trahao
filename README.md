@@ -18,58 +18,58 @@
 </p>
 
 <p align="center">
-     <a href="https://github.com/Salgado2004/SRV-WEB2-UFPR-Trabalho-Final">Visit the backend repository</a>
+     <a href="https://github.com/Salgado2004/SRV-WEB2-UFPR-Trabalho-Final" target="_blank">Visit the backend repository</a>
 </p>
 
 <h2 id="screenshots">📷 Screenshots</h2>
 <div style="display: flex; flex-wrap: wrap;">
   <img src="src/assets/images/screenshots/homepage.gif" alt="Website Landing Page" width="800px">
-  <img src="src/assets/images/screenshots/signUp1.PNG" alt="Website Landing Page" width="400px">
-  <img src="src/assets/images/screenshots/signUp.PNG" alt="Website Landing Page" width="400px">
-  <img src="src/assets/images/screenshots/email.PNG" alt="Website Landing Page" width="400px">
-  <img src="src/assets/images/screenshots/requests.PNG" alt="Website Landing Page" width="400px">
-  <img src="src/assets/images/screenshots/tableVision.PNG" alt="Website Landing Page" width="400px">
-  <img src="src/assets/images/screenshots/resumingRequest.PNG" alt="Website Landing Page" width="400px">
-  <img src="src/assets/images/screenshots/newRequest.PNG" alt="Website Landing Page" width="400px">
-  <img src="src/assets/images/screenshots/report.PNG" alt="Website Landing Page" width="400px">
-  <img src="src/assets/images/screenshots/employeeManager.PNG" alt="Website Landing Page" width="400px">
+  <img src="src/assets/images/screenshots/signUp1.PNG" alt="Website Landing Page" width="362px">
+  <!--<img src="src/assets/images/screenshots/signUp.PNG" alt="Website Landing Page" width="400px">-->
+  <img src="src/assets/images/screenshots/email.PNG" alt="Website Landing Page" width="438px">
+  <img src="src/assets/images/screenshots/requests.PNG" alt="Website Landing Page" width="392px">
+  <img src="src/assets/images/screenshots/tableVision.PNG" alt="Website Landing Page" width="409px">
+  <img src="src/assets/images/screenshots/report.PNG" alt="Website Landing Page" width="398px">
+  <img src="src/assets/images/screenshots/employeeManager.PNG" alt="Website Landing Page" width="402px">
+  <img src="src/assets/images/screenshots/resumingRequest.PNG" alt="Website Landing Page" width="461px">
+  <img src="src/assets/images/screenshots/newRequest.PNG" alt="Website Landing Page" width="339px">
 </div>
 
 <h2 id="collaborators">🤝 Collaborators</h2>
 <table>
   <tr>
     <td align="center">
-      <a href="https://github.com/AlissonGSantos">
+      <a href="https://github.com/AlissonGSantos" target="_blank">
         <img src="https://avatars.githubusercontent.com/u/180354000?v=4" width="100px;" alt="Alisson Gabriel Santos"/><br>
           Alisson Gabriel
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/Gabriel-Troni">
+      <a href="https://github.com/Gabriel-Troni" target="_blank">
         <img src="https://avatars.githubusercontent.com/u/104802740?s=96&v=4" width="100px;" alt="Gabriel Troni"/><br>
           Gabriel Troni
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/Salgado2004">
+      <a href="https://github.com/Salgado2004" target="_blank">
         <img src="https://avatars.githubusercontent.com/u/53799801?v=4" width="100px;" alt="Leonardo Felipe Salgado"/><br>
           Leo Salgado
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/matbaaz">
+      <a href="https://github.com/matbaaz" target="_blank">
         <img src="https://avatars.githubusercontent.com/u/28157917?v=4" width="100px;" alt="Mateus Bazan Bespalhok"/><br>
           Mateus Bazan
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/Pedro-H108">
+      <a href="https://github.com/Pedro-H108" target="_blank">
         <img src="https://avatars.githubusercontent.com/u/124636773?v=4" width="100px;" alt="Pedro Henrique de Souza"/><br>
         Pedro Henrique
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/raulbana">
+      <a href="https://github.com/raulbana" target="_blank">
         <img src="https://avatars.githubusercontent.com/u/99099003?v=4" width="100px;" alt="Raul Ferreira Costa Bana"/><br>
          Raul Bana 
       </a>
