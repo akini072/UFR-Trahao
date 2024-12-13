@@ -1,4 +1,4 @@
-<h1 style="display: flex;">
+<h1 align="center" style="display: flex;">
   Project ManuTADS
   <img src="src/assets/images/logo.svg" width="40">
 </h1>
@@ -22,10 +22,18 @@
 </p>
 
 <h2 id="screenshots">📷 Screenshots</h2>
-
-<p align="center">
-    <img src="src/assets/images/landingPage.png" alt="Website Landing Page" width="400px">
-</p>
+<div style="display: flex; flex-wrap: wrap;">
+  <img src="src/assets/images/screenshots/homepage.gif" alt="Website Landing Page" width="800px">
+  <img src="src/assets/images/screenshots/signUp1.PNG" alt="Website Landing Page" width="400px">
+  <img src="src/assets/images/screenshots/signUp.PNG" alt="Website Landing Page" width="400px">
+  <img src="src/assets/images/screenshots/email.PNG" alt="Website Landing Page" width="400px">
+  <img src="src/assets/images/screenshots/requests.PNG" alt="Website Landing Page" width="400px">
+  <img src="src/assets/images/screenshots/tableVision.PNG" alt="Website Landing Page" width="400px">
+  <img src="src/assets/images/screenshots/resumingRequest.PNG" alt="Website Landing Page" width="400px">
+  <img src="src/assets/images/screenshots/newRequest.PNG" alt="Website Landing Page" width="400px">
+  <img src="src/assets/images/screenshots/report.PNG" alt="Website Landing Page" width="400px">
+  <img src="src/assets/images/screenshots/employeeManager.PNG" alt="Website Landing Page" width="400px">
+</div>
 
 <h2 id="collaborators">🤝 Collaborators</h2>
 <table>
