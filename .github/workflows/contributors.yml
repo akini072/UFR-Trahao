@@ -1,0 +1,16 @@
+name: Update contributors graph
+
+on:
+  push:
+    branches: ["development"]
+
+jobs:
+  run-my-action:
+    runs-on: ubuntu-latest
+    name: Update contributors graph
+    permissions:
+      contents: write
+    steps:
+      - uses: salgado2004/contributors-chart-action@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
