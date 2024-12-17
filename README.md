@@ -36,6 +36,7 @@
 </div>
 
 <h2 id="collaborators">🤝 Collaborators</h2>
+<!-- contributors -->
 <table>
   <tr>
     <td align="center">
@@ -76,5 +77,5 @@
    </td>
   </tr>
 </table>
-
+<!-- /contributors -->
 Special thanks to Professor Dr. Razer A. N. R. Montaño
