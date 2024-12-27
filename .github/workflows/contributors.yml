@@ -6,7 +6,7 @@ on:
 
 jobs:
   run-my-action:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     name: Update contributors graph
     permissions:
       contents: write
