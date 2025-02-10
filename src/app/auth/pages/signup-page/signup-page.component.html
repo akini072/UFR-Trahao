@@ -5,129 +5,78 @@
     <div>
       <form>
         <div [ngClass]="style.sectionT1">
-          <label [ngClass]="style.lable" for="name"
-            >Nome<span class="{{ style.requiredSpan }}">*</span></label
-          >
-          <app-form-input
-            type="text"
-            placeholder="Digite seu nome"
-            [control]="nome"
-            [validations]="['required']"
-            class="w-full md:w-2/3 lg:w-1/2"
-          />
-          <label [ngClass]="style.lable" for="surname"
-            >Sobrenome<span class="{{ style.requiredSpan }}">*</span></label
-          >
-          <app-form-input
-            type="text"
-            placeholder="Digite seu sobrenome"
-            [control]="sobrenome"
-            [validations]="['required']"
-            class="w-full md:w-2/3 lg:w-1/2"
-          />
+          <div [ngClass]="style.half">
+            <label [ngClass]="style.label" for="name">Nome<span [ngClass]="style.requiredSpan">*</span></label>
+            <app-form-input type="text" placeholder="Digite seu nome" [control]="nome" [validations]="['required']"
+              class="w-full" />
+          </div>
+          <div [ngClass]="style.half">
+            <label [ngClass]="style.label" for="surname">Sobrenome<span
+                [ngClass]="style.requiredSpan">*</span></label>
+            <app-form-input type="text" placeholder="Digite seu sobrenome" [control]="sobrenome"
+              [validations]="['required']" class="w-full" />
+          </div>
         </div>
 
         <div [ngClass]="style.sectionT1">
-          <label [ngClass]="style.lable" for="email"
-            >Email<span class="{{ style.requiredSpan }}">*</span></label
-          >
-          <app-form-input
-            id="email"
-            type="email"
-            placeholder="nome@dominio.com"
-            [control]="email"
-            [validations]="['email', 'required']"
-            class="w-full md:w-2/3 lg:w-1/2"
-          />
-          <label [ngClass]="style.lable" for="cpf"
-            >CPF<span class="{{ style.requiredSpan }}">*</span></label
-          >
-          <app-form-input
-            id="cpf"
-            type="text"
-            placeholder="Digite seu CPF"
-            [control]="cpf"
-            [validations]="['required', 'cpf']"
-            class="w-full md:w-2/3 lg:w-1/2"
-            mask="cpf"
-          />
+          <div [ngClass]="style.half">
+            <label [ngClass]="style.label" for="email">Email<span [ngClass]="style.requiredSpan">*</span></label>
+            <app-form-input id="email" type="email" placeholder="nome@dominio.com" [control]="email"
+              [validations]="['email', 'required']" class="w-full" />
+          </div>
+          <div [ngClass]="style.half">
+            <label [ngClass]="style.label" for="cpf">CPF<span [ngClass]="style.requiredSpan">*</span></label>
+            <app-form-input id="cpf" type="text" placeholder="Digite seu CPF" [control]="cpf"
+              [validations]="['required', 'cpf']" class="w-full" mask="cpf" />
+          </div>
         </div>
 
         <div [ngClass]="style.sectionT3">
-          <label [ngClass]="style.lable" for="phone"
-            >Telefone<span class="{{ style.requiredSpan }}">*</span></label
-          >
-          <app-form-input
-            id="phone"
-            type="text"
-            placeholder="Seu número com DDD"
-            [control]="telefone"
-            [validations]="['required']"
-            mask="phone"
-          />
+          <div [ngClass]="style.half">
+          <label [ngClass]="style.label" for="phone">Telefone<span [ngClass]="style.requiredSpan">*</span></label>
+          <app-form-input id="phone" type="text" placeholder="Seu número com DDD" [control]="telefone"
+            [validations]="['required']" mask="phone" />
+          </div>
         </div>
 
         <hr />
 
         <div [ngClass]="style.sectionT3">
-          <label [ngClass]="style.lable" for="cep"
-            >CEP<span class="{{ style.requiredSpan }}">*</span></label
-          >
-          <app-form-input
-            type="text"
-            placeholder="Digite seu CEP"
-            [control]="cep"
-            [validations]="['required', 'cep']"
-            mask="cep"
-          />
+          <div [ngClass]="style.half">
+            <label [ngClass]="style.label" for="cep">CEP<span [ngClass]="style.requiredSpan">*</span></label>
+            <app-form-input type="text" placeholder="Digite seu CEP" [control]="cep" [validations]="['required', 'cep']"
+            mask="cep" />
+          </div>
         </div>
 
         <div [ngClass]="style.sectionT1">
-          <label [ngClass]="style.lable" for="place">Logradouro: </label>
-          <input
-            [ngClass]="style.inputBlocked"
-            type="text"
-            placeholder="Rua, Avenida, etc"
-            id="place"
-            readonly
-          />
-          <label [ngClass]="style.lable" for="number"
-            >Número<span class="{{ style.requiredSpan }}">*</span></label
-          >
-          <app-form-input
-            type="number"
-            placeholder="Digite o número"
-            [control]="numero"
-            [validations]="['required', 'number']"
-            class="w-full md:w-2/3 lg:w-1/2"
-          />
+          <div [ngClass]="style.half">
+            <label [ngClass]="style.label" for="place">Logradouro: </label>
+            <input [ngClass]="style.inputBlocked" type="text" placeholder="Rua, Avenida, etc" id="place" readonly />
+          </div>
+          <div [ngClass]="style.half">
+            <label [ngClass]="style.label" for="number">Número<span [ngClass]="style.requiredSpan">*</span></label>
+            <app-form-input type="number" placeholder="Digite o número" [control]="numero"
+              [validations]="['required', 'number']" class="w-full" />
+          </div>
         </div>
 
         <div [ngClass]="style.sectionT1">
-          <label [ngClass]="style.lable" for="city">Cidade: </label>
-          <input
-            [ngClass]="style.inputBlocked"
-            type="text"
-            id="city"
-            placeholder="Cidade"
-            readonly
-          />
-          <label [ngClass]="style.lable" for="state">Estado: </label>
-          <input
-            [ngClass]="style.inputBlocked"
-            type="text"
-            id="state"
-            placeholder="UF"
-            readonly
-          />
+          <div [ngClass]="style.half">
+            <label [ngClass]="style.label" for="city">Cidade: </label>
+            <input [ngClass]="style.inputBlocked" type="text" id="city" placeholder="Cidade" readonly />
+          </div>
+          <div [ngClass]="style.half">
+            <label [ngClass]="style.label" for="state">Estado: </label>
+            <input [ngClass]="style.inputBlocked" type="text" id="state" placeholder="UF" readonly />
+          </div>
         </div>
       </form>
     </div>
 
     <div [ngClass]="style.sectionT2">
       <span *ngIf="error" [ngClass]="style.errorStyle">{{getErrorMessage()}}</span>
-      <app-button *ngIf="!isLoading"
-        [props]="{
+      <app-button *ngIf="!isLoading" [props]="{
           text: 'Cadastrar-se',
           color: 'secondary-4',
           size: 'medium',
@@ -135,8 +84,7 @@
           hoverColor: 'secondary-6',
           onClick: onSignUp,
           extraClasses: 'font-bold focus:outline-none focus:shadow-outline'
-        }"
-      ></app-button>
+        }"></app-button>
       <app-loader [isLoading]="isLoading"></app-loader>
     </div>
   </div>
