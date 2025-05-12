@@ -40,9 +40,9 @@
 <table>
 	<tr>
        <td align="center">
-            <a href="https://github.com/akini072">
-                <img src="./contributors/akini072.png" width="100px;" alt="akini072" />
-                <p><strong>akini072</strong></p>
+            <a href="https://github.com/RogerChan555">
+                <img src="./contributors/rogerchan555.png" width="100px;" alt="RogerChan555" />
+                <p><strong>RogerChan555</strong></p>
             </a>
         </td>
 	</tr>
